@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 4: Lists, dictionaries and files</title>
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body data-deck="Session 4 · Lists, dictionaries and files">
+<div id="viewport">
+<div class="deck">
+
+<section class="slide slide--title" data-title="Title">
+  <div>
+    <div class="session-no">Session 04 of 12</div>
+    <h1>Lists, dictionaries and files</h1>
+    <p class="goal">Hold a table's worth of data in memory, and get data in and out of files.
+      Today you meet the dataset you will use for the rest of the course.</p>
+    <div class="meta">
+      <span class="pill pill--accent">2 hours</span>
+      <span class="pill">lists and dicts</span>
+      <span class="pill">the csv module</span>
+      <span class="pill pill--teal">Build: count the listening log</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The big idea today is that a list of dictionaries is a table. Everything after this
+    session, in Python and in SQL, is a variation on that shape.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework review">
+  <div class="eyebrow">First fifteen minutes</div>
+  <h2>Homework review</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>The four functions</div>
+      <p>The check I care about: is there a <code>print</code> inside any of them?</p>
+      <p class="nomargin">Also, what does <code>is_even(0)</code> say? Zero is even, and it is
+        the case people get wrong by accident.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>The menu program</div>
+      <p>Show me the loop. How does a bad option get handled?</p>
+      <p class="nomargin">If your menu is a long chain of <code>elif</code>, that is exactly
+        right for last week. By the end of today you will have seen the tool that replaces
+        it, and it is on this slide's next-door neighbour.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Did the "word typed where a number goes" case defeat you? Good.
+        It needs <code>try</code> and <code>except</code>, which is genuinely out of scope
+        for now. Knowing that a problem needs a tool you have not met is a real skill.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Praise the recognition, not just the solution. "I decided this needs something I do
+    not have yet" is exactly the judgement you want them building.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Lists">
+  <div>
+    <div class="marker">Part one</div>
+    <h2>Lists</h2>
+    <p>One variable holding many values, in order.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Lists">
+  <div class="eyebrow">Idea 1</div>
+  <h2>A list holds things in order</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>lists.py</figcaption>
+      <pre><code data-lang="python">devices = ["phone", "laptop", "speaker", "car"]
+
+print(devices[0])      # phone      counting starts at 0
+print(devices[2])      # speaker
+print(devices[-1])     # car        last one
+print(devices[-2])     # speaker    second from the end
+
+print(len(devices))    # 4
+
+print(devices[9])
+# IndexError: list index out of range</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>Zero is the first</h4>
+        <p class="nomargin">This is why <code>range(5)</code> gave you 0 to 4 last session.
+          A list of 4 items has positions 0, 1, 2, 3. The last position is always
+          <code>len(list) - 1</code>, or just <code>-1</code>.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">Negative positions count backwards from the end, which saves you
+          arithmetic. <code>[-1]</code> is "the last one" no matter how long the list is.</p>
+      </div>
+      <div class="card card--compact card--rose">
+        <p class="nomargin"><code>IndexError</code> means you asked for a position that does
+          not exist. Add it to your collection of recognisable errors.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The zero-based point connects back to range() from session 2. Make the link
+    explicitly, it turns two arbitrary rules into one idea.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Slicing">
+  <div class="eyebrow">Idea 2</div>
+  <h2>Slicing: a piece of a list</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>slicing.py</figcaption>
+      <pre><code data-lang="python">nums = [10, 20, 30, 40, 50, 60]
+
+print(nums[1:4])     # [20, 30, 40]   from 1, up to but not 4
+print(nums[:3])      # [10, 20, 30]   from the start
+print(nums[3:])      # [40, 50, 60]   to the end
+print(nums[-2:])     # [50, 60]       last two
+print(nums[:])       # a copy of the whole list</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="callout callout--key" style="margin-bottom:0">
+        <span class="ico">◆</span>
+        <div>
+          <h4>Same rule as <code>range</code></h4>
+          <p class="nomargin">The end position is not included. <code>nums[1:4]</code> gives
+            you three items, not four. Annoying for a week, then automatic.</p>
+        </div>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">One handy use: <code>rows[:5]</code> to peek at the first five
+          rows of a file you just loaded, instead of printing two thousand lines into your
+          terminal. You will do that a lot today.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>rows[:5] is the practical takeaway. They will need it within the hour.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Changing lists">
+  <div class="eyebrow">Idea 3</div>
+  <h2>Growing, changing, checking</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>changing.py</figcaption>
+      <pre><code data-lang="python">genres = ["Folk", "Jazz"]
+
+genres.append("Rock")        # add to the end
+print(genres)                # ['Folk', 'Jazz', 'Rock']
+
+genres[0] = "Indie"          # replace in place
+print(genres)                # ['Indie', 'Jazz', 'Rock']
+
+print("Jazz" in genres)      # True
+print("Metal" in genres)     # False
+
+print(sorted(genres))        # a new sorted list
+print(genres)                # unchanged by sorted()
+
+genres.sort()                # sorts the list itself
+print(len(genres))           # 3</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4><code>in</code> is worth remembering</h4>
+        <p class="nomargin">One word to ask "is this in there". You will use it constantly,
+          and it reads like English in an <code>if</code>.</p>
+      </div>
+      <div class="card card--compact card--amber">
+        <h4><code>sorted()</code> versus <code>.sort()</code></h4>
+        <p class="nomargin"><code>sorted(x)</code> hands back a new sorted list and leaves
+          <code>x</code> alone. <code>x.sort()</code> rearranges <code>x</code> and returns
+          <code>None</code>. Writing <code>x = x.sort()</code> throws your data away, and it
+          is a genuinely common accident.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The <code>x = x.sort()</code> mistake is the one to show live. It connects straight
+    back to last week: a function that changes something and returns None.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Looping over lists">
+  <div class="eyebrow">Idea 4</div>
+  <h2>Looping over a list, and the accumulate pattern again</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>looping.py</figcaption>
+      <pre><code data-lang="python">minutes = [4.65, 2.42, 7.10, 3.05]
+
+for value in minutes:
+    print(value)
+
+total = 0
+for value in minutes:
+    total += value
+print(f"{total:.2f} minutes")     # 17.22
+
+# when you need the position too
+for i, value in enumerate(minutes):
+    print(f"{i}: {value}")
+
+# starting the count at 1 instead
+for n, value in enumerate(minutes, start=1):
+    print(f"row {n} is {value}")</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--teal">
+        <h4>Same pattern as session 2</h4>
+        <p class="nomargin">Set up before the loop, update inside, use after. It does not
+          matter whether you are looping over <code>range(10)</code> or over two thousand
+          rows of real data.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin"><code>enumerate</code> gives you position and value together.
+          Reach for it when an error message says "row 47" and you want to know which row
+          that was.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>enumerate feels like a nicety now and becomes essential the first time they need to
+    report which row of a CSV was malformed.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Dictionaries">
+  <div>
+    <div class="marker">Part two</div>
+    <h2>Dictionaries</h2>
+    <p>When position is the wrong way to find something, and a name is the right way.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Dictionaries">
+  <div class="eyebrow">Idea 5</div>
+  <h2>A dictionary maps names to values</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>dicts.py</figcaption>
+      <pre><code data-lang="python">play = {
+    "artist_name": "Fjord &amp; Flint",
+    "track_name": "Golden Garden",
+    "genre": "Folk",
+    "minutes_played": 4.65,
+}
+
+print(play["genre"])            # Folk
+print(play["minutes_played"])   # 4.65
+
+print(play["mood"])
+# KeyError: 'mood'</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>A list asks "which position". A dict asks "which name".</h4>
+        <p class="nomargin">For a row of data, names win every time.
+          <code>play["genre"]</code> still makes sense in six months;
+          <code>play[4]</code> does not.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">The names are called <strong>keys</strong>, the things they point
+          at are <strong>values</strong>. Keys are usually strings, and each one appears once.</p>
+      </div>
+      <div class="card card--compact card--rose">
+        <p class="nomargin"><code>KeyError</code> means that key is not in the dictionary.
+          Usually a typo, or a column name that is not quite what you assumed.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>KeyError from a mistyped column name is the error they will hit most this week. Show
+    it now so it is familiar later.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Dict operations">
+  <div class="eyebrow">Idea 6</div>
+  <h2>Adding, updating, and <code>.get()</code></h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>dict_ops.py</figcaption>
+      <pre><code data-lang="python">counts = {"Folk": 438, "Jazz": 154}
+
+counts["Rock"] = 130        # add a new key
+counts["Folk"] = 439        # update an existing one
+print(counts)
+
+print("Jazz" in counts)     # True
+
+print(counts["Metal"])      # KeyError
+print(counts.get("Metal"))  # None, no crash
+print(counts.get("Metal", 0))  # 0, a default you chose</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="callout callout--key" style="margin-bottom:0">
+        <span class="ico">◆</span>
+        <div>
+          <h4>When to use <code>.get()</code></h4>
+          <p class="nomargin">Use <code>[]</code> when a missing key means something is
+            genuinely wrong and you want to hear about it. Use <code>.get()</code> with a
+            default when missing is a normal thing that happens.</p>
+        </div>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin"><code>counts.get(genre, 0) + 1</code> is the counting pattern in
+          one line, and you will write it in the exercise today. It means "whatever is there,
+          or zero if nothing is, plus one".</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do not mention defaultdict or Counter yet. The .get() version makes the mechanism
+    visible, and that is the point today. Mention Counter exists at the end if they ask.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Looping over dicts">
+  <div class="eyebrow">Idea 7</div>
+  <h2>Looping over a dictionary</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>dict_loops.py</figcaption>
+      <pre><code data-lang="python">counts = {"Electronic": 547, "Folk": 438, "Pop": 302}
+
+for genre in counts:                  # keys, by default
+    print(genre)
+
+for genre in counts.keys():           # the same, spelled out
+    print(genre)
+
+for number in counts.values():        # just the values
+    print(number)
+
+for genre, number in counts.items():   # both at once
+    print(f"{genre}: {number}")   # the one you will use most
+
+# sorted by value, biggest first
+for genre, number in sorted(counts.items(),
+                            key=lambda pair: pair[1],
+                            reverse=True):
+    print(f"{genre:12} {number:>5}")</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <p class="nomargin"><code>.items()</code> is the one you will use most. It hands you
+          the key and the value together on every pass.</p>
+      </div>
+      <div class="card card--compact card--amber">
+        <h4>That last one looks alarming</h4>
+        <p class="nomargin">Copy it, use it, and do not worry about
+          <code>lambda</code> yet. It means "sort by the second thing in each pair".
+          It is the standard way to turn a dictionary of counts into a top-five list, so it
+          is worth having in your notes.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin"><code>{genre:12}</code> pads to 12 characters and
+          <code>{number:>5}</code> right-aligns in 5. That is how you get columns that line
+          up in a terminal.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Be explicit that the sorted() line is a copy-and-keep recipe, not something to derive.
+    Permission to copy without full understanding, once, is genuinely useful here.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="The key idea">
+  <div class="eyebrow">The big idea today</div>
+  <h2>A list of dictionaries is a table</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 1080 300" width="1080" height="300" role="img"
+         aria-label="A list of dictionaries lines up with the rows and columns of a table">
+      <defs>
+        <marker id="arrowhead" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--accent)"></polygon>
+        </marker>
+        <marker id="arrowhead-soft" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--ink-dim)"></polygon>
+        </marker>
+      </defs>
+
+      <text class="d-label" x="10" y="24">In Python</text>
+      <rect class="d-box" x="10" y="38" width="470" height="232" rx="10"></rect>
+      <text class="d-mono" x="28" y="66">rows = [</text>
+      <text class="d-mono" x="46" y="92">{"genre": "Folk", "minutes": 4.65},</text>
+      <text class="d-mono" x="46" y="118">{"genre": "Jazz", "minutes": 7.10},</text>
+      <text class="d-mono" x="46" y="144">{"genre": "Folk", "minutes": 2.42},</text>
+      <text class="d-mono" x="28" y="170">]</text>
+      <text class="d-sub" x="28" y="208">one dictionary = one row</text>
+      <text class="d-sub" x="28" y="230">one key = one column</text>
+      <text class="d-sub" x="28" y="252">rows[0]["genre"] is "Folk"</text>
+
+      <path class="d-arrow" d="M492 154 L 566 154"></path>
+
+      <text class="d-label" x="580" y="24">In a spreadsheet, or a database</text>
+      <rect class="d-box-teal" x="580" y="38" width="480" height="232" rx="10"></rect>
+      <line x1="580" y1="76" x2="1060" y2="76" stroke="var(--teal)" stroke-width="1.2"></line>
+      <line x1="820" y1="38" x2="820" y2="270" stroke="var(--line)" stroke-width="1"></line>
+      <text class="d-label" x="600" y="64">genre</text>
+      <text class="d-label" x="840" y="64">minutes</text>
+      <text class="d-mono" x="600" y="106">Folk</text><text class="d-mono" x="840" y="106">4.65</text>
+      <text class="d-mono" x="600" y="136">Jazz</text><text class="d-mono" x="840" y="136">7.10</text>
+      <text class="d-mono" x="600" y="166">Folk</text><text class="d-mono" x="840" y="166">2.42</text>
+      <text class="d-sub" x="600" y="214">the same information,</text>
+      <text class="d-sub" x="600" y="236">the same shape,</text>
+      <text class="d-sub" x="600" y="258">a different notation</text>
+    </svg>
+  </div>
+  <aside class="notes">
+    <p>This slide is the hinge of the whole course. The CSV reader gives them exactly this
+    shape, SQL returns exactly this shape, and a pandas DataFrame in session 8 is exactly
+    this shape with a faster engine underneath.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Files">
+  <div>
+    <div class="marker">Part three</div>
+    <h2>Files</h2>
+    <p>Until now, every value has been typed into your program. Real data lives on disk.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Opening files">
+  <div class="eyebrow">Idea 8</div>
+  <h2><code>open()</code>, and why <code>with</code> is the way</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>reading.py</figcaption>
+      <pre><code data-lang="python">with open("notes.txt", encoding="utf-8") as f:
+    contents = f.read()   # the whole file, one string
+
+print(contents)
+# the file is closed automatically out here
+
+
+with open("notes.txt", encoding="utf-8") as f:
+    for line in f:           # one line at a time
+        print(line.strip())  # strip drops the newline</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4><code>with</code> closes the file for you</h4>
+        <p class="nomargin">Even if your code crashes halfway through. Always use it. An
+          unclosed file can hold a lock on Windows and lose data you thought you wrote.</p>
+      </div>
+      <div class="card card--compact card--amber">
+        <h4>Always pass <code>encoding="utf-8"</code></h4>
+        <p class="nomargin">Without it, Python guesses based on your operating system. The
+          guess is usually right on a Mac and wrong on Windows, and the symptom is a
+          <code>UnicodeDecodeError</code> the first time somebody's name has an accent in it.
+          Our dataset has <code>Salon Mécanique</code> in it, so this matters today.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The encoding point is not pedantry. It is the difference between their script working
+    on their machine and working on anybody else's.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="File paths">
+  <div class="eyebrow">Idea 9 · the confusing one</div>
+  <h2>Where is the file? Where am I?</h2>
+  <div class="cols cols-wide-left">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>where_am_i.py</figcaption>
+        <pre class="sm"><code data-lang="python">import os
+print(os.getcwd())     # the folder Python is looking in right now
+
+# a relative path: from wherever you are
+open("data/clean/plays.csv")
+
+# safer: a path worked out from THIS file's location
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+DATA = HERE.parents[2] / "data" / "clean" / "plays.csv"
+print(DATA)</code></pre>
+      </figure>
+    </div>
+    <div class="stack">
+      <div class="callout callout--stop" style="margin-bottom:0">
+        <span class="ico">■</span>
+        <div>
+          <h4><code>FileNotFoundError</code> is nearly always this</h4>
+          <p class="nomargin">The file exists. Python is just looking somewhere else.
+            <strong>First move: print <code>os.getcwd()</code></strong> and see where you
+            actually are.</p>
+        </div>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">Relative paths are counted from the folder your terminal is in,
+          not from the file you are editing. Run the same script from a different folder and
+          the path breaks, which is why this confuses everybody at least once.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">The <code>Path(__file__)</code> trick means "wherever this script
+          lives". We use it properly in session 10. For today,
+          <code>cd</code> to the repo root and use relative paths.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This slide causes more confusion than the concept deserves. Have them cd around and
+    run the same script from two places to see it break. Then agree on one habit: always run
+    from the repo root.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="csv DictReader">
+  <div class="eyebrow">Idea 10</div>
+  <h2>The <code>csv</code> module hands you rows as dictionaries</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>read_csv.py</figcaption>
+      <pre><code data-lang="python">import csv
+
+path = "data/clean/plays.csv"
+with open(path, encoding="utf-8") as f:
+    rows = list(csv.DictReader(f))
+
+print(len(rows))          # 2183
+print(rows[0])
+print(rows[0]["genre"])   # Folk
+print(rows[0].keys())     # the column names</code></pre>
+    </figure>
+    <figure class="code out">
+      <figcaption>output</figcaption>
+      <pre class="xs"><code data-lang="out">2183
+{'play_id': '1', 'played_at': '2024-01-01',
+ 'artist_name': 'Fjord &amp; Flint',
+ 'track_name': 'Golden Garden', 'genre': 'Folk',
+ 'country': 'Norway', 'minutes_played': '4.65',
+ 'device': 'phone', 'skipped': '0'}
+Folk</code></pre>
+    </figure>
+  </div>
+  <div class="callout callout--key" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin"><code>DictReader</code> reads the header row and uses it for the
+        keys. What you get back is exactly the shape from two slides ago: <strong>a list of
+        dictionaries, one per row</strong>. You already know how to loop over that.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The <code>list(...)</code> around DictReader matters: without it you get a reader you
+    can only walk through once, and the second loop silently does nothing. That is a real
+    gotcha worth demonstrating.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Everything is a string">
+  <div class="eyebrow">Idea 11</div>
+  <h2>Everything from a CSV arrives as text</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>strings_everywhere.py</figcaption>
+      <pre><code data-lang="python">row = rows[0]
+print(row["minutes_played"])         # 4.65
+print(type(row["minutes_played"]))   # &lt;class 'str'&gt;
+
+total = 0
+for row in rows:
+    total += row["minutes_played"]
+# TypeError: unsupported operand type(s)
+#            for +=: 'int' and 'str'
+
+total = 0
+for row in rows:
+    total += float(row["minutes_played"])   # convert
+print(f"{total:,.0f} minutes")       # 8,980 minutes</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="callout callout--warn" style="margin-bottom:0">
+        <span class="ico">▲</span>
+        <div>
+          <h4>The same lesson as <code>input()</code></h4>
+          <p class="nomargin">A file has no idea what a number is. It contains characters.
+            <code>4.65</code> in a CSV is the text "4.65" until you say
+            <code>float()</code>.</p>
+        </div>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">This is genuinely the most common source of bugs when people
+          start working with files. When something numeric behaves strangely, print its
+          <code>type()</code> first.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Session 8 is largely "pandas does this conversion for you", so make the pain vivid
+    now. It makes read_csv feel like a gift rather than magic.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Counting pattern">
+  <div class="eyebrow">Idea 12 · the pattern of the day</div>
+  <h2>Counting things into a dictionary</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>count_by_genre.py</figcaption>
+      <pre><code data-lang="python">counts = {}                                  # empty to start
+
+for row in rows:
+    genre = row["genre"]
+    counts[genre] = counts.get(genre, 0) + 1
+
+for genre, n in sorted(counts.items(),
+                       key=lambda pair: pair[1],
+                       reverse=True):
+    print(f"{genre:12} {n:>5}")</code></pre>
+    </figure>
+    <figure class="code out">
+      <figcaption>output</figcaption>
+      <pre class="sm"><code data-lang="out">Electronic     547
+Folk           438
+Pop            302
+Indie          247
+Latin          185
+Afrobeat       180
+Jazz           154
+Rock           130</code></pre>
+    </figure>
+  </div>
+  <div class="callout callout--key" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Look at what that is: <strong>the accumulate pattern from session
+        2</strong>, with a dictionary instead of a single total. In session 6 you will write
+        the same question as <code>GROUP BY genre</code>, and in session 8 as
+        <code>groupby("genre")</code>. Same idea, three notations.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Say the "same idea, three notations" line out loud. It is the spine of sessions 4, 6
+    and 8, and it makes SQL and pandas feel like translations rather than new subjects.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Writing CSV">
+  <div class="eyebrow">Idea 13</div>
+  <h2>Writing a CSV back out</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>write_csv.py</figcaption>
+      <pre><code data-lang="python">import csv
+
+jazz = [row for row in rows if row["genre"] == "Jazz"]
+print(len(jazz))       # 154
+
+out = "output/jazz.csv"
+with open(out, "w", newline="", encoding="utf-8") as f:
+    writer = csv.DictWriter(f, fieldnames=rows[0].keys())
+    writer.writeheader()
+    writer.writerows(jazz)</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>Three arguments that matter</h4>
+        <ul class="tight nomargin">
+          <li><code>"w"</code> means write, and it <strong>replaces</strong> the file without
+            asking</li>
+          <li><code>newline=""</code> stops blank lines appearing between rows on Windows</li>
+          <li><code>fieldnames</code> sets the column order</li>
+        </ul>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4>New syntax, one line</h4>
+        <p class="nomargin"><code>[row for row in rows if ...]</code> is a
+          <strong>list comprehension</strong>: build a new list from an old one, keeping what
+          matches. It is the same as a <code>for</code> loop with an <code>append</code>,
+          written in one line.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Introduce the comprehension but let them write the loop version if they prefer. Being
+    able to read one matters more than writing them right now.</p>
+    <p>The output folder needs to exist, or they get a FileNotFoundError on write. Worth
+    mentioning: the exercise starter creates it.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Meet the dataset">
+  <div class="eyebrow">For the rest of the course</div>
+  <h2>Meet the listening log</h2>
+  <div class="cols cols-wide-left">
+    <div class="stack">
+      <table class="sm">
+        <tr><th>Column</th><th>Type</th><th>Example</th></tr>
+        <tr><td><code>play_id</code></td><td>number</td><td>1</td></tr>
+        <tr><td><code>played_at</code></td><td>date</td><td>2024-01-01</td></tr>
+        <tr><td><code>artist_name</code></td><td>text</td><td>Fjord &amp; Flint</td></tr>
+        <tr><td><code>track_name</code></td><td>text</td><td>Golden Garden</td></tr>
+        <tr><td><code>genre</code></td><td>category</td><td>Folk</td></tr>
+        <tr><td><code>country</code></td><td>category</td><td>Norway</td></tr>
+        <tr><td><code>minutes_played</code></td><td>number</td><td>4.65</td></tr>
+        <tr><td><code>device</code></td><td>category</td><td>phone</td></tr>
+        <tr><td><code>skipped</code></td><td>0 or 1</td><td>0</td></tr>
+      </table>
+    </div>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>2,183 plays across two years</h4>
+        <p class="nomargin">40 artists, 8 genres, 5 devices, dated 1 January 2024 to
+          31 December 2025. Small enough to check by hand, big enough that you would not
+          want to.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>You will see it four more times</h4>
+        <ul class="tight nomargin">
+          <li><strong>6 and 7:</strong> as a SQLite database</li>
+          <li><strong>8:</strong> as a pandas DataFrame</li>
+          <li><strong>9:</strong> as a deliberately messy file</li>
+          <li><strong>10:</strong> as the input to a full pipeline</li>
+        </ul>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">It is generated by a script, so if you break it:
+          <code>python3 data/scripts/build_dataset.py</code> puts it back exactly as it was.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Open the CSV in VS Code and scroll it for thirty seconds. Seeing the raw text, commas
+    and all, is worth more than describing it.</p>
+    <p>If they have their own dataset they would rather use, this is the moment to talk about
+    it. Requirements: a few thousand rows, one date column, one numeric column, a couple of
+    categoricals, and something that can become a second table for session 7.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Live exercise">
+  <div class="eyebrow">Your turn · 40 minutes</div>
+  <h2>Ask the listening log three questions</h2>
+  <div class="exercise">
+    <div class="tag">◆ Live exercise</div>
+    <h3>Read the CSV, loop over it, and answer these with printed output</h3>
+    <div class="cols">
+      <div>
+        <ol class="tight">
+          <li>How many plays are there in total?</li>
+          <li>How many plays per <strong>device</strong>, biggest first?</li>
+          <li>What are the total minutes listened, as a whole number?</li>
+        </ol>
+        <p class="nomargin">Then, if that went smoothly: how many plays were
+          <strong>skipped</strong>, and what percentage of the total is that?</p>
+      </div>
+      <div>
+        <h4>Reminders</h4>
+        <ul class="tight nomargin">
+          <li>Run it from the repo root, so the relative path works</li>
+          <li><code>encoding="utf-8"</code> on the open</li>
+          <li><code>float()</code> the minutes before adding them</li>
+          <li><code>rows[:3]</code> to peek without flooding the terminal</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">File: <code>sessions/session-04/exercises/explore_plays.py</code>.
+        Write it as small functions that return their answers, the way you did last week, and
+        print once at the bottom.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Expect the string-to-float problem on question 3, and a KeyError from a mistyped
+    column name. Both are the lesson. Let them read the messages.</p>
+    <p>Nudge them toward functions without insisting. If they write it as one long script,
+    ask how they would answer the same three questions about the messy file later.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework">
+  <div class="eyebrow">Between now and next time · 2–4 hours</div>
+  <h2>Homework</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Task 1 · you can finish this</div>
+      <h4>Write a filtered CSV</h4>
+      <p>Write out a new CSV containing only the rows that meet a condition you choose. For
+        example every play over five minutes, or everything on the speaker.</p>
+      <p class="nomargin">Print how many rows went in and how many came out. File:
+        <code>homework/filter_plays.py</code>, output into <code>output/</code>.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>Task 2 · you might not finish this</div>
+      <h4>Two real questions</h4>
+      <ol class="tight nomargin">
+        <li>Which <strong>genre</strong> has the highest <strong>average</strong> minutes per
+          play?</li>
+        <li>Which <strong>artist</strong> was played most in <strong>2025</strong> only?</li>
+      </ol>
+      <p class="nomargin mt-s">File: <code>homework/questions.py</code></p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Task 2 question 1 needs <strong>two</strong> dictionaries: one
+        counting plays per genre and one summing minutes per genre. Then divide one by the
+        other. For question 2, remember the dates are text like
+        <code>"2025-04-17"</code>, and text has a <code>.startswith()</code> method.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The two-dictionary insight is the thing worth struggling with. Do not give it away
+    unless they are properly stuck; it is the mental model that makes GROUP BY obvious in
+    session 6.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Recap">
+  <div class="eyebrow">Wrap up</div>
+  <h2>What you can do now</h2>
+  <div class="cols">
+    <ul class="checklist">
+      <li>Store many values in a list and reach any of them</li>
+      <li>Slice a list to take a piece of it</li>
+      <li>Store named values in a dictionary</li>
+      <li>Count things into a dictionary with <code>.get()</code></li>
+      <li>Loop over keys and values together</li>
+    </ul>
+    <ul class="checklist">
+      <li>Say why a list of dictionaries is a table</li>
+      <li>Open a file safely with <code>with</code> and an encoding</li>
+      <li>Read a real CSV into rows you can loop over</li>
+      <li>Convert text from a file into numbers</li>
+      <li>Write filtered data back out to a new CSV</li>
+    </ul>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>Next session: git</h4>
+      <p class="nomargin">You now have four sessions of work worth keeping. Next time we put
+        it all under version control properly, push it to your own repo on GitHub, and make
+        sure you never lose any of it. Bring your GitHub account details, and set one up
+        beforehand if you have not already.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Remind them to create the GitHub account before session 5 if they have not. Doing it
+    live costs ten minutes and an email verification wait.</p>
+  </aside>
+</section>
+
+</div>
+</div>
+<script src="assets/deck.js"></script>
+</body>
+</html>

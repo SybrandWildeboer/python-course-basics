@@ -44,7 +44,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SLIDES = ROOT / "slides"
 SHOT_DIR = ROOT / "tools" / ".shots"
 
-PROBE = """
+PROBE = r"""
 () => {
   const out = [];
   document.querySelectorAll('.slide').forEach((slide, i) => {
@@ -57,7 +57,11 @@ PROBE = """
     }
     slide.querySelectorAll('pre').forEach(pre => {
       if (pre.scrollWidth - pre.clientWidth > 4) {
-        issues.push(`code line too wide by ${pre.scrollWidth - pre.clientWidth}px`);
+        // Name the longest line, so the fix is obvious without guessing.
+        const longest = pre.textContent.split('\n')
+          .reduce((a, b) => (b.length > a.length ? b : a), '');
+        const over = pre.scrollWidth - pre.clientWidth;
+        issues.push(`code too wide by ${over}px, longest line: ${longest.trim().slice(0, 64)}`);
       }
     });
     const needsNotes = !slide.matches('.slide--section, .slide--title');
