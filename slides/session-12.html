@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 12: Presentation, review and what is next</title>
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body data-deck="Session 12 · Presentation, review and what is next">
+<div id="viewport">
+<div class="deck">
+
+<section class="slide slide--title" data-title="Title">
+  <div>
+    <div class="session-no">Session 12 of 12</div>
+    <h1>Presentation, review and what is next</h1>
+    <p class="goal">You present. We review the code together. Then a map of where to go from
+      here, and two or three concrete first steps.</p>
+    <div class="meta">
+      <span class="pill pill--accent">2 hours</span>
+      <span class="pill">You talk first</span>
+      <span class="pill">A real review</span>
+      <span class="pill pill--teal">The map ahead</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Today is mostly listening. Resist the urge to fill silence or to correct things during
+    the presentation; note them for the review.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="You present">
+  <div class="eyebrow">0:00 to 0:25</div>
+  <h2>Over to you</h2>
+  <div class="cols cols-wide-left">
+    <div class="stack">
+      <div class="card card--accent">
+        <div class="card-title"><span class="dot"></span>Cover these five things</div>
+        <ol class="tight nomargin">
+          <li><strong>The question</strong>, and why you picked it</li>
+          <li><strong>How you approached it</strong></li>
+          <li><strong>A walkthrough of the code</strong>, in the order it runs</li>
+          <li><strong>The result</strong>, and run it live</li>
+          <li><strong>What was hardest</strong>, and anything you abandoned</li>
+        </ol>
+      </div>
+      <div class="card card--teal card--compact">
+        <p class="nomargin">Fifteen to twenty minutes. I will not interrupt to correct
+          things; I am writing them down for the review afterwards.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card card--amber card--compact">
+        <h4>Point five is the interesting one</h4>
+        <p class="nomargin">What you abandoned, and why, tells me more about how you are
+          thinking than the finished code does. Deciding not to do something is a skill, not
+          a failure.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">If something does not work, show it anyway and say so. A project
+          with an honest "this bit is broken and here is what I think is wrong" is stronger
+          than one that quietly avoids the subject.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do not interrupt. Write things down: naming, repetition, functions doing too much,
+    charts that over-claim, anything that would break if the data changed.</p>
+    <p>If they are nervous, remind them this is a conversation, not an exam. Nobody is being
+    marked.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Review">
+  <div>
+    <div class="marker">0:25 to 1:00</div>
+    <h2>Code review</h2>
+    <p>A real review, the way it happens at work. Not an inspection.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="How a review works">
+  <div class="eyebrow">Setting expectations</div>
+  <h2>What a code review actually is</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>What it is</div>
+      <ul class="tight nomargin">
+        <li>Two people reading code together</li>
+        <li>Questions more than statements</li>
+        <li>Finding the two or three things worth changing</li>
+        <li>About the code, never about you</li>
+      </ul>
+    </div>
+    <div class="card card--rose">
+      <div class="card-title"><span class="dot"></span>What it is not</div>
+      <ul class="tight nomargin">
+        <li>A list of everything imperfect</li>
+        <li>A test with a score</li>
+        <li>Me rewriting it the way I would have</li>
+        <li>An argument about style</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">You should push back. If I suggest something and you have a reason
+        for what you did, say so: half the time the reason is good and I did not know it. A
+        review where one person just accepts everything is not a review, it is a lecture with
+        extra steps.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Mean the push-back invitation. If they defend a decision well, say so out loud; it is
+    the most useful thing that can happen today.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Review questions">
+  <div class="eyebrow">The angles</div>
+  <h2>Five questions we will ask of your code</h2>
+  <table class="sm">
+    <tr><th style="width:290px">Question</th><th>What we are looking for</th></tr>
+    <tr><td><strong>Is it readable?</strong> Would you understand this in six months?</td>
+      <td>Names that say what things are. A structure you can follow top to bottom without
+        holding much in your head</td></tr>
+    <tr><td><strong>Does each function do one thing?</strong></td>
+      <td>If you cannot name it after one thing, it is more than one. Watch for
+        load-and-clean-and-save</td></tr>
+    <tr><td><strong>What happens if the data changes slightly?</strong></td>
+      <td>An extra column, a new category, a missing month, twice as many rows. What breaks,
+        and would you notice?</td></tr>
+    <tr><td><strong>Where is the repetition?</strong></td>
+      <td>The same three lines twice usually wants to be a function with a parameter</td></tr>
+    <tr><td><strong>Does the conclusion follow from the analysis?</strong></td>
+      <td>The most important one. Does the code actually compute what the README claims?</td></tr>
+  </table>
+  <div class="callout callout--key" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">That last question is the one professionals get wrong most often,
+        and it has nothing to do with Python. A correct calculation of the wrong thing is the
+        most expensive bug there is, because everything about it looks fine.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Work through the code with these five, in this order. "What if the data changed" is the
+    one that most reliably finds real fragility: hardcoded column lists, assumed date ranges,
+    a groupby that silently drops a new category.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Fix two things">
+  <div class="eyebrow">Live</div>
+  <h2>Pick two or three things and fix them now</h2>
+  <div class="cols">
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>Why live, and why only two or three</h4>
+        <p class="nomargin">Because a list of improvements you take away is a list you will
+          not do. Two changes made now, with the code in front of you, are worth more than
+          ten written down.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>Good candidates</h4>
+        <ul class="tight nomargin">
+          <li>a name that is not quite right</li>
+          <li>a function doing two things, split in half</li>
+          <li>a repeated block turned into a parameter</li>
+          <li>a chart title that claims more than the data shows</li>
+          <li>a hardcoded value lifted to the top of the file</li>
+        </ul>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card card--amber card--compact">
+        <h4>And the final commit</h4>
+        <p class="nomargin">Finish with the changes committed and pushed. The last thing in
+          your history should be a real improvement made in a review, which is exactly how
+          professional work goes.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">Then run the delete-and-rerun test one last time. If
+          <code>output/</code> regenerates after the edits, nothing got broken.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Say clearly what you did well, and be specific about it. Twelve
+        weeks ago you had never written a line of Python. That is worth more than a moment's
+        acknowledgement.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do the praise properly and specifically. Vague encouragement is forgettable; "your
+    clean() docstring records the decisions, which most professionals do not bother with" is
+    not.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Next">
+  <div>
+    <div class="marker">1:00 to 1:45</div>
+    <h2>What is next</h2>
+    <p>A map, not a syllabus. You do not need most of this, and it helps to know it is
+      there.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Straight extensions">
+  <div class="eyebrow">Closest to what you know</div>
+  <h2>Five things that plug straight into what you can already do</h2>
+  <div class="cols">
+    <div class="stack">
+      <div class="card card--compact card--teal">
+        <h4>Error handling: <code>try</code> / <code>except</code></h4>
+        <p class="nomargin">The thing you kept bumping into: what should happen when the file
+          is missing or the input is nonsense? You have wanted this since session 3.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4>Testing: <code>pytest</code></h4>
+        <p class="nomargin">Code that checks your code. You have already done the honest
+          version with <code>assert</code> in session 3; <code>pytest</code> is that, with a
+          runner and better messages.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4>APIs and <code>requests</code></h4>
+        <p class="nomargin">Getting data from the internet instead of a file. Usually about
+          fifteen lines, and it turns "the data I have" into "the data that exists".</p>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card card--compact card--teal">
+        <h4>Automation</h4>
+        <p class="nomargin">Making a script run itself: <code>cron</code> on Mac and Linux,
+          Task Scheduler on Windows, GitHub Actions in the cloud. This is where the
+          "automate the annoying thing" idea actually pays off.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4>More of the notebook and script split</h4>
+        <p class="nomargin">You already have this. The next step is noticing, over time,
+          which of your habits belong in which shape.</p>
+      </div>
+      <div class="card card--accent card--compact">
+        <p class="nomargin"><strong>If you only do one:</strong> <code>try</code> /
+          <code>except</code>. It is small, it is immediately useful, and it makes everything
+          you have already written more robust.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>try/except is the right recommendation here because they have hit the need for it
+    repeatedly and it is a single afternoon of learning.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Git with people">
+  <div class="eyebrow">The social half of git</div>
+  <h2>Git, with other people in it</h2>
+  <div class="cols">
+    <div class="stack">
+      <p class="tight">Everything you learned in session 5 was git on your own. The other
+        half is what makes it worth the trouble.</p>
+      <ul class="tight nomargin">
+        <li><strong>Forks and pull requests:</strong> propose a change to somebody else's
+          project without needing permission first</li>
+        <li><strong>Code review on a pull request:</strong> what we did today, in writing,
+          asynchronously</li>
+        <li><strong>Merge conflicts:</strong> what happens when two people change the same
+          lines. Survivable, and less frightening once you have done one</li>
+        <li><strong>Branch per change:</strong> the habit that makes all of the above work</li>
+      </ul>
+    </div>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>Day to day, on a team</h4>
+        <p class="nomargin">Pull the latest main. Branch. Make a small change. Push, open a
+          pull request, get it reviewed, merge. Repeat. That loop is most of what software
+          work looks like from the outside.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>A good way to practise</h4>
+        <p class="nomargin">Fix a typo in the documentation of a project you use, as a pull
+          request. Genuinely useful, completely safe, and it teaches the whole mechanism in
+          one go.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The documentation-typo pull request is a real recommendation. It is the least
+    intimidating way into the workflow and maintainers are usually delighted.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="SQL at scale">
+  <div class="eyebrow">If the data grows</div>
+  <h2>SQL beyond SQLite</h2>
+  <div class="cols-3">
+    <div class="card card--compact">
+      <div class="card-title"><span class="dot"></span>PostgreSQL, and the server model</div>
+      <p class="nomargin">SQLite is a file. Postgres is a program that many people and
+        programs talk to at once. Same SQL, plus users, permissions and backups.</p>
+      <p class="nomargin mt-s">This is what "the database" means at most workplaces.</p>
+    </div>
+    <div class="card card--compact">
+      <div class="card-title"><span class="dot"></span>Indexes, and why queries get slow</div>
+      <p class="nomargin">An index is the difference between reading every row and jumping
+        straight to the right ones. It is why one query takes 20ms and a similar-looking one
+        takes 40 seconds.</p>
+      <p class="nomargin mt-s">Learn <code>EXPLAIN</code> when you first meet a slow query.</p>
+    </div>
+    <div class="card card--compact">
+      <div class="card-title"><span class="dot"></span>Window functions</div>
+      <p class="nomargin">The thing that was missing in session 8's awkward question: a
+        running total, a rank within a group, a comparison to the previous row.</p>
+      <p class="nomargin mt-s">The biggest single upgrade to your SQL from here.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Everything you learned in sessions 6 and 7 transfers unchanged.
+        <code>SELECT</code>, <code>WHERE</code>, <code>GROUP BY</code>, joins and CTEs are the
+        same in every database, and fan-out is fan-out everywhere.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Window functions are the honest answer to "what should I learn next in SQL". They
+    solve problems they have already hit.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Directions">
+  <div class="eyebrow">Four directions</div>
+  <h2>Where people usually go from here</h2>
+  <div class="cols">
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>Automation and scripting</h4>
+        <p class="nomargin"><strong>The highest-value path if your job has repetitive work in
+          it.</strong> Files, spreadsheets, emails, reports. Unglamorous, and it buys back
+          hours every week for the rest of your career.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4>Data analysis</h4>
+        <p class="nomargin">Deeper pandas, some statistics, and dashboards. The main thing to
+          add is not a library: it is enough statistics to know when a difference is real,
+          which is the question your <code>findings.md</code> kept running into.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card card--compact card--violet" style="border-color:rgba(185,140,255,0.35);background:linear-gradient(160deg,var(--violet-soft),var(--surface) 55%)">
+        <h4>Web</h4>
+        <p class="nomargin"><strong>Streamlit</strong> turns a script into a shareable web
+          page in an afternoon, and it is the fastest way to make your work visible to
+          somebody else. <strong>Flask</strong> or <strong>FastAPI</strong> for real backends,
+          which is a bigger commitment.</p>
+      </div>
+      <div class="card card--compact card--amber">
+        <h4>Machine learning</h4>
+        <p class="nomargin">Honestly: it is mostly data work with a model at the end. The
+          pandas and SQL you have are 80% of the job, and the cleaning judgement from session
+          9 matters more than the algorithm. Do not start here because it sounds exciting.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Be honest about machine learning. People arrive wanting it and it is usually the wrong
+    next step; the data skills they now have are the bottleneck, not the models.</p>
+    <p>Streamlit is worth naming specifically. Seeing your own work as a web page is
+    motivating in a way that another script is not.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="How to keep going">
+  <div class="eyebrow">The honest answer</div>
+  <h2>How you actually get better from here</h2>
+  <div class="cols cols-wide-left">
+    <div class="stack">
+      <div class="big big--accent" style="font-size:34px;max-width:30ch">Build things you want
+        to exist. Look up what you do not know as you need it. Read error messages
+        carefully.</div>
+      <p class="nomargin">That is it. There is no course that substitutes for it, including
+        this one. Twelve sessions got you to the point where the next thing you learn can come
+        from needing it.</p>
+    </div>
+    <div class="stack">
+      <div class="card card--compact card--teal">
+        <h4>What not to do</h4>
+        <p class="nomargin">Do not work through another twelve-week syllabus. You are past the
+          stage where structured teaching is the fastest route, and tutorials feel productive
+          in a way that building does not, which is exactly the trap.</p>
+      </div>
+      <div class="card card--compact card--accent">
+        <h4>What to do instead</h4>
+        <p class="nomargin">Pick something slightly too hard, start it, and get stuck. The
+          getting stuck is the learning. Everything you found hard in the last twelve weeks
+          you now find easy, and that happened by being stuck and then not being stuck.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">And keep the repo. It is a reference written in your own words,
+          about your own confusions, which is better than any documentation.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This is the most important slide in the session. Say it plainly and do not soften it
+    with a reading list.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Concrete next steps">
+  <div class="eyebrow">1:45 to 2:00</div>
+  <h2>Two or three things, not twenty</h2>
+  <div class="cols-3">
+    <div class="card card--accent">
+      <div class="card-title"><span class="dot"></span>1 · A second project</div>
+      <p>Chosen by you, slightly harder than the first. Same shape: a question, a script, a
+        chart, a conclusion.</p>
+      <p class="nomargin"><strong>The first task:</strong> write the question at the top of a
+        README, today or tomorrow.</p>
+    </div>
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>2 · One named topic</div>
+      <p>Whichever of today's map you actually want. One topic, one resource, not a
+        collection.</p>
+      <p class="nomargin"><strong>The first task:</strong> apply it to something in your
+        existing project, not to an exercise.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>3 · Something ongoing</div>
+      <p>A small habit. Automating one annoying thing at work, or a short exercise a few
+        times a week.</p>
+      <p class="nomargin"><strong>The first task:</strong> name the annoying thing out loud
+        right now, and we will size it together.</p>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">We fill these in together, now, based on what you actually enjoyed
+        over the twelve weeks rather than on what sounds impressive. Each one gets
+        <strong>one specific resource and one specific first task</strong>, written into your
+        repo before you close the laptop.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Pick these based on what they visibly enjoyed, not what is most marketable. Somebody
+    who lit up during the joins session should not be pointed at machine learning.</p>
+    <p>Write them into their repo as NEXT.md before the session ends, with the resource and
+    the first task filled in. A plan that exists in a file survives; a plan discussed out
+    loud does not.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Where you started">
+  <div class="eyebrow">Twelve weeks</div>
+  <h2>Where you started, and where you are</h2>
+  <div class="compare">
+    <div>
+      <span class="label">session 1, week one</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="python">name = input("What is your name? ")
+birth_year = int(input("Birth year? "))
+
+print(f"Hello {name}, you are "
+      f"about {2026 - birth_year}")</code></pre>
+      </figure>
+    </div>
+    <div>
+      <span class="label">session 12, your own project</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="python">def main():
+    plays = clean(load())
+    summary = minutes_by_genre(plays)
+    write_csv(summary)
+    write_chart(minutes_by_month(plays))
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+      </figure>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Between those two there are twelve sessions, a few hundred lines of
+        your own code, a repo full of commits with real messages, and a project you chose,
+        scoped, built and presented. <strong>You did that in twelve weeks, from
+        nothing.</strong></p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Show them their own first file if you still have it. It lands harder than any
+    summary.</p>
+    <p>End warmly and end on time. And tell them the questions channel stays open, because it
+    costs you very little and it matters a lot in the month after a course ends.</p>
+  </aside>
+</section>
+
+</div>
+</div>
+<script src="assets/deck.js"></script>
+</body>
+</html>
