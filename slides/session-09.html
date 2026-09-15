@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 9: Cleaning and visualization</title>
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body data-deck="Session 9 · Cleaning and visualization">
+<div id="viewport">
+<div class="deck">
+
+<section class="slide slide--title" data-title="Title">
+  <div>
+    <div class="session-no">Session 09 of 12</div>
+    <h1>Cleaning and visualization</h1>
+    <p class="goal">Turn a deliberately broken file into a chart that answers a question. The
+      most realistic session in the course.</p>
+    <div class="meta">
+      <span class="pill pill--accent">2 hours</span>
+      <span class="pill">missing values, types, duplicates</span>
+      <span class="pill">matplotlib</span>
+      <span class="pill pill--rose">every fix is a decision</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Everything so far has used clean data, which was a kindness rather than realism. Say
+    that at the start: cleaning is most of real data work, and this is the session that looks
+    most like the job.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework review">
+  <div class="eyebrow">First fifteen minutes</div>
+  <h2>Homework review</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Five questions, answered twice</div>
+      <p>Did any pair of answers disagree? If so, which one was right, and why?</p>
+      <p class="nomargin">Question 4, the artists never played, is the one to check. It needs
+        a left join in both languages, because the answer is made entirely of rows with no
+        match.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>The awkward one</div>
+      <p>How did the SQL version feel next to the pandas version?</p>
+      <p class="nomargin">The honest answer is that the aggregation was fine in both, and
+        getting the artist's <em>name</em> out was the fiddly part in SQL. Awkwardness moves
+        around; it does not live in one tool.</p>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">One habit to carry into today: <code>.mean()</code> on a column of
+        0s and 1s gives you the rate directly. We will use that on missing values in about
+        twenty minutes.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>If they did not finish task 2, that is entirely fine. It was chosen to be a little out
+    of reach.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Cleaning">
+  <div>
+    <div class="marker">Part one · the first hour</div>
+    <h2>Cleaning</h2>
+    <p>The part of the job nobody puts in the job description.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Why this matters">
+  <div class="eyebrow">Setting expectations</div>
+  <h2>This is most of the work, and it is not a detour</h2>
+  <div class="cols cols-wide-left">
+    <div class="stack">
+      <p class="tight">Every dataset you have been given so far was clean, which is not what
+        data is like. Real files have missing values, three spellings of the same word, dates
+        in two formats, numbers stored as text, and rows that appear twice.</p>
+      <p class="nomargin">People who work with data spend most of their time here. It is not
+        the boring bit before the interesting bit. <strong>It is where the answers get
+        decided</strong>, because what you do about a gap changes the number you report.</p>
+    </div>
+    <div class="stack">
+      <div class="card card--rose card--compact">
+        <h4>The one thing to take from today</h4>
+        <p class="nomargin"><strong>Every cleaning step is a decision, not a rule.</strong>
+          Dropping rows with no duration and filling them with the average give different
+          answers. Neither is wrong. What is wrong is not noticing you chose.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <p class="nomargin">So: write down what you did and why. Your future self will want
+          it, and so will anybody who has to trust your number.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do not let this become gloomy. The framing that lands is that cleaning is where the
+    judgement lives, which makes it the interesting part rather than the chore.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Meet the mess">
+  <div class="eyebrow">Do it now</div>
+  <h2>Meet the mess</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>first look</figcaption>
+      <pre class="sm"><code data-lang="python">messy = pd.read_csv("data/messy/plays_messy.csv")
+
+messy.shape        # (2223, 9)  ...was 2183
+messy.info()
+messy.isna().sum()</code></pre>
+    </figure>
+    <figure class="code out">
+      <figcaption>isna().sum()</figcaption>
+      <pre class="sm"><code data-lang="text">play_id             0
+played_at           0
+artist_name         0
+track_name          0
+genre              36
+country            49
+device             70
+skipped             0
+minutes played     94</code></pre>
+    </figure>
+  </div>
+  <div class="callout callout--warn" style="margin-bottom:0">
+    <span class="ico">▲</span>
+    <div>
+      <h4>Two things are already wrong, and one is invisible</h4>
+      <p class="nomargin"><strong>2,223 rows</strong>, when the clean file has 2,183. And look
+        at the last column name: <code>minutes played </code>. A space instead of an
+        underscore, <em>and a trailing space</em>. <code>df["minutes_played"]</code> raises a
+        <code>KeyError</code> and you will stare at it for a while.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Have them type df["minutes_played"] and hit the KeyError, then df.columns.tolist() to
+    see the real name with the space. It is a five-minute confusion the first time it happens
+    for real.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Finding problems">
+  <div class="eyebrow">Diagnose before you fix</div>
+  <h2><code>value_counts()</code> on every category</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>what is actually in there</figcaption>
+      <pre class="sm"><code data-lang="python">messy["genre"].value_counts(dropna=False)</code></pre>
+    </figure>
+    <figure class="code out">
+      <figcaption>output, trimmed</figcaption>
+      <pre class="xs"><code data-lang="text">Electronic      353
+Folk            284
+Pop             183
+...
+ELECTRONIC       97
+FOLK             70
+POP              61
+electronic       58
+folk             48
+NaN              36
+  Electronic     35
+  Folk           33
+AFROBEAT         33
+...</code></pre>
+      </figure>
+  </div>
+  <div class="callout callout--key" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin"><strong>Four spellings of Electronic:</strong>
+        <code>Electronic</code>, <code>ELECTRONIC</code>, <code>electronic</code>, and
+        <code>"  Electronic "</code> with spaces around it. To pandas those are four
+        completely different genres, so every <code>groupby("genre")</code> you have written
+        would silently split them into four rows.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">This is the habit from session 6's <code>DISTINCT</code> slide,
+        arriving where it matters. <strong>Run <code>value_counts(dropna=False)</code> on
+        every categorical column of any new dataset.</strong> It takes ten seconds and it is
+        how you find this.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>dropna=False matters: without it the NaN row is hidden, and the missing values are
+    exactly what you are looking for.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Cleaning text">
+  <div class="eyebrow">Fix 1 and 2</div>
+  <h2>Renaming, and cleaning text</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>cleaning.py</figcaption>
+      <pre class="sm"><code data-lang="python"># the column name with the trailing space
+df = messy.rename(
+    columns={"minutes played ": "minutes_played"}
+)
+
+# strip whitespace from every text column
+for column in ["artist_name", "track_name",
+               "genre", "country", "device"]:
+    df[column] = df[column].str.strip()
+
+# then settle on ONE capitalisation
+df["genre"] = df["genre"].str.title()
+df["device"] = df["device"].str.lower()
+
+df["genre"].value_counts(dropna=False)
+# 8 genres, as it should be</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4><code>.str</code> is how you reach the text</h4>
+        <p class="nomargin">A whole column at a time.
+          <code>.str.strip()</code>, <code>.str.lower()</code>,
+          <code>.str.title()</code>, <code>.str.replace()</code>,
+          <code>.str.contains()</code>. They are the ordinary string methods,
+          applied to every value.</p>
+      </div>
+      <div class="callout callout--warn" style="margin-bottom:0">
+        <span class="ico">▲</span>
+        <div>
+          <p class="nomargin"><strong>Strip before you compare, always.</strong>
+            <code>" Pop "</code> and <code>"Pop"</code> are different strings, and the
+            difference is invisible on screen. It is the single most annoying bug in this
+            whole area.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>.str.title() on "hip-hop" gives "Hip-Hop", which may or may not be what they want.
+    Mention that the choice of which capitalisation to standardise on is itself a decision.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Fixing types">
+  <div class="eyebrow">Fix 3</div>
+  <h2>Numbers that arrived as text</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>the damage, and the fix</figcaption>
+      <pre class="sm"><code data-lang="python">df["minutes_played"].head()
+# '4.65', '6.91 min', '1 234.50', ''
+
+df["minutes_played"] = (
+    df["minutes_played"]
+    .str.replace(" min", "", regex=False)
+    .str.replace(" ", "", regex=False)
+)
+
+df["minutes_played"] = pd.to_numeric(
+    df["minutes_played"], errors="coerce"
+)
+
+df["minutes_played"].isna().sum()      # 94</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4><code>errors="coerce"</code> is the important bit</h4>
+        <p class="nomargin">Anything it cannot read becomes <code>NaN</code> instead of
+          stopping your program. That turns a crash into a countable problem, and counting it
+          is how you decide what to do next.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">The related tools: <code>.astype(int)</code> when you are
+          certain, <code>pd.to_numeric</code> when you are not, and
+          <code>pd.to_datetime</code> for dates, which is the next slide and is worse than it
+          looks.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">Always check <code>.isna().sum()</code> after a conversion. If it
+          jumped, your cleaning just created missing values.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Without errors="coerce" this raises and stops. With it, you get a number you can act
+    on. That difference is worth spelling out: coerce converts a blocking error into
+    information.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="The date trap">
+  <div class="eyebrow">Fix 4 · the one that matters</div>
+  <h2>The convenient way to parse dates is silently wrong</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>three formats in one column</figcaption>
+        <pre class="xs"><code data-lang="text">2025-08-16      1793 rows
+16/08/2024       310 rows
+25-12-2025       120 rows</code></pre>
+      </figure>
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>the one-liner everybody reaches for</figcaption>
+        <pre class="sm"><code data-lang="python">df["played_at"] = pd.to_datetime(
+    df["played_at"],
+    format="mixed",
+    dayfirst=True,
+)
+# runs fine. no warning. no error.</code></pre>
+      </figure>
+    </div>
+    <div class="stack">
+      <div class="callout callout--stop" style="margin-bottom:0">
+        <span class="ico">■</span>
+        <div>
+          <h4>It corrupts 628 of the 2,183 rows</h4>
+          <p class="nomargin"><code>dayfirst=True</code> is applied to <em>every</em> value,
+            including the ISO ones. <code>2025-09-06</code>, which is the 6th of September,
+            gets read as the 9th of June. <strong>29% of your dates are now wrong, and
+            nothing told you.</strong></p>
+        </div>
+      </div>
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>parse each format on purpose</figcaption>
+        <pre class="sm"><code data-lang="python">raw = df["played_at"].str.strip()
+
+df["played_at"] = (
+    pd.to_datetime(raw, format="%Y-%m-%d",
+                   errors="coerce")
+    .fillna(pd.to_datetime(raw, format="%d/%m/%Y",
+                           errors="coerce"))
+    .fillna(pd.to_datetime(raw, format="%d-%m-%Y",
+                           errors="coerce"))
+)
+# 100% correct, checked against the clean file</code></pre>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This is the best slide in the session. The wrong version is more convenient, runs
+    without complaint, and produces a plausible date for every row. The only way to catch it
+    is to know the formats in your data and parse them deliberately.</p>
+    <p>The check that proves it: clean the messy file and compare play by play against
+    plays.csv. The notebook does exactly that.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Duplicates">
+  <div class="eyebrow">Fix 5</div>
+  <h2>Duplicates</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>find, then remove</figcaption>
+      <pre class="sm"><code data-lang="python">df.duplicated().sum()          # 40
+
+# look at them before you delete anything
+df[df.duplicated(keep=False)].sort_values("play_id").head(6)
+
+before = len(df)
+df = df.drop_duplicates()
+print(before, "->", len(df))   # 2223 -> 2183
+
+# duplicated on SOME columns only
+df.duplicated(subset=["play_id"]).sum()</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>Look before you delete</h4>
+        <p class="nomargin"><code>keep=False</code> shows you <em>all</em> copies rather than
+          just the extras, so you can see what is actually repeated. Sometimes two identical
+          rows are two real events.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">Here they are genuinely accidental: 40 rows copied during an
+          export, identical down to the <code>play_id</code>, which is supposed to be unique.
+          That last fact is what makes it safe to say they are duplicates.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">2,223 back to 2,183. The clean file has 2,183 rows, which is a
+          satisfying moment and a useful cross-check.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The primary key argument matters: without a unique id, two identical rows might be two
+    real plays of the same track at the same time. Knowing the data is what tells you.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Missing values">
+  <div class="eyebrow">Fix 6 · the judgement call</div>
+  <h2>Missing values: drop, fill, or label?</h2>
+  <div class="cols-3">
+    <div class="card card--compact">
+      <div class="card-title"><span class="dot"></span>Drop the rows</div>
+      <figure class="code plain" style="margin:0 0 8px">
+        <pre class="xs"><code data-lang="python">df.dropna(
+  subset=["minutes_played"]
+)</code></pre>
+      </figure>
+      <p class="nomargin">For the 94 plays with no duration. A play with no minutes cannot
+        answer a question about minutes.</p>
+    </div>
+    <div class="card card--compact">
+      <div class="card-title"><span class="dot"></span>Fill with a value</div>
+      <figure class="code plain" style="margin:0 0 8px">
+        <pre class="xs"><code data-lang="python">df["minutes_played"].fillna(
+  df["minutes_played"].mean()
+)</code></pre>
+      </figure>
+      <p class="nomargin">Keeps every row and invents data. Defensible for a count, dishonest
+        for a total.</p>
+    </div>
+    <div class="card card--compact">
+      <div class="card-title"><span class="dot"></span>Label it</div>
+      <figure class="code plain" style="margin:0 0 8px">
+        <pre class="xs"><code data-lang="python">df["device"].fillna(
+  "unknown"
+)</code></pre>
+      </figure>
+      <p class="nomargin">For the 70 missing devices. Losing a whole play because nobody
+        recorded the device would be worse.</p>
+    </div>
+  </div>
+  <div class="callout callout--stop mt" style="margin-bottom:0">
+    <span class="ico">■</span>
+    <div>
+      <h4>These three give three different answers, and all three are defensible</h4>
+      <p class="nomargin">Drop the 94 and your total is 8,608 minutes. Fill them with the
+        average and it is about 8,995. Neither number is wrong. What would be wrong is
+        reporting one without knowing you chose it. <strong>Write the choice down.</strong></p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The two totals are the whole lesson of the session in one line. Put both on screen and
+    ask which they would report, and to whom.</p>
+    <p>A rule of thumb worth giving: drop when the missing value makes the row useless for
+    your question; label when the row is still useful; fill only when you can defend the
+    invented value out loud.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="The NA trap">
+  <div class="eyebrow">A trap worth knowing</div>
+  <h2>pandas decides some things are missing without asking</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>the file says NA, pandas says nothing</figcaption>
+      <pre class="sm"><code data-lang="python"># the messy file has 49 countries
+# written as the literal text "NA"
+
+messy["country"].isna().sum()           # 49
+(messy["country"] == "NA").sum()        # 0  !
+
+# read it again, taking the file literally
+raw = pd.read_csv(path, keep_default_na=False)
+(raw["country"] == "NA").sum()          # 49</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--rose">
+        <h4>Where did they go?</h4>
+        <p class="nomargin"><code>read_csv</code> treats a list of strings as missing by
+          default, including <code>NA</code>, <code>N/A</code>, <code>null</code>,
+          <code>NaN</code>, and an empty cell. Helpful most of the time.</p>
+      </div>
+      <div class="card card--compact card--amber">
+        <h4>And sometimes badly wrong</h4>
+        <p class="nomargin">If <code>NA</code> in your data means <strong>Namibia</strong>,
+          or North America, pandas has just deleted a real value and called it missing. The
+          same goes for a product code like <code>NULL</code>.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">The fix is to know your data.
+          <code>keep_default_na=False</code> takes the file literally, and
+          <code>na_values=[...]</code> lets you say exactly what counts as missing.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This one delights people, because it is a helpful default that can quietly destroy
+    data. It is also a good argument for always reading the raw file once before trusting any
+    loader.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Check the damage">
+  <div class="eyebrow">Before you move on</div>
+  <h2>Check what your cleaning threw away</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>always, every time</figcaption>
+      <pre><code data-lang="python">print(messy.shape)      # (2223, 9)
+print(clean.shape)      # (2089, 9)
+
+lost = len(messy) - len(clean)
+print(f"{lost} rows removed "
+      f"({lost / len(messy) * 100:.1f}%)")
+# 134 rows removed (6.0%)
+
+clean.isna().sum()      # all zero now</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="callout callout--stop" style="margin-bottom:0">
+        <span class="ico">■</span>
+        <div>
+          <h4>6% is fine. 60% would not be.</h4>
+          <p class="nomargin">It is genuinely common to write a cleaning step that silently
+            discards most of the data, especially a <code>dropna()</code> with no
+            <code>subset</code>, which drops a row if <em>any</em> column is empty. Here that
+            would have cost you 238 rows instead of 94.</p>
+        </div>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">So print the shape before and after. Every time. It is one line
+          and it is the difference between cleaning your data and quietly deleting it.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Demonstrate a bare dropna() to see the row count fall further. It is the single most
+    common accidental data loss in pandas.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Charts">
+  <div>
+    <div class="marker">Part two · the second hour</div>
+    <h2>Charts</h2>
+    <p>The data is clean. Now make it say something.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Figure and axes">
+  <div class="eyebrow">The structure</div>
+  <h2>A figure, and axes inside it</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>the shape of every chart you will make</figcaption>
+      <pre class="sm"><code data-lang="python">import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(9, 4.5))
+
+ax.plot(monthly.index, monthly.values, marker="o")
+
+ax.set_title("Listening drops off every summer")
+ax.set_xlabel("Month")
+ax.set_ylabel("Minutes played")
+ax.set_ylim(bottom=0)
+ax.grid(axis="y", alpha=0.3)
+
+fig.tight_layout()
+fig.savefig("output/minutes_by_month.png", dpi=150)</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>Two objects, and the difference matters</h4>
+        <p class="nomargin">The <strong>figure</strong> is the picture: its size, and saving
+          it. The <strong>axes</strong> are the plot inside it: the data, the labels, the
+          limits. Almost everything you do is <code>ax.something()</code>.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">You will see tutorials using <code>plt.plot()</code> with no
+          <code>fig</code> or <code>ax</code>. It works, and it breaks down the moment you
+          want two charts. Learn the <code>fig, ax</code> version once and never think about
+          it again.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin"><code>tight_layout()</code> stops your labels being cut off at
+          the edges. Add it out of habit.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>fig, ax = plt.subplots() is the one line to memorise. Everything else is discoverable
+    from there.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Which chart">
+  <div class="eyebrow">Choosing</div>
+  <h2>Four charts, and when each one is right</h2>
+  <table class="sm">
+    <tr><th style="width:150px">Chart</th><th style="width:200px">Use it for</th><th>In our data</th></tr>
+    <tr><td><strong>Line</strong> <code>ax.plot</code></td><td>Change over time</td>
+      <td>Minutes per month across the two years</td></tr>
+    <tr><td><strong>Bar</strong> <code>ax.bar</code></td><td>Comparing categories</td>
+      <td>Total minutes per genre, or per device</td></tr>
+    <tr><td><strong>Scatter</strong> <code>ax.scatter</code></td><td>Relationship between two
+      numbers</td><td>Plays per artist against their total minutes</td></tr>
+    <tr><td><strong>Histogram</strong> <code>ax.hist</code></td><td>Distribution of one
+      number</td><td>How play lengths are spread, and where the skips sit</td></tr>
+  </table>
+  <div class="cols">
+    <div class="card card--compact card--accent">
+      <p class="nomargin"><strong>Time on the x-axis wants a line.</strong> A bar chart of 24
+        months is harder to read and says the same thing.</p>
+    </div>
+    <div class="card card--compact card--amber">
+      <p class="nomargin"><strong>Categories want bars, sorted.</strong> Alphabetical order
+        is almost never the order the reader wants; biggest first usually is.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The sorted-bars point is small and makes charts noticeably better. Sort by value unless
+    the category has a natural order, like days of the week.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Labels">
+  <div class="eyebrow">Non-negotiable</div>
+  <h2>A chart without labels is not finished</h2>
+  <div class="cols">
+    <div class="card card--rose">
+      <div class="card-title"><span class="dot"></span>What an unlabelled chart says</div>
+      <p class="nomargin">"Here is a shape. You work out what it means, what the units are,
+        and when it is from." Nobody reading it can check whether you are right, which means
+        nobody should believe it.</p>
+    </div>
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>The minimum, every time</div>
+      <ul class="tight nomargin">
+        <li>a <strong>title</strong> that says the finding, not the columns</li>
+        <li>both <strong>axis labels</strong>, with units</li>
+        <li>a <strong>legend</strong>, if there is more than one line</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>Titles: say the finding</h4>
+      <p class="nomargin"><code>"Minutes by month"</code> tells the reader what the axes
+        already tell them. <code>"Listening drops off every summer"</code> tells them what you
+        found. If you cannot write the second kind, you may not have found anything yet, and
+        that is useful to notice.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Your homework is three charts plus a <code>findings.md</code> with
+        two or three sentences per chart. The sentences are the point; the charts are the
+        evidence.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The "title says the finding" rule transforms beginner charts. It also exposes charts
+    that show nothing, which is a useful side effect.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Saving">
+  <div class="eyebrow">Practical</div>
+  <h2><code>savefig</code>, and why saving beats showing</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>saving</figcaption>
+      <pre class="sm"><code data-lang="python">fig.savefig("output/chart.png", dpi=150)
+plt.close(fig)        # free the memory
+
+# in a script, tell matplotlib not to
+# try to open a window at all
+import matplotlib
+matplotlib.use("Agg")</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>In a notebook, charts just appear</h4>
+        <p class="nomargin">Which is why notebooks are so good for this work. You still want
+          <code>savefig</code> when the chart needs to go into a document, an email, or a
+          repo.</p>
+      </div>
+      <div class="card card--compact card--amber">
+        <h4>In a script, <code>plt.show()</code> blocks</h4>
+        <p class="nomargin">It opens a window and waits for you to close it. That is fine
+          once and useless in anything scheduled or automated, where nobody is there to click.
+          Save instead.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin"><code>dpi=150</code> is a good default: sharp on a screen, small
+          enough to email. <code>output/</code> is in <code>.gitignore</code>, because a
+          generated file can always be regenerated.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The Agg backend point saves a real headache the first time they run a chart script on
+    a machine with no display, which is every server they will ever meet.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Misleading charts">
+  <div class="eyebrow">Ethics, briefly</div>
+  <h2>The easiest way to mislead with a chart</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>the same data, twice</figcaption>
+      <pre class="sm"><code data-lang="python"># honest
+ax.set_ylim(bottom=0)
+
+# dramatic, and the same numbers
+ax.set_ylim(3.9, 4.4)</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--rose card--compact">
+        <h4>Average minutes per device</h4>
+        <p class="nomargin">car 4.38, phone 4.18, laptop 4.09, speaker 3.99. Starting the
+          axis at zero: four bars of nearly identical height, because the difference between
+          highest and lowest is about 10%. Starting it at 3.9: the car bar towers over the
+          speaker, and it looks like a finding.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <p class="nomargin"><strong>Bar charts should start at zero.</strong> The length of a
+          bar is the quantity, so cutting the bottom off lies about the ratio. Line charts
+          have more latitude, since they are about change rather than magnitude, but say so if
+          you crop.</p>
+      </div>
+      <div class="card card--compact card--amber">
+        <p class="nomargin">This happens by accident at least as often as on purpose,
+          because some plotting tools crop by default to "use the space well". Check your
+          y-axis before you send a chart to anybody.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Make both versions live, side by side, with their own data. It takes two minutes and
+    it is the sort of thing people remember for years.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Live exercise">
+  <div class="eyebrow">Your turn · 40 minutes</div>
+  <h2>Clean it, then chart it</h2>
+  <div class="exercise">
+    <div class="tag">◆ Live exercise</div>
+    <h3>From the messy file to one labelled, saved chart that answers a question</h3>
+    <div class="cols">
+      <div>
+        <h4>Clean</h4>
+        <ol class="tight">
+          <li>Load it and print <code>shape</code> and <code>isna().sum()</code></li>
+          <li>Fix the column name</li>
+          <li><code>value_counts</code> on every category, and fix the text</li>
+          <li>Make the minutes numeric and the dates real dates</li>
+          <li>Drop the duplicates</li>
+          <li>Decide what to do about each kind of missing value, <strong>and write down
+            why</strong></li>
+          <li>Print the shape again, and the percentage lost</li>
+        </ol>
+      </div>
+      <div>
+        <h4>Then chart</h4>
+        <ol class="tight" start="8">
+          <li>Pick <strong>one question</strong> you can answer with a chart</li>
+          <li>Build the chart with <code>fig, ax</code></li>
+          <li>Title that states the finding, both axes labelled</li>
+          <li>Save it as a PNG in <code>output/</code></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Notebook:
+        <code>sessions/session-09/notebooks/03-clean-and-chart-exercise.ipynb</code>. Do the
+        cleaning as a <strong>function</strong> that takes the messy frame and returns a clean
+        one. Session 10 will call it.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Pushing them to write clean() as a function now pays off directly next session, when
+    the pipeline needs exactly that shape.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework">
+  <div class="eyebrow">Between now and next time · 2–4 hours</div>
+  <h2>Homework</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Task 1 · you can finish this</div>
+      <h4>Three charts, three questions</h4>
+      <p>Three different questions, three different chart types, each one saved as a PNG in
+        <code>output/</code>.</p>
+      <p class="nomargin">Every one needs a title that states the finding and both axes
+        labelled. Commit the code; the PNGs are gitignored on purpose.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>Task 2 · you might not finish this</div>
+      <h4><code>findings.md</code></h4>
+      <p>Two or three sentences per chart: what it shows, and what you are <strong>not</strong>
+        entitled to conclude from it.</p>
+      <p class="nomargin">Then one paragraph listing every cleaning decision you made and
+        what it cost you.</p>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Task 2 is the harder one and it is not about code at all. Writing
+        "the speaker has the highest skip rate, but it is 47 skips out of 336 plays and I
+        would not bet much on the gap" is a more valuable skill than any method on these
+        slides.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Be explicit that task 2 is prose. People who can write two honest sentences about a
+    chart are rarer and more useful than people who can make the chart.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Recap">
+  <div class="eyebrow">Wrap up</div>
+  <h2>What you can do now</h2>
+  <div class="cols">
+    <ul class="checklist">
+      <li>Find problems with <code>info</code>, <code>isna</code>,
+        <code>duplicated</code> and <code>value_counts</code></li>
+      <li>Clean text with <code>.str</code>, and strip before comparing</li>
+      <li>Convert types with <code>to_numeric</code> and
+        <code>errors="coerce"</code></li>
+      <li>Parse dates deliberately, rather than conveniently</li>
+      <li>Find and remove duplicate rows</li>
+    </ul>
+    <ul class="checklist">
+      <li>Choose between dropping, filling and labelling, and say why</li>
+      <li>Check how much data your cleaning removed</li>
+      <li>Build a chart with <code>fig, ax</code></li>
+      <li>Pick the right chart for the question</li>
+      <li>Label it properly, and spot a misleading y-axis</li>
+    </ul>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>Next session: one script, end to end</h4>
+      <p class="nomargin">Everything you have done so far has been in pieces. Next time we
+        build a single pipeline that goes from the database to a finished chart and CSV, with
+        a virtual environment and a proper project layout. It becomes the template for your
+        project, which you choose in session 11.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Commit and push. Ask them to keep their clean() function tidy, because next session
+    starts by lifting it into the pipeline.</p>
+  </aside>
+</section>
+
+</div>
+</div>
+<script src="assets/deck.js"></script>
+</body>
+</html>
