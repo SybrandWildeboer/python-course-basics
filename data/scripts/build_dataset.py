@@ -6,6 +6,7 @@ the numbers in the slides always match the numbers on the learner's machine:
 
     data/clean/plays.csv        denormalised listening log  (sessions 4, 8)
     data/clean/artists.csv      the artist lookup table     (sessions 4, 8)
+                                (with a few gaps, on purpose)
     data/clean/awards.csv       one-to-many, for fan-out    (session 7)
     data/messy/plays_messy.csv  the same log, damaged       (session 9)
     data/music.db               SQLite, 3 tables            (sessions 6, 7, 10)
@@ -104,6 +105,13 @@ AWARD_NAMES = [
 ]
 
 
+# A lookup table always has a few gaps in it, and session 6 needs real NULLs
+# to teach IS NULL with. These are chosen by hand rather than at random, and
+# only in columns that do not appear in plays.csv, so the clean CSV stays clean.
+UNKNOWN_FORMED_YEAR = {5, 18}      # Rosewood Lane, Cassette Revival
+UNKNOWN_STILL_ACTIVE = {24}        # Iron Fernway
+
+
 def make_artists(rng: random.Random) -> list[dict]:
     rows = []
     for i, (name, country, genre, formed, active) in enumerate(ARTISTS, start=1):
@@ -113,8 +121,8 @@ def make_artists(rng: random.Random) -> list[dict]:
                 "artist_name": name,
                 "country": country,
                 "genre": genre,
-                "formed_year": formed,
-                "still_active": active,
+                "formed_year": None if i in UNKNOWN_FORMED_YEAR else formed,
+                "still_active": None if i in UNKNOWN_STILL_ACTIVE else active,
             }
         )
     return rows

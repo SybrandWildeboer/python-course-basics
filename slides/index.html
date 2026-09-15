@@ -15,12 +15,14 @@
   <h1>Python, SQL &amp; Git</h1>
   <p class="tagline">From never having written a line of code to a finished project that reads
     a database, answers a question, and draws the chart. Twelve sessions, one dataset all the
-    way through, and homework that is meant to be a bit too hard.</p>
+    way through, and homework that is meant to be a bit too hard. Worked in Jupyter
+    notebooks, with a plain script version of everything alongside.</p>
   <div class="facts">
     <span class="pill pill--accent">No experience needed</span>
     <span class="pill">Comfortable with spreadsheets is plenty</span>
     <span class="pill">2 to 4 hours homework a week</span>
     <span class="pill pill--teal">Everything runs locally</span>
+    <span class="pill">Notebooks, and scripts</span>
   </div>
 </header>
 
@@ -30,9 +32,9 @@
   <a class="session track-python" href="session-01.html">
     <div class="top"><span class="num">SESSION 01</span><span class="track">Python</span></div>
     <h3>Setup and first contact</h3>
-    <p>Install everything, clone this repo, then write a script that asks a question and
-      prints a calculated answer.</p>
-    <div class="foot"><span>26 slides</span><span class="sep">·</span><span>variables, types, f-strings, input</span></div>
+    <p>Install everything, clone this repo, open your first notebook, then write a script
+      that asks a question and prints a calculated answer.</p>
+    <div class="foot"><span>29 slides</span><span class="sep">·</span><span>notebooks, variables, types, f-strings</span></div>
   </a>
 
   <a class="session track-python" href="session-02.html">
@@ -64,7 +66,7 @@
     <h3>Git and GitHub</h3>
     <p>Version control properly, your own repo on GitHub, and enough understanding not to
       panic when something looks lost.</p>
-    <div class="foot"><span>24 slides</span><span class="sep">·</span><span>commit, branch, push, recover</span></div>
+    <div class="foot"><span>20 slides</span><span class="sep">·</span><span>commit, branch, push, recover</span></div>
   </a>
 
   <a class="session track-sql" href="session-06.html">
@@ -72,7 +74,7 @@
     <h3>SQL foundations</h3>
     <p>Ask a database questions and get answers. Filtering, sorting, grouping, and the
       aggregate functions.</p>
-    <div class="foot"><span>24 slides</span><span class="sep">·</span><span>SELECT, WHERE, GROUP BY, HAVING</span></div>
+    <div class="foot"><span>25 slides</span><span class="sep">·</span><span>SELECT, WHERE, GROUP BY, HAVING</span></div>
   </a>
 
   <a class="session track-sql" href="session-07.html">
@@ -80,7 +82,7 @@
     <h3>Joins and shaping</h3>
     <p>Questions that span two tables, and the session's real lesson: why a join can quietly
       make your totals wrong.</p>
-    <div class="foot"><span>22 slides</span><span class="sep">·</span><span>joins, fan-out, subqueries, CTEs</span></div>
+    <div class="foot"><span>23 slides</span><span class="sep">·</span><span>joins, fan-out, subqueries, CTEs</span></div>
   </a>
 
   <a class="session track-data" href="session-08.html">
@@ -132,7 +134,7 @@
   <a class="link" href="../docs/install.md"><span class="ico">◆</span>
     <span><strong>Install guide</strong><span class="sub">Python, VS Code, Git, DB Browser</span></span></a>
   <a class="link" href="../sessions/"><span class="ico">◆</span>
-    <span><strong>Exercises and homework</strong><span class="sub">One folder per session, with answers</span></span></a>
+    <span><strong>Notebooks, exercises, homework</strong><span class="sub">One folder per session, with answers</span></span></a>
   <a class="link" href="../cheatsheets/"><span class="ico">◆</span>
     <span><strong>Cheatsheets</strong><span class="sub">Python, SQL, git, pandas, matplotlib</span></span></a>
   <a class="link" href="../data/"><span class="ico">◆</span>
@@ -143,6 +145,20 @@
     <span><strong>Instructor notes</strong><span class="sub">Run sheets, prep, what to watch for</span></span></a>
   <a class="link" href="../project/"><span class="ico">◆</span>
     <span><strong>Project template</strong><span class="sub">The scaffold for sessions 11 and 12</span></span></a>
+</div>
+
+<h2>How the work is organised</h2>
+<div class="note">
+  <h4>Notebooks are where the work happens</h4>
+  <p>Each session has a <code>notebooks/</code> folder. Files ending
+    <code>-exercise.ipynb</code> are the ones to fill in; <code>-solved.ipynb</code> are the
+    answers. Open them in VS Code, or run <code>jupyter lab</code> from the repo folder.</p>
+  <p>Everything also exists as a plain <code>.py</code> script, in <code>demos/</code>,
+    <code>exercises/</code> and <code>homework/</code>. That is on purpose: a notebook is for
+    exploring, a script is for running, and seeing both is how the difference makes sense.
+    Anything interactive, like the session 2 guessing game, is a script only.</p>
+  <pre>python3 tools/nbtool.py check     # are the notebooks valid and output-free?
+python3 tools/nbtool.py run       # do they all still run?</pre>
 </div>
 
 <h2>Running the slides</h2>

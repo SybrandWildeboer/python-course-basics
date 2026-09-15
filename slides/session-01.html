@@ -277,6 +277,8 @@ for name in names:
     <tr><th style="width:190px">Tool</th><th>What it is</th><th style="width:170px">First used</th></tr>
     <tr><td><strong>Python</strong></td><td>The interpreter itself, the program that runs your code</td><td>Today</td></tr>
     <tr><td><strong>VS Code</strong></td><td>The editor you write in, plus a built-in terminal</td><td>Today</td></tr>
+    <tr><td><strong>Jupyter</strong></td><td>Notebooks: code and notes in one document, run a piece
+      at a time. This is how you will work most of the time</td><td>Today</td></tr>
     <tr><td><strong>Git</strong></td><td>Version control, the undo history for your whole project</td><td>Session 5</td></tr>
     <tr><td><strong>DB Browser for SQLite</strong></td><td>A window into a database, so SQL is not invisible</td><td>Session 6</td></tr>
   </table>
@@ -316,13 +318,15 @@ for name in names:
       <figcaption>terminal · Windows</figcaption>
       <pre class="sm"><code data-lang="bash">python --version
 pip --version
-git --version</code></pre>
+git --version
+pip install jupyterlab</code></pre>
     </figure>
     <figure class="code">
       <figcaption>terminal · macOS or Linux</figcaption>
       <pre class="sm"><code data-lang="bash">python3 --version
 pip3 --version
-git --version</code></pre>
+git --version
+pip3 install jupyterlab</code></pre>
     </figure>
   </div>
   <figure class="code out">
@@ -397,10 +401,11 @@ cd python-course-basics</code></pre>
       <pre class="sm"><code data-lang="text">slides/            the deck for every session
 sessions/
   session-01/
-    demos/          code we type together
-    exercises/      YOUR live exercise files
+    notebooks/      WHERE YOU WORK. Jupyter
+    demos/          the same code, as scripts
+    exercises/      script versions of exercises
     solutions/      the answers, for afterwards
-    homework/       YOUR homework files
+    homework/       your homework
 data/               the dataset, all course
 cheatsheets/        quick reference per topic
 my-work/            your scratch space
@@ -408,9 +413,10 @@ project/            your final project, session 11</code></pre>
     </figure>
     <div class="stack">
       <div class="card card--accent card--compact">
-        <h4>You type in <code>exercises/</code> and <code>homework/</code></h4>
-        <p class="nomargin">Those files are already there with a comment at the top telling
-          you what to build. Open them and fill them in.</p>
+        <h4>Start in <code>notebooks/</code></h4>
+        <p class="nomargin">Files ending <code>-exercise.ipynb</code> are yours to fill in.
+          The ones ending <code>-solved.ipynb</code> are the answers. Everything has a
+          <code>.py</code> twin, so you can see both shapes.</p>
       </div>
       <div class="card card--teal card--compact">
         <h4>Try it before you read it</h4>
@@ -471,6 +477,142 @@ python3 hello.py    # Mac / Linux</code></pre>
 </section>
 
 <!-- 15 -->
+<section class="slide" data-title="What a notebook is">
+  <div class="eyebrow">Do it now</div>
+  <h2>Open your first notebook</h2>
+  <div class="cols cols-wide-left">
+    <div class="stack">
+      <ol class="steps">
+        <li>In VS Code, open
+          <code>sessions/session-01/notebooks/01-first-steps.ipynb</code>.</li>
+        <li>Top right, click <strong>Select Kernel</strong> and pick your Python. If VS Code
+          offers to install anything, say yes.</li>
+        <li>Click the first cell and press <kbd>Shift</kbd> <kbd>Enter</kbd>.</li>
+      </ol>
+      <div class="callout callout--tip" style="margin-bottom:0">
+        <span class="ico">◆</span>
+        <div>
+          <p class="nomargin">Prefer the browser? <code>jupyter lab</code> in the terminal,
+            from the repo folder. Same notebooks, same everything. VS Code keeps your editor
+            and your notebook in one window, which is why we start there.</p>
+        </div>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>A notebook is a list of cells</h4>
+        <p class="nomargin">Some cells are text, some are code. You run a code cell and the
+          answer appears directly underneath it. Then you write the next one.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>Why that matters for learning</h4>
+        <p class="nomargin">Two lines, run, look, two more lines. That loop is how you will
+          learn everything here, and a notebook makes it as short as it goes.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin"><kbd>Shift</kbd> <kbd>Enter</kbd> runs a cell and moves on.
+          <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> <kbd>Enter</kbd> runs it and stays put.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Kernel selection is the one fiddly step. If VS Code cannot find a kernel, the fix is
+    almost always <code>pip install ipykernel</code>, and VS Code usually offers to do it.</p>
+    <p>Do not explain markdown cells yet. They will notice the text cells are editable and
+    ask, and that is a better moment for it.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="The notebook trap">
+  <div class="eyebrow">Know this now</div>
+  <h2>The one trap in notebooks</h2>
+  <div class="cols">
+    <div class="stack">
+      <div class="callout callout--stop" style="margin-bottom:0">
+        <span class="ico">■</span>
+        <div>
+          <h4>Cells remember what you ran, not what is on screen</h4>
+          <p class="nomargin">Scroll up, change a cell, run it, and everything below is now
+            out of date. The notebook will happily disagree with itself, and it looks
+            completely normal.</p>
+        </div>
+      </div>
+      <div class="card card--compact">
+        <p class="nomargin">The number beside a cell, <code>[1]</code>, <code>[2]</code>,
+          tells you the order things <em>actually</em> ran in. When that order stops matching
+          the order on screen, be suspicious.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card card--teal card--compact">
+        <h4>The fix, and it is the whole fix</h4>
+        <p class="nomargin"><strong>Restart and Run All</strong>, from the toolbar. It clears
+          everything and runs the notebook from the top, in order.</p>
+      </div>
+      <div class="card card--accent card--compact">
+        <h4>And the standard to hold yourself to</h4>
+        <p class="nomargin">If a notebook cannot run cleanly from top to bottom, it is not
+          finished, however good the output looks on screen.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">A runaway cell is stopped with the square <strong>interrupt</strong>
+          button, which is the notebook version of <kbd>Ctrl</kbd> <kbd>C</kbd>.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Worth demonstrating: run a cell, delete the line that created a variable, run a later
+    cell, and watch it still work. It is a thirty second demo that prevents a genuinely
+    baffling afternoon later on.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Notebooks and scripts">
+  <div class="eyebrow">Both, on purpose</div>
+  <h2>Notebooks and scripts are for different jobs</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>A notebook, <code>.ipynb</code></div>
+      <ul class="tight nomargin">
+        <li>exploring, in small steps</li>
+        <li>the answer sits next to the code</li>
+        <li>learning something new</li>
+        <li>writing it up with prose and charts</li>
+      </ul>
+    </div>
+    <div class="card card--accent">
+      <div class="card-title"><span class="dot"></span>A script, <code>.py</code></div>
+      <ul class="tight nomargin">
+        <li>somebody needs to <em>run</em> the thing</li>
+        <li>it asks questions, with <code>input()</code></li>
+        <li>it runs start to finish, unattended</li>
+        <li>it gets scheduled, or shared as a tool</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Everything in this course exists in both shapes, so you can see the
+        difference rather than take my word for it. Today's exercise is a good example:
+        <strong>the notebook version is handed its values, the script version asks for
+        them</strong>. Interactive programs want to be scripts.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">This is not a hard border. Most real work starts in a notebook and
+        becomes a script once it is worth running again, and that is exactly what we do in
+        session 10.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do not let this become a philosophical discussion. The practical rule is enough:
+    explore in a notebook, ship a script.</p>
+  </aside>
+</section>
+
 <section class="slide slide--section" data-title="Section: First code">
   <div>
     <div class="marker">Part three · 45 minutes</div>
@@ -803,9 +945,10 @@ gross = 45.00 * VAT</code></pre>
   <div class="callout callout--tip mt" style="margin-bottom:0">
     <span class="ico">◆</span>
     <div>
-      <p class="nomargin">Save as <code>sessions/session-01/exercises/about_me.py</code>. Run
-        it after every two or three lines rather than writing the whole thing and hoping.
-        Small steps make errors easy to locate.</p>
+      <p class="nomargin">Start in
+        <code>notebooks/02-about-me-exercise.ipynb</code>, then build the same thing as a
+        script in <code>exercises/about_me.py</code>, where it <em>asks</em> for the name and
+        year. Run after every two or three lines rather than writing it all and hoping.</p>
     </div>
   </div>
   <aside class="notes">
