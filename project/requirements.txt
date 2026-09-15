@@ -1,0 +1,9 @@
+# Add what you actually install, with:
+#
+#     pip freeze > requirements.txt
+#
+# Written out by hand here so the file is not empty. Versions are pinned on
+# purpose: "pandas" installs whatever is newest today, which is a different
+# thing in six months. Pinning is what makes a project still run next year.
+pandas>=2.0
+matplotlib>=3.7
