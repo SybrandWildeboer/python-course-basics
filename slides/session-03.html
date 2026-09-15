@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 3: Functions</title>
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body data-deck="Session 3 · Functions">
+<div id="viewport">
+<div class="deck">
+
+<section class="slide slide--title" data-title="Title">
+  <div>
+    <div class="session-no">Session 03 of 12</div>
+    <h1>Functions</h1>
+    <p class="goal">You stop writing one long script and start writing pieces that fit
+      together. Today is also the day <code>return</code> finally makes sense.</p>
+    <div class="meta">
+      <span class="pill pill--accent">2 hours</span>
+      <span class="pill">def and return</span>
+      <span class="pill">scope</span>
+      <span class="pill pill--teal">Build: refactor your statistics</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The single most valuable thing you can do today is spend real time on return versus
+    print. Everything else in this session is straightforward by comparison.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework review">
+  <div class="eyebrow">First fifteen minutes</div>
+  <h2>Homework review</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>The limited guessing game</div>
+      <p>Show me the <code>while</code> condition. Two reasons to stop, joined with
+        <code>and</code>.</p>
+      <p class="nomargin">Worth checking: does a correct guess on the seventh attempt say
+        "got it" or "out of guesses"? If it says the wrong one, that is the branch-ordering
+        bug from last week, in the wild.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>Statistics by hand</div>
+      <p>What did you set <code>highest</code> to before the loop?</p>
+      <p class="nomargin">If you said zero: try it with <code>[-5, -2, -9]</code>. The answer
+        comes out as 0, which is not even in the list. No crash, just a quiet wrong answer.
+        Those are the expensive ones.</p>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Keep <code>statistics.py</code> open. We are going to take it apart
+        and rebuild it in the second half of today.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>If they used max() and min() despite the instruction, no drama: ask them to write the
+    loop version next to it. The point is understanding what those functions do.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Why functions">
+  <div class="eyebrow">The problem</div>
+  <h2>Why bother? Look at what you already have.</h2>
+  <div class="cols cols-wide-left">
+    <div class="stack">
+      <p class="tight">Your statistics file has four calculations in it. Suppose you now want
+        the same four for a second list of numbers.</p>
+      <p class="tight">With what you know today, you copy and paste the whole block and change
+        the variable names. Then you find a bug in the highest calculation and have to fix it
+        in both places. Then there is a third list.</p>
+      <p class="nomargin"><strong>A function is a named piece of work you can run again with
+        different input.</strong> Write it once, fix it once, use it anywhere.</p>
+    </div>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>You have used functions all along</h4>
+        <p class="nomargin"><code>print()</code>, <code>len()</code>, <code>int()</code>,
+          <code>input()</code>, <code>random.randint()</code>. Somebody wrote each of those,
+          and you just call them. Today you join in.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>Three good reasons</h4>
+        <ul class="tight nomargin">
+          <li>No copy and paste, so one fix is one fix</li>
+          <li>A name explains what a block of code is for</li>
+          <li>You can test a small piece on its own</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Anchor this in their own file rather than an abstract example. "You would have to
+    copy all of this" is much more persuasive when it is their code on screen.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Mechanics">
+  <div>
+    <div class="marker">Part one</div>
+    <h2>The mechanics</h2>
+    <p>Eight small ideas. The third one is the one that matters, so we will slow down there.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="def">
+  <div class="eyebrow">Idea 1</div>
+  <h2><code>def</code>: defining and calling</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>greet.py</figcaption>
+      <pre><code data-lang="python">def greet():
+    print("Hello there")
+
+
+greet()          # Hello there
+greet()          # Hello there</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact">
+        <h4>Two separate moments</h4>
+        <p class="nomargin"><strong>Defining</strong> the function teaches Python the recipe.
+          Nothing happens yet. <strong>Calling</strong> it, with the brackets, is what runs
+          the recipe.</p>
+      </div>
+      <div class="callout callout--warn" style="margin-bottom:0">
+        <span class="ico">▲</span>
+        <div>
+          <h4>The two classic slips</h4>
+          <ul class="tight nomargin">
+            <li>Defining a function and never calling it. The file runs, nothing happens, no
+              error.</li>
+            <li>Writing <code>greet</code> instead of <code>greet()</code>. Without brackets
+              you are talking about the function, not running it.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Have them type <code>print(greet)</code> to see the function object printed. It makes
+    "with brackets, without brackets" concrete rather than a rule to remember.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Parameters">
+  <div class="eyebrow">Idea 2</div>
+  <h2>Parameters: giving the function something to work with</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>parameters.py</figcaption>
+      <pre><code data-lang="python">def greet(name):
+    print(f"Hello {name}")
+
+
+greet("Sam")          # Hello Sam
+greet("Ana")          # Hello Ana
+
+
+def describe(name, age):
+    print(f"{name} is {age}")
+
+
+describe("Sam", 41)              # by position
+describe(age=41, name="Sam")     # by name, any order</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--plain">
+        <h4>Two words for the same slot</h4>
+        <p class="nomargin">The <strong>parameter</strong> is the name in the
+          <code>def</code> line. The <strong>argument</strong> is the actual value you pass
+          in when you call it. Nobody minds if you mix the words up.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">Passing by name, as in <code>describe(age=41, name="Sam")</code>,
+          is worth the extra typing when a function takes several things and the order is
+          not obvious from reading the call.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Keep this short. Parameters rarely confuse anybody. The next slide is the one that
+    matters.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="return vs print">
+  <div class="eyebrow">Idea 3 · the important one</div>
+  <h2><code>return</code> is not <code>print</code></h2>
+  <div class="compare">
+    <div>
+      <span class="label">prints, returns nothing</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="python">def double_p(n):
+    print(n * 2)
+
+
+double_p(5)          # shows 10
+
+result = double_p(5)
+print(result)        # None
+
+print(double_p(5) + 1)
+# TypeError: unsupported operand
+# type(s) for +: 'NoneType' and 'int'</code></pre>
+      </figure>
+    </div>
+    <div>
+      <span class="label">returns a value you can use</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="python">def double_r(n):
+    return n * 2
+
+
+double_r(5)          # shows nothing!
+
+result = double_r(5)
+print(result)        # 10
+
+print(double_r(5) + 1)     # 11
+print(double_r(double_r(3)))  # 12</code></pre>
+      </figure>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin"><strong>print shows a human. return hands a value back to your
+        program.</strong> A function that prints is a dead end: you can look at the answer but
+        you cannot do anything with it. A function that returns can be added up, sorted,
+        passed into another function, or written to a file.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do not move on from this slide until they can predict the output of all six lines.
+    Have them type both versions and try to use the result in a calculation. The moment they
+    see None + 1 fail is the moment it clicks.</p>
+    <p>Rule of thumb to give them: functions that calculate should return. Only the
+    outermost part of your program should print.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="None">
+  <div class="eyebrow">Idea 4</div>
+  <h2>No <code>return</code> means <code>None</code></h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>none.py</figcaption>
+      <pre><code data-lang="python">def save_it(text):
+    print(f"saving {text}")
+    # no return line
+
+
+x = save_it("hello")
+print(x)              # None
+print(type(x))        # &lt;class 'NoneType'&gt;
+
+
+def risky(n):
+    if n > 0:
+        return "positive"
+    # falls off the end when n <= 0
+
+
+print(risky(5))       # positive
+print(risky(-5))      # None</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact">
+        <h4><code>None</code> means "nothing here"</h4>
+        <p class="nomargin">It is a real value that represents absence. It is not zero, not
+          an empty string, and not an error.</p>
+      </div>
+      <div class="callout callout--warn" style="margin-bottom:0">
+        <span class="ico">▲</span>
+        <div>
+          <h4>The bug to remember</h4>
+          <p class="nomargin">An <code>if</code> with a <code>return</code> inside it and no
+            <code>else</code> will hand back <code>None</code> whenever the condition is
+            false. Then some line far away fails with "NoneType" in the message. When you see
+            that word, look for a function that forgot to return.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>"NoneType" appearing in an error is the tell. Teach them to treat it as a signpost
+    pointing at a function, not at the line that crashed.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Returning early">
+  <div class="eyebrow">Idea 5</div>
+  <h2><code>return</code> stops the function there and then</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>early.py</figcaption>
+      <pre><code data-lang="python">def check(age):
+    if age < 0:
+        return "not a real age"
+    if age < 18:
+        return "too young"
+    return "fine"
+
+
+print(check(-3))     # not a real age
+print(check(12))     # too young
+print(check(41))     # fine</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>Guard clauses</h4>
+        <p class="nomargin">Deal with the odd cases first and return immediately. What is left
+          at the bottom is the normal case, unindented and easy to read. This is the flattening
+          idea from last week, applied to functions.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">Anything written after a <code>return</code> that runs never
+          happens. VS Code will grey it out for you, which is a useful hint that something is
+          wrong.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Connect it back to the nested-if slide from session 2. Same lesson, new tool.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Defaults">
+  <div class="eyebrow">Idea 6</div>
+  <h2>Default values</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>defaults.py</figcaption>
+      <pre><code data-lang="python">def greet(name, greeting="Hello"):
+    return f"{greeting} {name}"
+
+
+print(greet("Sam"))                    # Hello Sam
+print(greet("Sam", "Morning"))         # Morning Sam
+print(greet("Sam", greeting="Oi"))     # Oi Sam
+
+
+def round_to(number, places=2):
+    return round(number, places)
+
+
+print(round_to(3.14159))      # 3.14
+print(round_to(3.14159, 4))   # 3.1416</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--teal">
+        <p class="nomargin">A default makes a parameter optional. It lets a function have a
+          sensible everyday behaviour and still be adjustable when you need it.</p>
+      </div>
+      <div class="callout callout--warn" style="margin-bottom:0">
+        <span class="ico">▲</span>
+        <div>
+          <p class="nomargin">Parameters with defaults have to come <strong>after</strong> the
+            ones without. <code>def f(a=1, b)</code> is a <code>SyntaxError</code>, and the
+            message tells you so quite clearly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do not mention mutable default arguments. It is a genuine Python trap and completely
+    wrong for session 3.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Scope">
+  <div class="eyebrow">Idea 7</div>
+  <h2>Scope: what happens inside stays inside</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>scope.py</figcaption>
+      <pre><code data-lang="python">def calculate():
+    subtotal = 100          # born here
+    return subtotal * 1.21
+
+
+print(calculate())          # 121.0
+print(subtotal)
+# NameError: name 'subtotal' is not defined
+
+
+VAT = 1.21                  # outside, so visible inside
+
+def calculate_again(amount):
+    return amount * VAT     # this is fine
+
+
+print(calculate_again(100))   # 121.0</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>Variables inside a function are local</h4>
+        <p class="nomargin">They are created when the function runs and disposed of when it
+          finishes. The rest of your program cannot see them.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>That is a feature</h4>
+        <p class="nomargin">It means you can use the name <code>total</code> in ten functions
+          without them interfering. Each one has its own.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin"><strong>The rule of thumb:</strong> pass what you need in as
+          parameters, hand the answer back with <code>return</code>. Do not reach out of a
+          function for values.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do not teach the global keyword. They will find it, it will seem convenient, and it
+    causes the kind of bug that is miserable to find. If asked: it exists, and you almost
+    never want it.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Docstrings and names">
+  <div class="eyebrow">Idea 8</div>
+  <h2>Naming things, and the docstring</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>documented.py</figcaption>
+      <pre><code data-lang="python">def average(numbers):
+    """Return the mean of a list of numbers.
+
+    Assumes the list is not empty.
+    """
+    total = 0
+    for number in numbers:
+        total += number
+    return total / len(numbers)
+
+
+print(average([1, 2, 3]))      # 2.0
+help(average)                  # prints the docstring</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact">
+        <h4>Name it after what it gives you</h4>
+        <ul class="tight nomargin">
+          <li><code>average(numbers)</code>, not <code>do_calc(x)</code></li>
+          <li>Verbs for actions: <code>load_data</code>, <code>save_chart</code></li>
+          <li>Questions for true or false: <code>is_even</code>, <code>has_errors</code></li>
+        </ul>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">A docstring is a string on the first line of the function. Tools
+          read it, <code>help()</code> prints it, and your editor shows it when you hover.
+          One sentence saying what comes back is enough.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The naming habit pays off in session 10 when they build a pipeline of load, clean,
+    analyse, output. Good names are what make that structure obvious.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Functions calling functions">
+  <div class="eyebrow">Putting them together</div>
+  <h2>Functions can call other functions</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>compose.py</figcaption>
+      <pre><code data-lang="python">def total(numbers):
+    """Return the sum of a list of numbers."""
+    running = 0
+    for number in numbers:
+        running += number
+    return running
+
+
+def average(numbers):
+    """Return the mean of a list of numbers."""
+    return total(numbers) / len(numbers)   # reuse, do not repeat
+
+
+def summarise(numbers):
+    """Return one readable line describing a list of numbers."""
+    return (f"{len(numbers)} values, "
+            f"total {total(numbers)}, "
+            f"average {average(numbers):.1f}")
+
+
+print(summarise([12, 7, 41, 3]))
+# 4 values, total 63, average 15.8</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>This is the whole idea</h4>
+        <p class="nomargin">Small functions that each do one thing, stacked into bigger ones.
+          <code>average</code> does not know how to add up a list; it asks
+          <code>total</code>. Fix a bug in <code>total</code> and both are fixed.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <p class="nomargin">Notice that only the last line prints. Everything above it
+          returns. That is the shape to aim for: calculate quietly, print once, at the edge.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This slide is the target shape for the live exercise. Point at it again when they are
+    building.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Script to functions">
+  <div class="eyebrow">In practice</div>
+  <h2>The same work, before and after</h2>
+  <div class="compare">
+    <div>
+      <span class="label">one long script</span>
+      <figure class="code">
+        <pre class="xs"><code data-lang="python">numbers = [12, 7, 41, 3]
+
+total = 0
+for n in numbers:
+    total += n
+print(f"Total: {total}")
+
+highest = numbers[0]
+for n in numbers:
+    if n > highest:
+        highest = n
+print(f"Highest: {highest}")
+
+# and now do it all again for
+# a second list...</code></pre>
+      </figure>
+    </div>
+    <div>
+      <span class="label">pieces that fit together</span>
+      <figure class="code">
+        <pre class="xs"><code data-lang="python">def total(numbers):
+    running = 0
+    for n in numbers:
+        running += n
+    return running
+
+
+def highest(numbers):
+    best = numbers[0]
+    for n in numbers:
+        if n > best:
+            best = n
+    return best
+
+
+for group in ([12, 7, 41, 3], [4, 8, 15]):
+    print(total(group), highest(group))</code></pre>
+      </figure>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">The right-hand version is barely shorter for one list. For two lists
+        it is much shorter, and for ten it is the only version anybody would write. That is
+        the trade: a little structure now, in exchange for change being cheap later.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Be honest that the refactored version is not shorter at first. Overselling it
+    invites scepticism. The win is that it absorbs change.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Checking a function">
+  <div class="eyebrow">Useful habit</div>
+  <h2>Check a function on cases you can work out in your head</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>checks.py</figcaption>
+      <pre><code data-lang="python">def is_even(n):
+    """Return True if n divides by 2 exactly."""
+    return n % 2 == 0
+
+
+# The quick way: print and eyeball it.
+print(is_even(4))     # expect True
+print(is_even(7))     # expect False
+print(is_even(0))     # expect True
+
+# The tidier way: assert. Silence means it passed.
+assert is_even(4) is True
+assert is_even(7) is False
+assert is_even(0) is True
+print("all checks passed")</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--teal">
+        <h4><code>assert</code> in one line</h4>
+        <p class="nomargin"><code>assert something_true</code> does nothing at all. If it is
+          false you get an <code>AssertionError</code>, straight away, on that line.</p>
+      </div>
+      <div class="card card--compact card--accent">
+        <h4>Pick the awkward cases</h4>
+        <p class="nomargin">Zero, one, negatives, an empty list. That is where the bugs live.
+          Your <code>highest</code> function from last week was correct for the list you
+          tried and wrong for <code>[-5, -2, -9]</code>.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">This is the seed of proper testing, which is on the map in
+          session 12 under <code>pytest</code>.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do not turn this into a testing lecture. The habit to plant is "check the edges on
+    purpose", and assert is just a tidy way to write the check down.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Rebuild">
+  <div>
+    <div class="marker">Part two · 40 minutes</div>
+    <h2>Rebuild your statistics</h2>
+    <p>Your homework, taken apart and put back together as four functions. You drive.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Live exercise">
+  <div class="eyebrow">Your turn · 40 minutes</div>
+  <h2>Refactor your statistics script</h2>
+  <div class="exercise">
+    <div class="tag">◆ Live exercise</div>
+    <h3>Turn last week's <code>statistics.py</code> into four functions, then use them</h3>
+    <div class="cols">
+      <div>
+        <h4>Write these four</h4>
+        <figure class="code plain" style="margin:0 0 10px">
+          <pre class="sm"><code data-lang="python">def total(numbers): ...
+def average(numbers): ...
+def highest(numbers): ...
+def lowest(numbers): ...</code></pre>
+        </figure>
+        <p class="nomargin">Each one takes a list and <strong>returns</strong> a number.
+          None of them prints anything.</p>
+      </div>
+      <div>
+        <h4>Then prove they were worth it</h4>
+        <ul class="tight">
+          <li>Print a summary using all four</li>
+          <li>Run all four on a <strong>second</strong> list without copying any logic</li>
+          <li>Write <code>average()</code> using your own <code>total()</code></li>
+          <li>Give each function a one-line docstring</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">File: <code>sessions/session-03/exercises/statistics_functions.py</code>.
+        The moment <code>average()</code> calls <code>total()</code> is the moment
+        <code>return</code> stops being a rule and starts being useful.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The second list is the part that sells functions. Ask for it as a surprise once the
+    first version works: "now do the same for [4, 8, 15, 16, 23, 42]". Watch their face when
+    it is four lines instead of forty.</p>
+    <p>If they print inside the functions, do not correct it immediately. Ask them to print a
+    single line that contains all four numbers, and let the design force the change.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Mistakes to expect">
+  <div class="eyebrow">Reference</div>
+  <h2>The five function mistakes, and what they look like</h2>
+  <table class="sm">
+    <tr><th style="width:290px">Mistake</th><th style="width:270px">What you see</th><th>Fix</th></tr>
+    <tr><td>Defined it, never called it</td><td>Nothing happens, no error at all</td>
+      <td>Add the call at the bottom of the file</td></tr>
+    <tr><td>Called it without brackets</td><td>Nothing happens, or something like
+      <code>&lt;function greet at 0x...&gt;</code> printed</td>
+      <td><code>greet()</code>, not <code>greet</code></td></tr>
+    <tr><td>Printed instead of returned</td><td><code>TypeError</code> mentioning
+      <code>NoneType</code> when you try to use the result</td>
+      <td>Swap <code>print(x)</code> for <code>return x</code></td></tr>
+    <tr><td>A <code>return</code> inside an <code>if</code>, with no other path</td>
+      <td><code>None</code> for some inputs and no complaint</td>
+      <td>Make sure every route out of the function returns something</td></tr>
+    <tr><td>Using a variable from inside a function outside it</td>
+      <td><code>NameError: name 'subtotal' is not defined</code></td>
+      <td>Return it, and store what comes back</td></tr>
+  </table>
+  <div class="callout callout--tip" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Three of these five produce <strong>no error message at all</strong>,
+        which is why they are worth knowing by sight. When a function seems to do nothing,
+        start at the top of this table.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Keep this open during their homework questions this week. It covers almost everything
+    that will come up.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework">
+  <div class="eyebrow">Between now and next time · 2–4 hours</div>
+  <h2>Homework</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Task 1 · you can finish this</div>
+      <h4>Four small functions</h4>
+      <figure class="code plain" style="margin:0 0 10px">
+        <pre class="sm"><code data-lang="python">is_even(n)                 # True or False
+celsius_to_fahrenheit(c)   # a number
+initials("Sam Kelly")      # "S.K."
+longest_word("a bc def")   # "def"</code></pre>
+      </figure>
+      <p class="nomargin">All four <strong>return</strong>, none of them print. File:
+        <code>homework/small_functions.py</code></p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>Task 2 · you might not finish this</div>
+      <h4>A menu program</h4>
+      <p>Print a numbered menu, ask the user to pick one, call the matching function, show
+        the result, then loop until they choose quit.</p>
+      <p class="nomargin">Use your four functions from task 1. File:
+        <code>homework/menu.py</code></p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin"><code>longest_word</code> needs a way to chop a sentence into words.
+        Search for "python split string into words". Looking it up is the intended part of the
+        exercise, not cheating.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The menu program pulls together everything so far: functions, while, if, input,
+    conversion. It is the first thing they have written that feels like an application.</p>
+    <p>Expect the menu loop to be where they struggle. A dictionary of options would be
+    elegant and that is session 4, so a chain of elif is the right answer today.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Recap">
+  <div class="eyebrow">Wrap up</div>
+  <h2>What you can do now</h2>
+  <div class="cols">
+    <ul class="checklist">
+      <li>Define a function and call it</li>
+      <li>Pass values in as parameters, by position or by name</li>
+      <li>Hand a value back with <code>return</code>, and use it</li>
+      <li>Explain the difference between returning and printing</li>
+    </ul>
+    <ul class="checklist">
+      <li>Recognise <code>None</code> and what it usually means</li>
+      <li>Return early to keep logic flat</li>
+      <li>Give a parameter a default value</li>
+      <li>Say why a variable inside a function is invisible outside it</li>
+    </ul>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>Next session: real data</h4>
+      <p class="nomargin">Lists and dictionaries, and the idea that a list of dictionaries
+        <em>is</em> a table. Then we open a real CSV file: the listening log you will use for
+        the rest of the course, all the way to your project.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Sessions 1 to 3 are the foundation and they are now done. Say so. From next week
+    everything is applied to real data, which most people find much more motivating.</p>
+  </aside>
+</section>
+
+</div>
+</div>
+<script src="assets/deck.js"></script>
+</body>
+</html>

@@ -1,0 +1,2184 @@
+play_id,played_at,artist_name,track_name,genre,country,minutes_played,device,skipped
+1,2024-01-01,Fjord & Flint,Golden Garden,Folk,Norway,4.65,phone,0
+2,2024-01-01,Basement Cartography,Summer Season,Indie,Canada,2.42,laptop,0
+3,2024-01-01,Fjord & Flint,Golden Garden,Folk,Norway,0.51,laptop,0
+4,2024-01-01,DJ Kompas,Paper Signal,Electronic,Netherlands,4.42,phone,0
+5,2024-01-01,Basement Cartography,Summer Season,Indie,Canada,2.16,laptop,0
+6,2024-01-01,Luz de Enero,Northern Ferry,Latin,Spain,2.4,phone,0
+7,2024-01-02,Sara Lindqvist,Electric Weather,Pop,Sweden,2.91,speaker,0
+8,2024-01-02,The Quiet Wires,Northern Tape,Rock,United States,6.03,tablet,0
+9,2024-01-02,Fjord & Flint,Blue Traffic,Folk,Norway,5.19,laptop,0
+10,2024-01-02,Brannon Hill,Northern Machines,Folk,Ireland,2.62,laptop,0
+11,2024-01-03,DJ Kompas,Midnight Weather,Electronic,Netherlands,4.3,phone,0
+12,2024-01-03,The Slow Ferry,Amber Mornings,Indie,Ireland,0.4,phone,1
+13,2024-01-03,Glass Tram,Broken Lines,Electronic,Germany,10.77,speaker,0
+14,2024-01-03,Orquesta Bellavista,Velvet Garden,Latin,Colombia,2.88,speaker,0
+15,2024-01-04,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,3.33,tablet,0
+16,2024-01-04,The Tuesday Club,Northern Ferry,Pop,United Kingdom,4.86,laptop,0
+17,2024-01-04,Glass Tram,Amber Ferry,Electronic,Germany,7.93,laptop,0
+18,2024-01-04,Sara Lindqvist,Summer Tape,Pop,Sweden,5.09,phone,0
+19,2024-01-05,Kanto Kids,Broken Weather,Pop,Philippines,2.88,phone,0
+20,2024-01-05,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,3.8,phone,0
+21,2024-01-05,Yuki Tanaka Trio,Northern Lines,Jazz,Japan,9.19,phone,0
+22,2024-01-05,Fjord & Flint,Midnight Kitchen,Folk,Norway,4.88,speaker,0
+23,2024-01-06,Brannon Hill,Quiet Ferry,Folk,Ireland,5.77,phone,0
+24,2024-01-06,Pale Cartography,Winter Weather,Folk,Canada,4.1,phone,0
+25,2024-01-06,Luz de Enero,Northern Ferry,Latin,Spain,2.59,phone,0
+26,2024-01-07,Glass Tram,Broken Mornings,Electronic,Germany,7.95,phone,0
+27,2024-01-07,Sara Lindqvist,Broken Kitchen,Pop,Sweden,0.81,phone,1
+28,2024-01-07,Marta Oliveira,Static Wires,Jazz,Portugal,6.06,phone,0
+29,2024-01-07,Fjord & Flint,Open Orbit,Folk,Norway,4.12,phone,0
+30,2024-01-07,Glass Tram,Broken Lines,Electronic,Germany,3.73,phone,0
+31,2024-01-07,Fjord & Flint,Open Orbit,Folk,Norway,2.75,speaker,0
+32,2024-01-07,Sara Lindqvist,Slow Mornings,Pop,Sweden,3.15,car,0
+33,2024-01-08,Casa Tropicana,Hollow Tape,Latin,Cuba,0.5,speaker,1
+34,2024-01-09,Sara Lindqvist,Quiet Harbour,Pop,Sweden,3.92,phone,0
+35,2024-01-09,Hertz Garden,Broken Kitchen,Electronic,Germany,3.4,tablet,0
+36,2024-01-10,Nora Whitlock,Bright Garden,Pop,United States,2.87,phone,0
+37,2024-01-10,The Paper Kites Society,Electric Lines,Indie,Australia,3.72,speaker,0
+38,2024-01-10,Sara Lindqvist,Summer Tape,Pop,Sweden,3.56,laptop,0
+39,2024-01-11,Glass Tram,Broken Mornings,Electronic,Germany,6.36,speaker,0
+40,2024-01-11,Glass Tram,Broken Lines,Electronic,Germany,5.94,laptop,0
+41,2024-01-12,Glass Tram,Salt Lines,Electronic,Germany,3.65,phone,0
+42,2024-01-12,Fjord & Flint,Summer Wires,Folk,Norway,3.3,laptop,0
+43,2024-01-12,Sara Lindqvist,Summer Tape,Pop,Sweden,0.41,phone,1
+44,2024-01-13,Sara Lindqvist,Slow Mornings,Pop,Sweden,2.84,laptop,0
+45,2024-01-13,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,2.84,laptop,0
+46,2024-01-13,Northern Signal,Electric Avenue,Electronic,Norway,5.15,speaker,0
+47,2024-01-13,The Slow Ferry,Amber Garden,Indie,Ireland,4.54,speaker,0
+48,2024-01-13,Basement Cartography,Blue Traffic,Indie,Canada,0.57,speaker,1
+49,2024-01-13,Luz de Enero,Static Machines,Latin,Spain,1.4,phone,0
+50,2024-01-13,Sara Lindqvist,Broken Kitchen,Pop,Sweden,4.66,phone,0
+51,2024-01-13,The Long Commute,Golden Radio,Indie,Netherlands,3.83,phone,0
+52,2024-01-14,Sara Lindqvist,Midnight Orbit,Pop,Sweden,0.25,laptop,1
+53,2024-01-14,Static Meadow,Winter Mornings,Rock,United States,6.31,phone,0
+54,2024-01-14,The Paper Kites Society,Slow Rooms,Indie,Australia,2.28,phone,0
+55,2024-01-15,Brannon Hill,Electric Parade,Folk,Ireland,2.04,phone,0
+56,2024-01-15,Pale Cartography,Blue Signal,Folk,Canada,2.86,phone,0
+57,2024-01-15,Glass Tram,Broken Lines,Electronic,Germany,7.49,phone,0
+58,2024-01-15,Rosewood Lane,Slow Rooms,Folk,United Kingdom,4.72,phone,0
+59,2024-01-16,Sara Lindqvist,Electric Weather,Pop,Sweden,3.79,phone,0
+60,2024-01-16,Mireille Basset,Midnight Traffic,Jazz,France,6.73,phone,0
+61,2024-01-16,Marta Oliveira,Electric Mornings,Jazz,Portugal,9.44,speaker,0
+62,2024-01-16,Basement Cartography,Blue Mornings,Indie,Canada,4.9,phone,0
+63,2024-01-16,Fjord & Flint,Blue Ferry,Folk,Norway,2.86,phone,0
+64,2024-01-16,Fjord & Flint,Open Orbit,Folk,Norway,3.84,car,0
+65,2024-01-17,DJ Kompas,Paper Rooms,Electronic,Netherlands,6.36,phone,0
+66,2024-01-17,Casa Tropicana,Paper Orbit,Latin,Cuba,3.87,laptop,0
+67,2024-01-17,Basement Cartography,Iron Traffic,Indie,Canada,3.2,tablet,0
+68,2024-01-17,Sara Lindqvist,Midnight Orbit,Pop,Sweden,4.99,speaker,0
+69,2024-01-18,Static Meadow,Amber Tape,Rock,United States,4.71,phone,0
+70,2024-01-18,Sara Lindqvist,Midnight Orbit,Pop,Sweden,2.71,speaker,0
+71,2024-01-19,Fjord & Flint,Midnight Kitchen,Folk,Norway,1.08,phone,0
+72,2024-01-19,Yuki Tanaka Trio,Golden Window,Jazz,Japan,9.23,laptop,0
+73,2024-01-19,Selva Alta,Harbour Orbit,Latin,Peru,2.93,phone,0
+74,2024-01-19,Fjord & Flint,Northern Avenue,Folk,Norway,4.36,phone,0
+75,2024-01-20,Northern Signal,Salt Lines,Electronic,Norway,4.06,phone,0
+76,2024-01-20,Salon Mécanique,Hollow Parade,Jazz,Belgium,9.04,phone,0
+77,2024-01-20,Fjord & Flint,Blue Traffic,Folk,Norway,3.08,laptop,0
+78,2024-01-20,Sara Lindqvist,Quiet Harbour,Pop,Sweden,3.79,phone,0
+79,2024-01-21,Yuki Tanaka Trio,Winter Parade,Jazz,Japan,7.95,laptop,0
+80,2024-01-21,Glass Tram,Amber Ferry,Electronic,Germany,7.11,phone,0
+81,2024-01-21,Bright Utility,Bright Letters,Indie,United Kingdom,0.86,laptop,1
+82,2024-01-21,Kito Ndungu,Amber Kitchen,Afrobeat,Kenya,3.15,speaker,0
+83,2024-01-21,Luz de Enero,Velvet Harbour,Latin,Spain,3.18,phone,0
+84,2024-01-21,Fjord & Flint,Northern Avenue,Folk,Norway,0.49,phone,1
+85,2024-01-22,Hollow Pines,Winter Traffic,Folk,United States,3.68,phone,0
+86,2024-01-22,Sara Lindqvist,Golden Harbour,Pop,Sweden,1.28,phone,0
+87,2024-01-23,Glass Tram,Broken Lines,Electronic,Germany,6.18,phone,0
+88,2024-01-23,Fjord & Flint,Golden Garden,Folk,Norway,4.08,speaker,0
+89,2024-01-23,Yuki Tanaka Trio,Northern Window,Jazz,Japan,5.92,phone,0
+90,2024-01-23,DJ Kompas,Electric Mornings,Electronic,Netherlands,4.71,phone,0
+91,2024-01-23,Bright Utility,Bright Letters,Indie,United Kingdom,3.2,car,0
+92,2024-01-23,Fjord & Flint,Summer Wires,Folk,Norway,4.32,laptop,0
+93,2024-01-24,Brannon Hill,Northern Machines,Folk,Ireland,2.37,laptop,0
+94,2024-01-24,Kanto Kids,Slow Garden,Pop,Philippines,2.53,laptop,0
+95,2024-01-24,Fjord & Flint,Blue Ferry,Folk,Norway,3.35,speaker,0
+96,2024-01-24,The Quiet Wires,Northern Tape,Rock,United States,4.12,phone,0
+97,2024-01-25,Casa Tropicana,Hollow Tape,Latin,Cuba,2.64,phone,0
+98,2024-01-26,Static Meadow,Bright Traffic,Rock,United States,4.61,phone,0
+99,2024-01-26,Rosewood Lane,Summer Signal,Folk,United Kingdom,2.67,laptop,0
+100,2024-01-27,Sara Lindqvist,Slow Mornings,Pop,Sweden,3.65,car,0
+101,2024-01-27,Sara Lindqvist,Slow Mornings,Pop,Sweden,4.83,phone,0
+102,2024-01-27,Glass Tram,Broken Lines,Electronic,Germany,3.25,phone,0
+103,2024-01-28,Northern Signal,Golden Machines,Electronic,Norway,1.8,car,1
+104,2024-01-28,Glass Tram,Salt Lines,Electronic,Germany,4.51,laptop,0
+105,2024-01-28,Northern Signal,Bright Avenue,Electronic,Norway,5.09,laptop,0
+106,2024-01-28,Sara Lindqvist,Northern Radio,Pop,Sweden,1.93,laptop,0
+107,2024-01-29,Selva Alta,Harbour Lines,Latin,Peru,1.85,laptop,0
+108,2024-01-29,DJ Kompas,Quiet Orbit,Electronic,Netherlands,4.12,laptop,0
+109,2024-01-29,Yuki Tanaka Trio,Northern Lines,Jazz,Japan,6.05,laptop,0
+110,2024-01-29,DJ Kompas,Golden Weather,Electronic,Netherlands,4.36,laptop,0
+111,2024-01-30,Hollow Pines,Salt Harbour,Folk,United States,3.19,laptop,0
+112,2024-01-30,Fjord & Flint,Blue Ferry,Folk,Norway,2.35,phone,0
+113,2024-01-30,Hertz Garden,Broken Kitchen,Electronic,Germany,2.47,laptop,1
+114,2024-01-31,Glass Tram,Salt Lines,Electronic,Germany,7.94,phone,0
+115,2024-01-31,Neon Harbour,Blue Traffic,Electronic,Netherlands,3.39,laptop,0
+116,2024-01-31,Fjord & Flint,Broken Radio,Folk,Norway,2.79,phone,0
+117,2024-01-31,DJ Kompas,Midnight Weather,Electronic,Netherlands,4.61,speaker,0
+118,2024-01-31,Yuki Tanaka Trio,Northern Lines,Jazz,Japan,7.51,car,0
+119,2024-01-31,DJ Kompas,Paper Rooms,Electronic,Netherlands,7.03,phone,0
+120,2024-02-01,Static Meadow,Northern Avenue,Rock,United States,0.87,laptop,1
+121,2024-02-01,Fjord & Flint,Broken Radio,Folk,Norway,6.33,car,0
+122,2024-02-02,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,4.54,phone,0
+123,2024-02-02,Glass Tram,Amber Ferry,Electronic,Germany,2.98,phone,0
+124,2024-02-02,Basement Cartography,Summer Orbit,Indie,Canada,4.28,phone,0
+125,2024-02-03,Northern Signal,Electric Avenue,Electronic,Norway,6.09,laptop,0
+126,2024-02-03,Hollow Pines,Amber Lines,Folk,United States,3.4,speaker,0
+127,2024-02-03,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,4.62,phone,0
+128,2024-02-03,Fjord & Flint,Golden Garden,Folk,Norway,1.83,laptop,0
+129,2024-02-03,Selva Alta,Electric Letters,Latin,Peru,3.81,phone,0
+130,2024-02-04,Fjord & Flint,Blue Avenue,Folk,Norway,3.08,phone,0
+131,2024-02-04,Selva Alta,Harbour Lines,Latin,Peru,0.95,phone,1
+132,2024-02-05,Glass Tram,Salt Lines,Electronic,Germany,4.92,phone,0
+133,2024-02-06,Fjord & Flint,Blue Avenue,Folk,Norway,4.21,phone,0
+134,2024-02-06,Yuki Tanaka Trio,Golden Window,Jazz,Japan,7.62,laptop,0
+135,2024-02-07,Fjord & Flint,Northern Avenue,Folk,Norway,3.34,car,0
+136,2024-02-07,Fjord & Flint,Summer Wires,Folk,Norway,1.79,phone,0
+137,2024-02-08,Yuki Tanaka Trio,Harbour Season,Jazz,Japan,7.27,phone,0
+138,2024-02-08,Circuit Sparrow,Winter Window,Electronic,Japan,7.39,laptop,0
+139,2024-02-08,The Quiet Wires,Harbour Orbit,Rock,United States,2.13,phone,0
+140,2024-02-09,Brannon Hill,Northern Machines,Folk,Ireland,4.95,phone,0
+141,2024-02-09,DJ Kompas,Paper Rooms,Electronic,Netherlands,8.44,laptop,0
+142,2024-02-09,The Quiet Wires,Golden Season,Rock,United States,2.71,laptop,0
+143,2024-02-10,DJ Kompas,Quiet Orbit,Electronic,Netherlands,4.37,laptop,0
+144,2024-02-10,Odessa Brass,Golden Avenue,Jazz,Ukraine,9.42,phone,0
+145,2024-02-10,The Long Commute,Northern Window,Indie,Netherlands,2.89,phone,0
+146,2024-02-11,Sara Lindqvist,Northern Radio,Pop,Sweden,2.14,phone,0
+147,2024-02-11,Sara Lindqvist,Electric Weather,Pop,Sweden,0.63,laptop,1
+148,2024-02-11,Basement Cartography,Summer Orbit,Indie,Canada,2.98,phone,0
+149,2024-02-11,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,1.47,tablet,0
+150,2024-02-11,Rosewood Lane,Summer Signal,Folk,United Kingdom,3.01,phone,0
+151,2024-02-12,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,4.53,phone,0
+152,2024-02-12,Rosewood Lane,Paper Mornings,Folk,United Kingdom,1.34,phone,0
+153,2024-02-12,DJ Kompas,Golden Weather,Electronic,Netherlands,8.04,tablet,0
+154,2024-02-13,DJ Kompas,Midnight Weather,Electronic,Netherlands,5.32,phone,0
+155,2024-02-13,DJ Kompas,Bright Ferry,Electronic,Netherlands,4.5,phone,0
+156,2024-02-13,The Slow Ferry,Velvet Season,Indie,Ireland,4.66,phone,0
+157,2024-02-14,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,3.75,laptop,0
+158,2024-02-14,Fjord & Flint,Open Orbit,Folk,Norway,3.56,laptop,0
+159,2024-02-14,Selva Alta,Static Kitchen,Latin,Peru,3.14,phone,0
+160,2024-02-14,The Quiet Wires,Harbour Orbit,Rock,United States,4.8,laptop,0
+161,2024-02-15,Sara Lindqvist,Slow Mornings,Pop,Sweden,0.81,phone,1
+162,2024-02-15,Sara Lindqvist,Summer Tape,Pop,Sweden,2.0,phone,0
+163,2024-02-15,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,7.32,laptop,0
+164,2024-02-15,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,4.14,phone,0
+165,2024-02-15,Glass Tram,Broken Mornings,Electronic,Germany,4.41,laptop,0
+166,2024-02-15,DJ Kompas,Golden Weather,Electronic,Netherlands,8.08,speaker,0
+167,2024-02-16,Basement Cartography,Summer Orbit,Indie,Canada,3.26,speaker,0
+168,2024-02-16,Sara Lindqvist,Electric Weather,Pop,Sweden,4.13,phone,0
+169,2024-02-16,DJ Kompas,Paper Rooms,Electronic,Netherlands,2.79,phone,0
+170,2024-02-16,Fjord & Flint,Northern Avenue,Folk,Norway,5.7,laptop,0
+171,2024-02-16,Luz de Enero,Static Machines,Latin,Spain,3.8,phone,0
+172,2024-02-17,Glass Tram,Salt Lines,Electronic,Germany,6.95,laptop,0
+173,2024-02-17,Fjord & Flint,Blue Avenue,Folk,Norway,4.41,phone,0
+174,2024-02-17,Glass Tram,Broken Lines,Electronic,Germany,7.61,phone,0
+175,2024-02-19,Sara Lindqvist,Broken Kitchen,Pop,Sweden,4.95,speaker,0
+176,2024-02-19,DJ Kompas,Bright Ferry,Electronic,Netherlands,5.94,laptop,0
+177,2024-02-19,Rosewood Lane,Amber Signal,Folk,United Kingdom,5.66,phone,0
+178,2024-02-19,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,2.46,car,0
+179,2024-02-21,DJ Kompas,Electric Mornings,Electronic,Netherlands,6.83,phone,0
+180,2024-02-21,Fjord & Flint,Golden Garden,Folk,Norway,0.4,phone,1
+181,2024-02-21,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,0.81,phone,1
+182,2024-02-22,Northern Signal,Velvet Wires,Electronic,Norway,4.55,phone,0
+183,2024-02-23,Kito Ndungu,Hollow Machines,Afrobeat,Kenya,3.9,phone,0
+184,2024-02-23,Sara Lindqvist,Northern Radio,Pop,Sweden,3.89,phone,0
+185,2024-02-23,Orquesta Bellavista,Broken Weather,Latin,Colombia,4.21,phone,0
+186,2024-02-24,Static Meadow,Static Signal,Rock,United States,4.56,phone,0
+187,2024-02-24,Basement Cartography,Velvet Kitchen,Indie,Canada,4.52,phone,0
+188,2024-02-25,Sara Lindqvist,Northern Radio,Pop,Sweden,4.32,laptop,0
+189,2024-02-25,The Quiet Wires,Quiet Rooms,Rock,United States,5.95,phone,0
+190,2024-02-25,The Paper Kites Society,Harbour Rooms,Indie,Australia,1.02,laptop,1
+191,2024-02-25,DJ Kompas,Paper Rooms,Electronic,Netherlands,4.74,phone,0
+192,2024-02-26,DJ Kompas,Electric Mornings,Electronic,Netherlands,7.64,phone,0
+193,2024-02-27,Sara Lindqvist,Electric Weather,Pop,Sweden,1.65,laptop,0
+194,2024-02-27,Nora Whitlock,Golden Tape,Pop,United States,5.66,laptop,0
+195,2024-02-28,Rosewood Lane,Amber Signal,Folk,United Kingdom,5.67,phone,0
+196,2024-02-28,The Long Commute,Amber Kitchen,Indie,Netherlands,3.42,phone,0
+197,2024-02-28,Mireille Basset,Harbour Machines,Jazz,France,2.62,laptop,1
+198,2024-02-29,Fjord & Flint,Northern Avenue,Folk,Norway,2.5,laptop,0
+199,2024-02-29,Static Meadow,Broken Season,Rock,United States,4.19,phone,0
+200,2024-02-29,DJ Kompas,Electric Mornings,Electronic,Netherlands,4.81,phone,0
+201,2024-03-01,DJ Kompas,Quiet Orbit,Electronic,Netherlands,0.91,laptop,1
+202,2024-03-01,Rosewood Lane,Summer Signal,Folk,United Kingdom,5.01,phone,0
+203,2024-03-01,Brannon Hill,Electric Parade,Folk,Ireland,2.05,laptop,0
+204,2024-03-01,The Slow Ferry,Amber Mornings,Indie,Ireland,3.18,phone,0
+205,2024-03-02,Casa Tropicana,Hollow Tape,Latin,Cuba,1.45,phone,0
+206,2024-03-02,Sara Lindqvist,Slow Mornings,Pop,Sweden,5.42,phone,0
+207,2024-03-02,Glass Tram,Amber Ferry,Electronic,Germany,5.0,laptop,0
+208,2024-03-02,Yuki Tanaka Trio,Golden Machines,Jazz,Japan,8.04,phone,0
+209,2024-03-03,Fjord & Flint,Open Orbit,Folk,Norway,4.6,speaker,0
+210,2024-03-04,Neon Harbour,Blue Signal,Electronic,Netherlands,4.75,phone,0
+211,2024-03-04,DJ Kompas,Golden Weather,Electronic,Netherlands,8.27,phone,0
+212,2024-03-04,The Long Commute,Northern Window,Indie,Netherlands,2.56,speaker,0
+213,2024-03-05,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,3.19,phone,0
+214,2024-03-05,DJ Kompas,Golden Weather,Electronic,Netherlands,7.61,phone,0
+215,2024-03-05,Fjord & Flint,Summer Wires,Folk,Norway,4.05,phone,0
+216,2024-03-05,Selva Alta,Open Orbit,Latin,Peru,2.91,phone,0
+217,2024-03-05,Static Meadow,Winter Mornings,Rock,United States,5.2,laptop,0
+218,2024-03-06,Rosewood Lane,Slow Rooms,Folk,United Kingdom,0.28,speaker,1
+219,2024-03-06,Fjord & Flint,Summer Wires,Folk,Norway,4.51,laptop,0
+220,2024-03-07,The Slow Ferry,Bright Rooms,Indie,Ireland,3.61,laptop,0
+221,2024-03-07,Casa Tropicana,Hollow Tape,Latin,Cuba,1.58,speaker,0
+222,2024-03-07,Static Meadow,Broken Season,Rock,United States,3.55,tablet,0
+223,2024-03-08,DJ Kompas,Midnight Weather,Electronic,Netherlands,5.02,phone,0
+224,2024-03-08,Brannon Hill,Bright Mornings,Folk,Ireland,5.14,phone,0
+225,2024-03-08,Marta Oliveira,Paper Avenue,Jazz,Portugal,6.43,laptop,0
+226,2024-03-08,DJ Kompas,Midnight Weather,Electronic,Netherlands,7.78,tablet,0
+227,2024-03-08,Marta Oliveira,Electric Window,Jazz,Portugal,7.75,phone,0
+228,2024-03-08,Basement Cartography,Velvet Kitchen,Indie,Canada,6.41,phone,0
+229,2024-03-08,The Slow Ferry,Iron Weather,Indie,Ireland,0.48,tablet,1
+230,2024-03-09,Brannon Hill,Midnight Kitchen,Folk,Ireland,1.38,speaker,1
+231,2024-03-09,DJ Kompas,Paper Signal,Electronic,Netherlands,5.46,laptop,0
+232,2024-03-09,Orquesta Bellavista,Broken Weather,Latin,Colombia,3.73,phone,0
+233,2024-03-09,Glass Tram,Broken Mornings,Electronic,Germany,5.33,laptop,0
+234,2024-03-10,Glass Tram,Broken Lines,Electronic,Germany,6.0,phone,0
+235,2024-03-10,Mango Static,Static Wires,Latin,Brazil,5.03,phone,0
+236,2024-03-10,Selva Alta,Electric Letters,Latin,Peru,2.5,laptop,0
+237,2024-03-10,Rosewood Lane,Amber Signal,Folk,United Kingdom,4.11,phone,0
+238,2024-03-11,Brannon Hill,Midnight Kitchen,Folk,Ireland,4.45,phone,0
+239,2024-03-11,Northern Signal,Velvet Wires,Electronic,Norway,1.05,laptop,1
+240,2024-03-11,Static Meadow,Amber Tape,Rock,United States,5.15,speaker,0
+241,2024-03-12,Yuki Tanaka Trio,Winter Parade,Jazz,Japan,9.38,laptop,0
+242,2024-03-13,Sara Lindqvist,Golden Harbour,Pop,Sweden,2.68,car,0
+243,2024-03-14,The Paper Kites Society,Velvet Garden,Indie,Australia,5.09,phone,0
+244,2024-03-14,Rosewood Lane,Electric Weather,Folk,United Kingdom,3.61,car,0
+245,2024-03-14,Basement Cartography,Summer Season,Indie,Canada,5.12,speaker,0
+246,2024-03-14,Northern Signal,Salt Lines,Electronic,Norway,5.53,speaker,0
+247,2024-03-14,Fjord & Flint,Open Orbit,Folk,Norway,4.86,phone,0
+248,2024-03-15,Fjord & Flint,Open Orbit,Folk,Norway,3.54,phone,0
+249,2024-03-15,The Slow Ferry,Velvet Season,Indie,Ireland,4.55,speaker,0
+250,2024-03-15,Static Meadow,Bright Traffic,Rock,United States,2.94,speaker,0
+251,2024-03-16,DJ Kompas,Quiet Orbit,Electronic,Netherlands,0.96,phone,1
+252,2024-03-16,Glass Tram,Salt Lines,Electronic,Germany,4.47,phone,0
+253,2024-03-16,Fjord & Flint,Broken Radio,Folk,Norway,1.4,phone,0
+254,2024-03-17,Bright Utility,Bright Letters,Indie,United Kingdom,3.1,car,0
+255,2024-03-17,Hertz Garden,Broken Kitchen,Electronic,Germany,0.24,phone,1
+256,2024-03-18,Sara Lindqvist,Summer Tape,Pop,Sweden,0.88,laptop,1
+257,2024-03-19,Basement Cartography,Iron Traffic,Indie,Canada,0.15,phone,1
+258,2024-03-19,Hertz Garden,Blue Orbit,Electronic,Germany,3.25,car,0
+259,2024-03-19,Basement Cartography,Velvet Kitchen,Indie,Canada,3.38,phone,0
+260,2024-03-19,The Paper Kites Society,Amber Window,Indie,Australia,1.32,phone,0
+261,2024-03-19,Static Meadow,Winter Mornings,Rock,United States,4.55,speaker,0
+262,2024-03-20,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,4.53,speaker,0
+263,2024-03-20,Hollow Pines,Salt Harbour,Folk,United States,4.02,phone,0
+264,2024-03-20,Rosewood Lane,Golden Garden,Folk,United Kingdom,4.34,phone,0
+265,2024-03-20,Static Meadow,Amber Tape,Rock,United States,0.64,phone,1
+266,2024-03-21,Fjord & Flint,Midnight Kitchen,Folk,Norway,4.18,speaker,0
+267,2024-03-21,Sara Lindqvist,Slow Mornings,Pop,Sweden,0.69,speaker,1
+268,2024-03-21,Luz de Enero,Paper Window,Latin,Spain,2.96,tablet,0
+269,2024-03-21,Orquesta Bellavista,Paper Signal,Latin,Colombia,3.61,phone,0
+270,2024-03-21,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,2.5,phone,0
+271,2024-03-22,Northern Signal,Salt Lines,Electronic,Norway,6.05,phone,0
+272,2024-03-22,Glass Tram,Broken Mornings,Electronic,Germany,1.62,phone,1
+273,2024-03-22,Bright Utility,Broken Machines,Indie,United Kingdom,5.01,laptop,0
+274,2024-03-22,Northern Signal,Bright Avenue,Electronic,Norway,6.49,car,0
+275,2024-03-23,Basement Cartography,Paper Kitchen,Indie,Canada,5.34,phone,0
+276,2024-03-23,Static Meadow,Broken Season,Rock,United States,4.67,laptop,0
+277,2024-03-23,Bright Utility,Winter Window,Indie,United Kingdom,2.7,speaker,0
+278,2024-03-24,The Long Commute,Amber Kitchen,Indie,Netherlands,3.46,tablet,0
+279,2024-03-24,Amara Diallo,Slow Weather,Afrobeat,Senegal,4.21,phone,0
+280,2024-03-24,Sara Lindqvist,Midnight Orbit,Pop,Sweden,3.74,phone,0
+281,2024-03-24,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,4.35,car,0
+282,2024-03-24,Basement Cartography,Paper Kitchen,Indie,Canada,0.46,phone,0
+283,2024-03-24,Nora Whitlock,Bright Garden,Pop,United States,0.15,speaker,1
+284,2024-03-24,Orquesta Bellavista,Slow Rooms,Latin,Colombia,4.28,tablet,0
+285,2024-03-24,Fjord & Flint,Broken Radio,Folk,Norway,1.89,laptop,0
+286,2024-03-24,Marta Oliveira,Static Wires,Jazz,Portugal,7.22,speaker,0
+287,2024-03-24,Glass Tram,Salt Lines,Electronic,Germany,5.0,car,0
+288,2024-03-24,DJ Kompas,Bright Ferry,Electronic,Netherlands,6.49,phone,0
+289,2024-03-25,Orquesta Bellavista,Paper Signal,Latin,Colombia,0.4,laptop,1
+290,2024-03-25,Tundra Post,Paper Ferry,Electronic,Iceland,5.65,tablet,0
+291,2024-03-25,Sara Lindqvist,Northern Radio,Pop,Sweden,0.4,car,0
+292,2024-03-25,Kito Ndungu,Salt Ferry,Afrobeat,Kenya,2.69,phone,0
+293,2024-03-26,DJ Kompas,Paper Signal,Electronic,Netherlands,6.19,phone,0
+294,2024-03-26,Fjord & Flint,Blue Ferry,Folk,Norway,3.26,phone,0
+295,2024-03-26,The Quiet Wires,Golden Season,Rock,United States,3.7,phone,0
+296,2024-03-26,Sara Lindqvist,Northern Radio,Pop,Sweden,0.8,laptop,1
+297,2024-03-27,The Quiet Wires,Harbour Orbit,Rock,United States,2.07,phone,0
+298,2024-03-27,Sara Lindqvist,Midnight Orbit,Pop,Sweden,2.51,tablet,0
+299,2024-03-27,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,3.85,laptop,0
+300,2024-03-27,The Quiet Wires,Harbour Orbit,Rock,United States,4.15,phone,0
+301,2024-03-27,The Tuesday Club,Amber Harbour,Pop,United Kingdom,3.58,phone,0
+302,2024-03-27,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,2.47,phone,0
+303,2024-03-27,Luz de Enero,Paper Window,Latin,Spain,5.87,laptop,0
+304,2024-03-27,Sara Lindqvist,Slow Mornings,Pop,Sweden,2.93,car,0
+305,2024-03-28,Brannon Hill,Static Weather,Folk,Ireland,5.05,laptop,0
+306,2024-03-28,Nora Whitlock,Northern Rooms,Pop,United States,2.86,phone,0
+307,2024-03-28,Nora Whitlock,Northern Rooms,Pop,United States,1.47,phone,0
+308,2024-03-29,Kito Ndungu,Hollow Machines,Afrobeat,Kenya,3.63,laptop,0
+309,2024-03-29,Salon Mécanique,Hollow Parade,Jazz,Belgium,8.83,phone,0
+310,2024-03-29,Sara Lindqvist,Midnight Orbit,Pop,Sweden,4.49,phone,0
+311,2024-03-29,Glass Tram,Broken Lines,Electronic,Germany,6.3,phone,0
+312,2024-03-30,Yuki Tanaka Trio,Golden Machines,Jazz,Japan,6.84,laptop,0
+313,2024-03-30,Static Meadow,Paper Parade,Rock,United States,3.67,speaker,0
+314,2024-03-30,Nora Whitlock,Bright Garden,Pop,United States,4.04,laptop,0
+315,2024-03-30,The Quiet Wires,Open Mornings,Rock,United States,4.55,phone,0
+316,2024-03-31,Hertz Garden,Broken Kitchen,Electronic,Germany,1.58,speaker,1
+317,2024-03-31,Kanto Kids,Bright Machines,Pop,Philippines,2.36,speaker,0
+318,2024-03-31,The Slow Ferry,Velvet Season,Indie,Ireland,4.79,tablet,0
+319,2024-03-31,Rosewood Lane,Paper Mornings,Folk,United Kingdom,5.81,laptop,0
+320,2024-04-01,Glass Tram,Amber Ferry,Electronic,Germany,5.73,laptop,0
+321,2024-04-01,Brannon Hill,Northern Machines,Folk,Ireland,3.73,phone,0
+322,2024-04-02,The Quiet Wires,Quiet Machines,Rock,United States,5.47,phone,0
+323,2024-04-02,The Paper Kites Society,Velvet Wires,Indie,Australia,6.12,speaker,0
+324,2024-04-02,Marta Oliveira,Paper Avenue,Jazz,Portugal,8.36,laptop,0
+325,2024-04-02,The Quiet Wires,Open Mornings,Rock,United States,6.16,phone,0
+326,2024-04-03,Fjord & Flint,Blue Ferry,Folk,Norway,6.19,phone,0
+327,2024-04-04,DJ Kompas,Midnight Weather,Electronic,Netherlands,5.49,laptop,0
+328,2024-04-05,The Quiet Wires,Golden Wires,Rock,United States,5.93,laptop,0
+329,2024-04-05,Sara Lindqvist,Slow Mornings,Pop,Sweden,1.82,laptop,0
+330,2024-04-05,Northern Signal,Bright Avenue,Electronic,Norway,6.2,laptop,0
+331,2024-04-06,Casa Tropicana,Harbour Rooms,Latin,Cuba,3.82,laptop,0
+332,2024-04-06,Brannon Hill,Midnight Kitchen,Folk,Ireland,4.61,phone,0
+333,2024-04-06,The Slow Ferry,Bright Rooms,Indie,Ireland,3.38,phone,0
+334,2024-04-06,Nora Whitlock,Northern Machines,Pop,United States,5.14,phone,0
+335,2024-04-06,DJ Kompas,Hollow Radio,Electronic,Netherlands,5.4,car,0
+336,2024-04-07,Orquesta Bellavista,Quiet Wires,Latin,Colombia,3.92,phone,0
+337,2024-04-07,Northern Signal,Winter Wires,Electronic,Norway,7.41,phone,0
+338,2024-04-07,Selva Alta,Open Orbit,Latin,Peru,2.34,laptop,0
+339,2024-04-09,Hollow Pines,Salt Harbour,Folk,United States,4.22,car,0
+340,2024-04-09,DJ Kompas,Golden Weather,Electronic,Netherlands,4.68,phone,0
+341,2024-04-09,Sara Lindqvist,Slow Mornings,Pop,Sweden,0.6,car,1
+342,2024-04-09,The Slow Ferry,Amber Garden,Indie,Ireland,3.18,phone,0
+343,2024-04-10,The Quiet Wires,Harbour Orbit,Rock,United States,4.06,phone,0
+344,2024-04-10,Luz de Enero,Static Machines,Latin,Spain,0.4,phone,0
+345,2024-04-10,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,4.51,car,0
+346,2024-04-11,Kito Ndungu,Hollow Weather,Afrobeat,Kenya,0.34,phone,1
+347,2024-04-11,Glass Tram,Amber Ferry,Electronic,Germany,5.76,speaker,0
+348,2024-04-11,Cassette Revival,Golden Traffic,Indie,France,0.4,speaker,0
+349,2024-04-12,The Quiet Wires,Northern Tape,Rock,United States,3.84,car,0
+350,2024-04-12,Sara Lindqvist,Northern Radio,Pop,Sweden,2.12,phone,0
+351,2024-04-12,Rosewood Lane,Golden Garden,Folk,United Kingdom,1.08,speaker,0
+352,2024-04-12,Glass Tram,Broken Mornings,Electronic,Germany,4.2,laptop,0
+353,2024-04-13,Fjord & Flint,Summer Wires,Folk,Norway,5.27,laptop,0
+354,2024-04-13,Fjord & Flint,Northern Avenue,Folk,Norway,4.53,phone,0
+355,2024-04-13,The Long Commute,Midnight Radio,Indie,Netherlands,4.2,phone,0
+356,2024-04-13,Fjord & Flint,Open Orbit,Folk,Norway,5.78,speaker,0
+357,2024-04-14,Sara Lindqvist,Electric Weather,Pop,Sweden,3.07,phone,0
+358,2024-04-14,Glass Tram,Broken Mornings,Electronic,Germany,5.16,laptop,0
+359,2024-04-14,Salon Mécanique,Hollow Parade,Jazz,Belgium,8.96,speaker,0
+360,2024-04-14,Northern Signal,Golden Machines,Electronic,Norway,5.97,speaker,0
+361,2024-04-14,Sara Lindqvist,Midnight Orbit,Pop,Sweden,2.4,laptop,0
+362,2024-04-16,Sara Lindqvist,Quiet Harbour,Pop,Sweden,0.54,speaker,1
+363,2024-04-16,Northern Signal,Velvet Wires,Electronic,Norway,3.99,laptop,0
+364,2024-04-17,Brannon Hill,Quiet Ferry,Folk,Ireland,3.21,laptop,0
+365,2024-04-17,Sara Lindqvist,Northern Radio,Pop,Sweden,2.26,car,0
+366,2024-04-17,Kito Ndungu,Amber Kitchen,Afrobeat,Kenya,3.52,phone,0
+367,2024-04-18,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,7.55,laptop,0
+368,2024-04-18,Fjord & Flint,Golden Garden,Folk,Norway,3.07,car,0
+369,2024-04-18,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,5.99,phone,0
+370,2024-04-18,Casa Tropicana,Paper Orbit,Latin,Cuba,8.11,car,0
+371,2024-04-19,Static Meadow,Open Rooms,Rock,United States,3.85,speaker,0
+372,2024-04-19,Orquesta Bellavista,Iron Lines,Latin,Colombia,2.53,laptop,0
+373,2024-04-20,Glass Tram,Amber Ferry,Electronic,Germany,5.64,car,0
+374,2024-04-20,Mireille Basset,Midnight Traffic,Jazz,France,7.14,speaker,0
+375,2024-04-20,Fjord & Flint,Golden Garden,Folk,Norway,5.75,laptop,0
+376,2024-04-20,Orquesta Bellavista,Velvet Garden,Latin,Colombia,5.65,laptop,0
+377,2024-04-21,Sara Lindqvist,Quiet Harbour,Pop,Sweden,5.03,car,0
+378,2024-04-21,Fjord & Flint,Northern Avenue,Folk,Norway,3.08,phone,0
+379,2024-04-22,DJ Kompas,Hollow Radio,Electronic,Netherlands,6.7,speaker,0
+380,2024-04-22,Glass Tram,Broken Mornings,Electronic,Germany,5.58,phone,0
+381,2024-04-22,The Quiet Wires,Open Mornings,Rock,United States,2.99,phone,0
+382,2024-04-23,Fjord & Flint,Blue Ferry,Folk,Norway,3.65,laptop,0
+383,2024-04-23,Sara Lindqvist,Slow Mornings,Pop,Sweden,4.54,phone,0
+384,2024-04-25,Circuit Sparrow,Blue Kitchen,Electronic,Japan,0.24,phone,1
+385,2024-04-25,Casa Tropicana,Hollow Tape,Latin,Cuba,4.08,laptop,0
+386,2024-04-25,The Paper Kites Society,Hollow Letters,Indie,Australia,0.27,tablet,1
+387,2024-04-26,DJ Kompas,Quiet Orbit,Electronic,Netherlands,6.75,tablet,0
+388,2024-04-26,DJ Kompas,Quiet Orbit,Electronic,Netherlands,6.63,laptop,0
+389,2024-04-26,Fjord & Flint,Blue Traffic,Folk,Norway,0.44,car,1
+390,2024-04-27,Fjord & Flint,Summer Wires,Folk,Norway,5.75,phone,0
+391,2024-04-27,Static Meadow,Winter Mornings,Rock,United States,4.36,phone,0
+392,2024-04-27,Northern Signal,Winter Wires,Electronic,Norway,7.4,phone,0
+393,2024-04-27,Tundra Post,Paper Ferry,Electronic,Iceland,5.92,laptop,0
+394,2024-04-28,DJ Kompas,Golden Weather,Electronic,Netherlands,0.31,laptop,1
+395,2024-04-28,Sara Lindqvist,Midnight Orbit,Pop,Sweden,4.38,laptop,0
+396,2024-04-28,Sara Lindqvist,Golden Harbour,Pop,Sweden,3.57,laptop,0
+397,2024-04-28,Yuki Tanaka Trio,Harbour Season,Jazz,Japan,0.59,speaker,1
+398,2024-04-28,Fjord & Flint,Golden Garden,Folk,Norway,5.14,phone,0
+399,2024-04-29,Glass Tram,Amber Ferry,Electronic,Germany,7.87,phone,0
+400,2024-04-29,Luz de Enero,Harbour Season,Latin,Spain,4.53,phone,0
+401,2024-04-29,Neon Harbour,Paper Ferry,Electronic,Netherlands,3.8,phone,0
+402,2024-04-29,Glass Tram,Amber Ferry,Electronic,Germany,7.73,phone,0
+403,2024-04-30,The Slow Ferry,Velvet Season,Indie,Ireland,4.08,phone,0
+404,2024-04-30,Sara Lindqvist,Midnight Orbit,Pop,Sweden,5.02,phone,0
+405,2024-04-30,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,0.77,phone,1
+406,2024-05-01,Fjord & Flint,Summer Wires,Folk,Norway,2.87,laptop,0
+407,2024-05-01,Northern Signal,Bright Avenue,Electronic,Norway,5.65,speaker,0
+408,2024-05-01,Selva Alta,Open Orbit,Latin,Peru,3.84,laptop,0
+409,2024-05-01,Glass Tram,Broken Lines,Electronic,Germany,4.96,phone,0
+410,2024-05-02,Brannon Hill,Bright Mornings,Folk,Ireland,4.32,phone,0
+411,2024-05-02,The Tuesday Club,Broken Harbour,Pop,United Kingdom,4.74,speaker,0
+412,2024-05-02,Sara Lindqvist,Quiet Harbour,Pop,Sweden,4.38,tablet,0
+413,2024-05-03,Glass Tram,Salt Lines,Electronic,Germany,5.96,phone,0
+414,2024-05-03,Glass Tram,Broken Lines,Electronic,Germany,6.78,phone,0
+415,2024-05-03,Glass Tram,Broken Lines,Electronic,Germany,6.96,phone,0
+416,2024-05-03,Fjord & Flint,Golden Garden,Folk,Norway,5.22,phone,0
+417,2024-05-04,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,5.02,car,0
+418,2024-05-04,Kito Ndungu,Hollow Machines,Afrobeat,Kenya,6.21,phone,0
+419,2024-05-04,Mireille Basset,Static Signal,Jazz,France,9.03,phone,0
+420,2024-05-04,Selva Alta,Amber Mornings,Latin,Peru,5.64,speaker,0
+421,2024-05-06,Sara Lindqvist,Electric Weather,Pop,Sweden,2.97,phone,0
+422,2024-05-06,Hollow Pines,Salt Harbour,Folk,United States,3.85,phone,0
+423,2024-05-06,Sara Lindqvist,Golden Harbour,Pop,Sweden,4.53,speaker,0
+424,2024-05-06,Fjord & Flint,Midnight Kitchen,Folk,Norway,2.58,phone,0
+425,2024-05-06,DJ Kompas,Paper Signal,Electronic,Netherlands,6.0,phone,0
+426,2024-05-06,Glass Tram,Broken Mornings,Electronic,Germany,6.27,phone,0
+427,2024-05-07,DJ Kompas,Golden Weather,Electronic,Netherlands,6.31,phone,0
+428,2024-05-07,The Paper Kites Society,Harbour Rooms,Indie,Australia,1.03,phone,1
+429,2024-05-07,Marta Oliveira,Static Wires,Jazz,Portugal,1.39,car,1
+430,2024-05-07,Hollow Pines,Winter Traffic,Folk,United States,4.91,phone,0
+431,2024-05-07,DJ Kompas,Quiet Orbit,Electronic,Netherlands,6.78,laptop,0
+432,2024-05-07,Glass Tram,Broken Lines,Electronic,Germany,5.14,phone,0
+433,2024-05-08,Casa Tropicana,Golden Harbour,Latin,Cuba,3.29,car,0
+434,2024-05-08,Fjord & Flint,Northern Avenue,Folk,Norway,3.68,phone,0
+435,2024-05-09,Yuki Tanaka Trio,Golden Machines,Jazz,Japan,5.56,phone,0
+436,2024-05-09,Sara Lindqvist,Electric Weather,Pop,Sweden,0.82,phone,0
+437,2024-05-09,Fjord & Flint,Blue Ferry,Folk,Norway,5.32,phone,0
+438,2024-05-09,The Paper Kites Society,Electric Radio,Indie,Australia,2.39,phone,0
+439,2024-05-10,Brannon Hill,Static Weather,Folk,Ireland,2.16,phone,0
+440,2024-05-10,Basement Cartography,Velvet Kitchen,Indie,Canada,0.98,laptop,1
+441,2024-05-10,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,2.31,laptop,0
+442,2024-05-11,Basement Cartography,Iron Traffic,Indie,Canada,1.08,phone,1
+443,2024-05-11,Bright Utility,Winter Window,Indie,United Kingdom,1.98,laptop,0
+444,2024-05-12,Neon Harbour,Paper Ferry,Electronic,Netherlands,6.42,car,0
+445,2024-05-12,Basement Cartography,Iron Traffic,Indie,Canada,7.62,laptop,0
+446,2024-05-12,The Slow Ferry,Amber Garden,Indie,Ireland,0.95,phone,1
+447,2024-05-13,Selva Alta,Electric Letters,Latin,Peru,3.15,speaker,0
+448,2024-05-13,Nora Whitlock,Northern Machines,Pop,United States,0.31,laptop,1
+449,2024-05-13,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,4.22,phone,0
+450,2024-05-13,Static Meadow,Paper Parade,Rock,United States,3.08,speaker,0
+451,2024-05-14,Fjord & Flint,Blue Ferry,Folk,Norway,0.57,laptop,1
+452,2024-05-15,Selva Alta,Electric Letters,Latin,Peru,4.92,speaker,0
+453,2024-05-15,Glass Tram,Amber Ferry,Electronic,Germany,6.83,phone,0
+454,2024-05-15,Sara Lindqvist,Quiet Harbour,Pop,Sweden,5.05,laptop,0
+455,2024-05-16,Sara Lindqvist,Golden Harbour,Pop,Sweden,4.14,speaker,0
+456,2024-05-16,Cassette Revival,Paper Lines,Indie,France,1.89,phone,0
+457,2024-05-16,Casa Tropicana,Harbour Rooms,Latin,Cuba,4.03,phone,0
+458,2024-05-16,Brannon Hill,Northern Machines,Folk,Ireland,5.3,car,0
+459,2024-05-17,Basement Cartography,Broken Kitchen,Indie,Canada,2.52,laptop,0
+460,2024-05-17,Luz de Enero,Northern Ferry,Latin,Spain,2.6,speaker,0
+461,2024-05-18,DJ Kompas,Paper Rooms,Electronic,Netherlands,6.19,car,0
+462,2024-05-18,Static Meadow,Northern Avenue,Rock,United States,0.25,car,1
+463,2024-05-18,DJ Kompas,Quiet Orbit,Electronic,Netherlands,8.4,phone,0
+464,2024-05-18,Pale Cartography,Open Orbit,Folk,Canada,3.8,phone,0
+465,2024-05-20,Brannon Hill,Quiet Ferry,Folk,Ireland,5.65,phone,0
+466,2024-05-20,Selva Alta,Harbour Orbit,Latin,Peru,4.04,phone,0
+467,2024-05-20,Brannon Hill,Midnight Kitchen,Folk,Ireland,1.51,phone,1
+468,2024-05-21,Static Meadow,Winter Mornings,Rock,United States,5.33,laptop,0
+469,2024-05-21,Bright Utility,Broken Machines,Indie,United Kingdom,8.1,speaker,0
+470,2024-05-22,Static Meadow,Amber Tape,Rock,United States,1.01,laptop,1
+471,2024-05-22,Kito Ndungu,Northern Rooms,Afrobeat,Kenya,1.57,phone,0
+472,2024-05-23,Fjord & Flint,Blue Traffic,Folk,Norway,4.94,laptop,0
+473,2024-05-23,Northern Signal,Amber Lines,Electronic,Norway,7.67,laptop,0
+474,2024-05-23,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,3.95,phone,0
+475,2024-05-23,Marta Oliveira,Electric Mornings,Jazz,Portugal,6.33,speaker,0
+476,2024-05-23,Sara Lindqvist,Quiet Harbour,Pop,Sweden,4.66,speaker,0
+477,2024-05-24,Salon Mécanique,Bright Window,Jazz,Belgium,5.4,laptop,0
+478,2024-05-24,Pale Cartography,Open Season,Folk,Canada,2.32,phone,0
+479,2024-05-24,Fjord & Flint,Golden Garden,Folk,Norway,3.05,phone,0
+480,2024-05-25,Rosewood Lane,Paper Mornings,Folk,United Kingdom,2.48,laptop,0
+481,2024-05-25,Hollow Pines,Winter Traffic,Folk,United States,0.78,laptop,0
+482,2024-05-25,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,1.55,phone,0
+483,2024-05-26,Pale Cartography,Bright Tape,Folk,Canada,2.94,phone,0
+484,2024-05-26,Marta Oliveira,Electric Window,Jazz,Portugal,6.44,phone,0
+485,2024-05-26,Pale Cartography,Open Season,Folk,Canada,3.3,phone,0
+486,2024-05-26,DJ Kompas,Electric Mornings,Electronic,Netherlands,6.98,phone,0
+487,2024-05-26,Brannon Hill,Quiet Ferry,Folk,Ireland,3.83,laptop,0
+488,2024-05-26,Mireille Basset,Harbour Machines,Jazz,France,7.88,phone,0
+489,2024-05-26,Glass Tram,Salt Lines,Electronic,Germany,3.27,phone,0
+490,2024-05-27,The Quiet Wires,Quiet Rooms,Rock,United States,4.21,phone,0
+491,2024-05-28,Glass Tram,Salt Lines,Electronic,Germany,4.61,phone,0
+492,2024-05-28,Glass Tram,Broken Mornings,Electronic,Germany,8.04,phone,0
+493,2024-05-29,The Quiet Wires,Quiet Machines,Rock,United States,4.48,laptop,0
+494,2024-05-29,The Tuesday Club,Salt Wires,Pop,United Kingdom,0.56,car,1
+495,2024-05-29,Brannon Hill,Static Weather,Folk,Ireland,4.42,phone,0
+496,2024-05-30,Luz de Enero,Static Traffic,Latin,Spain,4.72,laptop,0
+497,2024-05-30,DJ Kompas,Golden Weather,Electronic,Netherlands,2.05,laptop,0
+498,2024-05-30,DJ Kompas,Paper Signal,Electronic,Netherlands,5.72,speaker,0
+499,2024-05-30,The Quiet Wires,Quiet Rooms,Rock,United States,0.76,laptop,0
+500,2024-05-30,Marta Oliveira,Paper Avenue,Jazz,Portugal,8.18,speaker,0
+501,2024-05-31,Northern Signal,Amber Rooms,Electronic,Norway,4.32,phone,0
+502,2024-05-31,Mango Static,Static Lines,Latin,Brazil,4.05,speaker,0
+503,2024-05-31,Sara Lindqvist,Midnight Orbit,Pop,Sweden,5.46,phone,0
+504,2024-05-31,Brannon Hill,Midnight Kitchen,Folk,Ireland,3.15,phone,0
+505,2024-05-31,Static Meadow,Amber Tape,Rock,United States,3.28,laptop,0
+506,2024-05-31,DJ Kompas,Electric Mornings,Electronic,Netherlands,7.3,speaker,0
+507,2024-06-01,Fjord & Flint,Blue Ferry,Folk,Norway,6.16,phone,0
+508,2024-06-02,Fjord & Flint,Northern Avenue,Folk,Norway,3.67,phone,0
+509,2024-06-02,Sara Lindqvist,Quiet Harbour,Pop,Sweden,3.49,phone,0
+510,2024-06-02,The Slow Ferry,Amber Garden,Indie,Ireland,2.86,phone,0
+511,2024-06-02,Northern Signal,Electric Avenue,Electronic,Norway,8.62,phone,0
+512,2024-06-03,Glass Tram,Broken Lines,Electronic,Germany,3.79,laptop,0
+513,2024-06-03,Sara Lindqvist,Midnight Orbit,Pop,Sweden,6.16,laptop,0
+514,2024-06-04,Luz de Enero,Paper Window,Latin,Spain,3.4,car,0
+515,2024-06-04,Hertz Garden,Blue Harbour,Electronic,Germany,7.33,phone,0
+516,2024-06-05,DJ Kompas,Paper Signal,Electronic,Netherlands,5.68,laptop,0
+517,2024-06-05,Sara Lindqvist,Quiet Harbour,Pop,Sweden,0.72,tablet,1
+518,2024-06-06,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,5.03,car,0
+519,2024-06-06,Brannon Hill,Electric Parade,Folk,Ireland,2.83,car,0
+520,2024-06-06,DJ Kompas,Midnight Weather,Electronic,Netherlands,5.64,speaker,0
+521,2024-06-07,Basement Cartography,Broken Kitchen,Indie,Canada,1.06,laptop,0
+522,2024-06-08,Kito Ndungu,Northern Rooms,Afrobeat,Kenya,2.11,laptop,0
+523,2024-06-08,Fjord & Flint,Blue Traffic,Folk,Norway,5.64,laptop,0
+524,2024-06-09,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,0.6,phone,1
+525,2024-06-10,Bright Utility,Broken Machines,Indie,United Kingdom,2.28,speaker,0
+526,2024-06-10,Glass Tram,Amber Ferry,Electronic,Germany,7.77,phone,0
+527,2024-06-10,DJ Kompas,Golden Weather,Electronic,Netherlands,6.93,phone,0
+528,2024-06-10,Sara Lindqvist,Slow Mornings,Pop,Sweden,4.13,phone,0
+529,2024-06-10,Sara Lindqvist,Slow Mornings,Pop,Sweden,2.44,car,0
+530,2024-06-11,The Tuesday Club,Broken Harbour,Pop,United Kingdom,4.33,laptop,0
+531,2024-06-12,The Quiet Wires,Quiet Rooms,Rock,United States,1.19,speaker,1
+532,2024-06-12,Luz de Enero,Velvet Harbour,Latin,Spain,5.12,phone,0
+533,2024-06-13,Luz de Enero,Northern Ferry,Latin,Spain,3.04,laptop,0
+534,2024-06-13,Luz de Enero,Static Machines,Latin,Spain,2.86,laptop,0
+535,2024-06-13,Glass Tram,Amber Ferry,Electronic,Germany,5.61,speaker,0
+536,2024-06-14,Yuki Tanaka Trio,Winter Parade,Jazz,Japan,1.32,laptop,1
+537,2024-06-14,Fjord & Flint,Open Orbit,Folk,Norway,1.04,phone,1
+538,2024-06-14,Fjord & Flint,Open Orbit,Folk,Norway,0.91,laptop,1
+539,2024-06-14,Basement Cartography,Iron Traffic,Indie,Canada,0.52,speaker,1
+540,2024-06-15,The Quiet Wires,Golden Wires,Rock,United States,2.91,speaker,0
+541,2024-06-15,Pale Cartography,Winter Weather,Folk,Canada,0.72,phone,1
+542,2024-06-15,The Tuesday Club,Broken Harbour,Pop,United Kingdom,5.26,tablet,0
+543,2024-06-15,The Slow Ferry,Velvet Season,Indie,Ireland,3.68,laptop,0
+544,2024-06-15,DJ Kompas,Electric Mornings,Electronic,Netherlands,7.87,phone,0
+545,2024-06-17,Velvet Aqueduct,Velvet Ferry,Rock,Italy,7.53,speaker,0
+546,2024-06-17,Fjord & Flint,Northern Avenue,Folk,Norway,5.14,phone,0
+547,2024-06-17,Sara Lindqvist,Slow Mornings,Pop,Sweden,3.58,laptop,0
+548,2024-06-19,Glass Tram,Broken Lines,Electronic,Germany,6.96,tablet,0
+549,2024-06-19,Kito Ndungu,Hollow Weather,Afrobeat,Kenya,4.88,tablet,0
+550,2024-06-19,Glass Tram,Broken Lines,Electronic,Germany,6.78,phone,0
+551,2024-06-19,Sara Lindqvist,Slow Mornings,Pop,Sweden,4.69,laptop,0
+552,2024-06-19,Glass Tram,Salt Lines,Electronic,Germany,5.76,laptop,0
+553,2024-06-20,Fjord & Flint,Northern Avenue,Folk,Norway,6.85,speaker,0
+554,2024-06-20,Sara Lindqvist,Broken Kitchen,Pop,Sweden,0.39,phone,1
+555,2024-06-20,Sara Lindqvist,Slow Mornings,Pop,Sweden,3.71,speaker,0
+556,2024-06-21,Rosewood Lane,Amber Signal,Folk,United Kingdom,4.88,laptop,0
+557,2024-06-22,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,2.45,phone,0
+558,2024-06-22,The Long Commute,Broken Orbit,Indie,Netherlands,0.3,car,1
+559,2024-06-24,Static Meadow,Paper Parade,Rock,United States,5.45,phone,0
+560,2024-06-24,Glass Tram,Salt Lines,Electronic,Germany,3.96,phone,0
+561,2024-06-24,The Paper Kites Society,Electric Radio,Indie,Australia,2.95,tablet,0
+562,2024-06-25,Selva Alta,Harbour Lines,Latin,Peru,3.84,phone,0
+563,2024-06-25,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,5.21,phone,0
+564,2024-06-25,Brannon Hill,Electric Parade,Folk,Ireland,5.72,phone,0
+565,2024-06-26,Brannon Hill,Static Weather,Folk,Ireland,0.4,car,0
+566,2024-06-26,Basement Cartography,Iron Traffic,Indie,Canada,5.42,speaker,0
+567,2024-06-26,The Slow Ferry,Bright Rooms,Indie,Ireland,4.23,tablet,0
+568,2024-06-26,The Quiet Wires,Harbour Orbit,Rock,United States,6.79,phone,0
+569,2024-06-27,Sara Lindqvist,Northern Radio,Pop,Sweden,4.31,speaker,0
+570,2024-06-27,Sara Lindqvist,Northern Radio,Pop,Sweden,0.15,speaker,1
+571,2024-06-27,Pale Cartography,Open Season,Folk,Canada,3.82,tablet,0
+572,2024-06-27,Rosewood Lane,Summer Signal,Folk,United Kingdom,1.34,laptop,0
+573,2024-06-27,Pale Cartography,Open Season,Folk,Canada,5.01,laptop,0
+574,2024-06-28,Brannon Hill,Quiet Ferry,Folk,Ireland,2.95,phone,0
+575,2024-06-29,Sara Lindqvist,Golden Harbour,Pop,Sweden,6.16,phone,0
+576,2024-06-29,Marta Oliveira,Static Wires,Jazz,Portugal,7.31,car,0
+577,2024-06-30,Fjord & Flint,Open Orbit,Folk,Norway,6.24,phone,0
+578,2024-06-30,Fjord & Flint,Blue Ferry,Folk,Norway,3.57,phone,0
+579,2024-06-30,Salon Mécanique,Golden Tape,Jazz,Belgium,7.88,phone,0
+580,2024-06-30,Glass Tram,Salt Lines,Electronic,Germany,6.96,phone,0
+581,2024-07-01,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,4.02,speaker,0
+582,2024-07-01,DJ Kompas,Golden Weather,Electronic,Netherlands,3.59,phone,0
+583,2024-07-01,Basement Cartography,Summer Orbit,Indie,Canada,3.06,tablet,0
+584,2024-07-02,Fjord & Flint,Blue Avenue,Folk,Norway,3.28,phone,0
+585,2024-07-02,Northern Signal,Velvet Wires,Electronic,Norway,5.85,tablet,0
+586,2024-07-02,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,4.47,speaker,0
+587,2024-07-02,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,5.75,phone,0
+588,2024-07-02,Yuki Tanaka Trio,Northern Window,Jazz,Japan,4.44,speaker,0
+589,2024-07-03,Glass Tram,Broken Lines,Electronic,Germany,4.73,phone,0
+590,2024-07-03,Glass Tram,Broken Lines,Electronic,Germany,3.46,phone,0
+591,2024-07-04,The Quiet Wires,Golden Season,Rock,United States,4.89,phone,0
+592,2024-07-05,Glass Tram,Amber Ferry,Electronic,Germany,1.4,laptop,1
+593,2024-07-05,Nora Whitlock,Golden Tape,Pop,United States,3.52,speaker,0
+594,2024-07-06,DJ Kompas,Quiet Orbit,Electronic,Netherlands,6.82,phone,0
+595,2024-07-06,Static Meadow,Open Rooms,Rock,United States,5.46,speaker,0
+596,2024-07-06,Sara Lindqvist,Quiet Harbour,Pop,Sweden,4.87,phone,0
+597,2024-07-08,Sara Lindqvist,Quiet Harbour,Pop,Sweden,3.39,phone,0
+598,2024-07-08,Fjord & Flint,Blue Traffic,Folk,Norway,4.07,phone,0
+599,2024-07-10,Luz de Enero,Northern Ferry,Latin,Spain,3.98,phone,0
+600,2024-07-10,Basement Cartography,Summer Orbit,Indie,Canada,3.45,car,0
+601,2024-07-10,Mireille Basset,Harbour Machines,Jazz,France,8.27,phone,0
+602,2024-07-10,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,1.23,laptop,0
+603,2024-07-12,Casa Tropicana,Hollow Tape,Latin,Cuba,2.8,car,0
+604,2024-07-13,The Paper Kites Society,Hollow Letters,Indie,Australia,4.79,laptop,0
+605,2024-07-14,Sara Lindqvist,Midnight Orbit,Pop,Sweden,2.95,laptop,0
+606,2024-07-14,The Slow Ferry,Amber Mornings,Indie,Ireland,4.08,phone,0
+607,2024-07-14,Fjord & Flint,Blue Ferry,Folk,Norway,2.21,laptop,0
+608,2024-07-15,Kito Ndungu,Salt Ferry,Afrobeat,Kenya,5.12,phone,0
+609,2024-07-15,Luz de Enero,Paper Window,Latin,Spain,3.26,phone,0
+610,2024-07-16,Nora Whitlock,Northern Machines,Pop,United States,3.33,phone,0
+611,2024-07-17,Fjord & Flint,Open Orbit,Folk,Norway,0.73,laptop,1
+612,2024-07-17,Sara Lindqvist,Broken Kitchen,Pop,Sweden,3.66,phone,0
+613,2024-07-18,Pale Cartography,Open Season,Folk,Canada,8.05,car,0
+614,2024-07-18,Kito Ndungu,Northern Rooms,Afrobeat,Kenya,0.38,speaker,1
+615,2024-07-18,Rosewood Lane,Golden Garden,Folk,United Kingdom,4.09,laptop,0
+616,2024-07-19,DJ Kompas,Golden Weather,Electronic,Netherlands,3.81,phone,0
+617,2024-07-19,Sara Lindqvist,Summer Tape,Pop,Sweden,2.17,phone,0
+618,2024-07-19,Sara Lindqvist,Summer Tape,Pop,Sweden,4.78,speaker,0
+619,2024-07-19,Hollow Pines,Midnight Harbour,Folk,United States,7.28,phone,0
+620,2024-07-20,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,5.04,phone,0
+621,2024-07-20,Orquesta Bellavista,Open Orbit,Latin,Colombia,0.45,phone,1
+622,2024-07-21,Basement Cartography,Summer Orbit,Indie,Canada,4.56,phone,0
+623,2024-07-22,Hollow Pines,Midnight Harbour,Folk,United States,2.37,phone,0
+624,2024-07-22,The Quiet Wires,Quiet Rooms,Rock,United States,5.67,phone,0
+625,2024-07-23,DJ Kompas,Paper Rooms,Electronic,Netherlands,5.37,laptop,0
+626,2024-07-23,Static Meadow,Static Signal,Rock,United States,4.42,laptop,0
+627,2024-07-24,Brannon Hill,Bright Mornings,Folk,Ireland,6.58,phone,0
+628,2024-07-24,The Paper Kites Society,Harbour Rooms,Indie,Australia,4.77,speaker,0
+629,2024-07-24,Sara Lindqvist,Golden Harbour,Pop,Sweden,3.57,laptop,0
+630,2024-07-25,Glass Tram,Broken Lines,Electronic,Germany,6.13,laptop,0
+631,2024-07-25,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,4.44,laptop,0
+632,2024-07-26,Basement Cartography,Blue Mornings,Indie,Canada,3.04,phone,0
+633,2024-07-26,Orquesta Bellavista,Open Orbit,Latin,Colombia,4.7,phone,0
+634,2024-07-27,Fjord & Flint,Northern Avenue,Folk,Norway,0.79,phone,1
+635,2024-07-27,Mango Static,Hollow Parade,Latin,Brazil,3.85,tablet,0
+636,2024-07-28,Cassette Revival,Salt Season,Indie,France,0.52,phone,1
+637,2024-07-28,Fjord & Flint,Open Orbit,Folk,Norway,2.05,phone,0
+638,2024-07-29,Sara Lindqvist,Broken Kitchen,Pop,Sweden,2.21,phone,0
+639,2024-07-30,Yuki Tanaka Trio,Harbour Season,Jazz,Japan,1.3,speaker,1
+640,2024-07-30,Fjord & Flint,Golden Garden,Folk,Norway,4.73,phone,0
+641,2024-07-31,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,5.55,phone,0
+642,2024-08-01,Fjord & Flint,Open Orbit,Folk,Norway,3.71,phone,0
+643,2024-08-02,Sara Lindqvist,Broken Kitchen,Pop,Sweden,6.28,phone,0
+644,2024-08-03,Casa Tropicana,Blue Machines,Latin,Cuba,5.18,phone,0
+645,2024-08-03,Glass Tram,Broken Mornings,Electronic,Germany,6.38,tablet,0
+646,2024-08-03,Glass Tram,Broken Lines,Electronic,Germany,4.9,speaker,0
+647,2024-08-03,Northern Signal,Golden Machines,Electronic,Norway,5.32,car,0
+648,2024-08-05,DJ Kompas,Golden Weather,Electronic,Netherlands,5.49,laptop,0
+649,2024-08-05,Static Meadow,Paper Parade,Rock,United States,1.66,phone,0
+650,2024-08-05,Yuki Tanaka Trio,Golden Window,Jazz,Japan,0.89,laptop,1
+651,2024-08-05,Yuki Tanaka Trio,Harbour Season,Jazz,Japan,10.96,laptop,0
+652,2024-08-06,Sara Lindqvist,Slow Mornings,Pop,Sweden,6.95,phone,0
+653,2024-08-06,DJ Kompas,Paper Signal,Electronic,Netherlands,5.5,phone,0
+654,2024-08-07,Sara Lindqvist,Quiet Harbour,Pop,Sweden,6.44,phone,0
+655,2024-08-07,Glass Tram,Amber Ferry,Electronic,Germany,6.67,phone,0
+656,2024-08-08,Sara Lindqvist,Northern Radio,Pop,Sweden,0.59,speaker,1
+657,2024-08-08,Glass Tram,Amber Ferry,Electronic,Germany,8.09,phone,0
+658,2024-08-08,Glass Tram,Salt Lines,Electronic,Germany,4.65,phone,0
+659,2024-08-08,Glass Tram,Amber Ferry,Electronic,Germany,5.81,phone,0
+660,2024-08-09,Fjord & Flint,Midnight Kitchen,Folk,Norway,5.6,car,0
+661,2024-08-10,Luz de Enero,Harbour Season,Latin,Spain,0.24,phone,1
+662,2024-08-11,Glass Tram,Salt Lines,Electronic,Germany,5.52,phone,0
+663,2024-08-11,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,2.98,laptop,0
+664,2024-08-11,Fjord & Flint,Blue Avenue,Folk,Norway,5.76,phone,0
+665,2024-08-12,Sara Lindqvist,Slow Mornings,Pop,Sweden,6.25,speaker,0
+666,2024-08-12,Glass Tram,Broken Lines,Electronic,Germany,6.24,phone,0
+667,2024-08-12,Amara Diallo,Harbour Parade,Afrobeat,Senegal,6.52,phone,0
+668,2024-08-12,Kito Ndungu,Amber Kitchen,Afrobeat,Kenya,4.97,laptop,0
+669,2024-08-13,Fjord & Flint,Blue Avenue,Folk,Norway,4.85,phone,0
+670,2024-08-13,Sara Lindqvist,Electric Weather,Pop,Sweden,3.91,laptop,0
+671,2024-08-14,The Slow Ferry,Iron Weather,Indie,Ireland,0.51,speaker,0
+672,2024-08-14,The Slow Ferry,Iron Weather,Indie,Ireland,5.71,phone,0
+673,2024-08-14,Yuki Tanaka Trio,Winter Parade,Jazz,Japan,8.1,phone,0
+674,2024-08-15,Fjord & Flint,Midnight Kitchen,Folk,Norway,3.67,car,0
+675,2024-08-15,Sara Lindqvist,Slow Mornings,Pop,Sweden,3.7,phone,0
+676,2024-08-15,Fjord & Flint,Summer Wires,Folk,Norway,3.56,phone,0
+677,2024-08-16,The Paper Kites Society,Hollow Letters,Indie,Australia,0.21,laptop,1
+678,2024-08-16,Glass Tram,Broken Lines,Electronic,Germany,0.93,laptop,1
+679,2024-08-16,Sara Lindqvist,Electric Weather,Pop,Sweden,5.88,phone,0
+680,2024-08-16,DJ Kompas,Electric Mornings,Electronic,Netherlands,4.84,phone,0
+681,2024-08-17,Marta Oliveira,Paper Avenue,Jazz,Portugal,8.54,phone,0
+682,2024-08-18,Hollow Pines,Amber Lines,Folk,United States,2.71,speaker,0
+683,2024-08-18,Basement Cartography,Summer Orbit,Indie,Canada,3.99,phone,0
+684,2024-08-18,Mireille Basset,Midnight Traffic,Jazz,France,7.9,phone,0
+685,2024-08-19,Fjord & Flint,Summer Wires,Folk,Norway,4.19,car,0
+686,2024-08-20,Nora Whitlock,Golden Tape,Pop,United States,4.3,laptop,0
+687,2024-08-20,Selva Alta,Electric Letters,Latin,Peru,3.39,phone,0
+688,2024-08-20,Sara Lindqvist,Northern Radio,Pop,Sweden,1.97,phone,0
+689,2024-08-21,Yuki Tanaka Trio,Winter Parade,Jazz,Japan,6.25,phone,0
+690,2024-08-21,Selva Alta,Harbour Lines,Latin,Peru,0.77,laptop,1
+691,2024-08-22,Glass Tram,Broken Mornings,Electronic,Germany,5.85,phone,0
+692,2024-08-25,Bright Utility,Winter Window,Indie,United Kingdom,3.02,laptop,0
+693,2024-08-26,DJ Kompas,Paper Signal,Electronic,Netherlands,1.56,speaker,1
+694,2024-08-26,Basement Cartography,Blue Mornings,Indie,Canada,3.48,car,0
+695,2024-08-26,Sara Lindqvist,Broken Kitchen,Pop,Sweden,4.65,phone,0
+696,2024-08-26,DJ Kompas,Electric Mornings,Electronic,Netherlands,0.58,phone,1
+697,2024-08-27,Fjord & Flint,Blue Avenue,Folk,Norway,0.22,phone,1
+698,2024-08-27,Fjord & Flint,Summer Wires,Folk,Norway,0.77,phone,1
+699,2024-08-27,Sara Lindqvist,Broken Kitchen,Pop,Sweden,0.19,phone,1
+700,2024-08-28,Sara Lindqvist,Golden Harbour,Pop,Sweden,2.53,car,0
+701,2024-08-28,Basement Cartography,Broken Kitchen,Indie,Canada,2.2,laptop,0
+702,2024-08-28,DJ Kompas,Electric Mornings,Electronic,Netherlands,4.68,car,0
+703,2024-08-28,DJ Kompas,Midnight Weather,Electronic,Netherlands,4.13,phone,0
+704,2024-08-28,Brannon Hill,Bright Mornings,Folk,Ireland,3.23,phone,0
+705,2024-08-30,DJ Kompas,Midnight Weather,Electronic,Netherlands,7.62,phone,0
+706,2024-08-30,Hertz Garden,Blue Harbour,Electronic,Germany,7.25,laptop,0
+707,2024-08-31,Brannon Hill,Northern Machines,Folk,Ireland,2.93,phone,0
+708,2024-09-01,Kito Ndungu,Northern Rooms,Afrobeat,Kenya,3.18,phone,0
+709,2024-09-01,Rosewood Lane,Slow Rooms,Folk,United Kingdom,3.43,tablet,0
+710,2024-09-02,Brannon Hill,Northern Machines,Folk,Ireland,4.52,speaker,0
+711,2024-09-02,DJ Kompas,Golden Weather,Electronic,Netherlands,7.42,laptop,0
+712,2024-09-02,Basement Cartography,Velvet Kitchen,Indie,Canada,4.78,phone,0
+713,2024-09-02,Glass Tram,Broken Lines,Electronic,Germany,4.09,phone,0
+714,2024-09-02,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,2.85,speaker,0
+715,2024-09-02,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,3.71,phone,0
+716,2024-09-02,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,1.68,tablet,0
+717,2024-09-03,The Paper Kites Society,Electric Radio,Indie,Australia,1.3,phone,0
+718,2024-09-03,Mireille Basset,Static Signal,Jazz,France,0.69,phone,1
+719,2024-09-03,Fjord & Flint,Golden Garden,Folk,Norway,3.38,phone,0
+720,2024-09-03,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,2.64,laptop,0
+721,2024-09-04,Sara Lindqvist,Midnight Orbit,Pop,Sweden,2.82,phone,0
+722,2024-09-04,Glass Tram,Broken Mornings,Electronic,Germany,1.5,speaker,1
+723,2024-09-04,The Quiet Wires,Golden Wires,Rock,United States,3.11,phone,0
+724,2024-09-04,Northern Signal,Electric Avenue,Electronic,Norway,7.64,car,0
+725,2024-09-05,Sara Lindqvist,Quiet Harbour,Pop,Sweden,1.86,laptop,0
+726,2024-09-05,The Long Commute,Midnight Weather,Indie,Netherlands,5.45,phone,0
+727,2024-09-05,Sara Lindqvist,Summer Tape,Pop,Sweden,3.88,phone,0
+728,2024-09-05,Fjord & Flint,Midnight Kitchen,Folk,Norway,0.4,phone,0
+729,2024-09-05,DJ Kompas,Hollow Radio,Electronic,Netherlands,0.53,phone,1
+730,2024-09-05,Fjord & Flint,Open Orbit,Folk,Norway,4.4,tablet,0
+731,2024-09-06,Glass Tram,Broken Lines,Electronic,Germany,7.32,phone,0
+732,2024-09-06,Glass Tram,Salt Lines,Electronic,Germany,4.94,phone,0
+733,2024-09-06,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,3.18,speaker,0
+734,2024-09-06,Glass Tram,Salt Lines,Electronic,Germany,6.4,phone,0
+735,2024-09-06,Mireille Basset,Static Signal,Jazz,France,7.45,tablet,0
+736,2024-09-06,Fjord & Flint,Broken Radio,Folk,Norway,3.85,phone,0
+737,2024-09-06,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,3.46,laptop,0
+738,2024-09-06,The Paper Kites Society,Velvet Wires,Indie,Australia,0.51,tablet,1
+739,2024-09-07,Basement Cartography,Summer Orbit,Indie,Canada,2.57,phone,0
+740,2024-09-07,Glass Tram,Amber Ferry,Electronic,Germany,5.46,phone,0
+741,2024-09-07,Luz de Enero,Northern Ferry,Latin,Spain,6.06,phone,0
+742,2024-09-07,The Quiet Wires,Quiet Machines,Rock,United States,4.8,phone,0
+743,2024-09-08,DJ Kompas,Midnight Weather,Electronic,Netherlands,6.12,tablet,0
+744,2024-09-08,Yuki Tanaka Trio,Harbour Season,Jazz,Japan,8.72,laptop,0
+745,2024-09-09,Bright Utility,Salt Season,Indie,United Kingdom,4.56,speaker,0
+746,2024-09-10,Fjord & Flint,Blue Ferry,Folk,Norway,6.67,phone,0
+747,2024-09-10,Fjord & Flint,Blue Traffic,Folk,Norway,2.54,laptop,0
+748,2024-09-11,Marta Oliveira,Electric Window,Jazz,Portugal,6.17,phone,0
+749,2024-09-12,Rosewood Lane,Golden Garden,Folk,United Kingdom,4.28,laptop,0
+750,2024-09-13,Static Meadow,Amber Tape,Rock,United States,2.51,car,0
+751,2024-09-13,Fjord & Flint,Midnight Kitchen,Folk,Norway,0.32,car,1
+752,2024-09-13,DJ Kompas,Hollow Radio,Electronic,Netherlands,4.91,phone,0
+753,2024-09-14,Bright Utility,Broken Machines,Indie,United Kingdom,3.64,phone,0
+754,2024-09-14,Fjord & Flint,Blue Ferry,Folk,Norway,5.04,speaker,0
+755,2024-09-15,The Paper Kites Society,Electric Lines,Indie,Australia,3.19,speaker,0
+756,2024-09-15,Kito Ndungu,Salt Ferry,Afrobeat,Kenya,3.77,speaker,0
+757,2024-09-15,Glass Tram,Amber Ferry,Electronic,Germany,5.65,car,0
+758,2024-09-16,The Paper Kites Society,Electric Radio,Indie,Australia,1.18,speaker,0
+759,2024-09-16,Hollow Pines,Winter Traffic,Folk,United States,5.22,phone,0
+760,2024-09-16,Fjord & Flint,Blue Traffic,Folk,Norway,5.15,speaker,0
+761,2024-09-16,Orquesta Bellavista,Iron Lines,Latin,Colombia,3.37,phone,0
+762,2024-09-16,DJ Kompas,Paper Rooms,Electronic,Netherlands,6.34,speaker,0
+763,2024-09-16,DJ Kompas,Paper Signal,Electronic,Netherlands,3.88,phone,0
+764,2024-09-16,Selva Alta,Harbour Lines,Latin,Peru,5.08,laptop,0
+765,2024-09-17,Fjord & Flint,Blue Avenue,Folk,Norway,2.12,phone,0
+766,2024-09-18,DJ Kompas,Paper Signal,Electronic,Netherlands,6.62,phone,0
+767,2024-09-18,Brannon Hill,Midnight Kitchen,Folk,Ireland,0.67,phone,1
+768,2024-09-18,The Tuesday Club,Northern Ferry,Pop,United Kingdom,0.39,speaker,1
+769,2024-09-18,Brannon Hill,Northern Machines,Folk,Ireland,2.53,phone,0
+770,2024-09-18,DJ Kompas,Hollow Radio,Electronic,Netherlands,4.56,phone,0
+771,2024-09-18,Fjord & Flint,Blue Ferry,Folk,Norway,8.08,phone,0
+772,2024-09-18,Mireille Basset,Harbour Window,Jazz,France,0.88,car,1
+773,2024-09-18,Yuki Tanaka Trio,Harbour Season,Jazz,Japan,6.75,speaker,0
+774,2024-09-18,Fjord & Flint,Blue Traffic,Folk,Norway,0.85,phone,1
+775,2024-09-18,Pale Cartography,Velvet Avenue,Folk,Canada,5.09,phone,0
+776,2024-09-19,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,1.19,laptop,1
+777,2024-09-20,Brannon Hill,Midnight Kitchen,Folk,Ireland,4.68,phone,0
+778,2024-09-20,DJ Kompas,Hollow Radio,Electronic,Netherlands,0.62,phone,1
+779,2024-09-20,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,0.95,speaker,1
+780,2024-09-20,Fjord & Flint,Open Orbit,Folk,Norway,0.91,speaker,0
+781,2024-09-20,DJ Kompas,Paper Rooms,Electronic,Netherlands,4.81,car,0
+782,2024-09-21,Luz de Enero,Paper Window,Latin,Spain,5.65,laptop,0
+783,2024-09-21,The Slow Ferry,Amber Mornings,Indie,Ireland,2.62,phone,0
+784,2024-09-21,Glass Tram,Broken Mornings,Electronic,Germany,1.2,phone,1
+785,2024-09-22,Rosewood Lane,Golden Garden,Folk,United Kingdom,1.12,phone,0
+786,2024-09-22,Fjord & Flint,Midnight Kitchen,Folk,Norway,3.59,laptop,0
+787,2024-09-22,Sara Lindqvist,Electric Weather,Pop,Sweden,2.54,phone,0
+788,2024-09-22,Fjord & Flint,Blue Traffic,Folk,Norway,1.06,phone,1
+789,2024-09-22,Glass Tram,Broken Lines,Electronic,Germany,5.08,phone,0
+790,2024-09-23,Glass Tram,Salt Lines,Electronic,Germany,7.68,car,0
+791,2024-09-23,Kito Ndungu,Northern Rooms,Afrobeat,Kenya,3.24,tablet,0
+792,2024-09-24,Basement Cartography,Paper Kitchen,Indie,Canada,4.97,phone,0
+793,2024-09-24,Glass Tram,Broken Mornings,Electronic,Germany,5.76,phone,0
+794,2024-09-24,Sara Lindqvist,Golden Harbour,Pop,Sweden,2.69,phone,0
+795,2024-09-24,Static Meadow,Amber Tape,Rock,United States,5.12,speaker,0
+796,2024-09-24,Rosewood Lane,Summer Signal,Folk,United Kingdom,0.29,phone,1
+797,2024-09-24,DJ Kompas,Bright Ferry,Electronic,Netherlands,5.4,phone,0
+798,2024-09-25,DJ Kompas,Paper Rooms,Electronic,Netherlands,7.88,laptop,0
+799,2024-09-25,Sara Lindqvist,Midnight Orbit,Pop,Sweden,4.71,laptop,0
+800,2024-09-25,Sara Lindqvist,Northern Radio,Pop,Sweden,3.17,tablet,0
+801,2024-09-26,The Long Commute,Hollow Mornings,Indie,Netherlands,4.87,laptop,0
+802,2024-09-26,Mireille Basset,Harbour Machines,Jazz,France,5.62,phone,0
+803,2024-09-26,Hertz Garden,Amber Machines,Electronic,Germany,4.67,phone,0
+804,2024-09-26,Sara Lindqvist,Broken Kitchen,Pop,Sweden,4.12,laptop,0
+805,2024-09-27,Marta Oliveira,Broken Orbit,Jazz,Portugal,7.72,laptop,0
+806,2024-09-29,Pale Cartography,Bright Tape,Folk,Canada,3.18,laptop,0
+807,2024-09-29,Selva Alta,Harbour Lines,Latin,Peru,5.11,phone,0
+808,2024-09-30,Kito Ndungu,Electric Traffic,Afrobeat,Kenya,0.31,phone,1
+809,2024-09-30,Orquesta Bellavista,Salt Ferry,Latin,Colombia,4.06,phone,0
+810,2024-10-01,Brannon Hill,Quiet Ferry,Folk,Ireland,2.01,tablet,0
+811,2024-10-01,Marta Oliveira,Static Wires,Jazz,Portugal,7.03,speaker,0
+812,2024-10-01,Fjord & Flint,Blue Avenue,Folk,Norway,3.19,tablet,0
+813,2024-10-01,The Tuesday Club,Amber Harbour,Pop,United Kingdom,1.51,phone,0
+814,2024-10-01,The Quiet Wires,Quiet Rooms,Rock,United States,4.22,phone,0
+815,2024-10-02,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,4.28,car,0
+816,2024-10-02,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,6.88,phone,0
+817,2024-10-02,Glass Tram,Amber Ferry,Electronic,Germany,0.69,car,1
+818,2024-10-02,Bright Utility,Broken Machines,Indie,United Kingdom,3.95,phone,0
+819,2024-10-03,Sara Lindqvist,Northern Radio,Pop,Sweden,2.42,phone,0
+820,2024-10-03,Sara Lindqvist,Northern Radio,Pop,Sweden,3.19,phone,0
+821,2024-10-03,Basement Cartography,Broken Kitchen,Indie,Canada,3.11,speaker,0
+822,2024-10-03,Casa Tropicana,Salt Ferry,Latin,Cuba,6.05,laptop,0
+823,2024-10-03,DJ Kompas,Midnight Weather,Electronic,Netherlands,6.29,car,0
+824,2024-10-03,DJ Kompas,Electric Mornings,Electronic,Netherlands,6.91,laptop,0
+825,2024-10-04,Glass Tram,Salt Lines,Electronic,Germany,5.69,laptop,0
+826,2024-10-04,DJ Kompas,Quiet Orbit,Electronic,Netherlands,3.14,laptop,0
+827,2024-10-04,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,3.48,speaker,0
+828,2024-10-05,The Tuesday Club,Northern Ferry,Pop,United Kingdom,2.48,laptop,0
+829,2024-10-05,Bright Utility,Salt Season,Indie,United Kingdom,2.62,car,0
+830,2024-10-05,Mireille Basset,Midnight Traffic,Jazz,France,7.72,phone,0
+831,2024-10-06,Hollow Pines,Amber Lines,Folk,United States,4.47,car,0
+832,2024-10-06,The Tuesday Club,Open Lines,Pop,United Kingdom,5.45,laptop,0
+833,2024-10-06,The Slow Ferry,Iron Weather,Indie,Ireland,3.7,speaker,0
+834,2024-10-06,Static Meadow,Northern Avenue,Rock,United States,3.5,laptop,0
+835,2024-10-06,Luz de Enero,Velvet Harbour,Latin,Spain,5.36,phone,0
+836,2024-10-06,DJ Kompas,Paper Signal,Electronic,Netherlands,8.57,speaker,0
+837,2024-10-06,Basement Cartography,Velvet Kitchen,Indie,Canada,1.41,phone,0
+838,2024-10-06,Rosewood Lane,Paper Mornings,Folk,United Kingdom,2.73,phone,0
+839,2024-10-07,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,4.13,phone,0
+840,2024-10-07,Sara Lindqvist,Quiet Harbour,Pop,Sweden,2.82,speaker,0
+841,2024-10-08,Kito Ndungu,Summer Machines,Afrobeat,Kenya,0.91,speaker,0
+842,2024-10-08,Casa Tropicana,Blue Machines,Latin,Cuba,1.32,laptop,0
+843,2024-10-08,Casa Tropicana,Harbour Orbit,Latin,Cuba,2.08,car,0
+844,2024-10-08,Sara Lindqvist,Electric Weather,Pop,Sweden,2.55,laptop,0
+845,2024-10-08,Fjord & Flint,Golden Garden,Folk,Norway,0.72,phone,0
+846,2024-10-09,Sara Lindqvist,Golden Harbour,Pop,Sweden,2.68,tablet,0
+847,2024-10-09,Pale Cartography,Bright Tape,Folk,Canada,4.29,laptop,0
+848,2024-10-10,DJ Kompas,Hollow Radio,Electronic,Netherlands,3.68,speaker,0
+849,2024-10-11,Orquesta Bellavista,Open Orbit,Latin,Colombia,3.76,laptop,0
+850,2024-10-11,The Paper Kites Society,Electric Lines,Indie,Australia,2.75,phone,0
+851,2024-10-11,Glass Tram,Amber Ferry,Electronic,Germany,6.36,tablet,0
+852,2024-10-12,Glass Tram,Broken Mornings,Electronic,Germany,1.85,phone,1
+853,2024-10-12,DJ Kompas,Hollow Radio,Electronic,Netherlands,4.76,car,0
+854,2024-10-12,Pale Cartography,Bright Tape,Folk,Canada,5.07,car,0
+855,2024-10-12,DJ Kompas,Midnight Weather,Electronic,Netherlands,6.48,tablet,0
+856,2024-10-13,Glass Tram,Broken Mornings,Electronic,Germany,6.86,phone,0
+857,2024-10-13,Static Meadow,Salt Mornings,Rock,United States,3.23,laptop,0
+858,2024-10-13,Nora Whitlock,Northern Machines,Pop,United States,5.34,car,0
+859,2024-10-13,Static Meadow,Salt Mornings,Rock,United States,3.45,laptop,0
+860,2024-10-14,Orquesta Bellavista,Salt Ferry,Latin,Colombia,1.41,phone,0
+861,2024-10-14,Kito Ndungu,Salt Ferry,Afrobeat,Kenya,0.49,phone,1
+862,2024-10-14,Sara Lindqvist,Electric Weather,Pop,Sweden,5.32,phone,0
+863,2024-10-15,Kito Ndungu,Summer Machines,Afrobeat,Kenya,6.53,phone,0
+864,2024-10-15,Sara Lindqvist,Midnight Orbit,Pop,Sweden,4.05,laptop,0
+865,2024-10-15,Glass Tram,Amber Ferry,Electronic,Germany,5.13,phone,0
+866,2024-10-15,Pale Cartography,Winter Weather,Folk,Canada,1.23,speaker,1
+867,2024-10-16,Sara Lindqvist,Northern Radio,Pop,Sweden,2.98,speaker,0
+868,2024-10-16,Sara Lindqvist,Summer Tape,Pop,Sweden,4.72,speaker,0
+869,2024-10-16,The Slow Ferry,Bright Rooms,Indie,Ireland,5.66,phone,0
+870,2024-10-16,Selva Alta,Static Kitchen,Latin,Peru,4.52,phone,0
+871,2024-10-17,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,9.42,speaker,0
+872,2024-10-17,Hertz Garden,Blue Harbour,Electronic,Germany,5.67,phone,0
+873,2024-10-17,Glass Tram,Broken Lines,Electronic,Germany,0.31,phone,1
+874,2024-10-17,Orquesta Bellavista,Velvet Garden,Latin,Colombia,2.58,phone,0
+875,2024-10-17,Glass Tram,Amber Ferry,Electronic,Germany,7.68,phone,0
+876,2024-10-17,Fjord & Flint,Blue Avenue,Folk,Norway,0.64,laptop,0
+877,2024-10-17,Salon Mécanique,Harbour Machines,Jazz,Belgium,8.67,phone,0
+878,2024-10-18,Kito Ndungu,Northern Rooms,Afrobeat,Kenya,0.23,phone,1
+879,2024-10-18,Sara Lindqvist,Electric Weather,Pop,Sweden,4.03,phone,0
+880,2024-10-18,Luz de Enero,Velvet Harbour,Latin,Spain,5.31,phone,0
+881,2024-10-18,Glass Tram,Amber Ferry,Electronic,Germany,9.93,speaker,0
+882,2024-10-18,DJ Kompas,Paper Rooms,Electronic,Netherlands,7.73,laptop,0
+883,2024-10-19,Casa Tropicana,Golden Harbour,Latin,Cuba,5.18,phone,0
+884,2024-10-19,Glass Tram,Broken Lines,Electronic,Germany,6.38,phone,0
+885,2024-10-19,Luz de Enero,Static Machines,Latin,Spain,3.85,laptop,0
+886,2024-10-19,Orquesta Bellavista,Quiet Wires,Latin,Colombia,1.91,phone,0
+887,2024-10-19,Sara Lindqvist,Slow Mornings,Pop,Sweden,6.04,phone,0
+888,2024-10-19,Mireille Basset,Harbour Window,Jazz,France,0.74,car,1
+889,2024-10-19,Northern Signal,Amber Rooms,Electronic,Norway,0.85,speaker,1
+890,2024-10-20,Glass Tram,Amber Ferry,Electronic,Germany,6.22,speaker,0
+891,2024-10-20,Fjord & Flint,Blue Traffic,Folk,Norway,5.35,phone,0
+892,2024-10-20,Pale Cartography,Open Orbit,Folk,Canada,3.92,laptop,0
+893,2024-10-21,Brannon Hill,Bright Mornings,Folk,Ireland,2.41,phone,0
+894,2024-10-21,Sara Lindqvist,Quiet Harbour,Pop,Sweden,3.32,phone,0
+895,2024-10-21,Yuki Tanaka Trio,Northern Lines,Jazz,Japan,9.57,laptop,0
+896,2024-10-22,Glass Tram,Broken Lines,Electronic,Germany,5.99,phone,0
+897,2024-10-22,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,2.44,speaker,0
+898,2024-10-22,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,1.58,car,0
+899,2024-10-22,The Tuesday Club,Amber Harbour,Pop,United Kingdom,3.95,phone,0
+900,2024-10-22,Brannon Hill,Bright Mornings,Folk,Ireland,1.68,car,0
+901,2024-10-23,Sara Lindqvist,Slow Mornings,Pop,Sweden,1.04,phone,0
+902,2024-10-23,Kito Ndungu,Summer Machines,Afrobeat,Kenya,4.49,phone,0
+903,2024-10-23,Northern Signal,Electric Avenue,Electronic,Norway,4.95,laptop,0
+904,2024-10-23,DJ Kompas,Hollow Radio,Electronic,Netherlands,6.99,phone,0
+905,2024-10-23,Fjord & Flint,Summer Wires,Folk,Norway,4.63,laptop,0
+906,2024-10-24,Sara Lindqvist,Electric Weather,Pop,Sweden,0.77,speaker,1
+907,2024-10-25,Basement Cartography,Iron Traffic,Indie,Canada,4.93,phone,0
+908,2024-10-25,Glass Tram,Salt Lines,Electronic,Germany,5.37,speaker,0
+909,2024-10-25,Fjord & Flint,Summer Wires,Folk,Norway,4.13,tablet,0
+910,2024-10-25,Brannon Hill,Quiet Ferry,Folk,Ireland,6.72,laptop,0
+911,2024-10-26,The Quiet Wires,Harbour Orbit,Rock,United States,4.8,tablet,0
+912,2024-10-26,Fjord & Flint,Northern Avenue,Folk,Norway,4.63,phone,0
+913,2024-10-26,Cassette Revival,Golden Traffic,Indie,France,5.0,speaker,0
+914,2024-10-27,Fjord & Flint,Summer Wires,Folk,Norway,5.18,laptop,0
+915,2024-10-27,Kito Ndungu,Hollow Weather,Afrobeat,Kenya,5.71,speaker,0
+916,2024-10-27,The Paper Kites Society,Hollow Letters,Indie,Australia,5.86,speaker,0
+917,2024-10-28,Glass Tram,Amber Ferry,Electronic,Germany,6.68,laptop,0
+918,2024-10-28,Fjord & Flint,Golden Garden,Folk,Norway,4.25,laptop,0
+919,2024-10-28,Glass Tram,Salt Lines,Electronic,Germany,4.75,phone,0
+920,2024-10-28,Fjord & Flint,Golden Garden,Folk,Norway,2.86,car,0
+921,2024-10-28,Casa Tropicana,Blue Machines,Latin,Cuba,2.66,phone,0
+922,2024-10-28,Fjord & Flint,Blue Avenue,Folk,Norway,4.96,phone,0
+923,2024-10-28,The Paper Kites Society,Electric Lines,Indie,Australia,4.68,phone,0
+924,2024-10-29,Pale Cartography,Open Season,Folk,Canada,3.16,phone,0
+925,2024-10-29,DJ Kompas,Paper Rooms,Electronic,Netherlands,7.21,phone,0
+926,2024-10-29,The Slow Ferry,Bright Rooms,Indie,Ireland,1.45,laptop,0
+927,2024-10-29,Yuki Tanaka Trio,Harbour Season,Jazz,Japan,8.46,car,0
+928,2024-10-29,DJ Kompas,Paper Signal,Electronic,Netherlands,8.15,phone,0
+929,2024-10-30,Pale Cartography,Open Season,Folk,Canada,3.44,phone,0
+930,2024-10-30,Glass Tram,Broken Lines,Electronic,Germany,7.69,phone,0
+931,2024-10-30,Hertz Garden,Northern Lines,Electronic,Germany,4.22,speaker,0
+932,2024-10-30,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,3.7,phone,0
+933,2024-10-30,Fjord & Flint,Blue Ferry,Folk,Norway,5.95,laptop,0
+934,2024-10-30,Glass Tram,Broken Mornings,Electronic,Germany,8.92,phone,0
+935,2024-10-31,DJ Kompas,Hollow Radio,Electronic,Netherlands,5.28,car,0
+936,2024-10-31,DJ Kompas,Paper Signal,Electronic,Netherlands,8.13,speaker,0
+937,2024-11-01,Fjord & Flint,Blue Ferry,Folk,Norway,0.45,phone,1
+938,2024-11-01,DJ Kompas,Paper Signal,Electronic,Netherlands,6.22,laptop,0
+939,2024-11-01,DJ Kompas,Midnight Weather,Electronic,Netherlands,6.22,phone,0
+940,2024-11-01,Bright Utility,Salt Season,Indie,United Kingdom,2.65,laptop,0
+941,2024-11-02,Sara Lindqvist,Summer Tape,Pop,Sweden,4.76,laptop,0
+942,2024-11-02,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,2.57,laptop,0
+943,2024-11-02,Glass Tram,Salt Lines,Electronic,Germany,0.68,speaker,1
+944,2024-11-02,Luz de Enero,Static Machines,Latin,Spain,3.46,laptop,0
+945,2024-11-02,Casa Tropicana,Golden Harbour,Latin,Cuba,2.77,speaker,0
+946,2024-11-02,Orquesta Bellavista,Iron Lines,Latin,Colombia,3.18,phone,0
+947,2024-11-03,Static Meadow,Open Rooms,Rock,United States,5.75,phone,0
+948,2024-11-03,Glass Tram,Amber Ferry,Electronic,Germany,6.5,phone,0
+949,2024-11-03,Glass Tram,Broken Mornings,Electronic,Germany,7.82,phone,0
+950,2024-11-04,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,3.33,speaker,0
+951,2024-11-04,The Paper Kites Society,Amber Window,Indie,Australia,2.59,phone,0
+952,2024-11-04,Luz de Enero,Harbour Season,Latin,Spain,0.85,speaker,1
+953,2024-11-05,DJ Kompas,Paper Signal,Electronic,Netherlands,4.55,phone,0
+954,2024-11-05,Brannon Hill,Quiet Ferry,Folk,Ireland,3.39,phone,0
+955,2024-11-05,Kito Ndungu,Hollow Machines,Afrobeat,Kenya,0.3,tablet,1
+956,2024-11-05,Glass Tram,Amber Ferry,Electronic,Germany,5.34,car,0
+957,2024-11-05,The Paper Kites Society,Amber Window,Indie,Australia,3.61,phone,0
+958,2024-11-06,Selva Alta,Harbour Lines,Latin,Peru,2.14,laptop,0
+959,2024-11-07,Brannon Hill,Static Weather,Folk,Ireland,2.63,phone,0
+960,2024-11-07,Circuit Sparrow,Slow Parade,Electronic,Japan,5.96,speaker,0
+961,2024-11-08,Fjord & Flint,Blue Ferry,Folk,Norway,1.1,phone,0
+962,2024-11-09,DJ Kompas,Paper Rooms,Electronic,Netherlands,4.5,car,0
+963,2024-11-09,Glass Tram,Amber Ferry,Electronic,Germany,7.42,speaker,0
+964,2024-11-09,Northern Signal,Winter Wires,Electronic,Norway,7.75,laptop,0
+965,2024-11-09,The Quiet Wires,Golden Season,Rock,United States,3.25,phone,0
+966,2024-11-09,Salon Mécanique,Harbour Machines,Jazz,Belgium,6.78,car,0
+967,2024-11-09,Basement Cartography,Blue Mornings,Indie,Canada,5.0,speaker,0
+968,2024-11-10,Fjord & Flint,Northern Avenue,Folk,Norway,0.97,phone,1
+969,2024-11-10,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,4.47,laptop,0
+970,2024-11-12,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,3.23,tablet,0
+971,2024-11-12,The Slow Ferry,Velvet Season,Indie,Ireland,3.69,speaker,0
+972,2024-11-12,Selva Alta,Harbour Orbit,Latin,Peru,2.21,phone,0
+973,2024-11-12,Cassette Revival,Salt Season,Indie,France,1.39,phone,0
+974,2024-11-13,Brannon Hill,Bright Mornings,Folk,Ireland,3.74,phone,0
+975,2024-11-13,Mango Static,Golden Machines,Latin,Brazil,3.83,phone,0
+976,2024-11-13,Glass Tram,Broken Lines,Electronic,Germany,6.65,phone,0
+977,2024-11-14,The Quiet Wires,Northern Tape,Rock,United States,3.61,laptop,0
+978,2024-11-14,Fjord & Flint,Blue Avenue,Folk,Norway,4.0,phone,0
+979,2024-11-14,Northern Signal,Golden Machines,Electronic,Norway,4.8,phone,0
+980,2024-11-14,Brannon Hill,Bright Mornings,Folk,Ireland,2.77,phone,0
+981,2024-11-14,Fjord & Flint,Broken Radio,Folk,Norway,3.56,speaker,0
+982,2024-11-14,DJ Kompas,Golden Weather,Electronic,Netherlands,1.27,phone,1
+983,2024-11-15,Brannon Hill,Quiet Ferry,Folk,Ireland,3.7,laptop,0
+984,2024-11-15,Brannon Hill,Quiet Ferry,Folk,Ireland,0.4,laptop,0
+985,2024-11-15,Casa Tropicana,Harbour Orbit,Latin,Cuba,5.19,phone,0
+986,2024-11-15,Fjord & Flint,Summer Wires,Folk,Norway,2.68,laptop,0
+987,2024-11-16,Sara Lindqvist,Broken Kitchen,Pop,Sweden,4.75,laptop,0
+988,2024-11-16,The Paper Kites Society,Electric Lines,Indie,Australia,3.25,laptop,0
+989,2024-11-16,Yuki Tanaka Trio,Golden Window,Jazz,Japan,8.2,phone,0
+990,2024-11-17,Fjord & Flint,Broken Radio,Folk,Norway,4.22,phone,0
+991,2024-11-17,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,3.04,phone,0
+992,2024-11-17,Rosewood Lane,Electric Weather,Folk,United Kingdom,2.79,phone,0
+993,2024-11-17,Luz de Enero,Static Traffic,Latin,Spain,0.62,laptop,1
+994,2024-11-18,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,2.3,phone,0
+995,2024-11-18,Fjord & Flint,Blue Avenue,Folk,Norway,3.07,phone,0
+996,2024-11-18,Yuki Tanaka Trio,Golden Window,Jazz,Japan,0.64,phone,1
+997,2024-11-19,DJ Kompas,Midnight Weather,Electronic,Netherlands,1.09,laptop,1
+998,2024-11-19,Fjord & Flint,Golden Garden,Folk,Norway,4.27,phone,0
+999,2024-11-19,Glass Tram,Broken Mornings,Electronic,Germany,6.42,phone,0
+1000,2024-11-20,Fjord & Flint,Blue Traffic,Folk,Norway,0.49,tablet,0
+1001,2024-11-21,Brannon Hill,Electric Parade,Folk,Ireland,1.73,speaker,0
+1002,2024-11-22,Glass Tram,Broken Mornings,Electronic,Germany,8.68,phone,0
+1003,2024-11-22,Selva Alta,Harbour Orbit,Latin,Peru,3.26,speaker,0
+1004,2024-11-22,Glass Tram,Amber Ferry,Electronic,Germany,4.78,phone,0
+1005,2024-11-22,The Paper Kites Society,Harbour Rooms,Indie,Australia,3.31,phone,0
+1006,2024-11-22,DJ Kompas,Quiet Orbit,Electronic,Netherlands,8.3,phone,0
+1007,2024-11-23,Selva Alta,Amber Mornings,Latin,Peru,4.52,phone,0
+1008,2024-11-23,Brannon Hill,Bright Mornings,Folk,Ireland,5.15,phone,0
+1009,2024-11-23,The Long Commute,Hollow Mornings,Indie,Netherlands,5.24,phone,0
+1010,2024-11-24,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,5.59,laptop,0
+1011,2024-11-24,Basement Cartography,Summer Season,Indie,Canada,3.33,laptop,0
+1012,2024-11-25,Sara Lindqvist,Golden Harbour,Pop,Sweden,2.4,phone,0
+1013,2024-11-25,Casa Tropicana,Harbour Orbit,Latin,Cuba,3.33,laptop,0
+1014,2024-11-25,Hollow Pines,Winter Traffic,Folk,United States,5.63,laptop,0
+1015,2024-11-25,Sara Lindqvist,Northern Radio,Pop,Sweden,2.97,phone,0
+1016,2024-11-25,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,5.21,car,0
+1017,2024-11-25,DJ Kompas,Bright Ferry,Electronic,Netherlands,6.69,laptop,0
+1018,2024-11-26,Pale Cartography,Open Season,Folk,Canada,2.18,car,0
+1019,2024-11-27,Static Meadow,Open Rooms,Rock,United States,5.34,speaker,0
+1020,2024-11-28,Sara Lindqvist,Electric Weather,Pop,Sweden,1.74,phone,0
+1021,2024-11-28,Fjord & Flint,Broken Radio,Folk,Norway,5.91,speaker,0
+1022,2024-11-28,Pale Cartography,Velvet Avenue,Folk,Canada,0.49,phone,1
+1023,2024-11-28,Marta Oliveira,Broken Orbit,Jazz,Portugal,9.42,phone,0
+1024,2024-11-28,The Tuesday Club,Broken Harbour,Pop,United Kingdom,3.86,phone,0
+1025,2024-11-28,Hollow Pines,Winter Traffic,Folk,United States,6.19,tablet,0
+1026,2024-11-29,Fjord & Flint,Blue Ferry,Folk,Norway,3.66,car,0
+1027,2024-11-29,DJ Kompas,Hollow Radio,Electronic,Netherlands,7.42,car,0
+1028,2024-11-29,Luz de Enero,Paper Window,Latin,Spain,2.52,car,0
+1029,2024-11-30,Nora Whitlock,Golden Tape,Pop,United States,2.57,laptop,0
+1030,2024-11-30,Cassette Revival,Slow Signal,Indie,France,0.36,phone,1
+1031,2024-11-30,Sara Lindqvist,Summer Tape,Pop,Sweden,3.26,phone,0
+1032,2024-11-30,Sara Lindqvist,Northern Radio,Pop,Sweden,0.96,phone,1
+1033,2024-11-30,Cassette Revival,Slow Signal,Indie,France,4.19,car,0
+1034,2024-11-30,Glass Tram,Salt Lines,Electronic,Germany,6.61,speaker,0
+1035,2024-11-30,DJ Kompas,Electric Mornings,Electronic,Netherlands,4.61,laptop,0
+1036,2024-12-01,The Quiet Wires,Open Mornings,Rock,United States,4.72,speaker,0
+1037,2024-12-02,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,4.61,laptop,0
+1038,2024-12-02,Glass Tram,Salt Lines,Electronic,Germany,7.23,laptop,0
+1039,2024-12-02,Pale Cartography,Winter Weather,Folk,Canada,4.69,speaker,0
+1040,2024-12-02,Casa Tropicana,Paper Orbit,Latin,Cuba,4.96,laptop,0
+1041,2024-12-04,Hollow Pines,Winter Traffic,Folk,United States,2.14,laptop,0
+1042,2024-12-04,Marta Oliveira,Electric Window,Jazz,Portugal,8.9,laptop,0
+1043,2024-12-04,Kanto Kids,Slow Machines,Pop,Philippines,0.22,phone,1
+1044,2024-12-04,The Paper Kites Society,Electric Lines,Indie,Australia,3.19,phone,0
+1045,2024-12-04,Yuki Tanaka Trio,Harbour Season,Jazz,Japan,9.16,laptop,0
+1046,2024-12-04,Mireille Basset,Harbour Machines,Jazz,France,5.2,phone,0
+1047,2024-12-05,The Long Commute,Amber Kitchen,Indie,Netherlands,4.4,speaker,0
+1048,2024-12-06,Sara Lindqvist,Electric Weather,Pop,Sweden,1.69,phone,0
+1049,2024-12-06,Northern Signal,Amber Rooms,Electronic,Norway,7.1,phone,0
+1050,2024-12-06,Static Meadow,Northern Avenue,Rock,United States,3.93,phone,0
+1051,2024-12-07,Fjord & Flint,Golden Garden,Folk,Norway,5.27,laptop,0
+1052,2024-12-07,Glass Tram,Salt Lines,Electronic,Germany,0.54,phone,1
+1053,2024-12-07,Selva Alta,Amber Mornings,Latin,Peru,4.03,laptop,0
+1054,2024-12-07,Glass Tram,Amber Ferry,Electronic,Germany,0.64,phone,1
+1055,2024-12-09,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,0.6,phone,1
+1056,2024-12-09,The Long Commute,Hollow Mornings,Indie,Netherlands,2.6,phone,0
+1057,2024-12-09,Northern Signal,Electric Avenue,Electronic,Norway,6.06,car,0
+1058,2024-12-09,Selva Alta,Amber Mornings,Latin,Peru,4.73,phone,0
+1059,2024-12-09,Yuki Tanaka Trio,Winter Parade,Jazz,Japan,6.75,phone,0
+1060,2024-12-09,Marta Oliveira,Electric Mornings,Jazz,Portugal,5.94,phone,0
+1061,2024-12-09,Sara Lindqvist,Summer Tape,Pop,Sweden,3.16,phone,0
+1062,2024-12-09,Glass Tram,Amber Ferry,Electronic,Germany,6.45,laptop,0
+1063,2024-12-10,Glass Tram,Amber Ferry,Electronic,Germany,6.54,laptop,0
+1064,2024-12-10,Nora Whitlock,Northern Rooms,Pop,United States,4.95,speaker,0
+1065,2024-12-10,Luz de Enero,Harbour Season,Latin,Spain,4.23,phone,0
+1066,2024-12-10,Mireille Basset,Blue Window,Jazz,France,8.3,car,0
+1067,2024-12-10,Basement Cartography,Blue Traffic,Indie,Canada,4.92,laptop,0
+1068,2024-12-11,Northern Signal,Velvet Wires,Electronic,Norway,5.67,phone,0
+1069,2024-12-11,Glass Tram,Broken Mornings,Electronic,Germany,8.5,tablet,0
+1070,2024-12-11,Basement Cartography,Velvet Kitchen,Indie,Canada,5.94,laptop,0
+1071,2024-12-12,The Slow Ferry,Winter Weather,Indie,Ireland,2.5,laptop,0
+1072,2024-12-12,Nora Whitlock,Northern Machines,Pop,United States,3.77,phone,0
+1073,2024-12-12,The Quiet Wires,Golden Season,Rock,United States,0.76,phone,1
+1074,2024-12-12,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,4.18,laptop,0
+1075,2024-12-13,The Quiet Wires,Quiet Rooms,Rock,United States,5.74,phone,0
+1076,2024-12-13,Fjord & Flint,Midnight Kitchen,Folk,Norway,4.69,phone,0
+1077,2024-12-13,Glass Tram,Salt Lines,Electronic,Germany,0.42,laptop,1
+1078,2024-12-13,Basement Cartography,Iron Traffic,Indie,Canada,5.53,phone,0
+1079,2024-12-14,The Tuesday Club,Amber Harbour,Pop,United Kingdom,4.02,speaker,0
+1080,2024-12-14,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,5.95,phone,0
+1081,2024-12-15,The Quiet Wires,Harbour Orbit,Rock,United States,8.05,phone,0
+1082,2024-12-15,Pale Cartography,Winter Weather,Folk,Canada,5.37,laptop,0
+1083,2024-12-16,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,5.12,speaker,0
+1084,2024-12-16,Hertz Garden,Amber Machines,Electronic,Germany,1.7,laptop,1
+1085,2024-12-17,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,1.18,speaker,1
+1086,2024-12-17,Brannon Hill,Bright Mornings,Folk,Ireland,3.63,laptop,0
+1087,2024-12-17,Sara Lindqvist,Midnight Orbit,Pop,Sweden,2.84,laptop,0
+1088,2024-12-17,Sara Lindqvist,Golden Harbour,Pop,Sweden,0.54,phone,0
+1089,2024-12-17,Brannon Hill,Midnight Kitchen,Folk,Ireland,4.6,phone,0
+1090,2024-12-18,Fjord & Flint,Blue Ferry,Folk,Norway,4.33,phone,0
+1091,2024-12-20,Hertz Garden,Broken Kitchen,Electronic,Germany,2.39,phone,0
+1092,2024-12-20,DJ Kompas,Midnight Weather,Electronic,Netherlands,3.36,phone,0
+1093,2024-12-20,Brannon Hill,Midnight Kitchen,Folk,Ireland,5.88,laptop,0
+1094,2024-12-20,Glass Tram,Broken Lines,Electronic,Germany,6.54,laptop,0
+1095,2024-12-21,The Paper Kites Society,Amber Window,Indie,Australia,5.99,speaker,0
+1096,2024-12-21,Sara Lindqvist,Midnight Orbit,Pop,Sweden,1.32,phone,1
+1097,2024-12-21,Hollow Pines,Bright Garden,Folk,United States,2.66,speaker,0
+1098,2024-12-22,Sara Lindqvist,Northern Radio,Pop,Sweden,0.41,phone,0
+1099,2024-12-22,Sara Lindqvist,Electric Weather,Pop,Sweden,0.82,phone,1
+1100,2024-12-23,The Paper Kites Society,Hollow Letters,Indie,Australia,3.06,phone,0
+1101,2024-12-23,Neon Harbour,Paper Ferry,Electronic,Netherlands,4.69,laptop,0
+1102,2024-12-23,Glass Tram,Salt Lines,Electronic,Germany,4.74,phone,0
+1103,2024-12-24,Glass Tram,Broken Mornings,Electronic,Germany,1.81,speaker,1
+1104,2024-12-24,Northern Signal,Salt Lines,Electronic,Norway,4.31,laptop,0
+1105,2024-12-24,Rosewood Lane,Amber Signal,Folk,United Kingdom,4.45,speaker,0
+1106,2024-12-24,Mireille Basset,Static Signal,Jazz,France,2.3,phone,1
+1107,2024-12-25,Sara Lindqvist,Summer Tape,Pop,Sweden,2.25,tablet,0
+1108,2024-12-25,The Quiet Wires,Quiet Rooms,Rock,United States,1.09,phone,1
+1109,2024-12-26,Basement Cartography,Summer Orbit,Indie,Canada,2.29,phone,0
+1110,2024-12-26,Glass Tram,Broken Mornings,Electronic,Germany,5.4,phone,0
+1111,2024-12-27,Fjord & Flint,Golden Garden,Folk,Norway,0.49,phone,1
+1112,2024-12-27,Fjord & Flint,Open Orbit,Folk,Norway,4.43,laptop,0
+1113,2024-12-27,DJ Kompas,Quiet Orbit,Electronic,Netherlands,1.61,phone,1
+1114,2024-12-28,DJ Kompas,Golden Weather,Electronic,Netherlands,5.05,phone,0
+1115,2024-12-28,Selva Alta,Electric Letters,Latin,Peru,3.57,phone,0
+1116,2024-12-29,Marta Oliveira,Broken Orbit,Jazz,Portugal,6.5,phone,0
+1117,2024-12-29,Bright Utility,Broken Machines,Indie,United Kingdom,2.75,speaker,0
+1118,2024-12-29,Luz de Enero,Paper Window,Latin,Spain,0.65,phone,1
+1119,2024-12-29,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,1.95,phone,0
+1120,2024-12-30,Hertz Garden,Paper Signal,Electronic,Germany,6.7,phone,0
+1121,2024-12-31,Sara Lindqvist,Slow Mornings,Pop,Sweden,5.42,phone,0
+1122,2024-12-31,Yuki Tanaka Trio,Northern Window,Jazz,Japan,7.92,phone,0
+1123,2025-01-01,Luz de Enero,Harbour Season,Latin,Spain,0.84,phone,1
+1124,2025-01-01,Cassette Revival,Salt Parade,Indie,France,3.37,phone,0
+1125,2025-01-01,Marta Oliveira,Electric Mornings,Jazz,Portugal,6.9,speaker,0
+1126,2025-01-02,Glass Tram,Salt Lines,Electronic,Germany,3.57,phone,0
+1127,2025-01-02,Brannon Hill,Quiet Ferry,Folk,Ireland,0.84,speaker,0
+1128,2025-01-02,Glass Tram,Amber Ferry,Electronic,Germany,5.43,speaker,0
+1129,2025-01-02,Fjord & Flint,Blue Ferry,Folk,Norway,0.77,phone,0
+1130,2025-01-02,DJ Kompas,Paper Rooms,Electronic,Netherlands,9.16,car,0
+1131,2025-01-02,Mireille Basset,Harbour Window,Jazz,France,8.0,phone,0
+1132,2025-01-03,Yuki Tanaka Trio,Winter Parade,Jazz,Japan,7.57,car,0
+1133,2025-01-03,Selva Alta,Amber Mornings,Latin,Peru,5.26,phone,0
+1134,2025-01-03,Sara Lindqvist,Northern Radio,Pop,Sweden,4.29,phone,0
+1135,2025-01-03,Fjord & Flint,Blue Ferry,Folk,Norway,0.33,phone,1
+1136,2025-01-03,The Slow Ferry,Bright Rooms,Indie,Ireland,5.02,car,0
+1137,2025-01-04,Brannon Hill,Bright Mornings,Folk,Ireland,6.17,laptop,0
+1138,2025-01-05,Northern Signal,Velvet Wires,Electronic,Norway,6.12,speaker,0
+1139,2025-01-05,Hollow Pines,Bright Garden,Folk,United States,4.6,laptop,0
+1140,2025-01-05,Sara Lindqvist,Summer Tape,Pop,Sweden,5.91,phone,0
+1141,2025-01-06,Fjord & Flint,Summer Wires,Folk,Norway,0.41,speaker,1
+1142,2025-01-06,Fjord & Flint,Open Orbit,Folk,Norway,2.37,car,0
+1143,2025-01-06,Brannon Hill,Midnight Kitchen,Folk,Ireland,6.02,phone,0
+1144,2025-01-06,Salon Mécanique,Paper Orbit,Jazz,Belgium,9.9,phone,0
+1145,2025-01-06,Basement Cartography,Velvet Kitchen,Indie,Canada,1.33,phone,1
+1146,2025-01-07,Fjord & Flint,Blue Avenue,Folk,Norway,3.84,phone,0
+1147,2025-01-07,Northern Signal,Golden Machines,Electronic,Norway,6.94,laptop,0
+1148,2025-01-07,Northern Signal,Golden Machines,Electronic,Norway,6.86,phone,0
+1149,2025-01-08,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,3.92,laptop,0
+1150,2025-01-08,Sara Lindqvist,Slow Mornings,Pop,Sweden,2.71,laptop,0
+1151,2025-01-08,DJ Kompas,Hollow Radio,Electronic,Netherlands,4.54,laptop,0
+1152,2025-01-09,Fjord & Flint,Blue Ferry,Folk,Norway,4.27,laptop,0
+1153,2025-01-09,Fjord & Flint,Broken Radio,Folk,Norway,4.36,laptop,0
+1154,2025-01-09,The Slow Ferry,Winter Weather,Indie,Ireland,4.75,laptop,0
+1155,2025-01-10,DJ Kompas,Paper Rooms,Electronic,Netherlands,6.89,speaker,0
+1156,2025-01-10,Glass Tram,Amber Ferry,Electronic,Germany,3.79,laptop,0
+1157,2025-01-10,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,4.09,phone,0
+1158,2025-01-11,Kito Ndungu,Summer Machines,Afrobeat,Kenya,2.83,phone,0
+1159,2025-01-11,Sara Lindqvist,Quiet Harbour,Pop,Sweden,2.38,phone,0
+1160,2025-01-12,Basement Cartography,Blue Mornings,Indie,Canada,2.84,phone,0
+1161,2025-01-12,Brannon Hill,Bright Mornings,Folk,Ireland,4.14,phone,0
+1162,2025-01-12,Sara Lindqvist,Golden Harbour,Pop,Sweden,1.58,speaker,0
+1163,2025-01-12,Fjord & Flint,Blue Ferry,Folk,Norway,2.78,speaker,0
+1164,2025-01-12,Sara Lindqvist,Slow Mornings,Pop,Sweden,2.81,phone,0
+1165,2025-01-12,DJ Kompas,Bright Ferry,Electronic,Netherlands,7.3,speaker,0
+1166,2025-01-12,The Long Commute,Midnight Weather,Indie,Netherlands,1.02,phone,1
+1167,2025-01-13,Glass Tram,Broken Lines,Electronic,Germany,2.55,phone,0
+1168,2025-01-13,Cassette Revival,Hollow Radio,Indie,France,6.45,speaker,0
+1169,2025-01-13,Kito Ndungu,Northern Rooms,Afrobeat,Kenya,6.72,phone,0
+1170,2025-01-14,Mireille Basset,Static Signal,Jazz,France,9.16,phone,0
+1171,2025-01-14,Sara Lindqvist,Electric Weather,Pop,Sweden,5.91,phone,0
+1172,2025-01-14,Glass Tram,Salt Lines,Electronic,Germany,0.85,speaker,1
+1173,2025-01-15,Glass Tram,Broken Mornings,Electronic,Germany,5.53,phone,0
+1174,2025-01-15,Glass Tram,Broken Mornings,Electronic,Germany,4.37,tablet,0
+1175,2025-01-16,Sara Lindqvist,Northern Radio,Pop,Sweden,3.1,phone,0
+1176,2025-01-16,Glass Tram,Amber Ferry,Electronic,Germany,0.55,phone,1
+1177,2025-01-16,Rosewood Lane,Electric Weather,Folk,United Kingdom,7.14,laptop,0
+1178,2025-01-16,Glass Tram,Broken Lines,Electronic,Germany,4.22,laptop,0
+1179,2025-01-16,DJ Kompas,Quiet Orbit,Electronic,Netherlands,8.4,laptop,0
+1180,2025-01-17,Luz de Enero,Paper Window,Latin,Spain,1.26,laptop,1
+1181,2025-01-17,Glass Tram,Broken Mornings,Electronic,Germany,1.51,laptop,1
+1182,2025-01-17,Hertz Garden,Northern Lines,Electronic,Germany,4.13,phone,0
+1183,2025-01-18,Glass Tram,Broken Lines,Electronic,Germany,6.01,phone,0
+1184,2025-01-18,Marta Oliveira,Broken Orbit,Jazz,Portugal,4.42,tablet,0
+1185,2025-01-18,The Slow Ferry,Bright Rooms,Indie,Ireland,4.32,phone,0
+1186,2025-01-18,Fjord & Flint,Blue Ferry,Folk,Norway,5.83,laptop,0
+1187,2025-01-18,DJ Kompas,Paper Rooms,Electronic,Netherlands,4.7,laptop,0
+1188,2025-01-18,The Paper Kites Society,Hollow Letters,Indie,Australia,4.93,phone,0
+1189,2025-01-18,DJ Kompas,Hollow Radio,Electronic,Netherlands,5.81,laptop,0
+1190,2025-01-20,The Quiet Wires,Golden Wires,Rock,United States,0.7,speaker,1
+1191,2025-01-21,Kito Ndungu,Salt Ferry,Afrobeat,Kenya,3.93,laptop,0
+1192,2025-01-21,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,4.23,speaker,0
+1193,2025-01-21,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,5.73,phone,0
+1194,2025-01-21,Pale Cartography,Blue Signal,Folk,Canada,0.98,tablet,0
+1195,2025-01-22,Hollow Pines,Amber Lines,Folk,United States,5.56,phone,0
+1196,2025-01-22,Hertz Garden,Blue Harbour,Electronic,Germany,5.01,phone,0
+1197,2025-01-23,Glass Tram,Amber Ferry,Electronic,Germany,4.5,laptop,0
+1198,2025-01-23,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,1.77,speaker,0
+1199,2025-01-24,Brannon Hill,Static Weather,Folk,Ireland,4.81,speaker,0
+1200,2025-01-24,The Quiet Wires,Quiet Rooms,Rock,United States,6.69,tablet,0
+1201,2025-01-24,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,0.37,phone,1
+1202,2025-01-24,Luz de Enero,Static Traffic,Latin,Spain,2.69,phone,0
+1203,2025-01-25,The Quiet Wires,Open Mornings,Rock,United States,4.2,laptop,0
+1204,2025-01-25,Circuit Sparrow,Winter Window,Electronic,Japan,6.32,laptop,0
+1205,2025-01-25,Fjord & Flint,Midnight Kitchen,Folk,Norway,2.84,speaker,0
+1206,2025-01-25,Sara Lindqvist,Broken Kitchen,Pop,Sweden,4.54,speaker,0
+1207,2025-01-25,DJ Kompas,Quiet Orbit,Electronic,Netherlands,6.26,phone,0
+1208,2025-01-26,Glass Tram,Broken Lines,Electronic,Germany,6.8,speaker,0
+1209,2025-01-26,Fjord & Flint,Midnight Kitchen,Folk,Norway,0.89,phone,1
+1210,2025-01-26,Glass Tram,Broken Lines,Electronic,Germany,5.42,phone,0
+1211,2025-01-26,Fjord & Flint,Blue Ferry,Folk,Norway,5.21,phone,0
+1212,2025-01-26,Rosewood Lane,Golden Letters,Folk,United Kingdom,2.44,speaker,0
+1213,2025-01-28,Sara Lindqvist,Electric Weather,Pop,Sweden,2.01,laptop,0
+1214,2025-01-28,Selva Alta,Harbour Lines,Latin,Peru,5.0,speaker,0
+1215,2025-01-28,The Quiet Wires,Golden Season,Rock,United States,5.21,phone,0
+1216,2025-01-28,DJ Kompas,Golden Weather,Electronic,Netherlands,3.88,phone,0
+1217,2025-01-28,Glass Tram,Broken Mornings,Electronic,Germany,6.84,phone,0
+1218,2025-01-29,Fjord & Flint,Summer Wires,Folk,Norway,3.88,laptop,0
+1219,2025-01-30,Glass Tram,Salt Lines,Electronic,Germany,4.37,laptop,0
+1220,2025-01-30,Glass Tram,Broken Mornings,Electronic,Germany,6.13,phone,0
+1221,2025-01-30,Glass Tram,Salt Lines,Electronic,Germany,6.8,laptop,0
+1222,2025-01-31,Nora Whitlock,Velvet Machines,Pop,United States,4.18,laptop,0
+1223,2025-01-31,Kito Ndungu,Static Tape,Afrobeat,Kenya,3.01,car,0
+1224,2025-01-31,Yuki Tanaka Trio,Winter Parade,Jazz,Japan,8.55,phone,0
+1225,2025-01-31,Fjord & Flint,Summer Wires,Folk,Norway,2.84,phone,0
+1226,2025-02-01,Hertz Garden,Northern Kitchen,Electronic,Germany,3.99,tablet,0
+1227,2025-02-01,The Quiet Wires,Golden Season,Rock,United States,4.79,phone,0
+1228,2025-02-01,The Paper Kites Society,Harbour Rooms,Indie,Australia,5.32,laptop,0
+1229,2025-02-01,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,4.05,speaker,0
+1230,2025-02-02,Sara Lindqvist,Midnight Orbit,Pop,Sweden,0.71,phone,1
+1231,2025-02-02,Brannon Hill,Northern Machines,Folk,Ireland,0.48,phone,1
+1232,2025-02-03,Bright Utility,Winter Window,Indie,United Kingdom,0.95,laptop,1
+1233,2025-02-04,Northern Signal,Quiet Avenue,Electronic,Norway,7.61,phone,0
+1234,2025-02-04,Fjord & Flint,Golden Garden,Folk,Norway,5.48,car,0
+1235,2025-02-04,Rosewood Lane,Paper Mornings,Folk,United Kingdom,3.85,laptop,0
+1236,2025-02-05,Fjord & Flint,Blue Avenue,Folk,Norway,6.46,speaker,0
+1237,2025-02-05,Marta Oliveira,Paper Avenue,Jazz,Portugal,1.93,phone,1
+1238,2025-02-06,Glass Tram,Broken Mornings,Electronic,Germany,0.44,tablet,1
+1239,2025-02-06,Velvet Aqueduct,Harbour Season,Rock,Italy,3.53,speaker,0
+1240,2025-02-06,Nora Whitlock,Velvet Machines,Pop,United States,3.65,phone,0
+1241,2025-02-06,Fjord & Flint,Blue Traffic,Folk,Norway,5.86,speaker,0
+1242,2025-02-08,Fjord & Flint,Blue Ferry,Folk,Norway,1.26,phone,0
+1243,2025-02-08,Fjord & Flint,Open Orbit,Folk,Norway,2.88,phone,0
+1244,2025-02-08,Kito Ndungu,Bright Weather,Afrobeat,Kenya,5.62,tablet,0
+1245,2025-02-08,The Quiet Wires,Harbour Orbit,Rock,United States,0.96,car,1
+1246,2025-02-08,Selva Alta,Harbour Lines,Latin,Peru,1.96,laptop,0
+1247,2025-02-09,Sara Lindqvist,Midnight Orbit,Pop,Sweden,0.73,phone,0
+1248,2025-02-09,Northern Signal,Golden Machines,Electronic,Norway,3.51,tablet,0
+1249,2025-02-09,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,5.82,tablet,0
+1250,2025-02-09,Sara Lindqvist,Electric Weather,Pop,Sweden,3.38,speaker,0
+1251,2025-02-10,Glass Tram,Broken Mornings,Electronic,Germany,4.13,phone,0
+1252,2025-02-10,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,2.87,phone,0
+1253,2025-02-11,Fjord & Flint,Blue Ferry,Folk,Norway,0.41,laptop,1
+1254,2025-02-11,Fjord & Flint,Blue Avenue,Folk,Norway,4.86,laptop,0
+1255,2025-02-11,The Slow Ferry,Amber Garden,Indie,Ireland,3.21,speaker,0
+1256,2025-02-12,Kito Ndungu,Electric Traffic,Afrobeat,Kenya,4.1,phone,0
+1257,2025-02-12,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,2.51,speaker,0
+1258,2025-02-12,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,3.65,phone,0
+1259,2025-02-12,Mireille Basset,Midnight Traffic,Jazz,France,5.64,speaker,0
+1260,2025-02-13,Mireille Basset,Midnight Traffic,Jazz,France,8.88,car,0
+1261,2025-02-13,Sara Lindqvist,Midnight Orbit,Pop,Sweden,3.25,car,0
+1262,2025-02-13,Glass Tram,Broken Mornings,Electronic,Germany,5.2,tablet,0
+1263,2025-02-13,Pale Cartography,Winter Weather,Folk,Canada,0.46,speaker,1
+1264,2025-02-14,Luz de Enero,Static Traffic,Latin,Spain,2.9,laptop,0
+1265,2025-02-14,Sara Lindqvist,Quiet Harbour,Pop,Sweden,4.47,phone,0
+1266,2025-02-14,The Quiet Wires,Golden Season,Rock,United States,2.12,laptop,0
+1267,2025-02-15,Fjord & Flint,Golden Garden,Folk,Norway,0.23,tablet,1
+1268,2025-02-16,Hertz Garden,Northern Lines,Electronic,Germany,6.92,laptop,0
+1269,2025-02-17,The Tuesday Club,Northern Ferry,Pop,United Kingdom,1.37,phone,0
+1270,2025-02-17,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,0.46,phone,1
+1271,2025-02-17,Mango Static,Hollow Parade,Latin,Brazil,4.81,laptop,0
+1272,2025-02-17,Fjord & Flint,Northern Avenue,Folk,Norway,5.57,phone,0
+1273,2025-02-18,Fjord & Flint,Midnight Kitchen,Folk,Norway,3.46,speaker,0
+1274,2025-02-18,Sara Lindqvist,Golden Harbour,Pop,Sweden,3.65,car,0
+1275,2025-02-19,Salon Mécanique,Hollow Parade,Jazz,Belgium,6.73,phone,0
+1276,2025-02-19,Fjord & Flint,Broken Radio,Folk,Norway,4.33,phone,0
+1277,2025-02-19,Bright Utility,Broken Machines,Indie,United Kingdom,3.41,tablet,0
+1278,2025-02-19,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,1.73,speaker,0
+1279,2025-02-19,DJ Kompas,Midnight Weather,Electronic,Netherlands,9.69,phone,0
+1280,2025-02-21,DJ Kompas,Midnight Weather,Electronic,Netherlands,3.98,speaker,0
+1281,2025-02-21,Sara Lindqvist,Northern Radio,Pop,Sweden,3.33,car,0
+1282,2025-02-22,Northern Signal,Amber Lines,Electronic,Norway,1.24,tablet,1
+1283,2025-02-22,Fjord & Flint,Open Orbit,Folk,Norway,5.14,car,0
+1284,2025-02-23,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,3.99,phone,0
+1285,2025-02-23,Brannon Hill,Electric Parade,Folk,Ireland,4.43,phone,0
+1286,2025-02-23,Northern Signal,Golden Machines,Electronic,Norway,6.33,laptop,0
+1287,2025-02-24,Sara Lindqvist,Summer Tape,Pop,Sweden,4.07,speaker,0
+1288,2025-02-24,Fjord & Flint,Blue Traffic,Folk,Norway,0.62,speaker,0
+1289,2025-02-24,Pale Cartography,Open Orbit,Folk,Canada,4.62,phone,0
+1290,2025-02-25,Sara Lindqvist,Quiet Harbour,Pop,Sweden,4.96,speaker,0
+1291,2025-02-25,Glass Tram,Salt Lines,Electronic,Germany,9.31,phone,0
+1292,2025-02-25,Mireille Basset,Harbour Machines,Jazz,France,5.57,phone,0
+1293,2025-02-27,Sara Lindqvist,Broken Kitchen,Pop,Sweden,6.3,laptop,0
+1294,2025-02-27,Fjord & Flint,Midnight Kitchen,Folk,Norway,6.56,phone,0
+1295,2025-02-28,Sara Lindqvist,Quiet Harbour,Pop,Sweden,4.79,phone,0
+1296,2025-02-28,Sara Lindqvist,Midnight Orbit,Pop,Sweden,3.57,phone,0
+1297,2025-03-01,Casa Tropicana,Blue Machines,Latin,Cuba,4.74,phone,0
+1298,2025-03-01,Fjord & Flint,Summer Wires,Folk,Norway,3.12,phone,0
+1299,2025-03-02,Sara Lindqvist,Broken Kitchen,Pop,Sweden,4.63,car,0
+1300,2025-03-02,DJ Kompas,Bright Ferry,Electronic,Netherlands,4.68,phone,0
+1301,2025-03-03,Brannon Hill,Electric Parade,Folk,Ireland,5.21,speaker,0
+1302,2025-03-03,The Slow Ferry,Velvet Season,Indie,Ireland,4.52,phone,0
+1303,2025-03-04,Sara Lindqvist,Broken Kitchen,Pop,Sweden,4.55,phone,0
+1304,2025-03-04,Basement Cartography,Velvet Kitchen,Indie,Canada,4.59,phone,0
+1305,2025-03-04,Fjord & Flint,Northern Avenue,Folk,Norway,3.56,laptop,0
+1306,2025-03-05,Northern Signal,Electric Avenue,Electronic,Norway,3.83,phone,0
+1307,2025-03-05,Orquesta Bellavista,Iron Lines,Latin,Colombia,1.48,laptop,0
+1308,2025-03-05,Brannon Hill,Quiet Ferry,Folk,Ireland,3.93,phone,0
+1309,2025-03-05,Selva Alta,Open Orbit,Latin,Peru,3.54,laptop,0
+1310,2025-03-06,Kito Ndungu,Salt Ferry,Afrobeat,Kenya,3.4,laptop,0
+1311,2025-03-06,Mireille Basset,Midnight Traffic,Jazz,France,8.19,phone,0
+1312,2025-03-06,The Slow Ferry,Iron Weather,Indie,Ireland,5.55,speaker,0
+1313,2025-03-07,Luz de Enero,Paper Window,Latin,Spain,2.03,car,0
+1314,2025-03-07,DJ Kompas,Hollow Radio,Electronic,Netherlands,6.76,phone,0
+1315,2025-03-08,Sara Lindqvist,Northern Radio,Pop,Sweden,4.98,phone,0
+1316,2025-03-08,DJ Kompas,Midnight Weather,Electronic,Netherlands,5.45,speaker,0
+1317,2025-03-08,Bright Utility,Bright Letters,Indie,United Kingdom,5.01,phone,0
+1318,2025-03-09,Brannon Hill,Quiet Ferry,Folk,Ireland,5.43,phone,0
+1319,2025-03-09,Nora Whitlock,Northern Machines,Pop,United States,1.16,tablet,1
+1320,2025-03-10,Glass Tram,Salt Lines,Electronic,Germany,5.64,car,0
+1321,2025-03-10,Fjord & Flint,Midnight Kitchen,Folk,Norway,6.63,phone,0
+1322,2025-03-11,The Paper Kites Society,Amber Window,Indie,Australia,0.66,speaker,1
+1323,2025-03-11,Glass Tram,Broken Lines,Electronic,Germany,8.26,phone,0
+1324,2025-03-11,Static Meadow,Salt Mornings,Rock,United States,2.85,phone,0
+1325,2025-03-12,DJ Kompas,Paper Signal,Electronic,Netherlands,6.14,laptop,0
+1326,2025-03-12,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,4.72,speaker,0
+1327,2025-03-12,Brannon Hill,Bright Mornings,Folk,Ireland,1.95,phone,0
+1328,2025-03-12,Fjord & Flint,Northern Avenue,Folk,Norway,3.44,laptop,0
+1329,2025-03-12,Basement Cartography,Blue Mornings,Indie,Canada,1.95,phone,0
+1330,2025-03-13,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,4.9,phone,0
+1331,2025-03-13,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,4.34,phone,0
+1332,2025-03-13,Bright Utility,Winter Window,Indie,United Kingdom,3.06,speaker,0
+1333,2025-03-13,Casa Tropicana,Blue Machines,Latin,Cuba,2.28,phone,0
+1334,2025-03-14,Fjord & Flint,Open Orbit,Folk,Norway,1.77,phone,0
+1335,2025-03-14,Fjord & Flint,Northern Avenue,Folk,Norway,2.83,phone,0
+1336,2025-03-14,Fjord & Flint,Broken Radio,Folk,Norway,3.92,laptop,0
+1337,2025-03-15,Fjord & Flint,Northern Avenue,Folk,Norway,1.04,laptop,1
+1338,2025-03-15,Basement Cartography,Blue Traffic,Indie,Canada,1.88,phone,0
+1339,2025-03-15,Mireille Basset,Static Signal,Jazz,France,9.33,phone,0
+1340,2025-03-16,Fjord & Flint,Golden Garden,Folk,Norway,3.03,laptop,0
+1341,2025-03-16,The Quiet Wires,Open Mornings,Rock,United States,3.8,phone,0
+1342,2025-03-16,Static Meadow,Bright Traffic,Rock,United States,0.8,phone,1
+1343,2025-03-16,Rosewood Lane,Electric Weather,Folk,United Kingdom,3.26,tablet,0
+1344,2025-03-16,Selva Alta,Amber Mornings,Latin,Peru,2.86,phone,0
+1345,2025-03-17,Hollow Pines,Amber Lines,Folk,United States,3.43,phone,0
+1346,2025-03-17,DJ Kompas,Paper Signal,Electronic,Netherlands,3.79,speaker,0
+1347,2025-03-17,Mireille Basset,Harbour Machines,Jazz,France,7.53,phone,0
+1348,2025-03-17,Hollow Pines,Winter Traffic,Folk,United States,3.78,phone,0
+1349,2025-03-18,Brannon Hill,Quiet Ferry,Folk,Ireland,5.48,car,0
+1350,2025-03-18,Mireille Basset,Harbour Machines,Jazz,France,5.97,laptop,0
+1351,2025-03-18,Yuki Tanaka Trio,Northern Window,Jazz,Japan,10.04,phone,0
+1352,2025-03-18,Sara Lindqvist,Northern Radio,Pop,Sweden,4.18,phone,0
+1353,2025-03-18,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,4.21,laptop,0
+1354,2025-03-18,DJ Kompas,Golden Weather,Electronic,Netherlands,6.55,phone,0
+1355,2025-03-18,Static Meadow,Northern Avenue,Rock,United States,3.43,phone,0
+1356,2025-03-19,Glass Tram,Broken Mornings,Electronic,Germany,6.25,phone,0
+1357,2025-03-19,Static Meadow,Winter Mornings,Rock,United States,2.63,phone,0
+1358,2025-03-19,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,5.09,speaker,0
+1359,2025-03-19,Bright Utility,Bright Letters,Indie,United Kingdom,5.83,car,0
+1360,2025-03-20,Luz de Enero,Velvet Harbour,Latin,Spain,0.4,speaker,1
+1361,2025-03-21,Glass Tram,Broken Mornings,Electronic,Germany,5.84,phone,0
+1362,2025-03-21,DJ Kompas,Midnight Weather,Electronic,Netherlands,7.27,speaker,0
+1363,2025-03-21,DJ Kompas,Midnight Weather,Electronic,Netherlands,7.32,laptop,0
+1364,2025-03-21,DJ Kompas,Hollow Radio,Electronic,Netherlands,6.55,phone,0
+1365,2025-03-21,The Quiet Wires,Golden Wires,Rock,United States,5.68,laptop,0
+1366,2025-03-22,Luz de Enero,Static Machines,Latin,Spain,4.51,phone,0
+1367,2025-03-22,DJ Kompas,Electric Mornings,Electronic,Netherlands,6.46,speaker,0
+1368,2025-03-23,Fjord & Flint,Summer Wires,Folk,Norway,1.19,speaker,1
+1369,2025-03-23,Static Meadow,Northern Avenue,Rock,United States,4.58,car,0
+1370,2025-03-23,Luz de Enero,Static Machines,Latin,Spain,3.59,phone,0
+1371,2025-03-24,Salon Mécanique,Bright Window,Jazz,Belgium,0.43,phone,1
+1372,2025-03-24,The Slow Ferry,Iron Weather,Indie,Ireland,2.67,speaker,0
+1373,2025-03-24,Glass Tram,Broken Lines,Electronic,Germany,5.11,phone,0
+1374,2025-03-24,Glass Tram,Broken Mornings,Electronic,Germany,5.42,laptop,0
+1375,2025-03-24,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,3.32,phone,0
+1376,2025-03-24,Casa Tropicana,Harbour Orbit,Latin,Cuba,2.26,laptop,0
+1377,2025-03-25,Glass Tram,Amber Ferry,Electronic,Germany,6.24,laptop,0
+1378,2025-03-25,Glass Tram,Amber Ferry,Electronic,Germany,3.34,phone,0
+1379,2025-03-25,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,4.72,laptop,0
+1380,2025-03-25,The Slow Ferry,Iron Weather,Indie,Ireland,4.45,laptop,0
+1381,2025-03-26,Kanto Kids,Broken Weather,Pop,Philippines,0.9,phone,1
+1382,2025-03-26,Selva Alta,Open Ferry,Latin,Peru,0.88,phone,0
+1383,2025-03-26,Sara Lindqvist,Slow Mornings,Pop,Sweden,3.33,phone,0
+1384,2025-03-27,Static Meadow,Paper Parade,Rock,United States,3.23,laptop,0
+1385,2025-03-27,Sara Lindqvist,Golden Harbour,Pop,Sweden,0.77,phone,0
+1386,2025-03-27,The Slow Ferry,Winter Weather,Indie,Ireland,3.42,speaker,0
+1387,2025-03-28,Sara Lindqvist,Slow Mornings,Pop,Sweden,3.83,laptop,0
+1388,2025-03-28,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,1.72,phone,0
+1389,2025-03-29,DJ Kompas,Electric Mornings,Electronic,Netherlands,1.51,tablet,1
+1390,2025-03-29,Fjord & Flint,Blue Ferry,Folk,Norway,4.91,phone,0
+1391,2025-03-29,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,0.23,laptop,1
+1392,2025-03-29,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,3.03,speaker,0
+1393,2025-03-29,Basement Cartography,Broken Kitchen,Indie,Canada,0.97,speaker,1
+1394,2025-03-29,DJ Kompas,Hollow Radio,Electronic,Netherlands,3.27,speaker,0
+1395,2025-03-29,The Paper Kites Society,Velvet Wires,Indie,Australia,4.88,tablet,0
+1396,2025-03-30,Glass Tram,Amber Ferry,Electronic,Germany,0.6,speaker,1
+1397,2025-03-30,Sara Lindqvist,Golden Harbour,Pop,Sweden,2.76,phone,0
+1398,2025-03-30,Static Meadow,Amber Tape,Rock,United States,3.62,laptop,0
+1399,2025-03-31,DJ Kompas,Bright Ferry,Electronic,Netherlands,5.58,phone,0
+1400,2025-03-31,Rosewood Lane,Paper Mornings,Folk,United Kingdom,5.39,phone,0
+1401,2025-03-31,DJ Kompas,Electric Mornings,Electronic,Netherlands,4.72,phone,0
+1402,2025-04-01,Selva Alta,Open Orbit,Latin,Peru,1.88,laptop,0
+1403,2025-04-01,Pale Cartography,Winter Weather,Folk,Canada,0.98,speaker,1
+1404,2025-04-01,Glass Tram,Broken Lines,Electronic,Germany,6.24,laptop,0
+1405,2025-04-02,Glass Tram,Salt Lines,Electronic,Germany,4.0,phone,0
+1406,2025-04-02,Basement Cartography,Blue Mornings,Indie,Canada,1.93,laptop,0
+1407,2025-04-03,The Paper Kites Society,Amber Window,Indie,Australia,4.41,speaker,0
+1408,2025-04-03,Luz de Enero,Velvet Harbour,Latin,Spain,0.37,tablet,1
+1409,2025-04-03,Brannon Hill,Midnight Kitchen,Folk,Ireland,3.66,laptop,0
+1410,2025-04-03,The Quiet Wires,Northern Tape,Rock,United States,6.42,speaker,0
+1411,2025-04-03,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,4.45,laptop,0
+1412,2025-04-04,Luz de Enero,Velvet Harbour,Latin,Spain,1.64,laptop,0
+1413,2025-04-04,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,4.52,laptop,0
+1414,2025-04-04,Hertz Garden,Blue Orbit,Electronic,Germany,5.99,car,0
+1415,2025-04-06,Fjord & Flint,Summer Wires,Folk,Norway,4.68,speaker,0
+1416,2025-04-07,The Slow Ferry,Amber Garden,Indie,Ireland,5.06,laptop,0
+1417,2025-04-07,Kanto Kids,Broken Weather,Pop,Philippines,3.16,laptop,0
+1418,2025-04-08,Fjord & Flint,Blue Avenue,Folk,Norway,2.52,phone,0
+1419,2025-04-09,Northern Signal,Amber Lines,Electronic,Norway,6.46,phone,0
+1420,2025-04-09,Bright Utility,Broken Machines,Indie,United Kingdom,4.33,phone,0
+1421,2025-04-11,Luz de Enero,Static Traffic,Latin,Spain,3.69,phone,0
+1422,2025-04-11,Sara Lindqvist,Quiet Harbour,Pop,Sweden,1.83,phone,0
+1423,2025-04-11,Fjord & Flint,Midnight Kitchen,Folk,Norway,5.84,car,0
+1424,2025-04-12,DJ Kompas,Bright Ferry,Electronic,Netherlands,4.51,phone,0
+1425,2025-04-12,Static Meadow,Amber Tape,Rock,United States,3.93,laptop,0
+1426,2025-04-12,Sara Lindqvist,Summer Tape,Pop,Sweden,2.59,phone,0
+1427,2025-04-13,Fjord & Flint,Northern Avenue,Folk,Norway,1.02,laptop,0
+1428,2025-04-13,Sara Lindqvist,Quiet Harbour,Pop,Sweden,4.12,phone,0
+1429,2025-04-13,Northern Signal,Winter Wires,Electronic,Norway,4.89,phone,0
+1430,2025-04-13,Sara Lindqvist,Electric Weather,Pop,Sweden,5.35,speaker,0
+1431,2025-04-13,Sara Lindqvist,Slow Mornings,Pop,Sweden,1.42,phone,0
+1432,2025-04-13,DJ Kompas,Golden Weather,Electronic,Netherlands,6.09,tablet,0
+1433,2025-04-13,Sara Lindqvist,Quiet Harbour,Pop,Sweden,0.22,speaker,1
+1434,2025-04-14,Bright Utility,Salt Season,Indie,United Kingdom,2.52,car,0
+1435,2025-04-14,DJ Kompas,Quiet Orbit,Electronic,Netherlands,5.74,phone,0
+1436,2025-04-15,The Tuesday Club,Broken Harbour,Pop,United Kingdom,1.5,laptop,0
+1437,2025-04-15,Luz de Enero,Static Machines,Latin,Spain,4.15,phone,0
+1438,2025-04-16,Brannon Hill,Static Weather,Folk,Ireland,4.89,speaker,0
+1439,2025-04-16,Sara Lindqvist,Midnight Orbit,Pop,Sweden,0.48,phone,1
+1440,2025-04-16,Hertz Garden,Northern Lines,Electronic,Germany,5.67,car,0
+1441,2025-04-17,DJ Kompas,Paper Rooms,Electronic,Netherlands,4.88,car,0
+1442,2025-04-17,Casa Tropicana,Golden Harbour,Latin,Cuba,2.51,phone,0
+1443,2025-04-17,DJ Kompas,Midnight Weather,Electronic,Netherlands,6.89,laptop,0
+1444,2025-04-18,The Paper Kites Society,Slow Rooms,Indie,Australia,4.42,phone,0
+1445,2025-04-18,DJ Kompas,Midnight Weather,Electronic,Netherlands,5.76,phone,0
+1446,2025-04-18,Marta Oliveira,Static Wires,Jazz,Portugal,1.46,phone,1
+1447,2025-04-19,DJ Kompas,Bright Ferry,Electronic,Netherlands,6.32,laptop,0
+1448,2025-04-19,Brannon Hill,Bright Mornings,Folk,Ireland,2.55,phone,0
+1449,2025-04-19,Fjord & Flint,Summer Wires,Folk,Norway,3.89,phone,0
+1450,2025-04-20,DJ Kompas,Midnight Weather,Electronic,Netherlands,1.62,laptop,1
+1451,2025-04-21,Static Meadow,Amber Tape,Rock,United States,4.78,phone,0
+1452,2025-04-22,Fjord & Flint,Blue Traffic,Folk,Norway,5.77,phone,0
+1453,2025-04-23,The Quiet Wires,Open Mornings,Rock,United States,5.83,laptop,0
+1454,2025-04-23,Luz de Enero,Paper Window,Latin,Spain,3.69,phone,0
+1455,2025-04-23,The Quiet Wires,Harbour Orbit,Rock,United States,5.66,laptop,0
+1456,2025-04-23,Luz de Enero,Summer Rooms,Latin,Spain,2.34,speaker,0
+1457,2025-04-23,Northern Signal,Bright Avenue,Electronic,Norway,4.6,laptop,0
+1458,2025-04-23,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,4.0,phone,0
+1459,2025-04-23,Glass Tram,Broken Mornings,Electronic,Germany,6.19,phone,0
+1460,2025-04-24,Selva Alta,Harbour Orbit,Latin,Peru,1.95,phone,0
+1461,2025-04-24,The Slow Ferry,Velvet Season,Indie,Ireland,6.13,laptop,0
+1462,2025-04-24,Glass Tram,Broken Mornings,Electronic,Germany,0.5,tablet,1
+1463,2025-04-24,Brannon Hill,Static Weather,Folk,Ireland,5.69,phone,0
+1464,2025-04-24,Orquesta Bellavista,Broken Weather,Latin,Colombia,2.31,car,0
+1465,2025-04-24,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,4.26,car,0
+1466,2025-04-25,Static Meadow,Static Signal,Rock,United States,4.38,tablet,0
+1467,2025-04-25,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,4.28,phone,0
+1468,2025-04-25,Fjord & Flint,Blue Ferry,Folk,Norway,3.46,laptop,0
+1469,2025-04-27,Fjord & Flint,Broken Radio,Folk,Norway,3.48,phone,0
+1470,2025-04-27,DJ Kompas,Midnight Weather,Electronic,Netherlands,6.99,phone,0
+1471,2025-04-27,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,5.43,laptop,0
+1472,2025-04-28,Kito Ndungu,Summer Machines,Afrobeat,Kenya,0.4,laptop,0
+1473,2025-04-28,Sara Lindqvist,Golden Harbour,Pop,Sweden,3.68,phone,0
+1474,2025-04-29,The Paper Kites Society,Hollow Letters,Indie,Australia,3.92,tablet,0
+1475,2025-04-29,The Paper Kites Society,Harbour Rooms,Indie,Australia,3.7,laptop,0
+1476,2025-04-29,DJ Kompas,Hollow Radio,Electronic,Netherlands,4.68,phone,0
+1477,2025-04-29,DJ Kompas,Bright Ferry,Electronic,Netherlands,7.59,car,0
+1478,2025-04-29,Fjord & Flint,Broken Radio,Folk,Norway,4.87,speaker,0
+1479,2025-04-29,Fjord & Flint,Blue Traffic,Folk,Norway,0.95,phone,1
+1480,2025-04-30,The Paper Kites Society,Slow Rooms,Indie,Australia,3.76,phone,0
+1481,2025-04-30,Sara Lindqvist,Golden Harbour,Pop,Sweden,3.98,laptop,0
+1482,2025-04-30,Basement Cartography,Broken Kitchen,Indie,Canada,3.26,speaker,0
+1483,2025-04-30,Brannon Hill,Quiet Ferry,Folk,Ireland,0.52,phone,1
+1484,2025-05-01,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,4.0,phone,0
+1485,2025-05-01,Luz de Enero,Summer Rooms,Latin,Spain,4.56,speaker,0
+1486,2025-05-01,Casa Tropicana,Harbour Orbit,Latin,Cuba,4.19,phone,0
+1487,2025-05-01,DJ Kompas,Bright Ferry,Electronic,Netherlands,5.02,car,0
+1488,2025-05-02,Fjord & Flint,Open Orbit,Folk,Norway,3.59,phone,0
+1489,2025-05-02,Bright Utility,Winter Window,Indie,United Kingdom,7.19,phone,0
+1490,2025-05-02,Sara Lindqvist,Midnight Orbit,Pop,Sweden,2.18,laptop,0
+1491,2025-05-02,Glass Tram,Broken Mornings,Electronic,Germany,3.87,laptop,0
+1492,2025-05-03,DJ Kompas,Midnight Weather,Electronic,Netherlands,5.21,phone,0
+1493,2025-05-03,Yuki Tanaka Trio,Harbour Season,Jazz,Japan,8.28,tablet,0
+1494,2025-05-03,Sara Lindqvist,Midnight Orbit,Pop,Sweden,4.04,speaker,0
+1495,2025-05-03,Kito Ndungu,Amber Kitchen,Afrobeat,Kenya,3.58,phone,0
+1496,2025-05-04,Salon Mécanique,Harbour Machines,Jazz,Belgium,7.5,car,0
+1497,2025-05-04,Salon Mécanique,Velvet Machines,Jazz,Belgium,5.05,laptop,0
+1498,2025-05-04,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,4.9,phone,0
+1499,2025-05-04,Glass Tram,Salt Lines,Electronic,Germany,6.3,phone,0
+1500,2025-05-05,Sara Lindqvist,Midnight Orbit,Pop,Sweden,4.42,laptop,0
+1501,2025-05-05,Glass Tram,Salt Lines,Electronic,Germany,6.81,laptop,0
+1502,2025-05-05,Fjord & Flint,Midnight Kitchen,Folk,Norway,5.56,phone,0
+1503,2025-05-05,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,2.86,phone,0
+1504,2025-05-05,Glass Tram,Broken Mornings,Electronic,Germany,4.54,laptop,0
+1505,2025-05-06,Fjord & Flint,Open Orbit,Folk,Norway,0.4,laptop,0
+1506,2025-05-07,Glass Tram,Broken Mornings,Electronic,Germany,6.81,laptop,0
+1507,2025-05-07,Orquesta Bellavista,Velvet Garden,Latin,Colombia,4.68,phone,0
+1508,2025-05-08,Fjord & Flint,Golden Garden,Folk,Norway,5.11,phone,0
+1509,2025-05-08,DJ Kompas,Midnight Weather,Electronic,Netherlands,5.11,laptop,0
+1510,2025-05-08,Marta Oliveira,Electric Window,Jazz,Portugal,7.85,car,0
+1511,2025-05-08,Glass Tram,Salt Lines,Electronic,Germany,6.6,phone,0
+1512,2025-05-09,Glass Tram,Broken Lines,Electronic,Germany,0.45,laptop,1
+1513,2025-05-09,The Quiet Wires,Northern Tape,Rock,United States,5.01,tablet,0
+1514,2025-05-09,Kanto Kids,Broken Weather,Pop,Philippines,2.04,speaker,0
+1515,2025-05-09,Glass Tram,Amber Ferry,Electronic,Germany,4.66,speaker,0
+1516,2025-05-10,Bright Utility,Salt Season,Indie,United Kingdom,6.11,phone,0
+1517,2025-05-10,DJ Kompas,Paper Signal,Electronic,Netherlands,7.02,phone,0
+1518,2025-05-10,Yuki Tanaka Trio,Golden Machines,Jazz,Japan,7.52,laptop,0
+1519,2025-05-10,Yuki Tanaka Trio,Golden Window,Jazz,Japan,9.37,car,0
+1520,2025-05-11,Fjord & Flint,Golden Garden,Folk,Norway,4.93,speaker,0
+1521,2025-05-11,Bright Utility,Broken Machines,Indie,United Kingdom,2.69,speaker,0
+1522,2025-05-11,Sara Lindqvist,Slow Mornings,Pop,Sweden,1.25,phone,0
+1523,2025-05-11,Kito Ndungu,Static Tape,Afrobeat,Kenya,1.77,phone,0
+1524,2025-05-11,Fjord & Flint,Blue Avenue,Folk,Norway,3.68,laptop,0
+1525,2025-05-12,The Slow Ferry,Iron Weather,Indie,Ireland,3.77,phone,0
+1526,2025-05-12,Glass Tram,Amber Ferry,Electronic,Germany,6.6,phone,0
+1527,2025-05-12,DJ Kompas,Electric Mornings,Electronic,Netherlands,5.72,laptop,0
+1528,2025-05-12,Marta Oliveira,Electric Mornings,Jazz,Portugal,7.84,phone,0
+1529,2025-05-12,Sara Lindqvist,Midnight Orbit,Pop,Sweden,3.12,speaker,0
+1530,2025-05-13,Yuki Tanaka Trio,Harbour Season,Jazz,Japan,6.39,tablet,0
+1531,2025-05-13,The Slow Ferry,Bright Rooms,Indie,Ireland,4.93,phone,0
+1532,2025-05-13,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,2.42,phone,0
+1533,2025-05-14,Sara Lindqvist,Northern Radio,Pop,Sweden,3.14,laptop,0
+1534,2025-05-14,Static Meadow,Paper Parade,Rock,United States,3.44,phone,0
+1535,2025-05-14,Fjord & Flint,Midnight Kitchen,Folk,Norway,3.83,phone,0
+1536,2025-05-15,Northern Signal,Salt Lines,Electronic,Norway,4.22,phone,0
+1537,2025-05-15,DJ Kompas,Paper Rooms,Electronic,Netherlands,5.28,speaker,0
+1538,2025-05-15,The Paper Kites Society,Velvet Wires,Indie,Australia,3.73,car,0
+1539,2025-05-15,Pale Cartography,Open Season,Folk,Canada,3.67,car,0
+1540,2025-05-16,Sara Lindqvist,Quiet Harbour,Pop,Sweden,6.7,laptop,0
+1541,2025-05-16,The Slow Ferry,Velvet Season,Indie,Ireland,2.06,laptop,0
+1542,2025-05-16,Fjord & Flint,Summer Wires,Folk,Norway,4.46,laptop,0
+1543,2025-05-17,Kito Ndungu,Hollow Machines,Afrobeat,Kenya,4.26,phone,0
+1544,2025-05-17,DJ Kompas,Bright Ferry,Electronic,Netherlands,5.92,laptop,0
+1545,2025-05-18,Static Meadow,Amber Tape,Rock,United States,4.97,laptop,0
+1546,2025-05-18,Luz de Enero,Harbour Season,Latin,Spain,3.25,phone,0
+1547,2025-05-18,DJ Kompas,Bright Ferry,Electronic,Netherlands,5.31,phone,0
+1548,2025-05-19,Kito Ndungu,Bright Weather,Afrobeat,Kenya,3.44,phone,0
+1549,2025-05-19,The Paper Kites Society,Amber Window,Indie,Australia,6.06,phone,0
+1550,2025-05-20,The Quiet Wires,Quiet Machines,Rock,United States,5.78,speaker,0
+1551,2025-05-20,Hollow Pines,Amber Lines,Folk,United States,2.36,speaker,0
+1552,2025-05-21,Static Meadow,Bright Traffic,Rock,United States,3.56,speaker,0
+1553,2025-05-21,Hertz Garden,Amber Machines,Electronic,Germany,5.06,tablet,0
+1554,2025-05-21,Luz de Enero,Harbour Season,Latin,Spain,7.08,phone,0
+1555,2025-05-22,Luz de Enero,Summer Rooms,Latin,Spain,3.44,phone,0
+1556,2025-05-22,Glass Tram,Salt Lines,Electronic,Germany,3.78,phone,0
+1557,2025-05-22,Fjord & Flint,Midnight Kitchen,Folk,Norway,3.95,phone,0
+1558,2025-05-23,Fjord & Flint,Summer Wires,Folk,Norway,6.41,phone,0
+1559,2025-05-23,DJ Kompas,Hollow Radio,Electronic,Netherlands,7.77,phone,0
+1560,2025-05-23,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,6.84,phone,0
+1561,2025-05-23,Basement Cartography,Blue Traffic,Indie,Canada,3.67,car,0
+1562,2025-05-24,Glass Tram,Broken Mornings,Electronic,Germany,0.37,speaker,1
+1563,2025-05-25,Glass Tram,Salt Lines,Electronic,Germany,2.67,laptop,0
+1564,2025-05-25,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,4.89,car,0
+1565,2025-05-26,Circuit Sparrow,Amber Window,Electronic,Japan,7.53,laptop,0
+1566,2025-05-26,Basement Cartography,Summer Orbit,Indie,Canada,3.29,car,0
+1567,2025-05-26,Circuit Sparrow,Slow Parade,Electronic,Japan,5.79,phone,0
+1568,2025-05-26,Fjord & Flint,Northern Avenue,Folk,Norway,6.5,phone,0
+1569,2025-05-27,Glass Tram,Broken Lines,Electronic,Germany,4.51,phone,0
+1570,2025-05-27,Kito Ndungu,Northern Rooms,Afrobeat,Kenya,1.95,speaker,0
+1571,2025-05-27,Sara Lindqvist,Golden Harbour,Pop,Sweden,3.87,laptop,0
+1572,2025-05-27,Northern Signal,Bright Avenue,Electronic,Norway,6.01,phone,0
+1573,2025-05-27,Pale Cartography,Blue Signal,Folk,Canada,5.64,speaker,0
+1574,2025-05-28,The Quiet Wires,Open Mornings,Rock,United States,0.32,phone,1
+1575,2025-05-28,Bright Utility,Bright Letters,Indie,United Kingdom,6.5,speaker,0
+1576,2025-05-28,The Tuesday Club,Open Lines,Pop,United Kingdom,3.02,phone,0
+1577,2025-05-29,Glass Tram,Salt Lines,Electronic,Germany,6.35,laptop,0
+1578,2025-05-29,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,7.2,speaker,0
+1579,2025-05-29,Yuki Tanaka Trio,Golden Window,Jazz,Japan,6.86,phone,0
+1580,2025-05-29,Glass Tram,Broken Lines,Electronic,Germany,5.56,car,0
+1581,2025-05-29,Nora Whitlock,Bright Garden,Pop,United States,3.78,phone,0
+1582,2025-05-30,Selva Alta,Harbour Lines,Latin,Peru,3.58,phone,0
+1583,2025-05-30,Sara Lindqvist,Broken Kitchen,Pop,Sweden,6.04,phone,0
+1584,2025-05-30,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,5.22,laptop,0
+1585,2025-05-31,Sara Lindqvist,Quiet Harbour,Pop,Sweden,0.99,phone,0
+1586,2025-06-01,Hollow Pines,Amber Lines,Folk,United States,5.65,speaker,0
+1587,2025-06-01,DJ Kompas,Quiet Orbit,Electronic,Netherlands,5.94,phone,0
+1588,2025-06-01,Glass Tram,Broken Mornings,Electronic,Germany,3.05,tablet,0
+1589,2025-06-02,Glass Tram,Broken Lines,Electronic,Germany,3.91,phone,0
+1590,2025-06-03,Mireille Basset,Midnight Traffic,Jazz,France,1.09,phone,1
+1591,2025-06-03,Yuki Tanaka Trio,Harbour Season,Jazz,Japan,7.08,phone,0
+1592,2025-06-04,Sara Lindqvist,Golden Harbour,Pop,Sweden,3.34,phone,0
+1593,2025-06-04,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,2.08,phone,0
+1594,2025-06-05,The Paper Kites Society,Electric Lines,Indie,Australia,0.5,phone,1
+1595,2025-06-05,Pale Cartography,Winter Weather,Folk,Canada,4.68,car,0
+1596,2025-06-05,Mireille Basset,Blue Window,Jazz,France,1.71,phone,1
+1597,2025-06-05,Brannon Hill,Northern Machines,Folk,Ireland,5.07,phone,0
+1598,2025-06-05,Hollow Pines,Midnight Harbour,Folk,United States,0.71,laptop,1
+1599,2025-06-06,DJ Kompas,Midnight Weather,Electronic,Netherlands,6.51,laptop,0
+1600,2025-06-06,Northern Signal,Electric Avenue,Electronic,Norway,6.11,phone,0
+1601,2025-06-07,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,2.34,phone,0
+1602,2025-06-07,Basement Cartography,Blue Traffic,Indie,Canada,3.43,phone,0
+1603,2025-06-07,Glass Tram,Broken Lines,Electronic,Germany,5.35,laptop,0
+1604,2025-06-07,The Paper Kites Society,Amber Window,Indie,Australia,4.45,phone,0
+1605,2025-06-09,Luz de Enero,Static Machines,Latin,Spain,0.4,speaker,0
+1606,2025-06-10,Cassette Revival,Harbour Wires,Indie,France,4.99,laptop,0
+1607,2025-06-10,Sara Lindqvist,Electric Weather,Pop,Sweden,4.86,speaker,0
+1608,2025-06-10,Sara Lindqvist,Electric Weather,Pop,Sweden,5.3,speaker,0
+1609,2025-06-11,Glass Tram,Broken Mornings,Electronic,Germany,4.71,laptop,0
+1610,2025-06-11,Fjord & Flint,Open Orbit,Folk,Norway,2.64,speaker,0
+1611,2025-06-12,Bright Utility,Salt Season,Indie,United Kingdom,1.69,laptop,0
+1612,2025-06-12,Nora Whitlock,Northern Machines,Pop,United States,4.59,phone,0
+1613,2025-06-12,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,0.54,speaker,1
+1614,2025-06-12,Static Meadow,Salt Mornings,Rock,United States,6.52,car,0
+1615,2025-06-12,DJ Kompas,Quiet Orbit,Electronic,Netherlands,2.75,speaker,0
+1616,2025-06-12,Glass Tram,Salt Lines,Electronic,Germany,0.44,phone,1
+1617,2025-06-12,Luz de Enero,Velvet Harbour,Latin,Spain,3.02,phone,0
+1618,2025-06-13,Glass Tram,Broken Lines,Electronic,Germany,0.99,speaker,1
+1619,2025-06-14,Sara Lindqvist,Northern Radio,Pop,Sweden,3.21,phone,0
+1620,2025-06-15,Sara Lindqvist,Electric Weather,Pop,Sweden,4.6,laptop,0
+1621,2025-06-16,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,3.39,car,0
+1622,2025-06-17,Glass Tram,Broken Lines,Electronic,Germany,3.95,phone,0
+1623,2025-06-18,Brannon Hill,Quiet Ferry,Folk,Ireland,5.11,phone,0
+1624,2025-06-19,Sara Lindqvist,Electric Weather,Pop,Sweden,3.74,laptop,0
+1625,2025-06-20,Sara Lindqvist,Northern Radio,Pop,Sweden,4.07,laptop,0
+1626,2025-06-21,Pale Cartography,Open Season,Folk,Canada,3.05,car,0
+1627,2025-06-21,Basement Cartography,Broken Kitchen,Indie,Canada,4.68,laptop,0
+1628,2025-06-21,Sara Lindqvist,Quiet Harbour,Pop,Sweden,4.64,speaker,0
+1629,2025-06-21,Glass Tram,Amber Ferry,Electronic,Germany,4.89,phone,0
+1630,2025-06-22,Yuki Tanaka Trio,Golden Window,Jazz,Japan,7.82,car,0
+1631,2025-06-22,Selva Alta,Electric Letters,Latin,Peru,3.47,speaker,0
+1632,2025-06-23,Luz de Enero,Northern Ferry,Latin,Spain,4.69,phone,0
+1633,2025-06-23,Glass Tram,Salt Lines,Electronic,Germany,4.94,phone,0
+1634,2025-06-23,Glass Tram,Amber Ferry,Electronic,Germany,7.07,laptop,0
+1635,2025-06-24,Yuki Tanaka Trio,Northern Lines,Jazz,Japan,1.4,speaker,1
+1636,2025-06-24,The Quiet Wires,Golden Wires,Rock,United States,6.25,car,0
+1637,2025-06-27,Sara Lindqvist,Midnight Orbit,Pop,Sweden,2.7,phone,0
+1638,2025-06-27,Fjord & Flint,Blue Ferry,Folk,Norway,4.82,phone,0
+1639,2025-06-27,DJ Kompas,Paper Rooms,Electronic,Netherlands,7.47,phone,0
+1640,2025-06-28,Nora Whitlock,Northern Machines,Pop,United States,1.1,phone,0
+1641,2025-06-29,Rosewood Lane,Golden Letters,Folk,United Kingdom,1.28,speaker,0
+1642,2025-06-29,The Quiet Wires,Golden Wires,Rock,United States,4.48,speaker,0
+1643,2025-06-30,Northern Signal,Winter Wires,Electronic,Norway,8.17,phone,0
+1644,2025-06-30,Luz de Enero,Harbour Season,Latin,Spain,3.65,speaker,0
+1645,2025-07-02,Yuki Tanaka Trio,Northern Window,Jazz,Japan,5.85,phone,0
+1646,2025-07-03,Kito Ndungu,Northern Rooms,Afrobeat,Kenya,1.67,phone,0
+1647,2025-07-03,Fjord & Flint,Golden Garden,Folk,Norway,4.56,phone,0
+1648,2025-07-04,The Tuesday Club,Amber Harbour,Pop,United Kingdom,5.07,phone,0
+1649,2025-07-05,The Paper Kites Society,Slow Rooms,Indie,Australia,1.98,phone,0
+1650,2025-07-05,Fjord & Flint,Northern Avenue,Folk,Norway,2.94,speaker,0
+1651,2025-07-05,The Paper Kites Society,Electric Radio,Indie,Australia,3.51,phone,0
+1652,2025-07-06,Glass Tram,Amber Ferry,Electronic,Germany,1.56,laptop,1
+1653,2025-07-06,Luz de Enero,Summer Rooms,Latin,Spain,1.19,phone,0
+1654,2025-07-06,Yuki Tanaka Trio,Golden Machines,Jazz,Japan,6.41,laptop,0
+1655,2025-07-07,Fjord & Flint,Midnight Kitchen,Folk,Norway,3.06,laptop,0
+1656,2025-07-07,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,2.42,phone,0
+1657,2025-07-07,Marta Oliveira,Paper Avenue,Jazz,Portugal,9.95,phone,0
+1658,2025-07-09,DJ Kompas,Midnight Weather,Electronic,Netherlands,7.99,phone,0
+1659,2025-07-09,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,6.4,phone,0
+1660,2025-07-10,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,3.27,phone,0
+1661,2025-07-10,Fjord & Flint,Golden Garden,Folk,Norway,8.5,phone,0
+1662,2025-07-10,The Slow Ferry,Amber Garden,Indie,Ireland,4.24,laptop,0
+1663,2025-07-10,The Long Commute,Winter Traffic,Indie,Netherlands,4.42,laptop,0
+1664,2025-07-11,DJ Kompas,Midnight Weather,Electronic,Netherlands,4.95,speaker,0
+1665,2025-07-11,Nora Whitlock,Northern Machines,Pop,United States,3.43,car,0
+1666,2025-07-11,Rosewood Lane,Slow Rooms,Folk,United Kingdom,5.3,phone,0
+1667,2025-07-12,Brannon Hill,Quiet Ferry,Folk,Ireland,1.69,phone,0
+1668,2025-07-12,Marta Oliveira,Electric Mornings,Jazz,Portugal,0.43,speaker,1
+1669,2025-07-14,Fjord & Flint,Blue Traffic,Folk,Norway,3.44,phone,0
+1670,2025-07-14,Salon Mécanique,Open Season,Jazz,Belgium,1.07,phone,1
+1671,2025-07-14,Orquesta Bellavista,Salt Ferry,Latin,Colombia,2.48,laptop,0
+1672,2025-07-15,Fjord & Flint,Broken Radio,Folk,Norway,3.38,phone,0
+1673,2025-07-16,Glass Tram,Broken Lines,Electronic,Germany,4.64,car,0
+1674,2025-07-16,Yuki Tanaka Trio,Northern Lines,Jazz,Japan,9.06,speaker,0
+1675,2025-07-16,Sara Lindqvist,Electric Weather,Pop,Sweden,3.54,laptop,0
+1676,2025-07-17,Bright Utility,Winter Window,Indie,United Kingdom,1.38,phone,1
+1677,2025-07-17,Fjord & Flint,Blue Traffic,Folk,Norway,6.12,phone,0
+1678,2025-07-17,Brannon Hill,Bright Mornings,Folk,Ireland,5.34,phone,0
+1679,2025-07-17,The Slow Ferry,Bright Rooms,Indie,Ireland,3.73,tablet,0
+1680,2025-07-17,Static Meadow,Static Signal,Rock,United States,3.39,phone,0
+1681,2025-07-17,Bright Utility,Bright Letters,Indie,United Kingdom,4.32,tablet,0
+1682,2025-07-17,Luz de Enero,Paper Window,Latin,Spain,1.15,laptop,0
+1683,2025-07-18,Salon Mécanique,Velvet Machines,Jazz,Belgium,8.07,phone,0
+1684,2025-07-20,Hollow Pines,Winter Traffic,Folk,United States,1.7,phone,0
+1685,2025-07-20,Mireille Basset,Harbour Machines,Jazz,France,7.2,phone,0
+1686,2025-07-21,Glass Tram,Amber Ferry,Electronic,Germany,1.83,laptop,1
+1687,2025-07-22,Static Meadow,Paper Parade,Rock,United States,4.85,phone,0
+1688,2025-07-22,Fjord & Flint,Broken Radio,Folk,Norway,3.22,phone,0
+1689,2025-07-23,Fjord & Flint,Open Orbit,Folk,Norway,4.69,laptop,0
+1690,2025-07-24,Luz de Enero,Static Machines,Latin,Spain,5.76,laptop,0
+1691,2025-07-24,Velvet Aqueduct,Electric Weather,Rock,Italy,5.06,phone,0
+1692,2025-07-26,Selva Alta,Electric Letters,Latin,Peru,3.38,phone,0
+1693,2025-07-26,Rosewood Lane,Summer Signal,Folk,United Kingdom,3.44,phone,0
+1694,2025-07-27,The Paper Kites Society,Velvet Garden,Indie,Australia,2.43,speaker,0
+1695,2025-07-27,Glass Tram,Salt Lines,Electronic,Germany,6.38,speaker,0
+1696,2025-07-28,Selva Alta,Amber Mornings,Latin,Peru,3.75,phone,0
+1697,2025-07-28,Brannon Hill,Electric Parade,Folk,Ireland,3.82,phone,0
+1698,2025-07-29,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,3.52,speaker,0
+1699,2025-07-29,Brannon Hill,Electric Parade,Folk,Ireland,4.27,car,0
+1700,2025-07-29,Rosewood Lane,Paper Mornings,Folk,United Kingdom,4.41,laptop,0
+1701,2025-07-29,The Slow Ferry,Velvet Season,Indie,Ireland,0.76,laptop,1
+1702,2025-07-30,Yuki Tanaka Trio,Golden Window,Jazz,Japan,8.77,phone,0
+1703,2025-07-31,Brannon Hill,Northern Machines,Folk,Ireland,5.29,car,0
+1704,2025-08-01,DJ Kompas,Electric Mornings,Electronic,Netherlands,6.92,speaker,0
+1705,2025-08-01,DJ Kompas,Hollow Radio,Electronic,Netherlands,5.41,laptop,0
+1706,2025-08-01,Glass Tram,Broken Lines,Electronic,Germany,6.52,speaker,0
+1707,2025-08-02,Marta Oliveira,Static Wires,Jazz,Portugal,10.72,phone,0
+1708,2025-08-03,Fjord & Flint,Broken Radio,Folk,Norway,3.45,phone,0
+1709,2025-08-03,Hollow Pines,Salt Harbour,Folk,United States,5.86,laptop,0
+1710,2025-08-05,DJ Kompas,Electric Mornings,Electronic,Netherlands,5.24,car,0
+1711,2025-08-06,Fjord & Flint,Blue Traffic,Folk,Norway,3.65,car,0
+1712,2025-08-07,Tundra Post,Blue Weather,Electronic,Iceland,8.35,speaker,0
+1713,2025-08-07,Sara Lindqvist,Electric Weather,Pop,Sweden,5.01,phone,0
+1714,2025-08-07,The Quiet Wires,Quiet Rooms,Rock,United States,3.28,speaker,0
+1715,2025-08-08,Sara Lindqvist,Quiet Harbour,Pop,Sweden,1.64,laptop,0
+1716,2025-08-08,Brannon Hill,Midnight Kitchen,Folk,Ireland,4.63,speaker,0
+1717,2025-08-09,Casa Tropicana,Golden Harbour,Latin,Cuba,5.05,laptop,0
+1718,2025-08-09,DJ Kompas,Midnight Weather,Electronic,Netherlands,0.39,laptop,1
+1719,2025-08-09,Luz de Enero,Summer Rooms,Latin,Spain,3.88,phone,0
+1720,2025-08-09,Sara Lindqvist,Northern Radio,Pop,Sweden,2.63,laptop,0
+1721,2025-08-09,Static Meadow,Broken Season,Rock,United States,3.74,laptop,0
+1722,2025-08-10,Glass Tram,Amber Ferry,Electronic,Germany,0.49,phone,1
+1723,2025-08-10,Static Meadow,Bright Traffic,Rock,United States,1.3,phone,0
+1724,2025-08-10,DJ Kompas,Golden Weather,Electronic,Netherlands,4.97,laptop,0
+1725,2025-08-11,Fjord & Flint,Blue Ferry,Folk,Norway,0.94,tablet,1
+1726,2025-08-11,Sara Lindqvist,Golden Harbour,Pop,Sweden,5.15,tablet,0
+1727,2025-08-13,Static Meadow,Open Rooms,Rock,United States,4.86,phone,0
+1728,2025-08-13,Glass Tram,Broken Lines,Electronic,Germany,6.8,laptop,0
+1729,2025-08-13,Static Meadow,Bright Traffic,Rock,United States,4.54,laptop,0
+1730,2025-08-13,Kito Ndungu,Hollow Machines,Afrobeat,Kenya,2.04,speaker,0
+1731,2025-08-14,The Tuesday Club,Salt Wires,Pop,United Kingdom,1.88,tablet,0
+1732,2025-08-14,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,3.46,speaker,0
+1733,2025-08-14,Glass Tram,Broken Mornings,Electronic,Germany,3.91,tablet,0
+1734,2025-08-15,Fjord & Flint,Golden Garden,Folk,Norway,3.68,speaker,0
+1735,2025-08-15,The Paper Kites Society,Harbour Rooms,Indie,Australia,0.25,laptop,1
+1736,2025-08-16,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,3.1,phone,0
+1737,2025-08-16,Selva Alta,Static Kitchen,Latin,Peru,5.22,phone,0
+1738,2025-08-16,Basement Cartography,Summer Season,Indie,Canada,1.56,speaker,0
+1739,2025-08-16,Hertz Garden,Blue Harbour,Electronic,Germany,6.36,car,0
+1740,2025-08-18,Sara Lindqvist,Electric Weather,Pop,Sweden,1.84,phone,0
+1741,2025-08-20,Luz de Enero,Summer Rooms,Latin,Spain,5.52,phone,0
+1742,2025-08-21,Basement Cartography,Summer Orbit,Indie,Canada,6.09,tablet,0
+1743,2025-08-21,Marta Oliveira,Broken Orbit,Jazz,Portugal,8.07,laptop,0
+1744,2025-08-21,Glass Tram,Broken Lines,Electronic,Germany,3.53,speaker,0
+1745,2025-08-23,Cassette Revival,Salt Parade,Indie,France,3.18,speaker,0
+1746,2025-08-23,Cassette Revival,Slow Signal,Indie,France,3.88,phone,0
+1747,2025-08-23,Sara Lindqvist,Slow Mornings,Pop,Sweden,3.18,phone,0
+1748,2025-08-23,Bright Utility,Winter Window,Indie,United Kingdom,3.38,phone,0
+1749,2025-08-25,Glass Tram,Amber Ferry,Electronic,Germany,6.63,laptop,0
+1750,2025-08-25,Sara Lindqvist,Golden Harbour,Pop,Sweden,1.17,laptop,0
+1751,2025-08-25,Hollow Pines,Winter Traffic,Folk,United States,2.81,laptop,0
+1752,2025-08-26,Glass Tram,Broken Lines,Electronic,Germany,3.07,laptop,0
+1753,2025-08-27,Basement Cartography,Paper Kitchen,Indie,Canada,5.3,laptop,0
+1754,2025-08-28,Marta Oliveira,Paper Avenue,Jazz,Portugal,9.6,laptop,0
+1755,2025-08-28,Glass Tram,Salt Lines,Electronic,Germany,4.76,speaker,0
+1756,2025-08-29,Sara Lindqvist,Midnight Orbit,Pop,Sweden,2.11,phone,0
+1757,2025-08-30,Northern Signal,Amber Rooms,Electronic,Norway,7.55,phone,0
+1758,2025-08-31,Mireille Basset,Blue Window,Jazz,France,7.12,phone,0
+1759,2025-08-31,Fjord & Flint,Blue Ferry,Folk,Norway,6.54,speaker,0
+1760,2025-08-31,The Long Commute,Midnight Radio,Indie,Netherlands,3.65,phone,0
+1761,2025-09-02,Basement Cartography,Iron Traffic,Indie,Canada,1.33,phone,0
+1762,2025-09-02,Basement Cartography,Broken Kitchen,Indie,Canada,0.26,laptop,1
+1763,2025-09-02,DJ Kompas,Electric Mornings,Electronic,Netherlands,7.53,laptop,0
+1764,2025-09-03,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,0.23,phone,1
+1765,2025-09-03,DJ Kompas,Golden Weather,Electronic,Netherlands,6.03,phone,0
+1766,2025-09-03,The Quiet Wires,Northern Tape,Rock,United States,0.15,speaker,1
+1767,2025-09-03,Hertz Garden,Broken Kitchen,Electronic,Germany,4.61,car,0
+1768,2025-09-04,Glass Tram,Amber Ferry,Electronic,Germany,2.98,phone,0
+1769,2025-09-04,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,5.14,phone,0
+1770,2025-09-05,Mireille Basset,Harbour Machines,Jazz,France,6.8,laptop,0
+1771,2025-09-05,Sara Lindqvist,Northern Radio,Pop,Sweden,3.51,phone,0
+1772,2025-09-05,Sara Lindqvist,Northern Radio,Pop,Sweden,4.12,phone,0
+1773,2025-09-05,Basement Cartography,Summer Season,Indie,Canada,2.8,laptop,0
+1774,2025-09-05,Mireille Basset,Blue Window,Jazz,France,9.64,phone,0
+1775,2025-09-06,DJ Kompas,Bright Ferry,Electronic,Netherlands,1.7,laptop,1
+1776,2025-09-06,Sara Lindqvist,Golden Harbour,Pop,Sweden,3.79,car,0
+1777,2025-09-06,DJ Kompas,Golden Weather,Electronic,Netherlands,5.11,laptop,0
+1778,2025-09-07,Sara Lindqvist,Northern Radio,Pop,Sweden,2.88,speaker,0
+1779,2025-09-07,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,5.26,laptop,0
+1780,2025-09-07,Sara Lindqvist,Broken Kitchen,Pop,Sweden,3.24,tablet,0
+1781,2025-09-07,Glass Tram,Broken Lines,Electronic,Germany,7.31,phone,0
+1782,2025-09-07,Mireille Basset,Blue Window,Jazz,France,5.73,tablet,0
+1783,2025-09-07,Static Meadow,Northern Avenue,Rock,United States,4.44,laptop,0
+1784,2025-09-08,Glass Tram,Broken Lines,Electronic,Germany,4.82,phone,0
+1785,2025-09-08,Fjord & Flint,Broken Radio,Folk,Norway,2.83,phone,0
+1786,2025-09-08,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,6.6,phone,0
+1787,2025-09-09,Glass Tram,Broken Mornings,Electronic,Germany,7.2,laptop,0
+1788,2025-09-09,Brannon Hill,Northern Machines,Folk,Ireland,3.48,speaker,0
+1789,2025-09-09,Fjord & Flint,Blue Traffic,Folk,Norway,3.51,laptop,0
+1790,2025-09-09,Northern Signal,Electric Avenue,Electronic,Norway,1.25,speaker,0
+1791,2025-09-09,Bright Utility,Winter Window,Indie,United Kingdom,3.88,phone,0
+1792,2025-09-10,Orquesta Bellavista,Open Orbit,Latin,Colombia,2.75,phone,0
+1793,2025-09-10,The Slow Ferry,Iron Weather,Indie,Ireland,6.09,phone,0
+1794,2025-09-12,Sara Lindqvist,Broken Kitchen,Pop,Sweden,1.76,speaker,0
+1795,2025-09-12,Glass Tram,Broken Lines,Electronic,Germany,3.75,phone,0
+1796,2025-09-12,Sara Lindqvist,Broken Kitchen,Pop,Sweden,3.6,speaker,0
+1797,2025-09-12,Glass Tram,Broken Mornings,Electronic,Germany,6.26,phone,0
+1798,2025-09-13,Fjord & Flint,Blue Ferry,Folk,Norway,5.46,speaker,0
+1799,2025-09-13,Fjord & Flint,Blue Avenue,Folk,Norway,0.87,laptop,1
+1800,2025-09-13,Glass Tram,Broken Lines,Electronic,Germany,7.62,laptop,0
+1801,2025-09-14,Selva Alta,Harbour Orbit,Latin,Peru,5.24,phone,0
+1802,2025-09-14,Static Meadow,Northern Avenue,Rock,United States,3.82,phone,0
+1803,2025-09-15,Glass Tram,Salt Lines,Electronic,Germany,4.82,laptop,0
+1804,2025-09-15,Glass Tram,Amber Ferry,Electronic,Germany,4.18,laptop,0
+1805,2025-09-15,Fjord & Flint,Northern Avenue,Folk,Norway,1.25,laptop,0
+1806,2025-09-15,Pale Cartography,Open Orbit,Folk,Canada,4.81,laptop,0
+1807,2025-09-15,Rosewood Lane,Slow Rooms,Folk,United Kingdom,6.59,phone,0
+1808,2025-09-16,Sara Lindqvist,Golden Harbour,Pop,Sweden,6.05,phone,0
+1809,2025-09-16,Fjord & Flint,Midnight Kitchen,Folk,Norway,3.97,phone,0
+1810,2025-09-16,The Paper Kites Society,Electric Radio,Indie,Australia,1.31,phone,0
+1811,2025-09-17,Glass Tram,Broken Lines,Electronic,Germany,7.03,phone,0
+1812,2025-09-17,Bright Utility,Winter Window,Indie,United Kingdom,5.41,laptop,0
+1813,2025-09-17,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,2.96,phone,0
+1814,2025-09-19,DJ Kompas,Midnight Weather,Electronic,Netherlands,5.44,laptop,0
+1815,2025-09-19,Sara Lindqvist,Summer Tape,Pop,Sweden,2.1,laptop,0
+1816,2025-09-19,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,0.41,car,1
+1817,2025-09-19,The Long Commute,Broken Orbit,Indie,Netherlands,3.24,speaker,0
+1818,2025-09-19,Sara Lindqvist,Summer Tape,Pop,Sweden,3.87,laptop,0
+1819,2025-09-20,Glass Tram,Broken Lines,Electronic,Germany,7.52,phone,0
+1820,2025-09-20,Fjord & Flint,Golden Garden,Folk,Norway,2.25,speaker,0
+1821,2025-09-21,The Quiet Wires,Golden Wires,Rock,United States,4.07,speaker,0
+1822,2025-09-21,Glass Tram,Broken Lines,Electronic,Germany,5.19,phone,0
+1823,2025-09-21,Luz de Enero,Northern Ferry,Latin,Spain,4.25,laptop,0
+1824,2025-09-22,The Quiet Wires,Harbour Orbit,Rock,United States,5.72,phone,0
+1825,2025-09-22,Fjord & Flint,Blue Avenue,Folk,Norway,1.4,phone,1
+1826,2025-09-23,Static Meadow,Salt Mornings,Rock,United States,3.48,phone,0
+1827,2025-09-23,DJ Kompas,Hollow Radio,Electronic,Netherlands,6.38,phone,0
+1828,2025-09-24,Glass Tram,Salt Lines,Electronic,Germany,6.76,laptop,0
+1829,2025-09-24,Sara Lindqvist,Northern Radio,Pop,Sweden,1.96,speaker,0
+1830,2025-09-24,The Paper Kites Society,Electric Radio,Indie,Australia,0.35,laptop,1
+1831,2025-09-25,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,3.5,phone,0
+1832,2025-09-25,Sara Lindqvist,Midnight Orbit,Pop,Sweden,3.04,car,0
+1833,2025-09-25,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,4.73,laptop,0
+1834,2025-09-26,The Slow Ferry,Velvet Season,Indie,Ireland,0.92,speaker,1
+1835,2025-09-26,The Quiet Wires,Golden Wires,Rock,United States,5.78,laptop,0
+1836,2025-09-28,Hollow Pines,Winter Traffic,Folk,United States,2.12,tablet,0
+1837,2025-09-28,Mireille Basset,Static Signal,Jazz,France,7.88,laptop,0
+1838,2025-09-28,DJ Kompas,Paper Rooms,Electronic,Netherlands,1.63,phone,1
+1839,2025-09-29,Fjord & Flint,Open Orbit,Folk,Norway,0.27,phone,1
+1840,2025-09-29,The Paper Kites Society,Hollow Letters,Indie,Australia,6.54,car,0
+1841,2025-09-29,Static Meadow,Salt Mornings,Rock,United States,4.32,phone,0
+1842,2025-09-29,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,5.9,laptop,0
+1843,2025-09-29,The Quiet Wires,Quiet Machines,Rock,United States,0.58,laptop,0
+1844,2025-09-30,Kito Ndungu,Northern Rooms,Afrobeat,Kenya,3.51,phone,0
+1845,2025-09-30,The Paper Kites Society,Harbour Rooms,Indie,Australia,5.23,car,0
+1846,2025-09-30,The Tuesday Club,Open Lines,Pop,United Kingdom,3.67,car,0
+1847,2025-10-01,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,0.58,laptop,0
+1848,2025-10-02,Sara Lindqvist,Northern Radio,Pop,Sweden,3.05,car,0
+1849,2025-10-02,Orquesta Bellavista,Iron Lines,Latin,Colombia,3.37,phone,0
+1850,2025-10-02,Yuki Tanaka Trio,Winter Parade,Jazz,Japan,0.3,phone,1
+1851,2025-10-03,Brannon Hill,Quiet Ferry,Folk,Ireland,1.76,car,0
+1852,2025-10-03,Northern Signal,Bright Avenue,Electronic,Norway,4.6,speaker,0
+1853,2025-10-03,Basement Cartography,Blue Mornings,Indie,Canada,3.61,laptop,0
+1854,2025-10-03,Sara Lindqvist,Golden Harbour,Pop,Sweden,4.31,speaker,0
+1855,2025-10-03,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,1.57,laptop,0
+1856,2025-10-03,Luz de Enero,Summer Rooms,Latin,Spain,3.85,laptop,0
+1857,2025-10-03,The Paper Kites Society,Electric Lines,Indie,Australia,2.83,laptop,0
+1858,2025-10-04,Selva Alta,Harbour Orbit,Latin,Peru,0.47,laptop,1
+1859,2025-10-04,Rosewood Lane,Slow Rooms,Folk,United Kingdom,2.42,speaker,0
+1860,2025-10-05,Glass Tram,Amber Ferry,Electronic,Germany,6.53,phone,0
+1861,2025-10-05,Fjord & Flint,Golden Garden,Folk,Norway,6.45,laptop,0
+1862,2025-10-05,Sara Lindqvist,Summer Tape,Pop,Sweden,4.43,phone,0
+1863,2025-10-06,Glass Tram,Salt Lines,Electronic,Germany,1.48,phone,1
+1864,2025-10-06,Marta Oliveira,Electric Window,Jazz,Portugal,6.57,phone,0
+1865,2025-10-06,Basement Cartography,Paper Kitchen,Indie,Canada,4.02,phone,0
+1866,2025-10-06,Luz de Enero,Harbour Season,Latin,Spain,5.35,car,0
+1867,2025-10-07,The Quiet Wires,Open Mornings,Rock,United States,4.19,phone,0
+1868,2025-10-07,Basement Cartography,Blue Mornings,Indie,Canada,3.69,laptop,0
+1869,2025-10-08,Basement Cartography,Blue Mornings,Indie,Canada,2.65,laptop,0
+1870,2025-10-08,Yuki Tanaka Trio,Northern Lines,Jazz,Japan,7.81,tablet,0
+1871,2025-10-08,DJ Kompas,Paper Rooms,Electronic,Netherlands,6.21,laptop,0
+1872,2025-10-10,Salon Mécanique,Paper Orbit,Jazz,Belgium,5.9,speaker,0
+1873,2025-10-10,Static Meadow,Northern Avenue,Rock,United States,3.62,speaker,0
+1874,2025-10-10,Sara Lindqvist,Electric Weather,Pop,Sweden,3.45,phone,0
+1875,2025-10-10,Mireille Basset,Midnight Traffic,Jazz,France,8.5,car,0
+1876,2025-10-10,Pale Cartography,Bright Tape,Folk,Canada,3.17,laptop,0
+1877,2025-10-10,Orquesta Bellavista,Salt Ferry,Latin,Colombia,2.36,phone,0
+1878,2025-10-11,Fjord & Flint,Broken Radio,Folk,Norway,3.41,laptop,0
+1879,2025-10-12,DJ Kompas,Paper Signal,Electronic,Netherlands,8.0,laptop,0
+1880,2025-10-12,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,0.59,speaker,1
+1881,2025-10-13,Glass Tram,Salt Lines,Electronic,Germany,3.08,phone,0
+1882,2025-10-13,The Slow Ferry,Amber Garden,Indie,Ireland,1.44,speaker,1
+1883,2025-10-13,Mango Static,Static Wires,Latin,Brazil,3.36,speaker,0
+1884,2025-10-13,Bright Utility,Bright Letters,Indie,United Kingdom,2.16,phone,0
+1885,2025-10-13,DJ Kompas,Bright Ferry,Electronic,Netherlands,5.63,laptop,0
+1886,2025-10-14,Brannon Hill,Quiet Ferry,Folk,Ireland,2.48,tablet,0
+1887,2025-10-14,Casa Tropicana,Salt Ferry,Latin,Cuba,2.54,phone,0
+1888,2025-10-14,Sara Lindqvist,Electric Weather,Pop,Sweden,1.32,tablet,0
+1889,2025-10-14,Fjord & Flint,Broken Radio,Folk,Norway,4.41,laptop,0
+1890,2025-10-14,Sara Lindqvist,Golden Harbour,Pop,Sweden,3.01,speaker,0
+1891,2025-10-15,DJ Kompas,Paper Signal,Electronic,Netherlands,4.58,phone,0
+1892,2025-10-15,The Tuesday Club,Broken Harbour,Pop,United Kingdom,4.24,phone,0
+1893,2025-10-16,Basement Cartography,Velvet Kitchen,Indie,Canada,6.21,phone,0
+1894,2025-10-16,Fjord & Flint,Golden Garden,Folk,Norway,4.96,car,0
+1895,2025-10-16,The Long Commute,Golden Radio,Indie,Netherlands,4.2,laptop,0
+1896,2025-10-16,Glass Tram,Broken Lines,Electronic,Germany,6.16,car,0
+1897,2025-10-16,Mireille Basset,Static Signal,Jazz,France,6.8,phone,0
+1898,2025-10-16,The Quiet Wires,Golden Wires,Rock,United States,2.41,laptop,0
+1899,2025-10-16,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,2.97,phone,0
+1900,2025-10-17,Yuki Tanaka Trio,Golden Machines,Jazz,Japan,6.85,phone,0
+1901,2025-10-17,Luz de Enero,Harbour Season,Latin,Spain,4.04,phone,0
+1902,2025-10-18,Glass Tram,Broken Lines,Electronic,Germany,7.66,phone,0
+1903,2025-10-18,Glass Tram,Broken Mornings,Electronic,Germany,6.07,laptop,0
+1904,2025-10-19,Sara Lindqvist,Golden Harbour,Pop,Sweden,2.54,laptop,0
+1905,2025-10-19,Northern Signal,Amber Lines,Electronic,Norway,4.64,speaker,0
+1906,2025-10-19,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,0.49,phone,1
+1907,2025-10-20,DJ Kompas,Electric Mornings,Electronic,Netherlands,6.9,phone,0
+1908,2025-10-20,Glass Tram,Salt Lines,Electronic,Germany,6.77,car,0
+1909,2025-10-20,Nora Whitlock,Bright Garden,Pop,United States,2.86,car,0
+1910,2025-10-20,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,3.06,car,0
+1911,2025-10-20,Hertz Garden,Blue Harbour,Electronic,Germany,7.0,speaker,0
+1912,2025-10-20,Fjord & Flint,Golden Garden,Folk,Norway,4.92,phone,0
+1913,2025-10-21,Pale Cartography,Open Orbit,Folk,Canada,5.12,laptop,0
+1914,2025-10-21,Luz de Enero,Summer Rooms,Latin,Spain,6.67,phone,0
+1915,2025-10-21,Luz de Enero,Static Machines,Latin,Spain,2.43,phone,0
+1916,2025-10-21,DJ Kompas,Golden Weather,Electronic,Netherlands,5.41,laptop,0
+1917,2025-10-21,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,2.82,phone,0
+1918,2025-10-22,Selva Alta,Harbour Orbit,Latin,Peru,3.73,speaker,0
+1919,2025-10-22,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,3.59,laptop,0
+1920,2025-10-22,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,3.61,phone,0
+1921,2025-10-23,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,3.28,speaker,0
+1922,2025-10-23,Rosewood Lane,Electric Weather,Folk,United Kingdom,4.42,speaker,0
+1923,2025-10-23,Basement Cartography,Iron Traffic,Indie,Canada,3.76,phone,0
+1924,2025-10-23,Glass Tram,Broken Lines,Electronic,Germany,6.28,car,0
+1925,2025-10-24,Nora Whitlock,Bright Garden,Pop,United States,2.97,laptop,0
+1926,2025-10-24,DJ Kompas,Paper Signal,Electronic,Netherlands,4.56,phone,0
+1927,2025-10-25,The Paper Kites Society,Electric Radio,Indie,Australia,5.2,phone,0
+1928,2025-10-25,Casa Tropicana,Salt Ferry,Latin,Cuba,1.18,speaker,0
+1929,2025-10-25,Fjord & Flint,Northern Avenue,Folk,Norway,0.52,laptop,1
+1930,2025-10-25,The Tuesday Club,Salt Wires,Pop,United Kingdom,0.53,laptop,1
+1931,2025-10-26,Sara Lindqvist,Midnight Orbit,Pop,Sweden,7.32,laptop,0
+1932,2025-10-26,Selva Alta,Harbour Orbit,Latin,Peru,4.51,laptop,0
+1933,2025-10-26,DJ Kompas,Quiet Orbit,Electronic,Netherlands,5.81,car,0
+1934,2025-10-27,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,3.64,phone,0
+1935,2025-10-27,The Slow Ferry,Velvet Season,Indie,Ireland,5.36,speaker,0
+1936,2025-10-27,Mango Static,Hollow Radio,Latin,Brazil,5.29,phone,0
+1937,2025-10-28,Rosewood Lane,Paper Mornings,Folk,United Kingdom,5.27,laptop,0
+1938,2025-10-28,Basement Cartography,Broken Kitchen,Indie,Canada,2.27,laptop,0
+1939,2025-10-28,Northern Signal,Electric Avenue,Electronic,Norway,5.56,phone,0
+1940,2025-10-29,Nora Whitlock,Northern Rooms,Pop,United States,3.92,phone,0
+1941,2025-10-29,Hollow Pines,Midnight Harbour,Folk,United States,1.41,laptop,0
+1942,2025-10-29,Luz de Enero,Paper Window,Latin,Spain,1.86,laptop,0
+1943,2025-10-29,Mireille Basset,Harbour Window,Jazz,France,9.29,car,0
+1944,2025-10-29,Glass Tram,Amber Ferry,Electronic,Germany,0.7,phone,1
+1945,2025-10-29,Fjord & Flint,Northern Avenue,Folk,Norway,5.2,laptop,0
+1946,2025-10-29,Brannon Hill,Midnight Kitchen,Folk,Ireland,1.33,phone,0
+1947,2025-10-29,Casa Tropicana,Harbour Rooms,Latin,Cuba,2.69,car,0
+1948,2025-10-30,Glass Tram,Broken Lines,Electronic,Germany,3.3,phone,0
+1949,2025-10-30,Glass Tram,Amber Ferry,Electronic,Germany,6.26,speaker,0
+1950,2025-10-30,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,6.2,phone,0
+1951,2025-10-30,Brannon Hill,Electric Parade,Folk,Ireland,5.89,laptop,0
+1952,2025-10-30,Glass Tram,Broken Mornings,Electronic,Germany,7.52,speaker,0
+1953,2025-10-30,Kito Ndungu,Salt Ferry,Afrobeat,Kenya,0.89,phone,1
+1954,2025-10-31,Glass Tram,Amber Ferry,Electronic,Germany,3.73,laptop,0
+1955,2025-10-31,Luz de Enero,Paper Window,Latin,Spain,3.86,laptop,0
+1956,2025-10-31,Sara Lindqvist,Midnight Orbit,Pop,Sweden,4.02,phone,0
+1957,2025-10-31,Static Meadow,Broken Season,Rock,United States,4.31,phone,0
+1958,2025-10-31,Pale Cartography,Bright Tape,Folk,Canada,3.05,laptop,0
+1959,2025-11-01,DJ Kompas,Paper Rooms,Electronic,Netherlands,8.27,laptop,0
+1960,2025-11-01,Sara Lindqvist,Summer Tape,Pop,Sweden,0.99,phone,0
+1961,2025-11-02,The Paper Kites Society,Slow Rooms,Indie,Australia,5.92,speaker,0
+1962,2025-11-02,Pale Cartography,Open Orbit,Folk,Canada,1.7,laptop,1
+1963,2025-11-02,Fjord & Flint,Open Orbit,Folk,Norway,3.74,phone,0
+1964,2025-11-02,The Paper Kites Society,Electric Radio,Indie,Australia,3.89,phone,0
+1965,2025-11-02,Northern Signal,Salt Lines,Electronic,Norway,5.38,phone,0
+1966,2025-11-02,The Quiet Wires,Golden Season,Rock,United States,4.56,laptop,0
+1967,2025-11-03,Yuki Tanaka Trio,Harbour Season,Jazz,Japan,1.39,phone,1
+1968,2025-11-03,DJ Kompas,Paper Signal,Electronic,Netherlands,3.73,laptop,0
+1969,2025-11-04,Hollow Pines,Amber Lines,Folk,United States,4.62,phone,0
+1970,2025-11-04,The Paper Kites Society,Velvet Garden,Indie,Australia,5.57,speaker,0
+1971,2025-11-05,Kanto Kids,Slow Machines,Pop,Philippines,3.54,phone,0
+1972,2025-11-05,Sara Lindqvist,Quiet Harbour,Pop,Sweden,2.95,speaker,0
+1973,2025-11-05,Sara Lindqvist,Midnight Orbit,Pop,Sweden,5.58,phone,0
+1974,2025-11-05,The Paper Kites Society,Electric Radio,Indie,Australia,3.32,car,0
+1975,2025-11-05,The Slow Ferry,Iron Weather,Indie,Ireland,3.48,laptop,0
+1976,2025-11-06,Mireille Basset,Static Signal,Jazz,France,5.48,speaker,0
+1977,2025-11-06,Yuki Tanaka Trio,Northern Window,Jazz,Japan,7.38,laptop,0
+1978,2025-11-07,Brannon Hill,Northern Machines,Folk,Ireland,0.58,speaker,1
+1979,2025-11-07,Static Meadow,Static Signal,Rock,United States,3.55,laptop,0
+1980,2025-11-07,Sara Lindqvist,Broken Kitchen,Pop,Sweden,4.95,laptop,0
+1981,2025-11-07,Brannon Hill,Electric Parade,Folk,Ireland,3.19,phone,0
+1982,2025-11-07,Glass Tram,Broken Lines,Electronic,Germany,4.57,phone,0
+1983,2025-11-08,Sara Lindqvist,Golden Harbour,Pop,Sweden,5.22,car,0
+1984,2025-11-08,Fjord & Flint,Blue Avenue,Folk,Norway,3.71,phone,0
+1985,2025-11-08,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,1.63,phone,1
+1986,2025-11-09,The Slow Ferry,Winter Weather,Indie,Ireland,4.58,phone,0
+1987,2025-11-09,Hertz Garden,Blue Orbit,Electronic,Germany,4.39,laptop,0
+1988,2025-11-09,Northern Signal,Winter Wires,Electronic,Norway,3.86,phone,0
+1989,2025-11-09,Pale Cartography,Bright Tape,Folk,Canada,3.4,speaker,0
+1990,2025-11-09,Sara Lindqvist,Summer Tape,Pop,Sweden,0.28,phone,1
+1991,2025-11-09,Sara Lindqvist,Summer Tape,Pop,Sweden,0.64,phone,1
+1992,2025-11-09,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,5.79,phone,0
+1993,2025-11-10,Northern Signal,Electric Avenue,Electronic,Norway,1.43,phone,1
+1994,2025-11-10,Lagos Tape Club,Bright Wires,Afrobeat,Nigeria,3.89,phone,0
+1995,2025-11-11,Mango Static,Hollow Radio,Latin,Brazil,5.08,laptop,0
+1996,2025-11-11,Selva Alta,Electric Letters,Latin,Peru,2.35,laptop,0
+1997,2025-11-12,Kito Ndungu,Bright Weather,Afrobeat,Kenya,2.66,phone,0
+1998,2025-11-12,Basement Cartography,Summer Season,Indie,Canada,3.62,phone,0
+1999,2025-11-12,Glass Tram,Salt Lines,Electronic,Germany,7.6,car,0
+2000,2025-11-12,DJ Kompas,Bright Ferry,Electronic,Netherlands,0.56,phone,1
+2001,2025-11-12,Glass Tram,Salt Lines,Electronic,Germany,6.54,phone,0
+2002,2025-11-12,Luz de Enero,Harbour Season,Latin,Spain,3.27,phone,0
+2003,2025-11-13,Luz de Enero,Harbour Season,Latin,Spain,0.61,car,1
+2004,2025-11-13,Brannon Hill,Static Weather,Folk,Ireland,2.82,phone,0
+2005,2025-11-13,Orquesta Bellavista,Iron Lines,Latin,Colombia,5.43,phone,0
+2006,2025-11-13,Bright Utility,Winter Window,Indie,United Kingdom,0.65,car,1
+2007,2025-11-14,Sara Lindqvist,Midnight Orbit,Pop,Sweden,0.61,phone,0
+2008,2025-11-14,The Tuesday Club,Paper Season,Pop,United Kingdom,3.29,phone,0
+2009,2025-11-14,Orquesta Bellavista,Paper Signal,Latin,Colombia,3.25,tablet,0
+2010,2025-11-14,Kito Ndungu,Static Tape,Afrobeat,Kenya,2.46,laptop,0
+2011,2025-11-14,Fjord & Flint,Northern Avenue,Folk,Norway,4.23,phone,0
+2012,2025-11-14,DJ Kompas,Quiet Orbit,Electronic,Netherlands,7.98,speaker,0
+2013,2025-11-14,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,6.56,laptop,0
+2014,2025-11-15,Static Meadow,Winter Mornings,Rock,United States,5.89,car,0
+2015,2025-11-15,Fjord & Flint,Summer Wires,Folk,Norway,5.46,car,0
+2016,2025-11-15,Luz de Enero,Static Machines,Latin,Spain,2.39,phone,0
+2017,2025-11-16,Lagos Tape Club,Hollow Ferry,Afrobeat,Nigeria,2.05,phone,0
+2018,2025-11-16,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,6.78,phone,0
+2019,2025-11-16,Glass Tram,Broken Lines,Electronic,Germany,1.15,phone,1
+2020,2025-11-17,Glass Tram,Broken Mornings,Electronic,Germany,7.06,phone,0
+2021,2025-11-17,The Tuesday Club,Northern Ferry,Pop,United Kingdom,3.35,car,0
+2022,2025-11-17,Nora Whitlock,Northern Rooms,Pop,United States,3.95,laptop,0
+2023,2025-11-17,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,4.86,phone,0
+2024,2025-11-18,DJ Kompas,Bright Ferry,Electronic,Netherlands,5.33,phone,0
+2025,2025-11-18,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,5.26,laptop,0
+2026,2025-11-18,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,5.09,laptop,0
+2027,2025-11-18,Selva Alta,Static Kitchen,Latin,Peru,2.52,phone,0
+2028,2025-11-18,Luz de Enero,Northern Ferry,Latin,Spain,2.94,laptop,0
+2029,2025-11-19,Glass Tram,Salt Lines,Electronic,Germany,6.91,phone,0
+2030,2025-11-19,Fjord & Flint,Midnight Kitchen,Folk,Norway,3.54,phone,0
+2031,2025-11-20,Northern Signal,Salt Lines,Electronic,Norway,4.32,tablet,0
+2032,2025-11-20,DJ Kompas,Golden Weather,Electronic,Netherlands,8.74,tablet,0
+2033,2025-11-20,Yuki Tanaka Trio,Golden Machines,Jazz,Japan,9.71,phone,0
+2034,2025-11-20,DJ Kompas,Paper Rooms,Electronic,Netherlands,6.53,phone,0
+2035,2025-11-20,Mireille Basset,Blue Window,Jazz,France,2.67,laptop,1
+2036,2025-11-20,DJ Kompas,Golden Weather,Electronic,Netherlands,7.81,speaker,0
+2037,2025-11-21,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,0.56,laptop,1
+2038,2025-11-21,Sara Lindqvist,Broken Kitchen,Pop,Sweden,1.03,car,1
+2039,2025-11-21,Glass Tram,Broken Mornings,Electronic,Germany,5.98,speaker,0
+2040,2025-11-21,Northern Signal,Amber Lines,Electronic,Norway,7.48,car,0
+2041,2025-11-21,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,2.94,tablet,0
+2042,2025-11-22,The Long Commute,Golden Radio,Indie,Netherlands,5.54,laptop,0
+2043,2025-11-22,Glass Tram,Salt Lines,Electronic,Germany,2.8,phone,0
+2044,2025-11-22,Northern Signal,Amber Lines,Electronic,Norway,6.55,tablet,0
+2045,2025-11-23,DJ Kompas,Midnight Weather,Electronic,Netherlands,5.57,phone,0
+2046,2025-11-23,Marta Oliveira,Static Wires,Jazz,Portugal,6.12,phone,0
+2047,2025-11-23,Pale Cartography,Open Season,Folk,Canada,1.21,phone,0
+2048,2025-11-23,Yuki Tanaka Trio,Harbour Season,Jazz,Japan,9.46,phone,0
+2049,2025-11-23,Yuki Tanaka Trio,Northern Window,Jazz,Japan,3.64,speaker,0
+2050,2025-11-23,Fjord & Flint,Blue Ferry,Folk,Norway,4.54,phone,0
+2051,2025-11-23,Sara Lindqvist,Quiet Harbour,Pop,Sweden,0.53,phone,1
+2052,2025-11-23,The Tuesday Club,Amber Harbour,Pop,United Kingdom,2.82,laptop,0
+2053,2025-11-24,Northern Signal,Winter Wires,Electronic,Norway,5.02,car,0
+2054,2025-11-25,Glass Tram,Broken Lines,Electronic,Germany,5.6,car,0
+2055,2025-11-26,DJ Kompas,Midnight Weather,Electronic,Netherlands,5.65,speaker,0
+2056,2025-11-26,Fjord & Flint,Summer Wires,Folk,Norway,0.46,phone,1
+2057,2025-11-26,Sara Lindqvist,Midnight Orbit,Pop,Sweden,0.48,phone,1
+2058,2025-11-26,Glass Tram,Salt Lines,Electronic,Germany,5.19,phone,0
+2059,2025-11-26,Marta Oliveira,Paper Avenue,Jazz,Portugal,6.36,speaker,0
+2060,2025-11-27,Casa Tropicana,Golden Harbour,Latin,Cuba,2.6,phone,0
+2061,2025-11-27,Salon Mécanique,Velvet Machines,Jazz,Belgium,7.53,phone,0
+2062,2025-11-27,DJ Kompas,Golden Weather,Electronic,Netherlands,4.95,laptop,0
+2063,2025-11-28,DJ Kompas,Paper Rooms,Electronic,Netherlands,8.02,laptop,0
+2064,2025-11-28,Brannon Hill,Electric Parade,Folk,Ireland,3.22,phone,0
+2065,2025-11-28,Pale Cartography,Bright Tape,Folk,Canada,2.21,speaker,0
+2066,2025-11-28,Brannon Hill,Bright Mornings,Folk,Ireland,5.15,laptop,0
+2067,2025-11-28,Brannon Hill,Static Weather,Folk,Ireland,4.11,tablet,0
+2068,2025-11-28,Hollow Pines,Salt Harbour,Folk,United States,3.66,speaker,0
+2069,2025-11-28,DJ Kompas,Electric Mornings,Electronic,Netherlands,4.17,phone,0
+2070,2025-11-29,Casa Tropicana,Salt Ferry,Latin,Cuba,5.02,laptop,0
+2071,2025-11-29,Pale Cartography,Bright Tape,Folk,Canada,0.98,laptop,1
+2072,2025-11-30,Mireille Basset,Harbour Window,Jazz,France,6.71,speaker,0
+2073,2025-11-30,Rosewood Lane,Paper Mornings,Folk,United Kingdom,3.69,speaker,0
+2074,2025-11-30,Fjord & Flint,Northern Avenue,Folk,Norway,5.91,laptop,0
+2075,2025-11-30,The Quiet Wires,Quiet Machines,Rock,United States,3.52,phone,0
+2076,2025-12-01,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,3.18,phone,0
+2077,2025-12-01,Sara Lindqvist,Electric Weather,Pop,Sweden,2.25,phone,0
+2078,2025-12-01,DJ Kompas,Harbour Kitchen,Electronic,Netherlands,6.51,laptop,0
+2079,2025-12-01,Sara Lindqvist,Northern Radio,Pop,Sweden,4.88,speaker,0
+2080,2025-12-01,Marta Oliveira,Paper Avenue,Jazz,Portugal,7.23,speaker,0
+2081,2025-12-02,Sara Lindqvist,Northern Radio,Pop,Sweden,3.64,phone,0
+2082,2025-12-02,Kito Ndungu,Electric Traffic,Afrobeat,Kenya,5.26,laptop,0
+2083,2025-12-03,Cassette Revival,Hollow Radio,Indie,France,4.89,car,0
+2084,2025-12-03,Fjord & Flint,Golden Garden,Folk,Norway,3.27,speaker,0
+2085,2025-12-03,Northern Signal,Quiet Avenue,Electronic,Norway,6.17,phone,0
+2086,2025-12-03,Sara Lindqvist,Quiet Harbour,Pop,Sweden,4.57,phone,0
+2087,2025-12-04,Northern Signal,Salt Lines,Electronic,Norway,3.44,car,0
+2088,2025-12-04,Sara Lindqvist,Summer Tape,Pop,Sweden,0.42,laptop,1
+2089,2025-12-05,Casa Tropicana,Blue Machines,Latin,Cuba,4.1,phone,0
+2090,2025-12-05,Glass Tram,Amber Ferry,Electronic,Germany,5.76,laptop,0
+2091,2025-12-05,Glass Tram,Broken Mornings,Electronic,Germany,2.79,speaker,0
+2092,2025-12-05,The Slow Ferry,Iron Weather,Indie,Ireland,5.29,phone,0
+2093,2025-12-05,Sara Lindqvist,Quiet Harbour,Pop,Sweden,3.43,phone,0
+2094,2025-12-05,The Paper Kites Society,Velvet Garden,Indie,Australia,5.9,car,0
+2095,2025-12-06,The Slow Ferry,Amber Garden,Indie,Ireland,5.17,speaker,0
+2096,2025-12-07,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,3.27,phone,0
+2097,2025-12-07,Yuki Tanaka Trio,Harbour Season,Jazz,Japan,7.19,laptop,0
+2098,2025-12-08,Sara Lindqvist,Northern Radio,Pop,Sweden,0.72,phone,1
+2099,2025-12-08,The Long Commute,Midnight Weather,Indie,Netherlands,1.79,phone,1
+2100,2025-12-08,Yuki Tanaka Trio,Golden Machines,Jazz,Japan,9.26,car,0
+2101,2025-12-08,Pale Cartography,Velvet Avenue,Folk,Canada,3.6,phone,0
+2102,2025-12-09,Basement Cartography,Summer Orbit,Indie,Canada,4.85,speaker,0
+2103,2025-12-09,Salon Mécanique,Open Season,Jazz,Belgium,7.03,tablet,0
+2104,2025-12-09,The Paper Kites Society,Electric Radio,Indie,Australia,3.48,laptop,0
+2105,2025-12-09,Circuit Sparrow,Slow Parade,Electronic,Japan,0.43,tablet,1
+2106,2025-12-09,Yuki Tanaka Trio,Golden Window,Jazz,Japan,7.51,phone,0
+2107,2025-12-09,Basement Cartography,Paper Kitchen,Indie,Canada,4.72,laptop,0
+2108,2025-12-10,Northern Signal,Amber Lines,Electronic,Norway,6.14,phone,0
+2109,2025-12-10,Basement Cartography,Summer Season,Indie,Canada,3.52,phone,0
+2110,2025-12-11,DJ Kompas,Hollow Radio,Electronic,Netherlands,4.11,speaker,0
+2111,2025-12-11,Mango Static,Golden Machines,Latin,Brazil,2.13,tablet,0
+2112,2025-12-11,DJ Kompas,Golden Weather,Electronic,Netherlands,6.24,phone,0
+2113,2025-12-12,Brannon Hill,Electric Parade,Folk,Ireland,5.07,laptop,0
+2114,2025-12-12,Sara Lindqvist,Slow Mornings,Pop,Sweden,0.36,phone,1
+2115,2025-12-13,Sara Lindqvist,Midnight Orbit,Pop,Sweden,2.23,car,0
+2116,2025-12-13,Marta Oliveira,Paper Avenue,Jazz,Portugal,5.38,phone,0
+2117,2025-12-13,DJ Kompas,Paper Signal,Electronic,Netherlands,5.94,phone,0
+2118,2025-12-13,Sara Lindqvist,Electric Weather,Pop,Sweden,6.84,phone,0
+2119,2025-12-13,Rosewood Lane,Paper Mornings,Folk,United Kingdom,1.91,laptop,0
+2120,2025-12-13,The Paper Kites Society,Hollow Letters,Indie,Australia,0.68,phone,1
+2121,2025-12-13,The Tuesday Club,Northern Ferry,Pop,United Kingdom,4.18,phone,0
+2122,2025-12-14,Fjord & Flint,Golden Garden,Folk,Norway,4.81,phone,0
+2123,2025-12-14,Fjord & Flint,Broken Radio,Folk,Norway,0.3,laptop,1
+2124,2025-12-15,Hollow Pines,Amber Lines,Folk,United States,5.51,phone,0
+2125,2025-12-15,Sara Lindqvist,Slow Mornings,Pop,Sweden,2.66,speaker,0
+2126,2025-12-15,The Tuesday Club,Broken Harbour,Pop,United Kingdom,2.98,phone,0
+2127,2025-12-15,Fjord & Flint,Blue Ferry,Folk,Norway,5.39,car,0
+2128,2025-12-15,Luz de Enero,Summer Rooms,Latin,Spain,5.49,speaker,0
+2129,2025-12-15,Static Meadow,Northern Avenue,Rock,United States,4.71,speaker,0
+2130,2025-12-16,Kito Ndungu,Hollow Weather,Afrobeat,Kenya,3.21,tablet,0
+2131,2025-12-16,Sara Lindqvist,Electric Weather,Pop,Sweden,3.59,car,0
+2132,2025-12-16,The Slow Ferry,Velvet Season,Indie,Ireland,0.32,car,1
+2133,2025-12-17,Brannon Hill,Static Weather,Folk,Ireland,2.69,phone,0
+2134,2025-12-17,Yuki Tanaka Trio,Northern Lines,Jazz,Japan,1.15,laptop,1
+2135,2025-12-17,Brannon Hill,Northern Machines,Folk,Ireland,4.95,tablet,0
+2136,2025-12-17,DJ Kompas,Golden Weather,Electronic,Netherlands,6.32,phone,0
+2137,2025-12-17,Fjord & Flint,Blue Traffic,Folk,Norway,5.04,phone,0
+2138,2025-12-18,Fjord & Flint,Midnight Kitchen,Folk,Norway,4.11,speaker,0
+2139,2025-12-19,Sara Lindqvist,Summer Tape,Pop,Sweden,3.37,phone,0
+2140,2025-12-19,Fjord & Flint,Open Orbit,Folk,Norway,4.07,tablet,0
+2141,2025-12-20,Lagos Tape Club,Open Radio,Afrobeat,Nigeria,3.29,phone,0
+2142,2025-12-20,The Paper Kites Society,Hollow Letters,Indie,Australia,0.46,laptop,1
+2143,2025-12-20,The Quiet Wires,Golden Wires,Rock,United States,5.13,tablet,0
+2144,2025-12-20,Basement Cartography,Summer Orbit,Indie,Canada,3.01,phone,0
+2145,2025-12-20,Northern Signal,Quiet Avenue,Electronic,Norway,7.46,phone,0
+2146,2025-12-21,Marta Oliveira,Static Wires,Jazz,Portugal,6.92,phone,0
+2147,2025-12-21,Selva Alta,Open Ferry,Latin,Peru,0.4,phone,0
+2148,2025-12-21,Rosewood Lane,Golden Letters,Folk,United Kingdom,2.32,laptop,0
+2149,2025-12-21,The Paper Kites Society,Amber Window,Indie,Australia,2.6,speaker,0
+2150,2025-12-22,Lagos Tape Club,Velvet Avenue,Afrobeat,Nigeria,1.42,phone,0
+2151,2025-12-22,Static Meadow,Open Rooms,Rock,United States,4.52,phone,0
+2152,2025-12-23,Brannon Hill,Electric Parade,Folk,Ireland,3.84,phone,0
+2153,2025-12-23,Mireille Basset,Static Signal,Jazz,France,5.32,laptop,0
+2154,2025-12-23,DJ Kompas,Electric Mornings,Electronic,Netherlands,5.77,tablet,0
+2155,2025-12-24,DJ Kompas,Midnight Weather,Electronic,Netherlands,0.42,phone,1
+2156,2025-12-24,Fjord & Flint,Blue Traffic,Folk,Norway,5.15,phone,0
+2157,2025-12-24,Sara Lindqvist,Quiet Harbour,Pop,Sweden,0.74,laptop,1
+2158,2025-12-25,Northern Signal,Amber Lines,Electronic,Norway,6.36,phone,0
+2159,2025-12-25,DJ Kompas,Paper Signal,Electronic,Netherlands,4.85,laptop,0
+2160,2025-12-25,Glass Tram,Broken Mornings,Electronic,Germany,0.8,phone,1
+2161,2025-12-25,Kito Ndungu,Amber Kitchen,Afrobeat,Kenya,0.17,phone,1
+2162,2025-12-25,Glass Tram,Salt Lines,Electronic,Germany,7.32,speaker,0
+2163,2025-12-26,Casa Tropicana,Salt Ferry,Latin,Cuba,0.7,phone,1
+2164,2025-12-26,Sara Lindqvist,Midnight Orbit,Pop,Sweden,0.7,car,1
+2165,2025-12-26,Yuki Tanaka Trio,Northern Window,Jazz,Japan,0.63,phone,1
+2166,2025-12-26,Fjord & Flint,Blue Ferry,Folk,Norway,5.57,phone,0
+2167,2025-12-26,Fjord & Flint,Blue Avenue,Folk,Norway,2.21,phone,0
+2168,2025-12-26,The Long Commute,Winter Traffic,Indie,Netherlands,5.86,phone,0
+2169,2025-12-26,Glass Tram,Broken Lines,Electronic,Germany,4.43,phone,0
+2170,2025-12-27,The Quiet Wires,Quiet Machines,Rock,United States,5.49,phone,0
+2171,2025-12-28,Sara Lindqvist,Slow Mornings,Pop,Sweden,3.07,laptop,0
+2172,2025-12-28,Yuki Tanaka Trio,Golden Window,Jazz,Japan,6.88,speaker,0
+2173,2025-12-29,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,3.8,phone,0
+2174,2025-12-29,Brannon Hill,Quiet Ferry,Folk,Ireland,2.33,phone,0
+2175,2025-12-29,Fjord & Flint,Open Orbit,Folk,Norway,1.11,car,1
+2176,2025-12-30,Marta Oliveira,Paper Avenue,Jazz,Portugal,11.01,phone,0
+2177,2025-12-30,Glass Tram,Broken Lines,Electronic,Germany,5.55,car,0
+2178,2025-12-31,Salon Mécanique,Electric Window,Jazz,Belgium,4.86,phone,0
+2179,2025-12-31,Northern Signal,Golden Machines,Electronic,Norway,4.36,tablet,0
+2180,2025-12-31,Tundra Post,Blue Weather,Electronic,Iceland,5.67,laptop,0
+2181,2025-12-31,Hollow Pines,Bright Garden,Folk,United States,1.34,speaker,0
+2182,2025-12-31,Glass Tram,Amber Ferry,Electronic,Germany,3.26,laptop,0
+2183,2025-12-31,Lagos Tape Club,Winter Rooms,Afrobeat,Nigeria,3.78,phone,0

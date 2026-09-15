@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 2: Control flow</title>
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body data-deck="Session 2 · Control flow">
+<div id="viewport">
+<div class="deck">
+
+<section class="slide slide--title" data-title="Title">
+  <div>
+    <div class="session-no">Session 02 of 12</div>
+    <h1>Control flow</h1>
+    <p class="goal">Programs that make decisions and repeat themselves. And a friendly
+      relationship with error messages, which starts today.</p>
+    <div class="meta">
+      <span class="pill pill--accent">2 hours</span>
+      <span class="pill">if / elif / else</span>
+      <span class="pill">for and while</span>
+      <span class="pill pill--teal">Build: guessing game</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Open with their homework, especially task 2. Whatever broke is your warm-up material.
+    Spend the first fifteen minutes there and do not rush it.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework review">
+  <div class="eyebrow">First fifteen minutes</div>
+  <h2>Homework review, starting with what broke</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Task 1, the converter</div>
+      <p>Quick look, quick praise, move on. If it runs, it runs.</p>
+      <p class="nomargin">The one thing worth checking: did you use <code>float()</code> rather
+        than <code>int()</code>? A temperature of 21.5 deserves its half degree.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>Task 2, the summary</div>
+      <p>This is the interesting one. Show me where it went wrong, or where you were not sure.</p>
+      <p class="nomargin">Anything you had to look up is worth saying out loud. That is the
+        real skill, and it never stops being the real skill.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">If you did not get to it, that is genuinely fine. We will do the
+        first few minutes of it together now, and then you have a running start.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Have them run their own homework on their own screen rather than reading it to you.
+    Watching them run it tells you more than the code does.</p>
+    <p>If they did not do it, do not react. Just open a file and start together.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Decisions">
+  <div>
+    <div class="marker">Part one</div>
+    <h2>Making decisions</h2>
+    <p>So far every line has run, every time. Now we get to skip some.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Booleans">
+  <div class="eyebrow">Idea 1</div>
+  <h2>Comparisons produce True or False</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>comparisons.py</figcaption>
+      <pre><code data-lang="python">print(5 > 3)          # True
+print(5 < 3)          # False
+print(5 == 5)         # True   equal?
+print(5 != 5)         # False  not equal?
+print(5 >= 5)         # True
+print("a" == "A")     # False  capitals matter
+
+age = 41
+print(age > 18)       # True</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="callout callout--stop" style="margin-bottom:0">
+        <span class="ico">■</span>
+        <div>
+          <h4>One <code>=</code> or two?</h4>
+          <p class="nomargin"><code>=</code> puts a value into a variable.
+            <code>==</code> asks whether two things are equal. Mixing them up is the single
+            most common slip in this session, and Python will usually tell you off for it.</p>
+        </div>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">A value that is either <code>True</code> or <code>False</code> is
+          called a <strong>boolean</strong>, after George Boole. That is the whole reason for
+          the odd name.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Have them type <code>if age = 41:</code> on purpose to see the SyntaxError. Python's
+    message here is unusually helpful and says "did you mean ==".</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="if">
+  <div class="eyebrow">Idea 2</div>
+  <h2><code>if</code>: run this bit only sometimes</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>decide.py</figcaption>
+      <pre><code data-lang="python">temperature = 31
+
+if temperature > 25:
+    print("Warm out")
+    print("Take water")
+
+print("This always runs")</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="callout callout--key" style="margin-bottom:0">
+        <span class="ico">◆</span>
+        <div>
+          <h4>Two things carry the meaning</h4>
+          <p class="nomargin">The <strong>colon</strong> at the end of the
+            <code>if</code> line, and the <strong>indentation</strong> of the lines under it.
+            Indented lines belong to the <code>if</code>. The unindented line does not.</p>
+        </div>
+      </div>
+      <div class="card card--compact">
+        <p class="nomargin">Four spaces is the convention. VS Code does it for you when you
+          press <kbd>Tab</kbd>. Whatever you do, be consistent: mixing tabs and spaces gives
+          you an <code>IndentationError</code> and hurts to look at.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>In most languages indentation is decoration. In Python it is grammar. Say that
+    explicitly, it reframes the whole thing.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="elif else">
+  <div class="eyebrow">Idea 3</div>
+  <h2><code>elif</code> and <code>else</code>: the other branches</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>grade.py</figcaption>
+      <pre><code data-lang="python">score = 72
+
+if score >= 90:
+    print("Excellent")
+elif score >= 70:
+    print("Good")
+elif score >= 50:
+    print("Pass")
+else:
+    print("Not yet")</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>Only one branch runs</h4>
+        <p class="nomargin">Python checks top to bottom and stops at the first
+          <code>True</code>. A score of 95 prints "Excellent" and never even looks at the
+          other three.</p>
+      </div>
+      <div class="card card--amber card--compact">
+        <h4>So order matters a lot</h4>
+        <p class="nomargin">Put <code>score >= 50</code> first and everything above 50 is a
+          "Pass", including 95. The bug runs perfectly and gives wrong answers, which is the
+          worst kind.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin"><code>else</code> needs no condition. It is the "in every other
+          case" branch, and it is optional.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The reordering bug is worth demonstrating live. Change the order, run it, watch a
+    95 become a Pass. Silent wrong answers are a theme of this course.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="and or not">
+  <div class="eyebrow">Idea 4</div>
+  <h2>Combining conditions: <code>and</code>, <code>or</code>, <code>not</code></h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>combine.py</figcaption>
+      <pre><code data-lang="python">age = 41
+member = True
+
+if age > 18 and member:
+    print("Full access")
+
+if age &lt; 12 or age > 65:
+    print("Reduced price")
+
+if not member:
+    print("Please sign up")</code></pre>
+    </figure>
+    <div class="stack">
+      <table class="sm">
+        <tr><th>Written</th><th>True when</th></tr>
+        <tr><td><code>A and B</code></td><td>both are true</td></tr>
+        <tr><td><code>A or B</code></td><td>at least one is true</td></tr>
+        <tr><td><code>not A</code></td><td>A is false</td></tr>
+      </table>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">Python reads almost like the English sentence you would say out
+          loud. When a condition gets hard to read, that is usually a sign it is doing too
+          much, not that you need to be cleverer.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Note for later: in pandas these become <code>&amp;</code> and <code>|</code> with
+    brackets, and that trips everybody up in session 8. Mention it exists, do not explain it.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Errors">
+  <div>
+    <div class="marker">Part two · 10 minutes</div>
+    <h2>Let us break things on purpose</h2>
+    <p>Errors are not the program telling you off. They are the most useful message
+      you will get all day.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Reading an error">
+  <div class="eyebrow">The habit</div>
+  <h2>Read the last line first</h2>
+  <figure class="code out">
+    <figcaption>terminal</figcaption>
+    <pre class="sm"><code data-lang="out">Traceback (most recent call last):
+  File "/Users/sam/python-course/my-work/sums.py", line 4, in &lt;module&gt;
+    total = total + price
+NameError: name 'price' is not defined</code></pre>
+  </figure>
+  <ol class="steps">
+    <li><strong>Last line.</strong> What kind of problem, and a short description.
+      <code>NameError: name 'price' is not defined</code> means Python has never heard of
+      <code>price</code>.</li>
+    <li><strong>The line number.</strong> <code>line 4</code>. That is where it gave up, and
+      it is nearly always where the fix goes.</li>
+    <li><strong>The middle.</strong> The path through your program to get there. Today it is
+      one line long. In a few sessions it will not be, and then it earns its keep.</li>
+  </ol>
+  <div class="callout callout--tip" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Everybody reads that wall of text from the top and gives up. Go
+        straight to the bottom. This one habit will save you more time than any other thing
+        in this course.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This is the highest-value slide in the whole twelve sessions. Do not hurry it. Have
+    them say the last line out loud in their own words before touching the keyboard.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Break it on purpose">
+  <div class="eyebrow">Your turn · 10 minutes</div>
+  <h2>Five errors, on purpose, right now</h2>
+  <p class="tight">Type each one, run it, read the message out loud, then fix it. You are
+    building a lookup table in your head.</p>
+  <table class="sm">
+    <tr><th style="width:250px">Type this</th><th style="width:230px">You get</th><th>Which means</th></tr>
+    <tr><td><code>if 5 > 3 print("hi")</code></td><td><code>SyntaxError</code></td>
+      <td>Missing colon. Python cannot read the line at all</td></tr>
+    <tr><td><code>if 5 > 3:</code><br><code>print("hi")</code></td><td><code>IndentationError</code></td>
+      <td>The body of an <code>if</code> has to be indented</td></tr>
+    <tr><td><code>print(totl)</code></td><td><code>NameError</code></td>
+      <td>A name Python has never seen. Usually a typo</td></tr>
+    <tr><td><code>"5" + 5</code></td><td><code>TypeError</code></td>
+      <td>Text and number, mixed. Convert one of them</td></tr>
+    <tr><td><code>10 / 0</code></td><td><code>ZeroDivisionError</code></td>
+      <td>Exactly what it says. Watch for it when dividing by a count</td></tr>
+  </table>
+  <div class="callout callout--key" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">By session 9 you will divide by a count that happens to be zero and
+        this will happen for real. Recognising it in half a second is the whole point of
+        doing it now.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Make them type each one rather than reading the table. Muscle memory is the goal. Ten
+    minutes, and be strict about moving on.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Repeating">
+  <div>
+    <div class="marker">Part three</div>
+    <h2>Repeating yourself</h2>
+    <p>Computers are extremely good at doing the same dull thing ten thousand times.
+      This is where that starts.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="for and range">
+  <div class="eyebrow">Idea 5</div>
+  <h2><code>for</code>: do this once per item</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>repeat.py</figcaption>
+      <pre><code data-lang="python">for i in range(5):
+    print(i)              # 0 1 2 3 4
+
+for i in range(1, 6):
+    print(i)              # 1 2 3 4 5
+
+for i in range(0, 20, 5):
+    print(i)              # 0 5 10 15
+
+for letter in "cat":
+    print(letter)         # c a t</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="callout callout--stop" style="margin-bottom:0">
+        <span class="ico">■</span>
+        <div>
+          <h4><code>range(1, 6)</code> stops before 6</h4>
+          <p class="nomargin">The end is never included. It feels wrong for about a week and
+            then it feels normal. <code>range(5)</code> gives you five numbers starting at
+            zero.</p>
+        </div>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">The variable after <code>for</code> is yours to name.
+          <code>i</code> is traditional for a counter, but
+          <code>for minute in ...</code> is better when it means something.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Counting from zero will feel arbitrary. It pays off in session 4 with list positions,
+    where <code>my_list[0]</code> is the first item. Promise them it connects, then move on.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Accumulating">
+  <div class="eyebrow">Idea 6</div>
+  <h2>The pattern you will use forever: accumulate</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>accumulate.py</figcaption>
+      <pre><code data-lang="python">total = 0                    # start empty
+
+for i in range(1, 11):
+    total = total + i        # add each one in turn
+
+print(total)                 # 55
+
+# the same thing, written shorter
+total = 0
+for i in range(1, 11):
+    total += i               # += means "add to what is there"</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>Three steps, every time</h4>
+        <ol class="tight nomargin">
+          <li>Set up a variable before the loop</li>
+          <li>Update it inside the loop</li>
+          <li>Use it after the loop</li>
+        </ol>
+      </div>
+      <div class="card card--amber card--compact">
+        <p class="nomargin"><strong>The classic bug:</strong> putting
+          <code>total = 0</code> inside the loop. Then it resets every time round and your
+          answer is always the last number. Try it, see it, remember it.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This pattern is homework task 2 and it reappears in session 4 as counting per category.
+    Make sure they can write it without looking.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="while">
+  <div class="eyebrow">Idea 7</div>
+  <h2><code>while</code>: keep going until something changes</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>countdown.py</figcaption>
+      <pre><code data-lang="python">count = 3
+
+while count > 0:
+    print(count)
+    count -= 1        # this line is what ends it
+
+print("Go")</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact">
+        <h4>Which loop when?</h4>
+        <p class="nomargin"><strong><code>for</code></strong> when you know how many, or you
+          have a collection of things. <strong><code>while</code></strong> when you are
+          waiting for a condition, like "until the guess is right".</p>
+      </div>
+      <div class="callout callout--stop" style="margin-bottom:0">
+        <span class="ico">■</span>
+        <div>
+          <h4>Infinite loops, and how to escape</h4>
+          <p class="nomargin">Forget <code>count -= 1</code> and it runs forever. Press
+            <kbd>Ctrl</kbd> <kbd>C</kbd> in the terminal to stop it. Do this on purpose now,
+            so the first time it happens for real you shrug instead of panicking.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Make them write a real infinite loop and kill it with Ctrl+C. It takes twenty seconds
+    and removes a genuine fear.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="break and continue">
+  <div class="eyebrow">Idea 8</div>
+  <h2><code>break</code> and <code>continue</code></h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>break: leave the loop entirely</figcaption>
+        <pre class="sm"><code data-lang="python">for i in range(1, 100):
+    if i * i > 50:
+        print(f"{i} squared passes 50")
+        break            # stop looping now
+</code></pre>
+      </figure>
+      <div class="card card--compact card--plain mt-s">
+        <p class="nomargin">Use it when you have found what you were looking for and the rest
+          of the work is pointless.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>continue: skip to the next item</figcaption>
+        <pre class="sm"><code data-lang="python">for i in range(1, 11):
+    if i % 2 == 0:
+        continue         # skip even numbers
+    print(i)             # 1 3 5 7 9
+</code></pre>
+      </figure>
+      <div class="card card--compact card--plain mt-s">
+        <p class="nomargin"><code>i % 2 == 0</code> is the standard way to ask "is this even?".
+          <code>%</code> gives the remainder after dividing.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Both are optional conveniences. Anything you can do with them you
+        can do with a cleverer condition, but they usually read better.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><code>continue</code> is the one people over-use. If they reach for it, check whether
+    an <code>if</code> around the body would be clearer.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Nesting">
+  <div class="eyebrow">Style</div>
+  <h2>When logic gets deep, flatten it</h2>
+  <div class="compare">
+    <div>
+      <span class="label">harder to follow</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="python">if logged_in:
+    if not banned:
+        if credits > 0:
+            print("Welcome")
+        else:
+            print("Out of credits")
+    else:
+        print("Banned")
+else:
+    print("Please log in")</code></pre>
+      </figure>
+    </div>
+    <div>
+      <span class="label">easier to follow</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="python">if not logged_in:
+    print("Please log in")
+elif banned:
+    print("Banned")
+elif credits == 0:
+    print("Out of credits")
+else:
+    print("Welcome")</code></pre>
+      </figure>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Same behaviour, and the second one you can read top to bottom like a
+        list of rules. Deal with the exceptions first, leave the happy path for last. When you
+        find yourself three levels deep, that is the nudge to restructure.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>They will write the left-hand version in the guessing game. Let them, then refactor it
+    together. Showing the improvement beats asserting it.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Live exercise">
+  <div class="eyebrow">Your turn · 40 minutes</div>
+  <h2>Build the guessing game</h2>
+  <div class="exercise">
+    <div class="tag">◆ Live exercise</div>
+    <h3>The computer picks a number from 1 to 100. You keep guessing. It says higher or lower.</h3>
+    <div class="cols">
+      <div>
+        <h4>Build it in this order</h4>
+        <ol class="tight">
+          <li>Pick a secret number, print it while you build (cheat mode)</li>
+          <li>Ask for one guess and say whether it is right</li>
+          <li>Wrap it in a <code>while</code> loop so it keeps asking</li>
+          <li>Add higher / lower feedback</li>
+          <li>Count the guesses and report the count when they win</li>
+          <li>Remove cheat mode</li>
+        </ol>
+      </div>
+      <div>
+        <h4>The one new thing you need</h4>
+        <figure class="code plain" style="margin:0 0 10px">
+          <pre class="sm"><code data-lang="python">import random
+
+secret = random.randint(1, 100)</code></pre>
+        </figure>
+        <p class="nomargin"><code>import</code> brings in code somebody else wrote.
+          <code>randint(1, 100)</code> includes both ends, unlike <code>range</code>. We do
+          imports properly in session 4.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">File: <code>sessions/session-02/exercises/guessing_game.py</code>.
+        Run it after every step. Six small working programs beat one big broken one.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Cheat mode first is the important trick: it makes the loop debuggable. Let them hit the
+    int(input()) issue themselves, it is good revision from last week.</p>
+    <p>Stay quiet. Forty minutes is plenty, and struggling for five is fine.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework">
+  <div class="eyebrow">Between now and next time · 2–4 hours</div>
+  <h2>Homework</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Task 1 · you can finish this</div>
+      <h4>Seven attempts only</h4>
+      <p>Give the guessing game a maximum of seven attempts. If they run out, print the secret
+        number and a consoling message.</p>
+      <p class="nomargin">Then tell the player how many guesses they have left each time. File:
+        <code>homework/guessing_game_limited.py</code></p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>Task 2 · you might not finish this</div>
+      <h4>Statistics by hand</h4>
+      <p>Write a list of numbers at the top of a file, then print the
+        <strong>total</strong>, <strong>average</strong>, <strong>highest</strong> and
+        <strong>lowest</strong>.</p>
+      <p class="nomargin">The catch: no <code>sum()</code>, <code>max()</code> or
+        <code>min()</code>. Loops only. File: <code>homework/statistics.py</code></p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Task 2 is the one that teaches. Highest and lowest need the same
+        accumulate pattern as the total, with a comparison instead of an addition. If you get
+        stuck on how to start the "highest so far" variable, that is exactly the right thing
+        to be stuck on, and it is worth sitting with for a bit.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do not tell them the trick for initialising highest and lowest. Starting at zero breaks
+    on all-negative lists, and discovering that themselves is worth more than being told.
+    Session 3 refactors this file into functions, so it needs to exist.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Recap">
+  <div class="eyebrow">Wrap up</div>
+  <h2>What you can do now</h2>
+  <div class="cols">
+    <ul class="checklist">
+      <li>Compare values and get <code>True</code> or <code>False</code></li>
+      <li>Branch with <code>if</code>, <code>elif</code>, <code>else</code></li>
+      <li>Combine conditions with <code>and</code>, <code>or</code>, <code>not</code></li>
+      <li>Loop a known number of times with <code>for</code> and <code>range</code></li>
+    </ul>
+    <ul class="checklist">
+      <li>Loop until something changes with <code>while</code></li>
+      <li>Accumulate a result across a loop</li>
+      <li>Escape a loop with <code>break</code>, skip an item with <code>continue</code></li>
+      <li>Read an error message from the bottom up</li>
+    </ul>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>Next session: functions</h4>
+      <p class="nomargin">Your files are about to get long. Functions are how you stop writing
+        one long script and start writing pieces that fit together. We will take your
+        statistics homework and rebuild it as four small functions.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Point out that the guessing game is the first program they have written that they could
+    hand to somebody else and have them enjoy. That lands well.</p>
+  </aside>
+</section>
+
+</div>
+</div>
+<script src="assets/deck.js"></script>
+</body>
+</html>

@@ -1,0 +1,924 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 1: Setup and first contact</title>
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body data-deck="Session 1 · Setup and first contact">
+<div id="viewport">
+<div class="deck">
+
+<!-- 1 -->
+<section class="slide slide--title" data-title="Title">
+  <div>
+    <div class="session-no">Session 01 of 12</div>
+    <h1>Setup and first contact</h1>
+    <p class="goal">By the end of today you have a working Python environment and a script
+      you wrote yourself that does something real.</p>
+    <div class="meta">
+      <span class="pill pill--accent">2 hours</span>
+      <span class="pill">You share your screen</span>
+      <span class="pill">You do the typing</span>
+      <span class="pill pill--teal">Homework: 2 tasks</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Set the tone in the first two minutes: this is a hands-on course, not a lecture series.
+    They type, you watch. Say out loud that today is the least interesting session because
+    installing things is boring, and that it gets good fast.</p>
+  </aside>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-title="Today">
+  <div class="eyebrow">Plan</div>
+  <h2>Two hours, four blocks</h2>
+  <table class="sm">
+    <tr><th style="width:130px">Time</th><th>What</th><th style="width:220px">Who drives</th></tr>
+    <tr><td><code>0:00–0:10</code></td><td>What Python actually is, and what an interpreter does</td><td>Me talking, you asking</td></tr>
+    <tr><td><code>0:10–0:50</code></td><td>Install Python, VS Code and Git, clone the course repo, verify everything</td><td>You, on your machine</td></tr>
+    <tr><td><code>0:50–1:00</code></td><td>Break</td><td>Nobody</td></tr>
+    <tr><td><code>1:00–1:45</code></td><td>First code: print, variables, types, f-strings, input</td><td>You typing every line</td></tr>
+    <tr><td><code>1:45–2:00</code></td><td>Homework briefing and questions</td><td>Both</td></tr>
+  </table>
+  <div class="callout callout--tip">
+    <span class="ico">◆</span>
+    <div>
+      <h4>The install will feel slow. That is normal.</h4>
+      <p class="nomargin">Every environment is broken in its own special way. We fix it now
+        so it never eats a session again.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do not compress the install block to protect the intro. If the install runs to 1:00,
+    the intro was too long. The intro is the part to cut.</p>
+  </aside>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-title="How this works">
+  <div class="eyebrow">Ground rules</div>
+  <h2>How this course runs</h2>
+  <div class="cols">
+    <div class="stack">
+      <div class="card card--accent">
+        <div class="card-title"><span class="dot"></span>You drive, always</div>
+        <p class="nomargin">You share your screen and your hands stay on the keyboard. You will
+          pick this up far faster by typing it than by watching me type it, so I will hang
+          back and let you drive. If I go quiet, that is on purpose.</p>
+      </div>
+      <div class="card card--teal">
+        <div class="card-title"><span class="dot"></span>Homework is two tasks</div>
+        <p class="nomargin">One you can definitely finish, one you probably can't. The second
+          one is where the learning is, and it is what we open the next session with.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card card--amber">
+        <div class="card-title"><span class="dot"></span>The Saturday check-in</div>
+        <p>One message, every Saturday, exactly one of these:</p>
+        <p class="nomargin"><code>Homework done</code> &nbsp;or&nbsp; <code>Homework not done</code></p>
+      </div>
+      <div class="card card--plain card--compact">
+        <p class="nomargin">No explanation, no guilt. <strong>"Not done" is a completely
+          acceptable answer.</strong> It only works if it is cheap to send. It exists so I can
+          adjust the next session, not so I can check up on you.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Say the "not done is acceptable" line explicitly and mean it. The first time they skip
+    the check-in out of embarrassment, the mechanism is dead. Also: questions welcome any time
+    between sessions, with what they tried and the exact error text.</p>
+  </aside>
+</section>
+
+<!-- 4 -->
+<section class="slide slide--section" data-title="Section: What is Python">
+  <div>
+    <div class="marker">Part one · 10 minutes</div>
+    <h2>What is Python?</h2>
+    <p>Ten minutes, then we install. Enough to know what you are dealing with,
+      not enough to be boring.</p>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-title="What Python is">
+  <div class="eyebrow">Definition</div>
+  <h2>A general-purpose programming language</h2>
+  <div class="cols cols-wide-left">
+    <div class="stack">
+      <ul>
+        <li>Created by <strong>Guido van Rossum</strong>, first released in <strong>1991</strong>.</li>
+        <li>Designed around one conviction: <strong>code is read far more often than it is
+          written</strong>, so readability wins over cleverness.</li>
+        <li>"General-purpose" means it is not a tool for one job. The same language does data
+          analysis, file automation, websites, and scientific computing.</li>
+        <li>You learn it once and it follows you around for the rest of your career.</li>
+      </ul>
+    </div>
+    <div class="card card--accent">
+      <div class="card-title"><span class="dot"></span>Readable, really</div>
+      <figure class="code plain" style="margin-bottom:10px">
+        <pre class="sm"><code data-lang="python">names = ["Ana", "Bo", "Cy"]
+
+for name in names:
+    if len(name) > 2:
+        print(name, "is long")</code></pre>
+      </figure>
+      <p class="nomargin">You can half-read that already, and you have written zero lines of
+        Python. That is the whole design goal in one slide.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do not go into the history of the name (Monty Python) unless asked. It is a fun fact
+    that eats four minutes. Keep momentum toward the install.</p>
+  </aside>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-title="What it is used for">
+  <div class="eyebrow">In the wild</div>
+  <h2>Three real things people use it for</h2>
+  <div class="cols-3">
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>Boring work, once</div>
+      <p>A script that renames 500 files, or pulls 40 spreadsheets into one, or emails a report
+        every Monday at 08:00.</p>
+      <p class="nomargin"><span class="pill pill--teal">highest value for you</span></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>Data analysis</div>
+      <p>Load a few hundred thousand rows, clean them, answer a question, draw the chart.
+        Spreadsheets stop coping long before Python does.</p>
+      <p class="nomargin"><span class="pill pill--accent">sessions 8–10</span></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>The back of a website</div>
+      <p>When you use Instagram or Spotify, something Python-shaped is answering somewhere.
+        Not our topic, but it is the same language.</p>
+      <p class="nomargin"><span class="pill">context only</span></p>
+    </div>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>Anchor it to your own work</h4>
+      <p class="nomargin">Think of one repetitive thing you do in a spreadsheet every week.
+        Keep it in the back of your mind. By session 10 you will be able to automate it, and
+        it is a strong candidate for your final project.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Ask them right now for one repetitive task from their own week and write it down. You
+    will use it in session 11 when scoping the project.</p>
+  </aside>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-title="The interpreter">
+  <div class="eyebrow">Mental model</div>
+  <h2>Your file is just text. The interpreter does the work.</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 1060 250" width="1060" height="250" role="img"
+         aria-label="A .py text file is read by the Python interpreter line by line, producing output">
+      <defs>
+        <marker id="arrowhead" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--accent)"></polygon>
+        </marker>
+        <marker id="arrowhead-soft" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--ink-dim)"></polygon>
+        </marker>
+      </defs>
+
+      <rect class="d-box" x="10" y="45" width="250" height="160" rx="12"></rect>
+      <text class="d-label" x="30" y="76">hello.py</text>
+      <text class="d-sub" x="30" y="98">a plain text file</text>
+      <text class="d-mono" x="30" y="130">print("hello")</text>
+      <text class="d-mono" x="30" y="154">x = 2 + 2</text>
+      <text class="d-mono" x="30" y="178">print(x)</text>
+
+      <path class="d-arrow" d="M270 125 L 385 125"></path>
+
+      <rect class="d-box-accent" x="395" y="45" width="270" height="160" rx="12"></rect>
+      <text class="d-label" x="415" y="76">The Python interpreter</text>
+      <text class="d-sub" x="415" y="100">a program on your machine</text>
+      <text class="d-sub" x="415" y="128">reads line 1, does it</text>
+      <text class="d-sub" x="415" y="152">reads line 2, does it</text>
+      <text class="d-sub" x="415" y="176">reads line 3, does it</text>
+
+      <path class="d-arrow" d="M675 125 L 790 125"></path>
+
+      <rect class="d-box-teal" x="800" y="45" width="245" height="160" rx="12"></rect>
+      <text class="d-label" x="820" y="76">What you see</text>
+      <text class="d-sub" x="820" y="98">the terminal</text>
+      <text class="d-mono" x="820" y="130">hello</text>
+      <text class="d-mono" x="820" y="154">4</text>
+
+      <text class="d-sub" x="415" y="232">top to bottom, one line at a time</text>
+    </svg>
+  </div>
+  <aside class="notes">
+    <p>This slide pays off next session. When an error appears with a line number, you want to
+    be able to point back here: it got that far, then stopped.</p>
+  </aside>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-title="Two consequences">
+  <div class="eyebrow">Mental model</div>
+  <h2>Two useful consequences</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>1 · Nothing to "build"</div>
+      <p>In some languages you compile first and run the result. Not here. You save the file
+        and run it. Change one character, run it again.</p>
+      <p class="nomargin">That tight loop, <strong>edit, run, look</strong>, is how you will
+        learn everything in this course.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>2 · A program can fail halfway</div>
+      <p>Lines 1 to 7 ran. Line 8 was nonsense. Everything from line 8 never happened.</p>
+      <p class="nomargin">That is why error messages point at a <strong>specific line
+        number</strong>, and why the output you already saw is still true.</p>
+    </div>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>The habit that matters most in this whole course</h4>
+      <p class="nomargin">When something breaks, <strong>read the last line of the error
+        first</strong>, then look at the line number. We practise this properly next session.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Plant the flag here, do not teach it yet. Session 2 has ten minutes of deliberately
+    breaking things.</p>
+  </aside>
+</section>
+
+<!-- 9 -->
+<section class="slide slide--section" data-title="Section: Install">
+  <div>
+    <div class="marker">Part two · 40 minutes</div>
+    <h2>Install everything</h2>
+    <p>Four tools. Your screen, your keyboard. I will read the prompts out with you.</p>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-title="What we install">
+  <div class="eyebrow">Toolchain</div>
+  <h2>Four tools, and what each one is for</h2>
+  <table class="sm">
+    <tr><th style="width:190px">Tool</th><th>What it is</th><th style="width:170px">First used</th></tr>
+    <tr><td><strong>Python</strong></td><td>The interpreter itself, the program that runs your code</td><td>Today</td></tr>
+    <tr><td><strong>VS Code</strong></td><td>The editor you write in, plus a built-in terminal</td><td>Today</td></tr>
+    <tr><td><strong>Git</strong></td><td>Version control, the undo history for your whole project</td><td>Session 5</td></tr>
+    <tr><td><strong>DB Browser for SQLite</strong></td><td>A window into a database, so SQL is not invisible</td><td>Session 6</td></tr>
+  </table>
+  <div class="cols mt-s">
+    <div class="callout callout--warn" style="margin-bottom:0">
+      <span class="ico">▲</span>
+      <div>
+        <h4>Windows: tick "Add Python to PATH"</h4>
+        <p class="nomargin">It is an unticked box on the first screen of the installer. Miss it
+          and the terminal will claim Python is not installed.</p>
+      </div>
+    </div>
+    <div class="callout callout--warn" style="margin-bottom:0">
+      <span class="ico">▲</span>
+      <div>
+        <h4>Mac: it is <code>python3</code>, not <code>python</code></h4>
+        <p class="nomargin">macOS ships an ancient Python 2 as <code>python</code>. Everything
+          we write uses <code>python3</code> and <code>pip3</code>.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Install Git now even though we do not explain it until session 5. You need it today to
+    clone the course repo, and the download is slow on some connections. Do not install DB Browser now if time is tight;
+    it can wait for session 6.</p>
+  </aside>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-title="Verify the install">
+  <div class="eyebrow">Do it now</div>
+  <h2>Prove each tool is actually there</h2>
+  <p class="tight">Open the terminal in VS Code (<kbd>Ctrl</kbd> <kbd>`</kbd> on Windows and
+    Linux, <kbd>Cmd</kbd> <kbd>`</kbd> on a Mac) and run these three.</p>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>terminal · Windows</figcaption>
+      <pre class="sm"><code data-lang="bash">python --version
+pip --version
+git --version</code></pre>
+    </figure>
+    <figure class="code">
+      <figcaption>terminal · macOS or Linux</figcaption>
+      <pre class="sm"><code data-lang="bash">python3 --version
+pip3 --version
+git --version</code></pre>
+    </figure>
+  </div>
+  <figure class="code out">
+    <figcaption>what good looks like</figcaption>
+    <pre class="sm"><code data-lang="out">$ python3 --version
+Python 3.12.4
+$ git --version
+git version 2.45.1</code></pre>
+  </figure>
+  <div class="callout callout--stop" style="margin-bottom:0">
+    <span class="ico">■</span>
+    <div>
+      <h4>If you see "command not found" or "not recognized"</h4>
+      <p class="nomargin">The tool is installed but your terminal cannot find it. On Windows
+        that is almost always the PATH checkbox. Close every terminal window and open a new
+        one first, because PATH is only read when a terminal starts.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The "close and reopen the terminal" fix solves this maybe 70% of the time. Try it before
+    anything cleverer. If PATH really is missing, re-running the installer and choosing Modify →
+    Add to PATH is faster than editing environment variables by hand.</p>
+  </aside>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-title="Clone the course repo">
+  <div class="eyebrow">Do it now</div>
+  <h2>Get the course repo onto your machine</h2>
+  <p class="tight">Everything for all twelve sessions lives in one repository: slides,
+    exercises, the dataset, and the answers. You will work inside it all course.</p>
+  <ol class="steps">
+    <li>In the terminal, go to a folder you will find again. <code>cd Documents</code> is
+      fine. Avoid spaces and accented characters in the path, it saves pain later.</li>
+    <li>Copy the repo down:
+      <figure class="code plain" style="margin:8px 0 0">
+        <pre class="sm"><code data-lang="bash">git clone https://github.com/SybrandWildeboer/python-course-basics.git
+cd python-course-basics</code></pre>
+      </figure>
+    </li>
+    <li>Open it in VS Code: <code>code .</code>, or <strong>File &rarr; Open Folder</strong>
+      and pick <code>python-course-basics</code>. Open the <em>folder</em>, not a single file.</li>
+    <li>Install the <strong>Python extension</strong> (Microsoft) from the Extensions panel.
+      It gives you the play button and error highlighting.</li>
+  </ol>
+  <div class="callout callout--tip" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin"><strong>You just used git, and that is fine.</strong>
+        <code>git clone</code> means "make me a copy of that project". That is all you need
+        from it today. We do the real thing in session 5, and by then you will have four
+        sessions of work to put into it.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Watch that they open the folder, not a file. Opening the folder is what makes the
+    terminal start in the right place, which prevents a class of FileNotFoundError confusion
+    in session 4.</p>
+    <p>If HTTPS cloning prompts for credentials, it should not for a public repo. If it does,
+    they have an old credential helper in the way. Fall back to downloading the ZIP from
+    GitHub and get on with the session; fix it properly in session 5.</p>
+  </aside>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-title="What is in the repo">
+  <div class="eyebrow">Orientation</div>
+  <h2>What is in the repo, and where your work goes</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code plain">
+      <figcaption>python-course-basics</figcaption>
+      <pre class="sm"><code data-lang="text">slides/            the deck for every session
+sessions/
+  session-01/
+    demos/          code we type together
+    exercises/      YOUR live exercise files
+    solutions/      the answers, for afterwards
+    homework/       YOUR homework files
+data/               the dataset, all course
+cheatsheets/        quick reference per topic
+my-work/            your scratch space
+project/            your final project, session 11</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>You type in <code>exercises/</code> and <code>homework/</code></h4>
+        <p class="nomargin">Those files are already there with a comment at the top telling
+          you what to build. Open them and fill them in.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>Try it before you read it</h4>
+        <p class="nomargin">The solutions are in the repo because you will want them later.
+          Reading one feels like learning but is not, so have a real go first. Getting stuck
+          for ten minutes is the part that sticks.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin"><code>my-work/</code> is yours to make a mess in. Nothing in there
+          is ever graded or checked.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Say the "try it first" line warmly, once, and then trust them. Nagging about solutions
+    every week costs more goodwill than it saves.</p>
+    <p>If you update the repo during the course, tell them and walk them through
+    <code>git pull</code> in the moment. Before session 5 they will not have the vocabulary,
+    so keep updates rare until then.</p>
+  </aside>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-title="Two ways to run">
+  <div class="eyebrow">Do it now</div>
+  <h2>Two ways to run it. Learn both.</h2>
+  <div class="cols">
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>The play button</div>
+      <p>Top right of the editor, the ▷ triangle. Fast, convenient, and it silently saves you
+        from typing the filename.</p>
+      <p class="nomargin">Use it while you are writing.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>The terminal</div>
+      <figure class="code plain" style="margin-bottom:10px">
+        <pre class="sm"><code data-lang="bash">python hello.py     # Windows
+python3 hello.py    # Mac / Linux</code></pre>
+      </figure>
+      <p class="nomargin">This is how the rest of the world runs your program, and how you
+        will run it when it does something useful for someone else.</p>
+    </div>
+  </div>
+  <div class="callout callout--warn mt">
+    <span class="ico">▲</span>
+    <div>
+      <h4>Save before you run. Every single time.</h4>
+      <p class="nomargin"><kbd>Ctrl</kbd>/<kbd>Cmd</kbd> <kbd>S</kbd>. Python runs the file
+        <em>on disk</em>, not what is on your screen. Unsaved changes are invisible to it, which is
+        behind most "but I fixed that!" moments. VS Code shows an unsaved
+        file with a dot next to its name.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Point at the unsaved-dot in the tab explicitly. Consider turning on Files: Auto Save
+    later, but not yet. Noticing the dot is a useful reflex to build first.</p>
+  </aside>
+</section>
+
+<!-- 15 -->
+<section class="slide slide--section" data-title="Section: First code">
+  <div>
+    <div class="marker">Part three · 45 minutes</div>
+    <h2>First code</h2>
+    <p>Seven ideas. You type every one of them, and we run the file after each.</p>
+  </div>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-title="print">
+  <div class="eyebrow">Idea 1 of 7</div>
+  <h2><code>print()</code>: how a program talks to you</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>basics.py</figcaption>
+      <pre><code data-lang="python">print("Hello")
+print("Hello", "world")
+print(7)
+print(3 + 4)
+print()
+print("Done")</code></pre>
+    </figure>
+    <div class="stack">
+      <figure class="code out" style="margin-bottom:0">
+        <figcaption>output</figcaption>
+        <pre><code data-lang="out">Hello
+Hello world
+7
+7
+
+Done</code></pre>
+      </figure>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">Note two things: <code>print("Hello", "world")</code> puts a space
+          between the parts for you, and <code>print(3 + 4)</code> prints <code>7</code>, because the
+          maths happens <em>before</em> printing.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Have them deliberately forget a closing quote and a closing bracket now, quickly, to see
+    what happens. Thirty seconds, then move on, because session 2 does errors properly.</p>
+  </aside>
+</section>
+
+<!-- 17 -->
+<section class="slide" data-title="Variables">
+  <div class="eyebrow">Idea 2 of 7</div>
+  <h2>Variables: a name for a value</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>variables.py</figcaption>
+      <pre><code data-lang="python">name = "Sam"
+age = 41
+print(name)
+print(age)
+
+age = age + 1      # now it is 42
+print(age)</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="callout callout--key" style="margin-bottom:0">
+        <span class="ico">◆</span>
+        <div>
+          <h4><code>=</code> means "put this in here"</h4>
+          <p class="nomargin">It is not the <code>=</code> of mathematics.
+            <code>age = age + 1</code> is nonsense in algebra and perfectly ordinary here:
+            work out the right-hand side, then store it under that name.</p>
+        </div>
+      </div>
+      <div class="card card--compact">
+        <h4>Naming rules and manners</h4>
+        <ul class="tight nomargin">
+          <li>Letters, digits, underscores. No spaces, cannot start with a digit.</li>
+          <li>Case matters: <code>Name</code> and <code>name</code> are two variables.</li>
+          <li>Use <code>lower_case_with_underscores</code>, and use real words:
+            <code>total_minutes</code>, not <code>tm</code>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The "a box with a label" metaphor is fine at this stage. Do not mention references or
+    mutability. It will confuse, and it is not needed until lists in session 4.</p>
+  </aside>
+</section>
+
+<!-- 18 -->
+<section class="slide" data-title="Types">
+  <div class="eyebrow">Idea 3 of 7</div>
+  <h2>Four types, and how to ask</h2>
+  <div class="cols">
+    <div class="stack">
+      <table class="sm mono">
+        <tr><th style="width:90px">Type</th><th>Is</th><th style="width:130px">Example</th></tr>
+        <tr><td>str</td><td>text, "string of characters"</td><td><code>"Sam"</code></td></tr>
+        <tr><td>int</td><td>a whole number</td><td><code>41</code></td></tr>
+        <tr><td>float</td><td>a number with a decimal point</td><td><code>4.65</code></td></tr>
+        <tr><td>bool</td><td>true or false, nothing else</td><td><code>True</code></td></tr>
+      </table>
+      <div class="callout callout--warn" style="margin-bottom:0">
+        <span class="ico">▲</span>
+        <div>
+          <p class="nomargin"><code>"41"</code> with quotes is <strong>text</strong> that
+            happens to look like a number. <code>41</code> without quotes is a
+            <strong>number</strong>. Python treats them completely differently, and this is the
+            single most common beginner confusion.</p>
+        </div>
+      </div>
+    </div>
+    <figure class="code">
+      <figcaption>types.py</figcaption>
+      <pre><code data-lang="python">print(type("Sam"))
+print(type(41))
+print(type(4.65))
+print(type(True))
+
+print(4 + 4)        # 8
+print("4" + "4")    # 44
+print(10 / 4)        # 2.5  always a float
+print(10 // 4)       # 2    whole-number division</code></pre>
+    </figure>
+  </div>
+  <aside class="notes">
+    <p><code>"4" + "4"</code> giving <code>"44"</code> is the slide that earns its keep. Let
+    them predict the answer before you run it. Same with <code>10 / 4</code>: dividing always
+    gives a float, even when it comes out even.</p>
+  </aside>
+</section>
+
+<!-- 19 -->
+<section class="slide" data-title="f-strings">
+  <div class="eyebrow">Idea 4 of 7</div>
+  <h2>f-strings: put values inside text</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>fstrings.py</figcaption>
+      <pre><code data-lang="python">name = "Sam"
+age = 41
+
+# the tedious way
+print("Hi " + name + ", you are " + str(age))
+
+# the good way: f for format
+print(f"Hi {name}, you are {age}")
+
+# any expression fits in the braces
+print(f"Next year: {age + 1}")
+print(f"Shouted: {name.upper()}")
+
+# and you can control the formatting
+minutes = 1234.5678
+print(f"{minutes:.1f} minutes")
+print(f"{minutes:,.2f} minutes")</code></pre>
+    </figure>
+    <div class="stack">
+      <figure class="code out">
+        <figcaption>output</figcaption>
+        <pre class="sm"><code data-lang="out">Hi Sam, you are 41
+Hi Sam, you are 41
+Next year: 42
+Shouted: SAM
+1234.6 minutes
+1,234.57 minutes</code></pre>
+      </figure>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">The <code>f</code> before the opening quote is the whole trick.
+          Forget it and you get the literal text <code>Hi {name}</code>, which is a useful
+          bug to recognise on sight.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Show the missing-f bug on purpose. It appears in their homework this week, guaranteed.
+    The <code>:.1f</code> formatting will come back in session 9 for chart labels.</p>
+  </aside>
+</section>
+
+<!-- 20 -->
+<section class="slide" data-title="input">
+  <div class="eyebrow">Idea 5 of 7</div>
+  <h2><code>input()</code> always hands you text</h2>
+  <div class="cols cols-wide-left">
+    <div class="stack">
+      <figure class="code">
+        <figcaption>broken.py</figcaption>
+        <pre><code data-lang="python">year = input("Birth year: ")
+age = 2026 - year
+print(age)</code></pre>
+      </figure>
+      <figure class="code out" style="margin-bottom:0">
+        <figcaption>output</figcaption>
+        <pre class="sm"><code data-lang="out">Birth year: 1985
+Traceback (most recent call last):
+  File "broken.py", line 2, in &lt;module&gt;
+    age = 2026 - year
+TypeError: unsupported operand type(s) for -: 'int' and 'str'</code></pre>
+      </figure>
+    </div>
+    <div class="stack">
+      <div class="callout callout--key" style="margin-bottom:0">
+        <span class="ico">◆</span>
+        <div>
+          <h4>Read the last line first</h4>
+          <p class="nomargin">"unsupported operand for <code>-</code>: <code>'int'</code> and
+            <code>'str'</code>" means you tried to subtract text from a number. Python is telling
+            you exactly what is wrong, in its own vocabulary.</p>
+        </div>
+      </div>
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>fixed.py</figcaption>
+        <pre><code data-lang="python">year = int(input("Birth year: "))
+age = 2026 - year
+print(f"You are about {age}")</code></pre>
+      </figure>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Even when the user types digits, input gives a str. Always. Say it twice. Then show the
+    nesting: input runs first, int wraps the result, inside-out like brackets in maths.</p>
+  </aside>
+</section>
+
+<!-- 21 -->
+<section class="slide" data-title="Conversion">
+  <div class="eyebrow">Idea 6 of 7</div>
+  <h2>Converting between types</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>convert.py</figcaption>
+      <pre><code data-lang="python">int("41")        # 41     text -> whole number
+float("4.65")    # 4.65   text -> decimal
+str(41)          # "41"   number -> text
+int(4.99)        # 4      chops, does not round
+round(4.99)      # 5      rounds properly
+bool("")         # False  empty text is falsy
+bool("no")       # True   any text is truthy</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="callout callout--stop" style="margin-bottom:0">
+        <span class="ico">■</span>
+        <div>
+          <h4>Conversion can fail, loudly</h4>
+          <figure class="code plain" style="margin:8px 0 0">
+            <pre class="sm"><code data-lang="out">&gt;&gt;&gt; int("forty one")
+ValueError: invalid literal for int()
+with base 10: 'forty one'</code></pre>
+          </figure>
+        </div>
+      </div>
+      <div class="card card--compact card--amber">
+        <p class="nomargin"><code>int(4.99)</code> is <strong>4</strong>, not 5. It throws away
+          everything after the point. When you want real rounding, say
+          <code>round()</code>.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The int() truncation bites people in financial and time calculations. Mention it now,
+    it costs ten seconds.</p>
+  </aside>
+</section>
+
+<!-- 22 -->
+<section class="slide" data-title="Comments">
+  <div class="eyebrow">Idea 7 of 7</div>
+  <h2>Comments: notes for humans</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>comments.py</figcaption>
+      <pre><code data-lang="python"># Everything after a hash is ignored by Python.
+
+VAT = 1.21          # the trailing kind works too
+
+# Good comments say WHY:
+# prices in the export are net, the report needs gross
+gross = 45.00 * VAT
+
+# Bad comment, it just re-reads the code:
+# multiply by VAT
+gross = 45.00 * VAT</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--teal card--compact">
+        <h4>Comment the why, not the what</h4>
+        <p class="nomargin">The code already says what it does. Your comment should explain the
+          decision, the unit, the assumption, or the thing you had to look up.</p>
+      </div>
+      <div class="card card--compact">
+        <h4>The second use: switching code off</h4>
+        <p class="nomargin">Put a <code>#</code> in front of a line to stop it running without
+          deleting it. <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> <kbd>/</kbd> toggles it in VS Code. You
+          will use this constantly while debugging.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Teach the comment shortcut key now. It turns into their main debugging tool for the
+    next few weeks.</p>
+  </aside>
+</section>
+
+<!-- 23 -->
+<section class="slide" data-title="Live exercise">
+  <div class="eyebrow">Your turn · 15 minutes</div>
+  <h2>Build it now, with me watching</h2>
+  <div class="exercise">
+    <div class="tag">◆ Live exercise</div>
+    <h3>A script that asks your name and birth year, then prints a sentence with your age in it</h3>
+    <div class="cols">
+      <div>
+        <h4>Must do</h4>
+        <ul class="tight">
+          <li>Ask for a name with <code>input()</code></li>
+          <li>Ask for a birth year, and convert it to an <code>int</code></li>
+          <li>Work out an age</li>
+          <li>Print one sentence, using an f-string, containing both</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Then, if that works</h4>
+        <ul class="tight">
+          <li>Print how old they will be in 2030</li>
+          <li>Print the name in capitals</li>
+          <li>Add a comment at the top saying what the script does</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Save as <code>sessions/session-01/exercises/about_me.py</code>. Run
+        it after every two or three lines rather than writing the whole thing and hoping.
+        Small steps make errors easy to locate.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Stay quiet. Count to ten before helping. If they are stuck on syntax, point at the line
+    rather than saying the fix. The "about" in "about your age" matters, because birthdays make exact
+    ages harder, and that is a good thing to notice out loud.</p>
+  </aside>
+</section>
+
+<!-- 24 -->
+<section class="slide" data-title="Errors you will meet">
+  <div class="eyebrow">Reference</div>
+  <h2>The four errors you will meet this week</h2>
+  <table class="sm">
+    <tr><th style="width:230px">Message</th><th>Means</th><th style="width:330px">Fix</th></tr>
+    <tr><td><code>SyntaxError</code></td><td>Python cannot even read the line, usually a
+      missing quote, bracket or colon</td><td>Look at the line <em>and the one above it</em></td></tr>
+    <tr><td><code>NameError</code></td><td>You used a name Python has never seen</td>
+      <td>Typo, or you never assigned it. Check capitals</td></tr>
+    <tr><td><code>TypeError</code></td><td>Right idea, wrong types, such as text where a number
+      belongs</td><td>Wrap it in <code>int()</code> or <code>str()</code></td></tr>
+    <tr><td><code>IndentationError</code></td><td>Spacing is wrong at the start of a line</td>
+      <td>Next session's material. For now, do not indent</td></tr>
+  </table>
+  <div class="callout callout--warn" style="margin-bottom:0">
+    <span class="ico">▲</span>
+    <div>
+      <h4>Watch out for smart quotes</h4>
+      <p class="nomargin">If you paste code from a chat app or a document, you may get
+        <code>“curly quotes”</code> instead of <code>"straight quotes"</code>. Python only
+        accepts the straight ones, and the difference is nearly invisible. When a
+        <code>SyntaxError</code> makes no sense at all, retype the quotes by hand.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Keep this slide handy during their homework questions this week. Most will be one of
+    these four.</p>
+  </aside>
+</section>
+
+<!-- 25 -->
+<section class="slide" data-title="Homework">
+  <div class="eyebrow">Between now and next time · 2–4 hours</div>
+  <h2>Homework</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Task 1 · you can finish this</div>
+      <h4>Temperature converter</h4>
+      <p>Ask for a temperature in Celsius, print it in Fahrenheit.</p>
+      <figure class="code plain" style="margin:0 0 10px">
+        <pre class="sm"><code data-lang="text">F = C × 9/5 + 32</code></pre>
+      </figure>
+      <p class="nomargin">File: <code>homework/temperature.py</code>. Print the answer to one
+        decimal place if you can work out how.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>Task 2 · you might not finish this</div>
+      <h4>A three-question summary</h4>
+      <p>Ask three questions, at least one whose answer is a number you do arithmetic on,
+        then print a small summary paragraph that uses all three answers.</p>
+      <p class="nomargin">File: <code>homework/summary.py</code>. Where you get stuck is
+        exactly what we start with next session, so note the error text.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin"><strong>Saturday:</strong> one message, either
+        <code>Homework done</code> or <code>Homework not done</code>. Stuck? Send me the code
+        and the exact error text, any time.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Task 2 is deliberately open. The interesting failures are string/number confusion and
+    f-string formatting. Whatever they bring, open session 2 with it.</p>
+  </aside>
+</section>
+
+<!-- 26 -->
+<section class="slide" data-title="Recap">
+  <div class="eyebrow">Wrap up</div>
+  <h2>What you can do that you could not do 2 hours ago</h2>
+  <div class="cols">
+    <ul class="checklist">
+      <li>Run a Python file two different ways</li>
+      <li>Print things, including calculated things</li>
+      <li>Store values in variables and change them</li>
+      <li>Name the four basic types and check one with <code>type()</code></li>
+    </ul>
+    <ul class="checklist">
+      <li>Build sentences with f-strings</li>
+      <li>Ask a person a question and use their answer</li>
+      <li>Convert between text and numbers, deliberately</li>
+      <li>Recognise four error messages on sight</li>
+    </ul>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>Next session: programs that decide and repeat</h4>
+      <p class="nomargin"><code>if</code>, <code>else</code>, loops, and ten minutes of
+        deliberately breaking things so error messages stop being scary. We finish by
+        building a number-guessing game.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Read the checklist out loud. Two hours in, it does not feel like much until you list it.
+    End on time. Running over on session 1 sets a bad expectation for eleven more.</p>
+  </aside>
+</section>
+
+</div>
+</div>
+<script src="assets/deck.js"></script>
+</body>
+</html>
