@@ -1,0 +1,981 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 6: SQL foundations</title>
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body data-deck="Session 6 · SQL foundations">
+<div id="viewport">
+<div class="deck">
+
+<section class="slide slide--title" data-title="Title">
+  <div>
+    <div class="session-no">Session 06 of 12</div>
+    <h1>SQL foundations</h1>
+    <p class="goal">You can ask a database questions and get answers back. The same listening
+      log from last session, in the form it actually lives in at work.</p>
+    <div class="meta">
+      <span class="pill pill--accent">2 hours</span>
+      <span class="pill">SELECT, WHERE, ORDER BY</span>
+      <span class="pill">GROUP BY, HAVING</span>
+      <span class="pill pill--teal">Build: a ladder of 10 questions</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Lots of keywords today, but it is really one idea with variations, and they already
+    have filtering, sorting and counting from session 4. Keep linking back to that.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework review">
+  <div class="eyebrow">First fifteen minutes</div>
+  <h2>Homework review</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>The branch and the notes</div>
+      <p>Let us look at your repo on GitHub together. Is <code>MY-NOTES.md</code> on
+        <code>main</code>? Is the branch gone?</p>
+      <p class="nomargin">I want to read the "still confusing" list. That list tells me what
+        to slow down on, and it is genuinely the most useful thing you wrote this week.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>The three commits</div>
+      <p>Run <code>git log --oneline</code> and read your own messages back to me.</p>
+      <p class="nomargin">Could you tell what each one did without looking at the code? Most
+        people have at least one they cannot decode, and noticing that yourself is the whole
+        lesson.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Any authentication trouble during the week? Let us fix it now rather
+        than at the end, because every session from here finishes with a push.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Actually read the confusions list and adjust today accordingly. If file paths were on
+    it, the database has no paths to worry about, which is worth pointing out as a relief.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Databases">
+  <div>
+    <div class="marker">Part one</div>
+    <h2>What a database is</h2>
+    <p>You already know the shape. This is the same table, kept somewhere better.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="The relational idea">
+  <div class="eyebrow">The idea</div>
+  <h2>Tables, rows, columns, and a key</h2>
+  <div class="cols cols-wide-left">
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>You have met all of this already</h4>
+        <p class="nomargin">A <strong>table</strong> is your list of dictionaries. A
+          <strong>row</strong> is one dictionary. A <strong>column</strong> is one key, and in
+          a database every row has the same columns, with a fixed type.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>The one new idea: a primary key</h4>
+        <p class="nomargin">A column whose value is unique for every row, so you can point at
+          exactly one row and nothing else. In our data, <code>play_id</code> and
+          <code>artist_id</code> do that job.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">"Relational" just means the tables can refer to each other, by
+          those keys. That is next session, and it is where databases earn their keep.</p>
+      </div>
+    </div>
+    <figure class="code">
+      <figcaption>plays, the first three rows</figcaption>
+      <pre class="xs"><code data-lang="text">play_id  played_at   artist_id  minutes_played
+-------  ----------  ---------  --------------
+      1  2024-01-01         35            4.65
+      2  2024-01-01          9            2.42
+      3  2024-01-02         12            6.10
+
+play_id is the primary key:
+never repeated, never empty,
+and it names exactly one row.</code></pre>
+    </figure>
+  </div>
+  <aside class="notes">
+    <p>Resist normalisation theory entirely. The useful version at this stage is "unique
+    label per row", which is all they need to follow the joins next week.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Why a database">
+  <div class="eyebrow">Motivation</div>
+  <h2>Why not just keep the CSV?</h2>
+  <div class="cols-4">
+    <div class="card card--compact">
+      <div class="card-title"><span class="dot"></span>Size</div>
+      <p class="nomargin">Our file has 2,183 rows and Python reads it in a blink. At ten
+        million rows, loading the whole thing into memory to answer one question stops being
+        sensible.</p>
+    </div>
+    <div class="card card--compact">
+      <div class="card-title"><span class="dot"></span>Structure</div>
+      <p class="nomargin">A database knows <code>minutes_played</code> is a number. The CSV
+        does not, which is why you were wrapping everything in <code>float()</code> last
+        week.</p>
+    </div>
+    <div class="card card--compact">
+      <div class="card-title"><span class="dot"></span>Relationships</div>
+      <p class="nomargin">Artist details live once, in one table, instead of being repeated on
+        every one of the 237 rows that mention them.</p>
+    </div>
+    <div class="card card--compact">
+      <div class="card-title"><span class="dot"></span>Many people at once</div>
+      <p class="nomargin">Several people, and several programs, can read and write safely
+        together. Two people editing one CSV is a lost afternoon.</p>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">The honest summary: <strong>CSV is a file, a database is a
+        service.</strong> For a few thousand rows you could do all of today's work in Python.
+        You are learning SQL because at work the data is already in a database, and because
+        the language for asking questions is worth knowing in its own right.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do not oversell databases. The honest framing, that this is where the data lives so
+    this is the language you need, is more convincing than performance claims they cannot
+    check.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Our database">
+  <div class="eyebrow">Orientation</div>
+  <h2>What is inside <code>data/music.db</code></h2>
+  <div class="diagram">
+    <svg viewBox="0 0 1100 290" width="1100" height="290" role="img"
+         aria-label="Three tables: artists with 40 rows, plays with 2183 rows, awards with 33 rows">
+      <defs>
+        <marker id="arrowhead" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--accent)"></polygon>
+        </marker>
+        <marker id="arrowhead-soft" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--ink-dim)"></polygon>
+        </marker>
+      </defs>
+
+      <rect class="d-box-accent" x="10" y="20" width="310" height="250" rx="11"></rect>
+      <text class="d-label" x="30" y="50">plays</text>
+      <text class="d-sub" x="30" y="72">2,183 rows · one per listen</text>
+      <text class="d-mono" x="30" y="104">play_id        key</text>
+      <text class="d-mono" x="30" y="128">played_at      date as text</text>
+      <text class="d-mono" x="30" y="152">artist_id      points at artists</text>
+      <text class="d-mono" x="30" y="176">track_name     text</text>
+      <text class="d-mono" x="30" y="200">minutes_played number</text>
+      <text class="d-mono" x="30" y="224">device         text</text>
+      <text class="d-mono" x="30" y="248">skipped        0 or 1</text>
+
+      <path class="d-arrow-soft" d="M330 140 L 400 140"></path>
+
+      <rect class="d-box-teal" x="410" y="20" width="310" height="250" rx="11"></rect>
+      <text class="d-label" x="430" y="50">artists</text>
+      <text class="d-sub" x="430" y="72">40 rows · one per artist</text>
+      <text class="d-mono" x="430" y="104">artist_id      key</text>
+      <text class="d-mono" x="430" y="128">artist_name    text</text>
+      <text class="d-mono" x="430" y="152">country        text</text>
+      <text class="d-mono" x="430" y="176">genre          text</text>
+      <text class="d-mono" x="430" y="200">formed_year    number</text>
+      <text class="d-mono" x="430" y="224">still_active   0 or 1</text>
+      <text class="d-sub" x="430" y="252">some values are missing</text>
+
+      <path class="d-arrow-soft" d="M730 140 L 800 140"></path>
+
+      <rect class="d-box-amber" x="810" y="20" width="280" height="250" rx="11"></rect>
+      <text class="d-label" x="830" y="50">awards</text>
+      <text class="d-sub" x="830" y="72">33 rows · several per artist</text>
+      <text class="d-mono" x="830" y="104">award_id       key</text>
+      <text class="d-mono" x="830" y="128">artist_id      points at artists</text>
+      <text class="d-mono" x="830" y="152">award_name     text</text>
+      <text class="d-mono" x="830" y="176">year           number</text>
+      <text class="d-sub" x="830" y="216">we leave this one</text>
+      <text class="d-sub" x="830" y="238">alone until next</text>
+      <text class="d-sub" x="830" y="260">session</text>
+    </svg>
+  </div>
+  <aside class="notes">
+    <p>Today is one table at a time, nearly always plays. The dotted arrows are a promise
+    about next week, not material for now.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="DB Browser">
+  <div class="eyebrow">Do it now</div>
+  <h2>Open the database and look around</h2>
+  <ol class="steps">
+    <li>Open <strong>DB Browser for SQLite</strong>, then <strong>Open Database</strong> and
+      choose <code>data/music.db</code> from your repo.</li>
+    <li><strong>Database Structure</strong> tab: three tables. Expand <code>plays</code> and
+      read the column names and types.</li>
+    <li><strong>Browse Data</strong> tab: pick a table and scroll. This is the whole dataset,
+      and it looks exactly like a spreadsheet, because it is the same shape.</li>
+    <li><strong>Execute SQL</strong> tab: this is where we live for the next two sessions.
+      Type a query, press <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> <kbd>Enter</kbd>, read the result.</li>
+  </ol>
+  <div class="callout callout--tip" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Nothing you type today can damage the data. Every query we write
+        only reads. And if you ever do break it,
+        <code>python3 data/scripts/build_dataset.py</code> rebuilds the whole database from
+        scratch in a second.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Say the "nothing can break" line early. People are noticeably more willing to
+    experiment once they know there is an undo button, and here the undo button is a
+    regenerate script.</p>
+    <p>If DB Browser is not installed, sqlite3 in the terminal works, but the visual table
+    view is worth the install.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Asking">
+  <div>
+    <div class="marker">Part two</div>
+    <h2>Asking questions</h2>
+    <p>Every query you write today is the same sentence with more clauses bolted on.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="SELECT">
+  <div class="eyebrow">Clause 1</div>
+  <h2><code>SELECT</code>: which columns do you want?</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre><code data-lang="sql">SELECT track_name, minutes_played
+FROM plays;
+
+SELECT *
+FROM plays;
+
+SELECT artist_name, genre, formed_year
+FROM artists;</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>Read it as a sentence</h4>
+        <p class="nomargin"><strong>Which columns</strong>, <strong>from which table</strong>.
+          That is the whole of SQL's shape, and everything else today is a refinement.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4>Conventions, not rules</h4>
+        <ul class="tight nomargin">
+          <li>Keywords in capitals so they stand out. SQL does not care</li>
+          <li>Semicolon at the end of a statement</li>
+          <li>Line breaks wherever they help. One clause per line reads best</li>
+        </ul>
+      </div>
+      <div class="card card--compact card--amber">
+        <p class="nomargin"><code>SELECT *</code> means every column. Handy when you are
+          exploring, worth avoiding in anything you save: it breaks quietly when somebody
+          adds a column.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Have them run SELECT * FROM plays first, so they see all 2183 rows arrive, then narrow
+    it. The narrowing is what makes SELECT feel purposeful.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="WHERE">
+  <div class="eyebrow">Clause 2</div>
+  <h2><code>WHERE</code>: which rows do you want?</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre><code data-lang="sql">SELECT track_name, minutes_played
+FROM plays
+WHERE minutes_played > 8;          -- 82 rows
+
+SELECT * FROM plays
+WHERE device = 'phone';            -- 1039 rows
+
+SELECT * FROM plays
+WHERE skipped != 0;                -- 258 rows
+
+SELECT * FROM plays
+WHERE played_at >= '2025-01-01';   -- 1061 rows</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="callout callout--stop" style="margin-bottom:0">
+        <span class="ico">■</span>
+        <div>
+          <h4>Two things that catch everybody</h4>
+          <ul class="tight nomargin">
+            <li><strong>One <code>=</code>, not two.</strong> In SQL a single
+              <code>=</code> asks the question. <code>==</code> is a Python habit.</li>
+            <li><strong>Single quotes for text.</strong> <code>'phone'</code>. Double quotes
+              mean something else in SQL, and the error will be confusing.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">Dates here are text in <code>YYYY-MM-DD</code> form, which sorts
+          and compares correctly as text. That is exactly why that format is worth
+          insisting on.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The <code>--</code> comment style is new to them; mention it in passing. The counts in
+    the comments are real, so they can check their own results against the slide.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="AND OR NOT">
+  <div class="eyebrow">Clause 2, continued</div>
+  <h2>Combining conditions</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre><code data-lang="sql">SELECT * FROM plays
+WHERE device = 'phone'
+  AND minutes_played > 8;
+
+SELECT * FROM plays
+WHERE device = 'car'
+   OR device = 'tablet';           -- 284 rows
+
+SELECT * FROM plays
+WHERE NOT skipped = 1
+  AND played_at >= '2025-01-01';
+
+-- brackets, when you mix AND with OR
+SELECT * FROM plays
+WHERE (device = 'car' OR device = 'tablet')
+  AND minutes_played > 5;</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <p class="nomargin">Exactly the <code>and</code> / <code>or</code> / <code>not</code>
+          from session 2, in capitals. You already know how these behave.</p>
+      </div>
+      <div class="callout callout--warn" style="margin-bottom:0">
+        <span class="ico">▲</span>
+        <div>
+          <h4>Brackets when you mix them</h4>
+          <p class="nomargin"><code>AND</code> binds tighter than <code>OR</code>, so
+            <code>a OR b AND c</code> means <code>a OR (b AND c)</code>. That is rarely what
+            you meant. Add the brackets and stop thinking about it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Precedence bugs give a plausible-looking answer, which makes them expensive. The habit
+    of bracketing mixed conditions is cheap insurance.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="IN BETWEEN LIKE">
+  <div class="eyebrow">Clause 2, shortcuts</div>
+  <h2><code>IN</code>, <code>BETWEEN</code>, <code>LIKE</code></h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre class="sm"><code data-lang="sql">-- one of these values
+SELECT * FROM plays
+WHERE device IN ('car', 'tablet');       -- 284
+
+-- between two values, ends included
+SELECT * FROM plays
+WHERE played_at
+  BETWEEN '2025-06-01' AND '2025-08-31'; -- 175
+
+-- text patterns: % means "any characters"
+SELECT artist_name FROM artists
+WHERE artist_name LIKE 'The %';          -- 5
+
+SELECT * FROM plays
+WHERE track_name LIKE '%Lines';</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--teal">
+        <h4>All three are conveniences</h4>
+        <p class="nomargin"><code>IN</code> saves a row of <code>OR</code>s.
+          <code>BETWEEN</code> saves a <code>&gt;=</code> and a <code>&lt;=</code>.
+          <code>LIKE</code> is the one with no plain equivalent.</p>
+      </div>
+      <div class="card card--compact card--accent">
+        <h4>Pattern characters</h4>
+        <ul class="tight nomargin">
+          <li><code>%</code> any run of characters, including none</li>
+          <li><code>_</code> exactly one character</li>
+          <li><code>'The %'</code> starts with, <code>'%Lines'</code> ends with,
+            <code>'%Lines%'</code> contains</li>
+        </ul>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin"><code>BETWEEN</code> <strong>includes</strong> both ends, unlike
+          Python's <code>range</code> and slicing. One of the few places SQL is friendlier.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>BETWEEN including both ends is worth calling out precisely because it contradicts the
+    habit from sessions 2 and 4. Inclusive and exclusive ranges are a lifelong source of
+    off-by-one errors.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="NULL">
+  <div class="eyebrow">Clause 2 · the trap</div>
+  <h2><code>NULL</code> is not a value, and <code>= NULL</code> never works</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code">
+        <figcaption>Execute SQL</figcaption>
+        <pre class="sm"><code data-lang="sql">-- looks right, finds nothing, says nothing
+SELECT artist_name FROM artists
+WHERE formed_year = NULL;
+
+-- the correct way
+SELECT artist_name, formed_year, still_active
+FROM artists
+WHERE formed_year IS NULL
+   OR still_active IS NULL;
+
+SELECT COUNT(*) FROM artists
+WHERE formed_year IS NOT NULL;</code></pre>
+      </figure>
+    </div>
+    <div class="stack">
+      <figure class="code out">
+        <figcaption>results</figcaption>
+        <pre class="xs"><code data-lang="text">= NULL          ->  0 rows
+
+IS NULL         ->  Rosewood Lane     |      | 0
+                    Cassette Revival  |      | 0
+                    Iron Fernway      | 1996 |
+
+IS NOT NULL     ->  38</code></pre>
+      </figure>
+      <div class="callout callout--stop" style="margin-bottom:0">
+        <span class="ico">■</span>
+        <div>
+          <p class="nomargin"><code>NULL</code> means <strong>unknown</strong>, not zero and
+            not empty text. Asking whether an unknown equals an unknown gives you
+            "unknown", which is not true, so the row is not returned. No error, no warning,
+            just an empty result that looks like an answer.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Real gaps in the artists table, so this is not hypothetical. Three artists have
+    something missing.</p>
+    <p>Worth saying: aggregates skip NULLs, so AVG(formed_year) is the average of 38 values,
+    not 40. That is usually what you want and occasionally a nasty surprise.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="ORDER BY and LIMIT">
+  <div class="eyebrow">Clauses 3 and 4</div>
+  <h2><code>ORDER BY</code> and <code>LIMIT</code></h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre><code data-lang="sql">SELECT track_name, minutes_played
+FROM plays
+ORDER BY minutes_played DESC
+LIMIT 5;
+
+SELECT artist_name, formed_year
+FROM artists
+ORDER BY formed_year ASC;     -- ASC is the default
+
+-- sort by more than one column
+SELECT device, minutes_played FROM plays
+ORDER BY device, minutes_played DESC;</code></pre>
+    </figure>
+    <div class="stack">
+      <figure class="code out">
+        <figcaption>the first query</figcaption>
+        <pre class="sm"><code data-lang="text">Paper Avenue     11.01
+Harbour Season   10.96
+Broken Lines     10.77
+Static Wires     10.72
+Northern Window  10.04</code></pre>
+      </figure>
+      <div class="card card--compact card--teal">
+        <p class="nomargin"><code>ORDER BY x DESC LIMIT 5</code> is the "top five" recipe, and
+          it is probably the query shape you will type most often for the rest of your life.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">Without <code>ORDER BY</code>, a database makes no promise about
+          row order. <code>LIMIT 5</code> on its own gives you five arbitrary rows, not the
+          first five of anything.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The "no promise about order" point matters. SQLite happens to look stable, which
+    teaches people a habit that breaks on a real database.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="DISTINCT">
+  <div class="eyebrow">Clause 5</div>
+  <h2><code>DISTINCT</code>: what are the possible values?</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre><code data-lang="sql">SELECT DISTINCT device FROM plays;
+-- phone, laptop, speaker, tablet, car
+
+SELECT DISTINCT genre FROM artists
+ORDER BY genre;
+
+SELECT COUNT(DISTINCT track_name) FROM plays;
+-- 168 different tracks, across 2183 plays</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>The first thing to run on a new table</h4>
+        <p class="nomargin">Before asking anything clever, ask what is actually in a column.
+          It is how you find out that someone has been entering <code>Phone</code>,
+          <code>phone</code> and <code>PHONE</code>, which is exactly what session 9 is
+          about.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">This is <code>value_counts()</code> in pandas, and it is your
+          session 4 counting dictionary. Same question, third notation.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Frame DISTINCT as a data-inspection habit rather than a keyword. Running it on every
+    categorical column of a new dataset is what experienced people do first.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Aggregates">
+  <div>
+    <div class="marker">Part three</div>
+    <h2>Summarising</h2>
+    <p>Up to now every query returned rows. Now we return answers about many rows at once.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Aggregates">
+  <div class="eyebrow">Clause 6</div>
+  <h2>Five functions that collapse many rows into one</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre><code data-lang="sql">SELECT COUNT(*) FROM plays;              -- 2183
+
+SELECT
+  COUNT(*)                   AS plays,
+  ROUND(SUM(minutes_played)) AS total_min,
+  ROUND(AVG(minutes_played), 2) AS avg_min,
+  MAX(minutes_played)        AS longest,
+  MIN(played_at)             AS first_day
+FROM plays;</code></pre>
+    </figure>
+    <div class="stack">
+      <figure class="code out">
+        <figcaption>result: one row</figcaption>
+        <pre class="sm"><code data-lang="text">plays  total_min  avg_min  longest  first_day
+2183   8980       4.11     11.01    2024-01-01</code></pre>
+      </figure>
+      <div class="card card--compact card--teal">
+        <h4><code>AS</code> renames a column</h4>
+        <p class="nomargin">Without it the heading is literally
+          <code>ROUND(AVG(minutes_played), 2)</code>. Naming your output is a small courtesy
+          to whoever reads it, including you.</p>
+      </div>
+      <div class="card card--compact card--amber">
+        <p class="nomargin"><code>COUNT(*)</code> counts rows.
+          <code>COUNT(column)</code> counts rows where that column is
+          <strong>not NULL</strong>, which is a genuinely useful difference and an easy thing
+          to get caught by.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>COUNT(*) versus COUNT(column) comes back next session, where it is the difference
+    between counting artists and counting artists who have plays.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="GROUP BY">
+  <div class="eyebrow">Clause 7 · the big one</div>
+  <h2><code>GROUP BY</code>: one answer per group</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre><code data-lang="sql">SELECT
+  device,
+  COUNT(*)                      AS plays,
+  ROUND(AVG(minutes_played), 2) AS avg_min
+FROM plays
+GROUP BY device
+ORDER BY plays DESC;</code></pre>
+    </figure>
+    <figure class="code out">
+      <figcaption>result: one row per device</figcaption>
+      <pre class="sm"><code data-lang="text">device   plays  avg_min
+phone     1039     4.15
+laptop     524     4.09
+speaker    336     3.97
+car        179     4.34
+tablet     105     3.97</code></pre>
+    </figure>
+  </div>
+  <div class="callout callout--key" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin"><strong>This is your session 4 counting dictionary.</strong> You
+        wrote fifteen lines of Python with a dictionary and a <code>.get()</code> to get this
+        table. Here it is one line. Same idea, and the database does the looping.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Put their own session 4 script next to this query on screen if you can. The comparison
+    does more for their confidence in SQL than any explanation.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="GROUP BY trap">
+  <div class="eyebrow">Clause 7 · the trap</div>
+  <h2>Only group columns and aggregates in the <code>SELECT</code></h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>quietly wrong, and SQLite allows it</figcaption>
+        <pre class="sm"><code data-lang="sql">SELECT device, track_name, COUNT(*)
+FROM plays
+GROUP BY device;</code></pre>
+      </figure>
+      <div class="card card--compact card--rose mt-s">
+        <p class="nomargin"><code>track_name</code> is not grouped and not aggregated. There
+          are 1,039 different track names in the phone group, so which one should appear?
+          SQLite picks one at random and says nothing. Most other databases refuse outright,
+          which is kinder.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>say what you actually meant</figcaption>
+        <pre class="sm"><code data-lang="sql">-- either group by both
+SELECT device, track_name, COUNT(*)
+FROM plays
+GROUP BY device, track_name;
+
+-- or aggregate the other column
+SELECT device,
+       COUNT(DISTINCT track_name) AS tracks,
+       COUNT(*) AS plays
+FROM plays
+GROUP BY device;</code></pre>
+      </figure>
+    </div>
+  </div>
+  <div class="callout callout--warn mt" style="margin-bottom:0">
+    <span class="ico">▲</span>
+    <div>
+      <p class="nomargin"><strong>The rule:</strong> every column in your <code>SELECT</code>
+        is either in the <code>GROUP BY</code> or wrapped in an aggregate. No exceptions, even
+        though SQLite will let you break it.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Demonstrate the wrong version live so they see a plausible-looking result table with
+    meaningless track names in it. Silent wrong answers are the theme worth hammering.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="HAVING">
+  <div class="eyebrow">Clause 8</div>
+  <h2><code>HAVING</code>: filtering the groups</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre><code data-lang="sql">SELECT country, COUNT(*) AS artists
+FROM artists
+GROUP BY country
+HAVING COUNT(*) >= 3
+ORDER BY artists DESC;</code></pre>
+    </figure>
+    <figure class="code out">
+      <figcaption>result</figcaption>
+      <pre class="sm"><code data-lang="text">country          artists
+United States          4
+United Kingdom         4
+Netherlands            3</code></pre>
+    </figure>
+  </div>
+  <div class="cols mt">
+    <div class="card card--compact card--accent">
+      <h4><code>WHERE</code> filters rows, before grouping</h4>
+      <p class="nomargin">"Only look at plays from 2025." It happens first, on individual
+        rows, and it cannot see a <code>COUNT</code> because no counting has happened yet.</p>
+    </div>
+    <div class="card card--compact card--teal">
+      <h4><code>HAVING</code> filters groups, after grouping</h4>
+      <p class="nomargin">"Only show countries with at least three artists." It happens after
+        the aggregates exist, which is why it is the only one that can test a
+        <code>COUNT</code>.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">You can use both in one query, and they do different jobs:
+        <code>WHERE played_at >= '2025-01-01'</code> to narrow the rows, then
+        <code>HAVING COUNT(*) > 50</code> to narrow the groups.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Trying to use COUNT(*) in a WHERE is the error they will hit. The message names the
+    problem reasonably well, and the fix is one word.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Execution order">
+  <div class="eyebrow">Mental model</div>
+  <h2>SQL does not run in the order you write it</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 1100 210" width="1100" height="210" role="img"
+         aria-label="SQL runs FROM, then WHERE, then GROUP BY, then HAVING, then SELECT, then ORDER BY, then LIMIT">
+      <defs>
+        <marker id="arrowhead" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--accent)"></polygon>
+        </marker>
+        <marker id="arrowhead-soft" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--ink-dim)"></polygon>
+        </marker>
+      </defs>
+      <g>
+        <rect class="d-box-teal" x="6" y="40" width="130" height="58" rx="9"></rect>
+        <text class="d-label" x="26" y="68">FROM</text>
+        <text class="d-sub" x="26" y="88">get the rows</text>
+
+        <rect class="d-box" x="152" y="40" width="130" height="58" rx="9"></rect>
+        <text class="d-label" x="172" y="68">WHERE</text>
+        <text class="d-sub" x="172" y="88">drop rows</text>
+
+        <rect class="d-box" x="298" y="40" width="150" height="58" rx="9"></rect>
+        <text class="d-label" x="318" y="68">GROUP BY</text>
+        <text class="d-sub" x="318" y="88">make buckets</text>
+
+        <rect class="d-box" x="464" y="40" width="130" height="58" rx="9"></rect>
+        <text class="d-label" x="484" y="68">HAVING</text>
+        <text class="d-sub" x="484" y="88">drop buckets</text>
+
+        <rect class="d-box-accent" x="610" y="40" width="130" height="58" rx="9"></rect>
+        <text class="d-label" x="630" y="68">SELECT</text>
+        <text class="d-sub" x="630" y="88">pick columns</text>
+
+        <rect class="d-box" x="756" y="40" width="150" height="58" rx="9"></rect>
+        <text class="d-label" x="776" y="68">ORDER BY</text>
+        <text class="d-sub" x="776" y="88">sort</text>
+
+        <rect class="d-box" x="922" y="40" width="130" height="58" rx="9"></rect>
+        <text class="d-label" x="942" y="68">LIMIT</text>
+        <text class="d-sub" x="942" y="88">cut</text>
+
+        <path class="d-arrow" d="M140 69 L 148 69"></path>
+        <path class="d-arrow" d="M286 69 L 294 69"></path>
+        <path class="d-arrow" d="M452 69 L 460 69"></path>
+        <path class="d-arrow" d="M598 69 L 606 69"></path>
+        <path class="d-arrow" d="M744 69 L 752 69"></path>
+        <path class="d-arrow" d="M910 69 L 918 69"></path>
+      </g>
+      <text class="d-sub" x="6" y="148">This explains two things that otherwise look arbitrary:</text>
+      <text class="d-sub" x="6" y="174">WHERE cannot see a COUNT, because the counting has not happened yet. HAVING can.</text>
+      <text class="d-sub" x="6" y="198">A name you invent with AS in the SELECT cannot be used in the WHERE, but it can in the ORDER BY.</text>
+    </svg>
+  </div>
+  <aside class="notes">
+    <p>This slide converts several arbitrary-seeming rules into one picture. Come back to it
+    whenever they ask why something is not allowed.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="SQL and Python">
+  <div class="eyebrow">Connecting it up</div>
+  <h2>The same question, twice</h2>
+  <div class="compare">
+    <div>
+      <span class="label">session 4, in Python</span>
+      <figure class="code">
+        <pre class="xs"><code data-lang="python">import csv
+
+with open(path, encoding="utf-8") as f:
+    rows = list(csv.DictReader(f))
+
+plays = {}
+minutes = {}
+for row in rows:
+    g = row["genre"]
+    plays[g] = plays.get(g, 0) + 1
+    minutes[g] = minutes.get(g, 0.0) + \
+        float(row["minutes_played"])
+
+for g in plays:
+    print(g, plays[g], minutes[g] / plays[g])</code></pre>
+      </figure>
+    </div>
+    <div>
+      <span class="label">today, in SQL</span>
+      <figure class="code">
+        <pre class="xs"><code data-lang="sql">SELECT
+  genre,
+  COUNT(*)                      AS plays,
+  ROUND(AVG(minutes_played), 2) AS avg_min
+FROM plays
+JOIN artists USING (artist_id)
+GROUP BY genre
+ORDER BY avg_min DESC;</code></pre>
+      </figure>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">Same answer, and the <code>JOIN</code> on line 6 is next
+          session. Genre lives in <code>artists</code>, so this one question needs both
+          tables.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This is the slide that makes SQL feel worth learning. Their homework from session 4 is
+    on the left; be generous about it, the Python version is not bad, it is just longer.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Live exercise">
+  <div class="eyebrow">Your turn · 40 minutes</div>
+  <h2>A ladder of ten questions</h2>
+  <div class="exercise">
+    <div class="tag">◆ Live exercise</div>
+    <h3>Each question needs one more clause than the last. Write them in <code>queries.sql</code>.</h3>
+    <div class="cols">
+      <div>
+        <ol class="tight">
+          <li>Every column of the first 10 plays</li>
+          <li>Just track name and minutes, for all plays</li>
+          <li>Only plays longer than 9 minutes</li>
+          <li>Only plays on the speaker in 2025</li>
+          <li>Those, longest first</li>
+        </ol>
+      </div>
+      <div>
+        <ol class="tight" start="6">
+          <li>How many plays were skipped?</li>
+          <li>How many different devices appear?</li>
+          <li>Plays per device, biggest first</li>
+          <li>Average minutes per device, two decimals</li>
+          <li>Devices with more than 300 plays</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Save each query in
+        <code>sessions/session-06/exercises/queries.sql</code> with the question above it as a
+        <code>--</code> comment. You are building your own reference, and you will use it in
+        session 8.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The ladder matters: each rung adds exactly one clause, so nobody gets lost. If they
+    fly through, the homework questions are harder and you can pull one forward.</p>
+    <p>Expect the single-equals slip and double quotes around text. Both are in the deck, so
+    point rather than tell.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework">
+  <div class="eyebrow">Between now and next time · 2–4 hours</div>
+  <h2>Homework</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Task 1 · you can finish this</div>
+      <h4>Ten questions, written out</h4>
+      <p>There are ten questions in <code>homework/README.md</code>. Answer each one with a
+        query, saved in <code>homework/answers.sql</code>, with the question as a comment
+        above it.</p>
+      <p class="nomargin">Commit the file. This is your reference for the rest of the course.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>Task 2 · you might not finish this</div>
+      <h4>Two questions of your own</h4>
+      <p>Invent two questions about this data that nobody has asked you, and answer them.</p>
+      <p class="nomargin">Write down what you expected before you ran it, and whether the
+        answer surprised you. Being surprised is usually where the interesting thing is.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Two of the ten need something you have not quite been shown. Both
+        are in reach from what is on the slides, and working out which two is part of the
+        exercise.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The "write down what you expected" instruction is the valuable half of task 2. It
+    builds the habit of having a prior, which is what makes a wrong query noticeable.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Recap">
+  <div class="eyebrow">Wrap up</div>
+  <h2>What you can do now</h2>
+  <div class="cols">
+    <ul class="checklist">
+      <li>Open a database and read its structure</li>
+      <li>Choose columns with <code>SELECT</code></li>
+      <li>Choose rows with <code>WHERE</code>, and combine conditions</li>
+      <li>Use <code>IN</code>, <code>BETWEEN</code> and <code>LIKE</code></li>
+      <li>Handle <code>NULL</code> without being fooled by it</li>
+    </ul>
+    <ul class="checklist">
+      <li>Sort with <code>ORDER BY</code> and cut with <code>LIMIT</code></li>
+      <li>List the values in a column with <code>DISTINCT</code></li>
+      <li>Summarise with the five aggregate functions</li>
+      <li>Answer per-group questions with <code>GROUP BY</code></li>
+      <li>Filter groups with <code>HAVING</code>, and say how it differs from
+        <code>WHERE</code></li>
+    </ul>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>Next session: two tables at once</h4>
+      <p class="nomargin">Everything today used one table. Next time we join <code>plays</code>
+        to <code>artists</code>, which is where the questions get genuinely interesting. It is
+        also the session where a join quietly makes your totals wrong, and you learn to spot
+        it. That one lesson is worth the whole two hours.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>End with a commit and a push of their queries file. Every session from here.</p>
+    <p>Session 7 needs the most practice of any session in the course. If today ran short,
+    say so and start the joins early rather than finishing at 1:40.</p>
+  </aside>
+</section>
+
+</div>
+</div>
+<script src="assets/deck.js"></script>
+</body>
+</html>
