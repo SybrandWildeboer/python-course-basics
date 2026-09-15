@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.Python
+build/
+dist/
+*.egg-info/
+
+# Virtual environments — never commit these, they are big and machine-specific
+.venv/
+venv/
+env/
+
+# Editor and OS noise
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Generated output from the course scripts
+output/
+sessions/**/output/
+project-template/output/
+tools/.shots/
+
+# Jupyter
+.ipynb_checkpoints/
