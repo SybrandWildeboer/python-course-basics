@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 8: pandas</title>
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body data-deck="Session 8 · pandas">
+<div id="viewport">
+<div class="deck">
+
+<section class="slide slide--title" data-title="Title">
+  <div>
+    <div class="session-no">Session 08 of 12</div>
+    <h1>pandas</h1>
+    <p class="goal">The same questions as the last two sessions, answered in Python. Then an
+      honest conversation about when you would reach for which.</p>
+    <div class="meta">
+      <span class="pill pill--accent">2 hours</span>
+      <span class="pill">DataFrames</span>
+      <span class="pill">groupby and merge</span>
+      <span class="pill pill--teal">SQL side by side</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Today should feel easy, and say so. Every idea in this session is one they already have
+    from sessions 4, 6 and 7. Only the notation is new.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework review">
+  <div class="eyebrow">First fifteen minutes</div>
+  <h2>Homework review</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>The five join questions</div>
+      <p>Which two needed a CTE to come out right?</p>
+      <p class="nomargin">And for each of your answers: what was the row count before the
+        join, and after? If you did not check, we check one together now. That habit is the
+        whole of last session.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>Inner versus left</div>
+      <p>Read me your explanation of which join answers the question you actually asked.</p>
+      <p class="nomargin">That paragraph is worth more than the SQL. Choosing the join type is
+        a judgement about the question, not a technical decision.</p>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Fan-out exists in pandas too, under the same name, and we will
+        reproduce it today with the same data and the same wrong number. It is not a SQL
+        quirk. It is what happens when you join one-to-many and then add things up.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>If they never checked row counts, do it together on one of their queries right now.
+    Better a slightly awkward five minutes than a habit that never forms.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: What pandas is">
+  <div>
+    <div class="marker">Part one</div>
+    <h2>What pandas is</h2>
+    <p>A table, in Python, that knows it is a table.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Installing">
+  <div class="eyebrow">Do it now</div>
+  <h2>Installing a package</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>terminal</figcaption>
+      <pre><code data-lang="bash">pip install pandas matplotlib
+
+pip list                # what is installed
+pip show pandas         # version and location</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>Where does it come from?</h4>
+        <p class="nomargin"><strong>PyPI</strong>, the Python Package Index: a public library
+          of code other people wrote. <code>pip</code> downloads from it and installs into
+          your Python.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">This is the thing that makes Python worth learning. Somebody has
+          already written the fiddly part of almost any job you have, and
+          <code>pandas</code> is the most useful example of that in data work.</p>
+      </div>
+      <div class="callout callout--warn" style="margin-bottom:0">
+        <span class="ico">▲</span>
+        <div>
+          <p class="nomargin">Right now you are installing into the Python for your whole
+            machine, which is fine for learning and becomes a problem once you have two
+            projects wanting different versions. <strong>Session 10 fixes that properly</strong>
+            with virtual environments.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>On some systems pip is pip3. If pip install fails with a permissions or
+    "externally managed environment" error, python3 -m pip install --user pandas is the usual
+    way through, and it is a good preview of why venvs exist.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="What a DataFrame is">
+  <div class="eyebrow">The idea</div>
+  <h2>A DataFrame is a table with an index</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 1060 250" width="1060" height="250" role="img"
+         aria-label="A DataFrame has named columns, each with a type, and an index labelling the rows">
+      <defs>
+        <marker id="arrowhead" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--accent)"></polygon>
+        </marker>
+        <marker id="arrowhead-soft" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--ink-dim)"></polygon>
+        </marker>
+      </defs>
+
+      <rect class="d-box-accent" x="70" y="40" width="70" height="170" rx="8"></rect>
+      <text class="d-sub" x="78" y="30">index</text>
+      <text class="d-mono" x="96" y="92">0</text>
+      <text class="d-mono" x="96" y="124">1</text>
+      <text class="d-mono" x="96" y="156">2</text>
+      <text class="d-mono" x="96" y="188">3</text>
+
+      <rect class="d-box" x="150" y="40" width="880" height="170" rx="8"></rect>
+      <line x1="150" y1="72" x2="1030" y2="72" stroke="var(--line)" stroke-width="1.2"></line>
+      <text class="d-label" x="166" y="63">played_at</text>
+      <text class="d-label" x="340" y="63">artist_name</text>
+      <text class="d-label" x="600" y="63">genre</text>
+      <text class="d-label" x="740" y="63">minutes_played</text>
+      <text class="d-label" x="930" y="63">device</text>
+
+      <text class="d-mono" x="166" y="92">2024-01-01</text>
+      <text class="d-mono" x="340" y="92">Fjord &amp; Flint</text>
+      <text class="d-mono" x="600" y="92">Folk</text>
+      <text class="d-mono" x="740" y="92">4.65</text>
+      <text class="d-mono" x="930" y="92">phone</text>
+
+      <text class="d-mono" x="166" y="124">2024-01-01</text>
+      <text class="d-mono" x="340" y="124">Basement Cart..</text>
+      <text class="d-mono" x="600" y="124">Indie</text>
+      <text class="d-mono" x="740" y="124">2.42</text>
+      <text class="d-mono" x="930" y="124">laptop</text>
+
+      <text class="d-mono" x="166" y="156">2024-01-02</text>
+      <text class="d-mono" x="340" y="156">DJ Kompas</text>
+      <text class="d-mono" x="600" y="156">Electronic</text>
+      <text class="d-mono" x="740" y="156">6.10</text>
+      <text class="d-mono" x="930" y="156">phone</text>
+
+      <text class="d-sub" x="166" y="188">datetime64</text>
+      <text class="d-sub" x="340" y="188">text</text>
+      <text class="d-sub" x="600" y="188">text</text>
+      <text class="d-sub" x="740" y="188">float64</text>
+      <text class="d-sub" x="930" y="188">text</text>
+
+      <text class="d-sub" x="70" y="240">Every column has a name and a TYPE. That is the difference from your list of dictionaries: pandas knows 4.65 is a number.</text>
+    </svg>
+  </div>
+  <aside class="notes">
+    <p>The index is the one genuinely new concept. Keep it light for now: it is a label for
+    each row, it defaults to 0, 1, 2, and it will surprise them after a groupby, which is on
+    a later slide.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Loading data">
+  <div class="eyebrow">Two ways in</div>
+  <h2>From a CSV, or straight from the database</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>from a file</figcaption>
+      <pre class="sm"><code data-lang="python">import pandas as pd
+
+plays = pd.read_csv(
+    "data/clean/plays.csv",
+    parse_dates=["played_at"],
+)
+print(plays.shape)     # (2183, 9)</code></pre>
+    </figure>
+    <figure class="code">
+      <figcaption>from SQLite</figcaption>
+      <pre class="sm"><code data-lang="python">import sqlite3
+import pandas as pd
+
+con = sqlite3.connect("data/music.db")
+
+plays = pd.read_sql(
+    "SELECT * FROM plays",
+    con,
+    parse_dates=["played_at"],
+)</code></pre>
+    </figure>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>Compare that with session 4</h4>
+      <p class="nomargin">One line replaces the <code>open</code>, the
+        <code>DictReader</code>, the <code>list()</code>, and every single
+        <code>float()</code>. <code>read_csv</code> works out the types for you, and
+        <code>parse_dates</code> turns the date text into real dates you can do arithmetic
+        with.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin"><code>read_sql</code> takes <strong>any</strong> query, so
+        everything you learned in the last two sessions still applies. You can do the joining
+        and grouping in SQL and hand pandas a small tidy result, which is very often the best
+        of both.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The read_sql point is worth dwelling on. Beginners assume it is one or the other.
+    Pushing the heavy filtering into SQL and doing the shaping in pandas is what most
+    practitioners actually do.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="First look">
+  <div class="eyebrow">The first five minutes with any table</div>
+  <h2>Look before you leap</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>orientation</figcaption>
+      <pre class="sm"><code data-lang="python">plays.shape         # (2183, 9)  rows, columns
+plays.columns       # the column names
+plays.dtypes        # the type of each column
+plays.head(3)       # the first three rows
+plays.tail(3)       # the last three
+plays.info()        # types, and how many non-empty
+plays.describe()    # count, mean, min, max, quartiles</code></pre>
+    </figure>
+    <div class="stack">
+      <figure class="code out" style="margin-bottom:0">
+        <figcaption>plays.describe() on the numbers</figcaption>
+        <pre class="xs"><code data-lang="text">       minutes_played  skipped
+count         2183.00  2183.00
+mean             4.11     0.12
+std              2.13     0.32
+min              0.15     0.00
+50%              4.11     0.00
+max             11.01     1.00</code></pre>
+      </figure>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">Six lines and you know the shape of the data: 2,183 plays,
+          averaging 4.11 minutes, nothing longer than 11, 12% skipped. Getting that in
+          session 4 took a page of Python.</p>
+      </div>
+      <div class="card card--compact card--accent">
+        <p class="nomargin"><code>.info()</code> is the one to run first on data you have not
+          seen. It shows the type of every column and how many values are missing, which is
+          the first question worth asking. It is also where session 9 begins.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Make this a ritual, not a list of methods. shape, info, head, describe, in that order,
+    on every new dataset for the rest of their life.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Selecting">
+  <div class="eyebrow">Basics</div>
+  <h2>Selecting columns and rows</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>columns</figcaption>
+      <pre class="sm"><code data-lang="python"># one column: a Series
+plays["genre"]
+
+# several: note the DOUBLE brackets
+plays[["genre", "minutes_played"]]
+
+# the first rows
+plays.head(5)
+
+# by label, with .loc
+plays.loc[0, "genre"]            # 'Folk'
+plays.loc[0:2, ["genre", "device"]]</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>Series and DataFrame</h4>
+        <p class="nomargin">One column on its own is a <strong>Series</strong>. Two or more is
+          a <strong>DataFrame</strong>. That is why the double brackets: the inner pair is a
+          list of the columns you want.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4><code>.loc</code> is label based</h4>
+        <p class="nomargin">Rows by index label, columns by name. And unlike everything else
+          in Python, <code>.loc[0:2]</code> <strong>includes</strong> row 2. It is the one
+          place slicing is inclusive, and it catches everybody once.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">There is also <code>.iloc</code>, which is purely positional and
+          exclusive at the end. Mention it, use <code>.loc</code>.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do not teach the full loc/iloc matrix. .loc plus boolean filtering covers almost
+    everything they will need this year.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Filtering">
+  <div class="eyebrow">The one with the sharp edge</div>
+  <h2>Filtering rows</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>filtering</figcaption>
+      <pre class="sm"><code data-lang="python">long = plays[plays["minutes_played"] > 8]
+print(len(long))          # 82
+
+# two conditions: & and |, and BRACKETS
+recent_long = plays[
+    (plays["minutes_played"] > 8)
+    & (plays["played_at"] >= "2025-01-01")
+]
+
+phones = plays[plays["device"].isin(["car", "tablet"])]
+
+# and the thing you cannot do
+# plays[plays["minutes_played"] > 8 and ...]
+# ValueError: The truth value of a Series
+#             is ambiguous</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="callout callout--stop" style="margin-bottom:0">
+        <span class="ico">■</span>
+        <div>
+          <h4><code>&amp;</code> and <code>|</code>, never <code>and</code> / <code>or</code></h4>
+          <p class="nomargin">Python's <code>and</code> wants one true-or-false value. Here
+            each side is 2,183 of them, so pandas refuses. The message, "the truth value of a
+            Series is ambiguous", means exactly this.</p>
+        </div>
+      </div>
+      <div class="callout callout--warn" style="margin-bottom:0">
+        <span class="ico">▲</span>
+        <div>
+          <p class="nomargin"><strong>And bracket every condition.</strong>
+            <code>&amp;</code> binds tighter than <code>&gt;</code>, so without the brackets
+            pandas reads it in the wrong order and the error is baffling.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>These two mistakes account for a good half of pandas frustration in the first month.
+    Have them make both errors on purpose now and read the messages.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Sorting and counting">
+  <div class="eyebrow">Two workhorses</div>
+  <h2><code>sort_values</code> and <code>value_counts</code></h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>the top five, and the tally</figcaption>
+      <pre class="sm"><code data-lang="python">plays.sort_values("minutes_played", ascending=False).head(5)
+
+plays.sort_values(["device", "minutes_played"],
+                  ascending=[True, False])
+
+plays["device"].value_counts()
+
+plays["device"].value_counts(normalize=True).round(3)</code></pre>
+    </figure>
+    <div class="stack">
+      <figure class="code out" style="margin-bottom:0">
+        <figcaption>value_counts()</figcaption>
+        <pre class="sm"><code data-lang="text">device
+phone      1039
+laptop      524
+speaker     336
+car         179
+tablet      105</code></pre>
+      </figure>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">That is your session 4 counting dictionary and session 6's
+          <code>GROUP BY device</code> in one method call. <strong>Same idea, third
+          notation.</strong></p>
+      </div>
+      <div class="card card--compact card--accent">
+        <p class="nomargin"><code>normalize=True</code> gives proportions instead of counts,
+          which saves the division and the percentage mistake that goes with it.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Third notation for the same idea: Python dictionary, SQL GROUP BY, pandas
+    value_counts. Say it explicitly, it is the spine of three sessions.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="groupby">
+  <div class="eyebrow">The big one</div>
+  <h2><code>groupby</code>: the same idea, again</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>grouping</figcaption>
+      <pre class="sm"><code data-lang="python">plays.groupby("genre")["minutes_played"].sum()
+
+plays.groupby("genre")["minutes_played"].agg(
+    ["count", "sum", "mean"]
+).round(2).sort_values("sum", ascending=False)
+
+# several columns, different functions each
+plays.groupby("device").agg(
+    plays=("play_id", "count"),
+    minutes=("minutes_played", "sum"),
+    avg=("minutes_played", "mean"),
+).round(2)</code></pre>
+    </figure>
+    <figure class="code out">
+      <figcaption>result</figcaption>
+      <pre class="xs"><code data-lang="text">            count      sum  mean
+genre
+Electronic    547  2874.47  5.25
+Folk          438  1562.20  3.57
+Jazz          154  1012.33  6.57
+Pop           302   954.99  3.16
+Indie         247   844.69  3.42
+Latin         185   611.67  3.31
+Afrobeat      180   596.80  3.32
+Rock          130   523.27  4.03</code></pre>
+    </figure>
+  </div>
+  <div class="callout callout--tip" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Read <code>groupby("genre")["minutes_played"].agg([...])</code> left
+        to right as a sentence: <strong>split by genre, take the minutes column, work these
+        out for each group.</strong> That is exactly what SQL's <code>GROUP BY</code> does,
+        and the named form at the bottom is the closest match to <code>AS</code>.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Jazz has the highest average again. Same finding as sessions 4 and 7, reached a third
+    way, which is a good confidence builder.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="The index surprise">
+  <div class="eyebrow">The thing that confuses everybody</div>
+  <h2>After a <code>groupby</code>, your key is the index</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>why it looks odd</figcaption>
+        <pre class="sm"><code data-lang="python">by_genre = plays.groupby("genre")["minutes_played"].sum()
+
+by_genre["Jazz"]          # 1012.33, works
+by_genre["genre"]         # KeyError!
+
+# genre is the INDEX now, not a column
+by_genre.index            # the genre names</code></pre>
+      </figure>
+      <div class="card card--compact card--rose mt-s">
+        <p class="nomargin">The grouping key moves out of the columns and becomes the row
+          labels. Everything that then treats it as a column fails, including plotting and
+          writing to CSV in the shape you expected.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>the fix, and it is one method</figcaption>
+        <pre class="sm"><code data-lang="python">by_genre = (
+    plays.groupby("genre")["minutes_played"]
+    .sum()
+    .reset_index()
+)
+
+by_genre.columns          # ['genre', 'minutes_played']
+by_genre["genre"]         # works now</code></pre>
+      </figure>
+      <div class="card card--compact card--teal mt-s">
+        <p class="nomargin"><code>reset_index()</code> pushes the index back into a proper
+          column and numbers the rows again. Reach for it whenever a groupby result is
+          awkward to work with, and it will usually be the answer.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This is the single biggest source of pandas confusion for beginners. Show the KeyError,
+    then the fix, and tell them reset_index() is the reflex.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="merge">
+  <div class="eyebrow">Joins, in pandas</div>
+  <h2><code>merge</code> is <code>JOIN</code></h2>
+  <div class="compare">
+    <div>
+      <span class="label">session 7, in SQL</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="sql">SELECT a.artist_name, p.minutes_played
+FROM plays p
+JOIN artists a USING (artist_id);
+
+-- and the left version
+FROM artists a
+LEFT JOIN plays p USING (artist_id);</code></pre>
+      </figure>
+    </div>
+    <div>
+      <span class="label">today, in pandas</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="python">both = plays.merge(artists, on="artist_id")
+print(len(both))            # 2183
+
+left = artists.merge(plays, on="artist_id",
+                     how="left")
+print(len(left))            # 2185
+
+# the two artists with no plays
+left[left["play_id"].isna()]</code></pre>
+      </figure>
+    </div>
+  </div>
+  <div class="cols mt">
+    <div class="card card--compact card--accent">
+      <p class="nomargin"><code>how=</code> is the join type: <code>"inner"</code> is the
+        default, then <code>"left"</code>, <code>"right"</code> and <code>"outer"</code>. The
+        words mean exactly what they meant in SQL.</p>
+    </div>
+    <div class="card card--compact card--teal">
+      <p class="nomargin">2,185 rather than 2,183, because the two never-played artists each
+        get one row with `NaN` in every play column. <code>NaN</code> is pandas' NULL, and
+        <code>.isna()</code> is its <code>IS NULL</code>.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Every concept from session 7 transfers with a new spelling. Say that: they are not
+    learning joins again, they are learning one more notation for them.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Fan-out in pandas">
+  <div class="eyebrow">Same trap, same name</div>
+  <h2>Fan-out is not a SQL problem</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>the same wrong number, in Python</figcaption>
+      <pre><code data-lang="python">print(round(plays["minutes_played"].sum(), 1))
+# 8980.4        the truth
+
+fan = plays.merge(awards, on="artist_id")
+print(len(fan))
+# 2371          was 2183
+
+print(round(fan["minutes_played"].sum(), 1))
+# 9732.1        the same lie as last week
+
+# check the shape of the merge, always
+print(plays["artist_id"].is_unique)   # False
+print(awards["artist_id"].is_unique)  # False</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="callout callout--stop" style="margin-bottom:0">
+        <span class="ico">■</span>
+        <div>
+          <p class="nomargin">Identical numbers to session 7, because it is the same
+            arithmetic. Nothing about it was specific to SQL.</p>
+        </div>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4>pandas has a seatbelt, though</h4>
+        <figure class="code plain" style="margin:8px 0 0">
+          <pre class="xs"><code data-lang="python">plays.merge(awards, on="artist_id",
+            validate="many_to_one")
+# MergeError: Merge keys are not
+# unique in right dataset</code></pre>
+        </figure>
+      </div>
+      <div class="card card--compact card--accent">
+        <p class="nomargin"><code>validate=</code> makes you state the shape you expect, and
+          complains when you are wrong. Get in the habit: it turns a silent wrong answer into
+          an error message.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>validate= is the one genuine advantage pandas has over SQL here, and hardly anybody
+    uses it. Worth pushing hard.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Side by side">
+  <div>
+    <div class="marker">Part two</div>
+    <h2>Side by side</h2>
+    <p>Four questions from the last two sessions, in both languages.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Four questions, twice">
+  <div class="eyebrow">Translation</div>
+  <h2>The same four questions</h2>
+  <table class="sm">
+    <tr><th style="width:230px">Question</th><th>SQL</th><th>pandas</th></tr>
+    <tr>
+      <td>Plays per device</td>
+      <td><code>SELECT device, COUNT(*) FROM plays GROUP BY device</code></td>
+      <td><code>plays["device"].value_counts()</code></td>
+    </tr>
+    <tr>
+      <td>Plays over 8 minutes</td>
+      <td><code>SELECT * FROM plays WHERE minutes_played &gt; 8</code></td>
+      <td><code>plays[plays["minutes_played"] &gt; 8]</code></td>
+    </tr>
+    <tr>
+      <td>Average minutes per genre</td>
+      <td><code>SELECT genre, AVG(minutes_played) FROM plays GROUP BY genre</code></td>
+      <td><code>plays.groupby("genre")["minutes_played"].mean()</code></td>
+    </tr>
+    <tr>
+      <td>Top 5 artists by minutes</td>
+      <td><code>... JOIN artists USING (artist_id) GROUP BY artist_id ORDER BY 2 DESC LIMIT 5</code></td>
+      <td><code>plays.merge(artists, on="artist_id").groupby("artist_name")["minutes_played"].sum().nlargest(5)</code></td>
+    </tr>
+  </table>
+  <div class="callout callout--key" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Same concepts, same answers, different spelling. If you can write
+        the SQL you can work out the pandas, and the other way round. The verbs are
+        <strong>filter, group, aggregate, join, sort</strong>, and every tool in this area has
+        its own words for those five.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The five verbs framing is the thing to leave them with. It transfers to Excel pivot
+    tables, to dplyr in R, to Spark, to anything they meet later.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="When to use which">
+  <div class="eyebrow">The honest answer</div>
+  <h2>So which should you use?</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Reach for SQL when</div>
+      <ul class="tight nomargin">
+        <li>the data already lives in a database</li>
+        <li>you want an answer, not a program</li>
+        <li>the data is bigger than your memory</li>
+        <li>somebody else needs to run the same query</li>
+        <li>filtering or joining before you pull it down saves real time</li>
+      </ul>
+    </div>
+    <div class="card card--accent">
+      <div class="card-title"><span class="dot"></span>Reach for pandas when</div>
+      <ul class="tight nomargin">
+        <li>you need to clean or reshape, not just select</li>
+        <li>you want a chart at the end</li>
+        <li>the logic is awkward or impossible in SQL</li>
+        <li>it is part of a larger Python program</li>
+        <li>you are exploring and want to iterate quickly</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>In practice, both, in that order</h4>
+      <p class="nomargin"><code>pd.read_sql</code> exists precisely for this. Let the database
+        do the filtering and joining, where it is fast and the data lives; hand pandas a
+        smaller, tidier table to clean, reshape and chart. That is what session 10's pipeline
+        does.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">No dogma. People get strangely tribal about this, and it is a choice
+        of tool, not of team.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Resist any temptation to declare a winner. The useful answer is "both, and here is how
+    they fit together", which is also what they will see in any real workplace.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Watch out for">
+  <div class="eyebrow">Reference · keep this one</div>
+  <h2>The five pandas irritations</h2>
+  <table class="sm">
+    <tr><th style="width:250px">You wrote</th><th style="width:250px">You get</th><th>Fix</th></tr>
+    <tr><td><code>df[a &gt; 1 and b &lt; 2]</code></td>
+      <td><code>ValueError: truth value of a Series is ambiguous</code></td>
+      <td><code>df[(a &gt; 1) &amp; (b &lt; 2)]</code></td></tr>
+    <tr><td><code>df[df.x &gt; 1]["y"] = 0</code></td>
+      <td><code>SettingWithCopyWarning</code></td>
+      <td><code>df.loc[df.x &gt; 1, "y"] = 0</code></td></tr>
+    <tr><td><code>grouped["genre"]</code></td>
+      <td><code>KeyError: 'genre'</code></td>
+      <td><code>.reset_index()</code> first</td></tr>
+    <tr><td><code>df.sort_values("x", inplace=True)</code></td>
+      <td>Works, and then confuses you later</td>
+      <td><code>df = df.sort_values("x")</code></td></tr>
+    <tr><td><code>df["n"] + df["text"]</code></td>
+      <td>Nonsense, or a <code>TypeError</code></td>
+      <td>Check <code>df.dtypes</code> first</td></tr>
+  </table>
+  <div class="cols">
+    <div class="card card--compact card--amber">
+      <h4>On <code>SettingWithCopyWarning</code></h4>
+      <p class="nomargin">It means "you may have changed a copy rather than the real thing,
+        and I cannot tell". It is a warning, not an error, so your code carries on and may
+        have done nothing. Always assign with <code>.loc</code> and it never appears.</p>
+    </div>
+    <div class="card card--compact card--rose">
+      <h4>On <code>inplace=True</code></h4>
+      <p class="nomargin">Just do not. It saves five characters, it is no faster, it does not
+        chain, and it makes half your lines change things invisibly. Assign the result.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Explain SettingWithCopyWarning once, calmly, and give them the .loc habit rather than
+    a full explanation of views and copies. The habit prevents it entirely.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Live exercise">
+  <div class="eyebrow">Your turn · 35 minutes</div>
+  <h2>Translate your own SQL</h2>
+  <div class="exercise">
+    <div class="tag">◆ Live exercise</div>
+    <h3>Take four queries from your sessions 6 and 7 files and reproduce them in pandas</h3>
+    <div class="cols">
+      <div>
+        <h4>Use your own queries, and include</h4>
+        <ul class="tight">
+          <li>one with a <code>WHERE</code></li>
+          <li>one with a <code>GROUP BY</code></li>
+          <li>one with a join</li>
+          <li>one with both a join and an aggregate</li>
+        </ul>
+      </div>
+      <div>
+        <h4>For each one</h4>
+        <ul class="tight">
+          <li>put the SQL in a markdown cell above</li>
+          <li>write the pandas underneath</li>
+          <li><strong>check the two answers match</strong></li>
+          <li>note which was easier to write, and which reads better</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Notebook:
+        <code>sessions/session-08/notebooks/03-sql-to-pandas-exercise.ipynb</code>. Use
+        <code>pd.read_sql</code> to run the SQL in the same notebook, and compare the two
+        results directly. If the numbers disagree, that is the interesting part of the
+        exercise, not a failure.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Insist on checking the answers match. It is how they discover, by themselves, that a
+    merge changed the row count.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework">
+  <div class="eyebrow">Between now and next time · 2–4 hours</div>
+  <h2>Homework</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Task 1 · you can finish this</div>
+      <h4>Five questions, answered twice</h4>
+      <p>Five questions in the homework notebook. Answer each one <strong>in SQL and in
+        pandas</strong>, and show that the two agree.</p>
+      <p class="nomargin">Commit both. Where they disagree, work out which one is right and
+        write down why.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>Task 2 · you might not finish this</div>
+      <h4>One question that is awkward in SQL</h4>
+      <p>"For each genre, what share of its total minutes came from its single most played
+        artist?"</p>
+      <p class="nomargin">Perfectly possible in SQL and genuinely fiddly. In pandas it is a
+        few lines. Do it in pandas, then have a go at the SQL and see how it feels.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Next session uses a deliberately broken copy of this data, so bring
+        a working pandas setup. If <code>import pandas</code> fails on your machine at any
+        point this week, message me rather than losing an evening to it.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Task 2 is chosen because it needs a per-group maximum and a per-group total together,
+    which is where SQL wants a window function or a second CTE. In pandas it is a groupby and
+    a division. It makes the "use the right tool" point without needing an opinion.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Recap">
+  <div class="eyebrow">Wrap up</div>
+  <h2>What you can do now</h2>
+  <div class="cols">
+    <ul class="checklist">
+      <li>Install a package with <code>pip</code></li>
+      <li>Load a CSV or a SQL query into a DataFrame</li>
+      <li>Orient yourself with <code>shape</code>, <code>info</code>, <code>head</code>,
+        <code>describe</code></li>
+      <li>Select columns, and filter rows with <code>&amp;</code> and <code>|</code></li>
+      <li>Sort, and count values</li>
+    </ul>
+    <ul class="checklist">
+      <li>Group and aggregate, and fix the index afterwards</li>
+      <li>Merge two tables, choosing the join type</li>
+      <li>Spot fan-out in pandas, and catch it with <code>validate=</code></li>
+      <li>Translate between SQL and pandas in both directions</li>
+      <li>Say which tool suits which job, without being tribal about it</li>
+    </ul>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>Next session: the data fights back</h4>
+      <p class="nomargin">Everything so far has used clean data, which was a kindness rather
+        than realism. Next time you get the messy version: missing values, three spellings of
+        the same genre, dates in two formats, and duplicate rows. Then you clean it and draw a
+        chart that answers a question.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Commit and push. Mention that cleaning is most of real data work, so next session is
+    the most realistic one in the course.</p>
+  </aside>
+</section>
+
+</div>
+</div>
+<script src="assets/deck.js"></script>
+</body>
+</html>
