@@ -1,4 +1,4 @@
-"""LIVE EXERCISE — about me
+"""LIVE EXERCISE: about me
 
 Write a script that asks for a name and a birth year, then prints one sentence
 containing both and a calculated age.

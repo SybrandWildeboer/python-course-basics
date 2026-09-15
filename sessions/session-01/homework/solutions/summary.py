@@ -1,4 +1,4 @@
-"""HOMEWORK 2 — a three-question summary — worked solution.
+"""HOMEWORK 2: a three-question summary, worked solution.
 
 Asks for a name, hours slept last night and a favourite drink, then prints a
 summary that projects the sleep figure out over a week.
@@ -25,12 +25,12 @@ print(f"Either way, have a {drink.lower()} about it.")
 #
 # * The long print() is split across three lines. Python joins adjacent string
 #   literals automatically, which is why each piece needs its own f prefix.
-#   Splitting long lines like this keeps them readable — no line should need
+#   Splitting long lines like this keeps them readable, and no line should need
 #   sideways scrolling.
 #
 # * abs() gives the size of a number without its sign, so the sentence reads
 #   correctly whether the difference is positive or negative.
 #
 # * The {'more' if difference >= 0 else 'less'} bit is a conditional
-#   expression. You do not need it yet — it is session 2 material, sneaking in
+#   expression. You do not need it yet, it is session 2 material, sneaking in
 #   early. A plain if/else would be just as good.

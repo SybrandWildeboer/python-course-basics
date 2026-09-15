@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Python, SQL & Git — slide deck runtime
+   Python, SQL & Git: slide deck runtime
    Vanilla JS, no dependencies, works from file:// with no server.
 
    Markup contract, per deck file:
@@ -61,11 +61,12 @@
     if (lang === "text" || lang === "none") return esc(src);
     if (lang === "out" || lang === "output") return highlightOutput(src);
 
-    var kw, bi, comment;
+    var kw, bi, comment, isShell = false;
     if (lang === "sql") {
       kw = SQL_KEYWORDS; bi = []; comment = "--";
     } else if (lang === "bash" || lang === "shell") {
       kw = SHELL_KEYWORDS; bi = []; comment = "#";
+      isShell = true;
     } else {
       kw = PY_KEYWORDS; bi = PY_BUILTINS; comment = "#";
     }
@@ -130,6 +131,14 @@
         var word = src.slice(i, w);
         var lower = word.toLowerCase();
         var isCall = src[w] === "(";
+        // In a shell snippet only the first word of a line is a command, so
+        // "python" inside a URL or a filename stays plain text.
+        var atLineStart = /(^|\n)[\s$>]*$/.test(src.slice(0, i));
+        if (isShell && !atLineStart) {
+          out += esc(word);
+          i = w;
+          continue;
+        }
         if (kwSet[lower] && (lang === "sql" || kwSet[word])) {
           out += wrap("kw", word);
         } else if (biSet[word]) {
@@ -235,7 +244,7 @@
   function buildFooters() {
     slides.forEach(function (slide, index) {
       // A slide is a three-row grid: head / body / footer. Decks are authored
-      // as a flat list of elements, so group them into those rows here —
+      // as a flat list of elements, so group them into those rows here,
       // otherwise the h2 lands in the 1fr row and shoves the content down.
       if (!slide.matches(".slide--title, .slide--section") && !slide.querySelector(".slide-head")) {
         var head = document.createElement("div");
@@ -295,7 +304,7 @@
       note ? note.innerHTML : '<p style="color:var(--ink-dim)">No notes for this slide.</p>';
 
     if (history.replaceState) history.replaceState(null, "", "#" + (current + 1));
-    document.title = (slide.dataset.title ? slide.dataset.title + " — " : "") + DECK_LABEL;
+    document.title = (slide.dataset.title ? slide.dataset.title + " · " : "") + DECK_LABEL;
   }
 
   function go(index, showAllFrags) {

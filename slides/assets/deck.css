@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Python, SQL & Git — slide deck styles
+   Python, SQL & Git: slide deck styles
    One stylesheet for all twelve decks. No build step, no CDN, works offline.
    Stage is a fixed 1280x720 box scaled to fit the window, so what you lay out
    is exactly what the learner sees on a shared screen.
@@ -404,16 +404,20 @@ kbd {
 
 /* --- numbered steps ----------------------------------------------------- */
 .steps { list-style: none; padding: 0; margin: 0 0 14px; counter-reset: step; display: grid; gap: 11px; }
+
+/* The number is absolutely positioned rather than a grid column, so a step can
+   hold a code block or a table without it landing in the number's lane. */
 .steps li {
   counter-increment: step;
-  display: grid;
-  grid-template-columns: 30px 1fr;
-  gap: 13px;
-  align-items: start;
+  position: relative;
+  padding-left: 43px;
   margin: 0;
 }
 .steps li::before {
   content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
   display: grid;
   place-items: center;
   width: 30px; height: 30px;
@@ -425,6 +429,7 @@ kbd {
   font-weight: 700;
   font-family: var(--mono);
 }
+.steps li > :last-child { margin-bottom: 0; }
 
 /* --- checklist ---------------------------------------------------------- */
 .checklist { list-style: none; padding: 0; margin: 0 0 14px; display: grid; gap: 9px; }

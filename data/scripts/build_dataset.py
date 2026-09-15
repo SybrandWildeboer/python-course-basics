@@ -181,7 +181,7 @@ def make_plays(rng: random.Random, artists: list[dict]) -> list[dict]:
         )
 
     rows.sort(key=lambda r: (r["played_at"], r["play_id"]))
-    # Renumber so play_id runs 1..n in date order — easier to talk about.
+    # Renumber so play_id runs 1..n in date order, which is easier to talk about.
     for new_id, row in enumerate(rows, start=1):
         row["play_id"] = new_id
     return rows

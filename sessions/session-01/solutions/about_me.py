@@ -1,4 +1,4 @@
-"""LIVE EXERCISE — about me — worked solution.
+"""LIVE EXERCISE: about me, worked solution.
 
 Do not open this until you have had a real attempt. Reading a solution feels
 like learning and is not.

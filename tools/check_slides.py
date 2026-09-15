@@ -80,7 +80,7 @@ def check(deck: Path, browser, shots: bool) -> int:
     total = page.eval_on_selector_all(".slide", "els => els.length")
     problems = page.evaluate(PROBE)
 
-    print(f"\n{deck.name}  —  {total} slides")
+    print(f"\n{deck.name}  ·  {total} slides")
     for err in errors:
         print(f"  ! javascript error: {err}")
     for item in problems:

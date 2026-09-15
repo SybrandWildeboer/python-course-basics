@@ -1,4 +1,4 @@
-"""HOMEWORK 1 — temperature converter — worked solution."""
+"""HOMEWORK 1: temperature converter, worked solution."""
 
 celsius_text = input("Temperature in Celsius: ")
 
@@ -16,7 +16,7 @@ print(f"{celsius}°C is {fahrenheit:.1f}°F")
 #
 # 1. Operator precedence does the right thing here. Python works out
 #    celsius * 9 / 5 before adding 32, exactly as the maths intends. If you
-#    are ever unsure, add brackets — (celsius * 9 / 5) + 32 — they cost
+#    are ever unsure, add brackets, as in (celsius * 9 / 5) + 32. They cost
 #    nothing and make the intent obvious.
 #
 # 2. int() would have thrown away the decimal part. float() keeps it.

@@ -1,4 +1,4 @@
-"""HOMEWORK 1 — temperature converter.
+"""HOMEWORK 1: temperature converter.
 
 Ask for a temperature in Celsius, print it in Fahrenheit.
 

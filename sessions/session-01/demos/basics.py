@@ -1,7 +1,7 @@
 """The session 1 walkthrough, in the order it appears on the slides.
 
 Type this file yourself rather than reading it. Run it after every couple of
-lines — that loop (edit, run, look) is the whole skill at this stage.
+lines. That loop (edit, run, look) is the whole skill at this stage.
 """
 
 # ---------------------------------------------------------------- 1. print()
@@ -55,8 +55,8 @@ print(f"You are about {2026 - year}")
 print(int("41"))        # 41
 print(float("4.65"))    # 4.65
 print(str(41))          # "41"
-print(int(4.99))        # 4  — chops, does not round
-print(round(4.99))      # 5  — rounds properly
+print(int(4.99))        # 4  chops, does not round
+print(round(4.99))      # 5  rounds properly
 
 # int("forty one") would stop the program with a ValueError. Try it, read the
 # message, then put the # back.

@@ -1,4 +1,4 @@
-"""HOMEWORK 2 — a three-question summary.
+"""HOMEWORK 2: a three-question summary.
 
 Ask three questions. At least one answer must be a number that you then do
 arithmetic on. Print a small paragraph that uses all three answers and reads
