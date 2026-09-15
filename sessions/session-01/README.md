@@ -56,6 +56,21 @@ All paths are relative to `sessions/session-01/`.
 | `homework/summary.py` | Homework task 2 starter |
 | `homework/solutions/` | Answers, for after the Saturday check-in |
 
+## Notebooks first
+
+They work in `notebooks/`. Every notebook has a `.py` counterpart so the difference between
+the two shapes is visible rather than asserted.
+
+| Notebook | What it is |
+|---|---|
+| `notebooks/01-first-steps.ipynb` | The walkthrough: print, variables, types, f-strings, conversion, plus how a notebook works and the run-order trap |
+| `notebooks/02-about-me-exercise.ipynb` | The live exercise, values handed in |
+| `notebooks/02-about-me-solved.ipynb` | Worked version, with a note on why `int(input(...))` nests that way |
+
+The homework stays as scripts (`homework/temperature.py`, `homework/summary.py`) because both
+tasks ask the user questions, and `input()` is awkward in a notebook. That contrast is the
+point, and slide 17 makes it explicitly.
+
 ## Watch out for
 
 - **Windows PATH.** The "Add Python to PATH" box is unticked by default. If `python` is not

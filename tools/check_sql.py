@@ -8,15 +8,18 @@ results.
     python3 tools/check_sql.py                    # every .sql file
     python3 tools/check_sql.py sessions/session-07
 
-Read only: the connection is opened in read-only mode, so a stray UPDATE in a
-file would fail loudly rather than damage the data.
+Every file runs against a throwaway COPY of the database, so statements that
+write (a CREATE VIEW in the session 7 walkthrough, for instance) are genuinely
+exercised while data/music.db itself is never touched.
 """
 
 from __future__ import annotations
 
 import re
+import shutil
 import sqlite3
 import sys
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -94,10 +97,14 @@ def main() -> int:
         print("no .sql files found")
         return 0
 
-    # Read only, so a stray write in a course file fails instead of landing.
-    con = sqlite3.connect(f"file:{DB}?mode=ro", uri=True)
-    problems = sum(check(path, con) for path in files)
-    con.close()
+    # Work on a copy: a file that creates a view or a table gets a fair test,
+    # and the real database cannot be damaged by anything in the course.
+    with tempfile.TemporaryDirectory() as scratch:
+        scratch_db = Path(scratch) / "music.db"
+        shutil.copy(DB, scratch_db)
+        con = sqlite3.connect(scratch_db)
+        problems = sum(check(path, con) for path in files)
+        con.close()
 
     print(f"\n{'problems found: ' + str(problems) if problems else 'all queries run clean'}")
     return 1 if problems else 0

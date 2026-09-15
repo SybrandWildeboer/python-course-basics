@@ -55,6 +55,18 @@ mystery.
 | `homework/README.md` | Both homework tasks |
 | `homework/solutions/MY-NOTES-example.md` | An example notes file, to show the level of detail |
 
+## Notebooks
+
+Almost all of this session is terminal work, so there is one notebook, and it covers the
+thing that genuinely bites:
+
+| Notebook | What it is |
+|---|---|
+| `notebooks/01-notebooks-and-git.ipynb` | Why notebooks and git get along badly: JSON diffs, committed outputs, churning execution counts. Shows a real cell's JSON, and introduces `tools/nbtool.py check` and `strip` |
+
+Worth doing properly. Committing notebooks full of saved output is the single most common way
+a beginner's repo becomes unpleasant to work with.
+
 ## Watch out for
 
 - **`user.name` and `user.email` not configured.** The most common first-commit failure.

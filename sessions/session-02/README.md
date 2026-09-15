@@ -45,6 +45,17 @@ Also worth doing live, because it takes twenty seconds each and removes real fea
 - write an infinite `while` loop and kill it with `Ctrl+C`,
 - write `if age = 41:` and read Python's "did you mean `==`" hint.
 
+## Notebooks
+
+| Notebook | What it is |
+|---|---|
+| `notebooks/01-control-flow.ipynb` | The walkthrough, with cells to predict before running |
+| `notebooks/02-errors-on-purpose.ipynb` | Five errors, commented out, to uncomment one at a time. Also covers the notebook-only error: a cell that passes because of something you ran ten minutes ago |
+| `notebooks/03-statistics-homework.ipynb` | Homework 2, with `assert` checks to verify against |
+| `notebooks/03-statistics-solved.ipynb` | Worked version, including the `highest = 0` bug demonstrated on negative numbers |
+
+The guessing game stays a script, in `exercises/` and `homework/`, because it is interactive.
+
 ## Watch out for
 
 - **`=` versus `==`.** Constant this week. Python's message is good, so let them read it.

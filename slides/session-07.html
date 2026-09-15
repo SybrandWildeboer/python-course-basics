@@ -1,0 +1,891 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 7: Joins and shaping</title>
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body data-deck="Session 7 · Joins and shaping">
+<div id="viewport">
+<div class="deck">
+
+<section class="slide slide--title" data-title="Title">
+  <div>
+    <div class="session-no">Session 07 of 12</div>
+    <h1>Joins and shaping</h1>
+    <p class="goal">Questions that span two tables. And the session's real lesson: how a join
+      can quietly make your totals wrong, and how to notice.</p>
+    <div class="meta">
+      <span class="pill pill--accent">2 hours</span>
+      <span class="pill">INNER and LEFT JOIN</span>
+      <span class="pill pill--rose">fan-out</span>
+      <span class="pill pill--teal">subqueries and CTEs</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This session needs the most practice of any in the course. If you run short of time,
+    cut views and subquery variations, never the fan-out block.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework review">
+  <div class="eyebrow">First fifteen minutes</div>
+  <h2>Homework review</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>The ten questions</div>
+      <p>Which two needed something you had not been shown?</p>
+      <p class="nomargin">They were <strong>3</strong>, where <code>= NULL</code> quietly
+        finds nothing, and <strong>5</strong>, where you had to build a year column out of a
+        date with <code>strftime</code> or <code>substr</code>.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>Your own two questions</div>
+      <p>What did you expect, and what did you get?</p>
+      <p class="nomargin">If a query surprised you, that is the interesting one. Either the
+        data has something in it you did not know, or the query answered a slightly different
+        question than the one you asked. Both are worth five minutes.</p>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Did anyone hit integer division on question 9, where
+        <code>19 / 179</code> comes out as <code>0</code>? It is the same family of problem as
+        today's: <strong>SQL gave a confident answer to a question you did not ask.</strong></p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Their last homework query ended with artist_id rather than artist_name, because the
+    name lives in the other table. That is the perfect opening for today.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Two tables">
+  <div>
+    <div class="marker">Part one</div>
+    <h2>Why the data is in pieces</h2>
+    <p>Last session everything came from one table. That was not an accident of the data.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Why split">
+  <div class="eyebrow">The reason</div>
+  <h2>Why not keep everything in one big table?</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code plain" style="margin-bottom:12px">
+        <figcaption>if plays held the artist details too</figcaption>
+        <pre class="xs"><code data-lang="text">play_id  artist_name    country  genre  formed
+   1     Fjord & Flint  Norway   Folk   2012
+   2     Fjord & Flint  Norway   Folk   2012
+   3     Fjord & Flint  Norway   Folk   2012
+  ...    ... 237 times, identically ...</code></pre>
+      </figure>
+      <div class="card card--rose card--compact">
+        <h4>Three problems, all the same problem</h4>
+        <ul class="tight nomargin">
+          <li><strong>Waste:</strong> Norway written 237 times</li>
+          <li><strong>Drift:</strong> fix a typo in one row and 236 rows still disagree</li>
+          <li><strong>Nowhere to put a fact:</strong> an artist you have not listened to yet
+            cannot exist at all</li>
+        </ul>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card card--teal card--compact">
+        <h4>So each fact lives in exactly one place</h4>
+        <p class="nomargin">An artist's country is a fact <em>about the artist</em>, so it
+          belongs in <code>artists</code>, once. A play is a fact about one listen, so it
+          belongs in <code>plays</code>.</p>
+      </div>
+      <div class="card card--accent card--compact">
+        <h4>The cost of that tidiness</h4>
+        <p class="nomargin">Most interesting questions now need both tables at once.
+          "How many minutes per country" touches a column in each. Putting them back together
+          for the length of one query is what a <strong>join</strong> is.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">Your session 4 CSV had the artist details repeated on every row.
+          That was deliberate, to keep it to one file. Real databases do not look like that.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The "nowhere to put a fact" point is the one people have not thought of, and it is why
+    our two never-played artists exist in the data.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Keys">
+  <div class="eyebrow">Vocabulary</div>
+  <h2>Primary keys and foreign keys</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 1080 260" width="1080" height="260" role="img"
+         aria-label="artist_id is the primary key in artists and a foreign key in plays and awards">
+      <defs>
+        <marker id="arrowhead" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--accent)"></polygon>
+        </marker>
+        <marker id="arrowhead-soft" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--ink-dim)"></polygon>
+        </marker>
+      </defs>
+
+      <rect class="d-box-teal" x="380" y="14" width="300" height="104" rx="10"></rect>
+      <text class="d-label" x="400" y="42">artists</text>
+      <text class="d-mono" x="400" y="68">artist_id  PRIMARY KEY</text>
+      <text class="d-sub" x="400" y="90">unique, never empty,</text>
+      <text class="d-sub" x="400" y="108">names exactly one artist</text>
+
+      <rect class="d-box-accent" x="40" y="160" width="300" height="86" rx="10"></rect>
+      <text class="d-label" x="60" y="188">plays</text>
+      <text class="d-mono" x="60" y="214">artist_id  FOREIGN KEY</text>
+      <text class="d-sub" x="60" y="236">2,183 rows point at 38 artists</text>
+
+      <rect class="d-box-amber" x="720" y="160" width="300" height="86" rx="10"></rect>
+      <text class="d-label" x="740" y="188">awards</text>
+      <text class="d-mono" x="740" y="214">artist_id  FOREIGN KEY</text>
+      <text class="d-sub" x="740" y="236">33 rows point at 17 artists</text>
+
+      <path class="d-arrow" d="M300 158 L 440 122"></path>
+      <path class="d-arrow" d="M790 158 L 640 122"></path>
+
+      <text class="d-sub" x="40" y="136">many plays</text>
+      <text class="d-sub" x="940" y="136">many awards</text>
+    </svg>
+  </div>
+  <div class="cols">
+    <div class="card card--compact card--teal">
+      <p class="nomargin">A <strong>primary key</strong> identifies a row in its own table.
+        One artist, one <code>artist_id</code>.</p>
+    </div>
+    <div class="card card--compact card--accent">
+      <p class="nomargin">A <strong>foreign key</strong> is a column that points at another
+        table's primary key. It is the same number, borrowed, and it is what a join matches on.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The word "foreign" just means "belongs to another table". Say that; the name puts
+    people off more than the idea does.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Joining">
+  <div>
+    <div class="marker">Part two</div>
+    <h2>Joining</h2>
+    <p>Putting the tables back together, for the length of one query.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="First join">
+  <div class="eyebrow">Your first join</div>
+  <h2>Now the names come back</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre><code data-lang="sql">SELECT
+  p.played_at,
+  a.artist_name,
+  p.track_name,
+  p.minutes_played
+FROM plays AS p
+JOIN artists AS a ON a.artist_id = p.artist_id
+ORDER BY p.played_at
+LIMIT 5;</code></pre>
+    </figure>
+    <div class="stack">
+      <figure class="code out">
+        <figcaption>result</figcaption>
+        <pre class="xs"><code data-lang="text">2024-01-01  Fjord & Flint         Golden Garden
+2024-01-01  Basement Cartography  Summer Season
+2024-01-02  DJ Kompas             Broken Lines
+2024-01-02  Hollow Pines          Salt Lines
+2024-01-03  Glass Tram            Amber Ferry</code></pre>
+      </figure>
+      <div class="card card--compact card--accent">
+        <h4>Read the <code>ON</code> as the rule</h4>
+        <p class="nomargin">"Bring me the <code>artists</code> row whose
+          <code>artist_id</code> matches this play's <code>artist_id</code>." That is all a
+          join is: a matching rule between two tables.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin"><code>AS p</code> and <code>AS a</code> are <strong>aliases</strong>,
+          short nicknames for the tables. <code>p.track_name</code> then says which table a
+          column came from.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Their last homework answer listed artist_id because the name was out of reach. Run
+    this and let them see the names arrive. It is a satisfying moment.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="How matching works">
+  <div class="eyebrow">Mental model</div>
+  <h2>What the database actually does</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 1080 260" width="1080" height="260" role="img"
+         aria-label="Each play row is matched to the artists row with the same artist_id, producing a combined row">
+      <defs>
+        <marker id="arrowhead" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--accent)"></polygon>
+        </marker>
+        <marker id="arrowhead-soft" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--ink-dim)"></polygon>
+        </marker>
+      </defs>
+
+      <text class="d-label" x="10" y="22">plays</text>
+      <rect class="d-box" x="10" y="34" width="270" height="94" rx="9"></rect>
+      <text class="d-mono" x="26" y="58">play 1   artist_id 35</text>
+      <text class="d-mono" x="26" y="82">play 2   artist_id 9</text>
+      <text class="d-mono" x="26" y="106">play 3   artist_id 35</text>
+
+      <text class="d-label" x="10" y="166">artists</text>
+      <rect class="d-box-teal" x="10" y="178" width="270" height="70" rx="9"></rect>
+      <text class="d-mono" x="26" y="202">35  Fjord &amp; Flint</text>
+      <text class="d-mono" x="26" y="226">9   Basement Cartography</text>
+
+      <path class="d-arrow" d="M292 130 L 372 130"></path>
+      <text class="d-sub" x="292" y="118">match on</text>
+      <text class="d-mono" x="292" y="152">artist_id</text>
+
+      <text class="d-label" x="390" y="22">one combined row per match</text>
+      <rect class="d-box-accent" x="390" y="34" width="676" height="94" rx="9"></rect>
+      <text class="d-mono" x="410" y="58">play 1  artist_id 35  Fjord &amp; Flint         Norway  Folk</text>
+      <text class="d-mono" x="410" y="82">play 2  artist_id 9   Basement Cartography  Canada  Indie</text>
+      <text class="d-mono" x="410" y="106">play 3  artist_id 35  Fjord &amp; Flint         Norway  Folk</text>
+
+      <text class="d-sub" x="390" y="176">The artist details are repeated in the RESULT, which is fine: the result is temporary.</text>
+      <text class="d-sub" x="390" y="202">The stored table still has one row per artist.</text>
+      <text class="d-sub" x="390" y="240">Remember this picture. It is the whole explanation of fan-out, later today.</text>
+    </svg>
+  </div>
+  <aside class="notes">
+    <p>This slide is the groundwork for the fan-out block. Make sure they see that one play
+    row can pair with more than one row from the other side, because that is exactly what
+    goes wrong later.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Aliases and USING">
+  <div class="eyebrow">Notation</div>
+  <h2>Two conveniences worth knowing</h2>
+  <div class="cols">
+    <div class="stack">
+      <h4>Ambiguous columns need qualifying</h4>
+      <figure class="code" style="margin-bottom:0">
+        <pre class="sm"><code data-lang="sql">-- fails: which artist_id?
+SELECT artist_id, artist_name
+FROM plays JOIN artists
+  ON artists.artist_id = plays.artist_id;
+-- Error: ambiguous column name: artist_id
+
+-- fine: say which table
+SELECT p.artist_id, a.artist_name
+FROM plays p
+JOIN artists a ON a.artist_id = p.artist_id;</code></pre>
+      </figure>
+    </div>
+    <div class="stack">
+      <h4><code>USING</code>, when the columns share a name</h4>
+      <figure class="code" style="margin-bottom:0">
+        <pre class="sm"><code data-lang="sql">-- these two are the same query
+JOIN artists a ON a.artist_id = p.artist_id
+JOIN artists a USING (artist_id)
+
+-- and USING merges the column, so this works
+SELECT artist_id, artist_name, track_name
+FROM plays
+JOIN artists USING (artist_id);</code></pre>
+      </figure>
+      <div class="card card--compact card--plain mt-s">
+        <p class="nomargin">Use <code>USING</code> when the key has the same name on both
+          sides, which is common and is why our tables are named that way.
+          <code>ON</code> works always, including when the names differ.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Get in the habit of aliasing every table and qualifying every
+        column, even when you do not have to. Queries grow, and the day you add a third
+        table you will be glad the first two were already labelled.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>"Ambiguous column name" is the error of the day. It is clear once you have seen it
+    once, which is why it is on a slide.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="LEFT JOIN">
+  <div class="eyebrow">The second kind</div>
+  <h2><code>LEFT JOIN</code>: keep the rows with no match</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre class="sm"><code data-lang="sql">-- INNER JOIN: only artists that HAVE plays
+SELECT COUNT(DISTINCT a.artist_id)
+FROM artists a
+JOIN plays p USING (artist_id);
+-- 38
+
+-- LEFT JOIN: every artist, played or not
+SELECT COUNT(DISTINCT a.artist_id)
+FROM artists a
+LEFT JOIN plays p USING (artist_id);
+-- 40</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>"Left" means the first table listed</h4>
+        <p class="nomargin">Every row of the left table survives. Where the right table has
+          no match, its columns come back as <code>NULL</code> instead of the row being
+          dropped.</p>
+      </div>
+      <div class="callout callout--key" style="margin-bottom:0">
+        <span class="ico">◆</span>
+        <div>
+          <h4>The question decides which one</h4>
+          <p class="nomargin">"How long did I listen to each artist I played" is an inner
+            join. "Which artists have I never played" needs a left join, because the answer
+            is made entirely of rows that have no match.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Two artists in the data have no plays at all, deliberately, so this is a real result
+    and not a hypothetical. That is the next slide.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="When it matters">
+  <div class="eyebrow">Why you should care</div>
+  <h2>The two artists the inner join hides</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre><code data-lang="sql">SELECT
+  a.artist_name,
+  a.genre,
+  COUNT(p.play_id) AS plays
+FROM artists a
+LEFT JOIN plays p USING (artist_id)
+GROUP BY a.artist_id
+ORDER BY plays
+LIMIT 4;</code></pre>
+    </figure>
+    <div class="stack">
+      <figure class="code out">
+        <figcaption>result</figcaption>
+        <pre class="sm"><code data-lang="text">Iron Fernway    Rock   0
+Gravel Choir    Rock   0
+Odessa Brass    Jazz   1
+Amara Diallo    Afrobeat  2</code></pre>
+      </figure>
+      <div class="card card--compact card--rose">
+        <h4>Why <code>COUNT(p.play_id)</code> and not <code>COUNT(*)</code></h4>
+        <p class="nomargin">After a left join, an unmatched artist still produces one row,
+          with all the <code>plays</code> columns <code>NULL</code>. <code>COUNT(*)</code>
+          counts that row and says <strong>1</strong>. <code>COUNT(p.play_id)</code> skips
+          NULLs and correctly says <strong>0</strong>.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--warn" style="margin-bottom:0">
+    <span class="ico">▲</span>
+    <div>
+      <p class="nomargin">That is the <code>COUNT(*)</code> versus <code>COUNT(column)</code>
+        difference from last session, and this is where it earns its keep. Change one word and
+        "never played" becomes "played once".</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Run it both ways live. COUNT(*) giving 1 for an artist with no plays is exactly the
+    kind of bug that looks like data and is really a query mistake.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Join then aggregate">
+  <div class="eyebrow">Putting it together</div>
+  <h2>Join, then group: the useful shape</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre><code data-lang="sql">SELECT
+  a.artist_name,
+  a.country,
+  COUNT(*)                   AS plays,
+  ROUND(SUM(p.minutes_played), 1) AS minutes
+FROM plays p
+JOIN artists a USING (artist_id)
+GROUP BY a.artist_id
+ORDER BY minutes DESC
+LIMIT 5;</code></pre>
+    </figure>
+    <figure class="code out">
+      <figcaption>result</figcaption>
+      <pre class="sm"><code data-lang="text">Glass Tram      Germany      229  1175.1
+DJ Kompas       Netherlands  215  1169.2
+Fjord & Flint   Norway       237   846.2
+Sara Lindqvist  Sweden       242   768.6
+Lagos Tape Club Nigeria      132   447.6</code></pre>
+    </figure>
+  </div>
+  <div class="callout callout--key" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Look at the top two rows. Sara Lindqvist has the
+        <strong>most plays</strong>, and Glass Tram has the <strong>most minutes</strong>.
+        Whichever you sort by changes who "my top artist" is, and both answers are correct
+        answers to different questions.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This is the same lesson as total versus average in session 4 homework. Deciding what
+    the question actually means is most of the work; the SQL is the easy part.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Fan-out">
+  <div>
+    <div class="marker">Part three · the real lesson</div>
+    <h2>How a join makes your numbers wrong</h2>
+    <p>This is the part to remember in five years, when everything else here has faded.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="The wrong total">
+  <div class="eyebrow">A true story that happens constantly</div>
+  <h2>Two queries. One number changed.</h2>
+  <div class="compare">
+    <div>
+      <span class="label">the total minutes</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="sql">SELECT ROUND(SUM(minutes_played), 1)
+FROM plays;</code></pre>
+      </figure>
+      <figure class="code out" style="margin:0">
+        <pre class="sm"><code data-lang="text">8980.4</code></pre>
+      </figure>
+    </div>
+    <div>
+      <span class="label">the same total, with awards joined on</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="sql">SELECT ROUND(SUM(p.minutes_played), 1)
+FROM plays p
+JOIN awards w ON w.artist_id = p.artist_id;</code></pre>
+      </figure>
+      <figure class="code out" style="margin:0">
+        <pre class="sm"><code data-lang="text">9732.1</code></pre>
+      </figure>
+    </div>
+  </div>
+  <div class="callout callout--stop mt" style="margin-bottom:0">
+    <span class="ico">■</span>
+    <div>
+      <h4>Nothing was filtered. Nothing was added. The total went up by 751 minutes.</h4>
+      <p class="nomargin">Both queries ran without a word of complaint. If you had only ever
+        run the second one, you would have reported 9,732 and nobody in the room could have
+        told you otherwise.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Let this sit for a moment before explaining. The discomfort is the point: a query that
+    runs is not a query that is right.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Why fan-out happens">
+  <div class="eyebrow">The diagnosis</div>
+  <h2>Count the rows, and it is obvious</h2>
+  <div class="cols cols-wide-left">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>one artist, in detail</figcaption>
+        <pre class="sm"><code data-lang="sql">-- Fjord & Flint has 237 plays
+SELECT COUNT(*), ROUND(SUM(minutes_played), 1)
+FROM plays WHERE artist_id = 35;
+-- 237 | 846.2
+
+-- and 3 awards
+SELECT COUNT(*) FROM awards WHERE artist_id = 35;
+-- 3
+
+-- so after the join: 237 x 3
+SELECT COUNT(*), ROUND(SUM(p.minutes_played), 1)
+FROM plays p
+JOIN awards w ON w.artist_id = p.artist_id
+WHERE p.artist_id = 35;
+-- 711 | 2538.5</code></pre>
+      </figure>
+    </div>
+    <div class="stack">
+      <div class="card card--rose card--compact">
+        <h4>Every play met every award</h4>
+        <p class="nomargin">The join has no idea the awards are unrelated to the listening. It
+          only follows the rule you gave it: match on <code>artist_id</code>. Three awards
+          means each play appears three times, and its minutes get counted three times.</p>
+      </div>
+      <div class="card card--accent card--compact">
+        <h4>This is called fan-out</h4>
+        <p class="nomargin">A <strong>one-to-many</strong> join multiplies rows. Across the
+          whole dataset, 2,183 plays became <strong>2,371 rows</strong>, and every
+          <code>SUM</code>, <code>COUNT</code> and <code>AVG</code> downstream is wrong.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin"><strong>The habit worth building:</strong> after any join, check
+          the row count against what it was before. If it went up and you did not expect it
+          to, stop.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>846.2 times 3 is 2538.6, and the query says 2538.5. The difference is rounding on
+    individual values. Worth mentioning only if they spot it, as a nice piece of arithmetic
+    checking.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="The obvious fix is also wrong">
+  <div class="eyebrow">A trap inside the trap</div>
+  <h2>"Just use <code>DISTINCT</code>" does not fix it either</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre class="sm"><code data-lang="sql">SELECT ROUND(SUM(DISTINCT p.minutes_played), 1)
+FROM plays p
+JOIN awards w ON w.artist_id = p.artist_id
+WHERE p.artist_id = 35;
+-- 680.6</code></pre>
+    </figure>
+    <div class="stack">
+      <table class="sm">
+        <tr><th>Query</th><th>Answer</th><th>Right?</th></tr>
+        <tr><td>No join</td><td><code>846.2</code></td><td>Yes</td></tr>
+        <tr><td>Joined</td><td><code>2538.5</code></td><td>Three times too big</td></tr>
+        <tr><td>Joined with <code>SUM(DISTINCT)</code></td><td><code>680.6</code></td>
+          <td>Too small now</td></tr>
+      </table>
+      <div class="card card--compact card--rose">
+        <p class="nomargin"><code>SUM(DISTINCT)</code> adds up each <em>different value</em>
+          once. Two separate plays that both happened to last 4.65 minutes are two real plays,
+          and it throws one away. It fixed the duplication and destroyed the data.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">The lesson is bigger than the keyword. <strong>When a number looks
+        wrong, do not reach for the switch that makes it look right.</strong> Work out what
+        the rows actually are first. Here, two wrongs sat either side of the correct answer,
+        and both looked like fixes.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This slide is the most valuable in the session and possibly the course. Nearly every
+    beginner reaches for DISTINCT; almost nobody checks whether it is the right tool.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="The real fix">
+  <div class="eyebrow">Doing it properly</div>
+  <h2>Aggregate first, then join</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre class="sm"><code data-lang="sql">SELECT
+  a.artist_name,
+  s.plays,
+  s.minutes,
+  COUNT(w.award_id) AS awards
+FROM (
+    SELECT artist_id,
+           COUNT(*) AS plays,
+           ROUND(SUM(minutes_played), 1) AS minutes
+    FROM plays
+    GROUP BY artist_id
+) AS s
+JOIN artists a USING (artist_id)
+LEFT JOIN awards w USING (artist_id)
+GROUP BY a.artist_id
+ORDER BY s.minutes DESC
+LIMIT 3;</code></pre>
+    </figure>
+    <div class="stack">
+      <figure class="code out">
+        <figcaption>result: honest numbers</figcaption>
+        <pre class="xs"><code data-lang="text">Glass Tram     229  1175.1  2
+DJ Kompas      215  1169.2  1
+Fjord & Flint  237   846.2  3</code></pre>
+      </figure>
+      <div class="card card--compact card--teal">
+        <h4>Why this works</h4>
+        <p class="nomargin">The inner query reduces <code>plays</code> to
+          <strong>one row per artist</strong> before anything else touches it. After that the
+          awards join cannot duplicate a play, because there are no play rows left to
+          duplicate.</p>
+      </div>
+      <div class="card card--compact card--accent">
+        <p class="nomargin">A query inside a query is a <strong>subquery</strong>. It runs
+          first, and the outer query treats its result as a table.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Fjord &amp; Flint 846.2 with 3 awards, matching the standalone query exactly. Point at
+    that: the fix is verified by an independent calculation, not by looking plausible.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="CTEs">
+  <div class="eyebrow">Same thing, readable</div>
+  <h2><code>WITH</code>: give the subquery a name</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre class="sm"><code data-lang="sql">WITH per_artist AS (
+    SELECT artist_id,
+           COUNT(*) AS plays,
+           ROUND(SUM(minutes_played), 1) AS minutes
+    FROM plays
+    GROUP BY artist_id
+)
+SELECT a.artist_name,
+       s.plays,
+       s.minutes,
+       COUNT(w.award_id) AS awards
+FROM per_artist s
+JOIN artists a USING (artist_id)
+LEFT JOIN awards w USING (artist_id)
+GROUP BY a.artist_id
+ORDER BY s.minutes DESC
+LIMIT 3;</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>Identical result, much easier to read</h4>
+        <p class="nomargin">The preparation step is named and sits at the top, so the main
+          query reads top to bottom like a paragraph instead of inside-out.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>Officially a "common table expression"</h4>
+        <p class="nomargin">Everybody says CTE. You can have several, separated by commas,
+          and each can use the ones above it, which is how a genuinely complicated question
+          gets broken into readable steps.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">Prefer a CTE over a nested subquery whenever the query is long
+          enough that you have to scroll. Your future self is the main beneficiary.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>CTEs are the single biggest readability win available in SQL. Beginners can adopt them
+    immediately, and then never write a deeply nested subquery at all.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Views">
+  <div class="eyebrow">If there is time</div>
+  <h2><code>CREATE VIEW</code>: a saved query that behaves like a table</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>Execute SQL</figcaption>
+      <pre class="sm"><code data-lang="sql">CREATE VIEW artist_summary AS
+SELECT a.artist_id,
+       a.artist_name,
+       a.country,
+       a.genre,
+       COUNT(p.play_id)            AS plays,
+       ROUND(SUM(p.minutes_played), 1) AS minutes
+FROM artists a
+LEFT JOIN plays p USING (artist_id)
+GROUP BY a.artist_id;
+
+-- now use it like any table
+SELECT * FROM artist_summary
+WHERE plays = 0;
+
+SELECT country, SUM(minutes) FROM artist_summary
+GROUP BY country ORDER BY 2 DESC LIMIT 3;
+
+DROP VIEW artist_summary;</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--teal">
+        <p class="nomargin">A view stores <strong>the query, not the data</strong>. Every time
+          you select from it, it runs again, so it is always current.</p>
+      </div>
+      <div class="card card--compact card--accent">
+        <p class="nomargin">Useful when one join keeps reappearing in your work. Define it
+          once, correctly, and everything downstream inherits the correct version, including
+          the <code>COUNT(p.play_id)</code> detail that keeps the zero-play artists honest.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">This is the one thing today that <em>writes</em> to the database.
+          Harmless, and <code>DROP VIEW</code> removes it. The data itself is untouched.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Cut this slide without regret if the fan-out block needs the time. It is genuinely
+    optional at this level.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Diagnosing">
+  <div class="eyebrow">Reference · keep this one</div>
+  <h2>When the numbers look wrong</h2>
+  <table class="sm">
+    <tr><th style="width:300px">Symptom</th><th>Likely cause</th><th style="width:250px">Check</th></tr>
+    <tr><td>Totals larger than they should be</td><td>Fan-out from a one-to-many join</td>
+      <td>Count rows before and after the join</td></tr>
+    <tr><td>Rows have gone missing</td><td>An inner join where you needed a left join</td>
+      <td>Swap to <code>LEFT JOIN</code> and compare counts</td></tr>
+    <tr><td>Everything is zero or empty</td><td>The join keys do not actually match</td>
+      <td>Compare a few values from each side by eye</td></tr>
+    <tr><td>Counts are one too many per group</td><td><code>COUNT(*)</code> after a left join</td>
+      <td>Use <code>COUNT(the_other_table.key)</code></td></tr>
+    <tr><td>A percentage comes out as 0</td><td>Whole-number division</td>
+      <td>Multiply by <code>100.0</code> first</td></tr>
+  </table>
+  <div class="callout callout--key" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin"><strong>Above all: know roughly what the answer should be before you
+        run the query.</strong> 8,980 minutes over two years is about twelve minutes a day,
+        which is plausible. 9,732 would have passed unnoticed without a number to compare it
+        to. An expectation is the cheapest bug detector you have.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This is the slide to photograph. It is the practical residue of the whole session.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Live exercise">
+  <div class="eyebrow">Your turn · 35 minutes</div>
+  <h2>Join it, group it, then break it on purpose</h2>
+  <div class="exercise">
+    <div class="tag">◆ Live exercise</div>
+    <div class="cols">
+      <div>
+        <h4>Part 1: get the answers</h4>
+        <ol class="tight">
+          <li>Total minutes per <strong>country</strong>, highest first</li>
+          <li>Plays per <strong>genre</strong>, with average minutes</li>
+          <li>Every artist and their play count, <strong>including the never-played
+            ones</strong></li>
+          <li>The top three artists in 2025 only, by minutes</li>
+        </ol>
+      </div>
+      <div>
+        <h4>Part 2: break it, then explain it</h4>
+        <ol class="tight" start="5">
+          <li>Take query 1 and join <code>awards</code> onto it as well</li>
+          <li>Note how the totals change</li>
+          <li>Work out, in a comment, exactly <strong>why</strong></li>
+          <li>Fix it with a CTE, and confirm the numbers match query 1 again</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">File: <code>sessions/session-07/exercises/joins.sql</code>. Part 2
+        is the part that matters. Writing the explanation in your own words is what makes it
+        stick.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Insist on the written explanation in part 2, question 7. If they can explain fan-out in
+    their own words, this session has done its job.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework">
+  <div class="eyebrow">Between now and next time · 2–4 hours</div>
+  <h2>Homework</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Task 1 · you can finish this</div>
+      <h4>Five multi-step questions</h4>
+      <p>Five questions in <code>homework/README.md</code>. Each one needs a join
+        <strong>and</strong> an aggregate, and two need a CTE to be correct.</p>
+      <p class="nomargin">Answers in <code>homework/answers.sql</code>, with the question as a
+        comment above each. Commit and push.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>Task 2 · you might not finish this</div>
+      <h4>Find a question where the join type changes the answer</h4>
+      <p>Write one question that gives a <strong>different answer</strong> with an inner join
+        than with a left join.</p>
+      <p class="nomargin">Show both queries, both answers, and explain in a comment which one
+        answers the question you actually asked, and why.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">For task 2, remember the shape of the data: two artists have no
+        plays at all, and only 17 of the 40 artists have ever won an award. Both facts are
+        places where the join type decides the answer.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Task 2 is the deeper of the two. The explanation matters more than the SQL, because
+    choosing the join type is a judgement about the question, not a technical decision.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Recap">
+  <div class="eyebrow">Wrap up</div>
+  <h2>What you can do now</h2>
+  <div class="cols">
+    <ul class="checklist">
+      <li>Say why data is split across tables</li>
+      <li>Tell a primary key from a foreign key</li>
+      <li>Join two tables with <code>ON</code> or <code>USING</code></li>
+      <li>Alias tables and qualify columns</li>
+      <li>Choose between an inner and a left join, on purpose</li>
+    </ul>
+    <ul class="checklist">
+      <li>Join and then aggregate</li>
+      <li><strong>Spot fan-out, and explain it</strong></li>
+      <li>Know why <code>DISTINCT</code> is not the fix</li>
+      <li>Fix it properly by aggregating first</li>
+      <li>Write a CTE, and prefer it to a nested subquery</li>
+    </ul>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>Next session: the same questions, in Python</h4>
+      <p class="nomargin">pandas. We will take four queries from these two sessions and
+        rewrite them side by side, so you can see exactly how the ideas map across. Then we
+        talk honestly about when you would reach for which. Fan-out exists there too, by the
+        way, and it is called the same thing.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Commit and push the queries. Ask them to keep this file: four of these queries get
+    reproduced in pandas next session, and having their own version to compare against is
+    much better than using mine.</p>
+  </aside>
+</section>
+
+</div>
+</div>
+<script src="assets/deck.js"></script>
+</body>
+</html>

@@ -46,6 +46,19 @@ Let them finish the four functions and the summary line. Then ask, as if it just
 you: "now do the same for `[4, 8, 15, 16, 23, 42]`". It is one extra line. In the session 2
 version it would have been forty. That single moment does more than any explanation.
 
+## Notebooks
+
+| Notebook | What it is |
+|---|---|
+| `notebooks/01-functions.ipynb` | The walkthrough. The return-versus-print section has cells to predict before running |
+| `notebooks/02-statistics-functions-exercise.ipynb` | The live exercise |
+| `notebooks/02-statistics-functions-solved.ipynb` | Worked version |
+| `notebooks/03-small-functions-homework.ipynb` | Homework 1 |
+| `notebooks/03-small-functions-solved.ipynb` | Worked version, with `split` and `join` demonstrated |
+
+The menu program stays a script, and it is the first time they see one file importing
+functions from another.
+
 ## Watch out for
 
 - **Printing inside the function instead of returning.** Do not correct it straight away.

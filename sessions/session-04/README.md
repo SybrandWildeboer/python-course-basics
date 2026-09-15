@@ -57,6 +57,20 @@ become a second related table for session 7. If theirs qualifies, let them use i
 about the data is worth more than the convenience of a prepared file. You will have to
 translate the exercises, so decide before session 6 when the SQLite database appears.
 
+## Notebooks
+
+| Notebook | What it is |
+|---|---|
+| `notebooks/01-lists-and-dicts.ipynb` | Lists, dictionaries, and the "a list of dicts is a table" idea |
+| `notebooks/02-files-and-csv.ipynb` | Paths, `DictReader`, text-versus-number, the counting pattern, writing a CSV |
+| `notebooks/03-explore-plays-exercise.ipynb` | The live exercise |
+| `notebooks/03-explore-plays-solved.ipynb` | Worked version, with the expected output written out |
+| `notebooks/04-questions-homework.ipynb` | Homework 2 |
+| `notebooks/04-questions-solved.ipynb` | Worked version, showing the 2025 tie and the total-versus-average trap |
+
+Each data notebook starts with a short cell that walks up to the repository root, so it works
+whichever folder VS Code opened it from.
+
 ## Watch out for
 
 - **`FileNotFoundError` from a relative path.** First move, every time: print

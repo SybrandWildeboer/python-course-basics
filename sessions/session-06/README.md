@@ -51,6 +51,18 @@ one-line `GROUP BY`. Nothing else you can say will sell SQL as effectively.
 Every query in these files is executed by `python3 tools/check_sql.py`, which also checks the
 row counts pinned in `-- expect: N rows` comments. If you edit the dataset, run it.
 
+## Notebooks
+
+DB Browser is the main tool this session, because seeing the tables in a window is worth a lot
+while the ideas are new. The notebooks are the same queries run from Python, which is how they
+will actually use SQL in a project.
+
+| Notebook | What it is |
+|---|---|
+| `notebooks/01-sql-from-python.ipynb` | Every query from the slides, via `sqlite3`, with a small `run()` helper that prints results as a table. Includes the Python counting dictionary and the `GROUP BY` next to each other |
+| `notebooks/02-queries-exercise.ipynb` | The ladder of ten |
+| `notebooks/02-queries-solved.ipynb` | Worked answers |
+
 ## Watch out for
 
 - **`=` not `==`.** A Python habit, and the error message is not always obvious.
