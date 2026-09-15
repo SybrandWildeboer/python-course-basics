@@ -63,6 +63,12 @@ the stretch is what stops it quietly becoming the target.
 | `exercises/scoping.md` | The scoping worksheet, filled in during the first half hour |
 | `sessions/session-10/demos/venv_commands.md` | Every setup command, if they need reminding |
 
+## No notebooks this session
+
+By design. They work in **their own** project from now on, and the exploring happens in
+`notebooks/` in their repo rather than in this one. `project/notebooks/README.md` has the
+two lines they need about importing from `src/`.
+
 ## Watch out for
 
 - **A project that needs data they do not have.** The most common way these fail. If the

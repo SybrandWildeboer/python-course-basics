@@ -85,6 +85,10 @@ Each one gets **one specific resource and one specific first task**, and write t
 their repo as `NEXT.md` before the session ends. A plan in a file survives; a plan discussed
 out loud does not. There is a template at `exercises/next-steps.md`.
 
+## No notebooks this session
+
+By design. Today is their project, their code, their repo.
+
 ## To close
 
 Show them their session 1 file if you still have it, next to their project. Twelve weeks, a
