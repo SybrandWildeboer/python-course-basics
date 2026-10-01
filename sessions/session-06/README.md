@@ -44,6 +44,7 @@ one-line `GROUP BY`. Nothing else you can say will sell SQL as effectively.
 | `demos/walkthrough.sql` | Every query from the slides, with the real answers in comments |
 | `exercises/queries.sql` | The ladder of ten, as comments to fill in |
 | `solutions/queries.sql` | Worked answers, with row counts pinned |
+| `solutions/stretch.sql` | The stretch queries, with row counts pinned so the stretch notebook's numbers stay true |
 | `homework/README.md` | The ten homework questions, with two collapsible hints |
 | `homework/answers.sql` | Where they write their answers |
 | `homework/solutions/answers.sql` | Worked answers, plus two invented questions as examples |
@@ -62,6 +63,28 @@ will actually use SQL in a project.
 | `notebooks/01-sql-from-python.ipynb` | Every query from the slides, via `sqlite3`, with a small `run()` helper that prints results as a table. Includes the Python counting dictionary and the `GROUP BY` next to each other |
 | `notebooks/02-queries-exercise.ipynb` | The ladder of ten |
 | `notebooks/02-queries-solved.ipynb` | Worked answers |
+| `notebooks/03-stretch-exercise.ipynb` | Optional stretch questions, for when the ladder finishes early |
+| `notebooks/03-stretch-solved.ipynb` | Worked versions, with the reasoning written out |
+
+## If there is time left
+
+The stretch notebook has six questions about the listening data that get harder as you go.
+Use as many as the time allows; you don't need to finish it. No joins: everything stays on
+one table at a time. Each one adds one idea:
+
+| # | Question | What it adds |
+|---|---|---|
+| 1 | Which award is given most, and who won the same one twice? | The `awards` table, and `COUNT(*)` against `COUNT(DISTINCT ...)` in a `HAVING` |
+| 2 | How many artists are still active? | **Trap:** `COUNT(still_active)` says 39, the answer is 34, and active plus inactive is 39, not 40 |
+| 3 | In which decade were most artists formed? | Integer division as a tool, and `NULL` as its own group |
+| 4 | Which tracks were played on all five devices? | **Trap:** `skipped = 0` in `WHERE` gives 30, in `HAVING` it gives a plausible, wrong 29 |
+| 5 | Do I listen more at the weekend? | `strftime('%w', ...)` and `CASE`, then totals against rates |
+| 6 | Which device lost listeners from 2024 to 2025? | `SUM(CASE ...)` to put two years side by side |
+
+Numbers 2 and 4 are the ones to talk through rather than just check. Make him predict before
+running: both queries run without complaint and give an answer that looks fine. Number 5 is
+the same lesson in a different form: 1,573 weekday plays against 610 sounds like a finding,
+and per day it is 3.19 against 3.23.
 
 ## Watch out for
 

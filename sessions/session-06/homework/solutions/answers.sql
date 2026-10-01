@@ -129,8 +129,9 @@ ORDER BY plays DESC
 LIMIT 1;
 
 --     Worth a second look, though. The top day has 11 plays and the runner
---     up has 10, out of 731 days. "The busiest day" sounds like a finding and
---     is really a coin toss between a handful of ordinary days. Same lesson as
+--     up has 10, out of 682 days with any listening. "The busiest day" sounds
+--     like a finding and is really a coin toss between a handful of ordinary
+--     days. Same lesson as
 --     the tied artists in session 4: look at second place before believing a
 --     single-row answer.
 -- expect: 5 rows

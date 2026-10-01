@@ -67,9 +67,35 @@ translate the exercises, so decide before session 6 when the SQLite database app
 | `notebooks/03-explore-plays-solved.ipynb` | Worked version, with the expected output written out |
 | `notebooks/04-questions-homework.ipynb` | Homework 2 |
 | `notebooks/04-questions-solved.ipynb` | Worked version, showing the 2025 tie and the total-versus-average trap |
+| `notebooks/05-stretch-exercise.ipynb` | Optional stretch exercises, for when the live exercise finishes early |
+| `notebooks/05-stretch-solved.ipynb` | Worked versions, with the reasoning written out |
 
 Each data notebook starts with a short cell that walks up to the repository root, so it works
 whichever folder VS Code opened it from.
+
+## If there is time left
+
+The stretch notebook has six questions that get harder as you go. Use as many as the time
+allows; you don't need to finish it. None of them repeat the live exercise or the homework,
+and each one adds one idea:
+
+| # | Function | What it adds |
+|---|---|---|
+| 1 | `plays_per_month` | Slicing text like a list (`played_at[:7]`), and why `YYYY-MM` sorts correctly as text |
+| 2 | `tracks_by_artist` | A dictionary of lists, and 168 track names versus 229 actual tracks |
+| 3 | `index_by`, `plays_by_decade` | A second file, a lookup dictionary, and blank `formed_year` values to decide about |
+| 4 | `artist_stats`, `skip_rates` | A dictionary of dictionaries, and a minimum number of plays before a rate counts |
+| 5 | `genre_by_year` | Building your own rows and writing them out: a pivot table by hand |
+| 6 | read it back | Numbers come back from a CSV as text, and an `assert` that the file matches the log |
+
+Numbers 3 and 4 are the ones to talk through rather than just check. In 3, what to do with
+the 53 plays from artists with no `formed_year` (skip, guess, or label them `"unknown"`)
+matters more than the code, and it sets up `IS NULL` in session 6. In 4, the most-skipped
+artist is Circuit Sparrow at 28.6%, which is 2 skips out of 7 plays. Ask whether they believe
+it before showing the `min_plays=30` version.
+
+Stretch 3 is also a first, by-hand look at a `JOIN`: index one table by name, then look up
+each play in it. Say so; it makes session 7 a translation.
 
 ## Watch out for
 
