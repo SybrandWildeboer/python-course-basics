@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The dataset: Python, SQL &amp; Git</title>
+<link rel="stylesheet" href="assets/home.css">
+<style>
+  .back { display: inline-block; margin-bottom: 22px; font-size: 14px; color: var(--ink-soft); text-decoration: none; }
+  .back:hover { color: var(--accent); }
+  .note a, td a { color: var(--accent); }
+  .table-wrap { overflow-x: auto; margin: 0 0 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; background: var(--surface); border: 1px solid var(--line-soft); border-radius: 12px; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line-soft); }
+  tr:last-child td { border-bottom: 0; }
+  th { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-dim); background: var(--surface-2); }
+  td { color: var(--ink-soft); }
+  td:first-child code { white-space: nowrap; }
+  td.num { text-align: right; font-family: var(--mono); white-space: nowrap; }
+  caption { caption-side: top; text-align: left; padding: 0 0 8px; font-weight: 650; color: var(--ink); }
+</style>
+</head>
+<body>
+<button id="theme-toggle" type="button">light / dark</button>
+<div class="wrap">
+
+<header>
+  <a class="back" href="index.html">← Course index</a>
+  <div class="kicker">The dataset · one listening log, four shapes</div>
+  <h1>The listening log</h1>
+  <p class="tagline">One made-up but realistic music listening log carries the whole course: two
+    years of plays, forty artists, and a few awards. The same data arrives as clean CSVs, as a
+    database, and as a deliberately damaged export, so every new tool answers questions you
+    have already answered with the last one.</p>
+  <div class="facts">
+    <span class="pill pill--accent">2,183 plays</span>
+    <span class="pill">40 artists</span>
+    <span class="pill">33 awards</span>
+    <span class="pill">1 Jan 2024 to 31 Dec 2025</span>
+    <span class="pill pill--teal">8,980.4 minutes in total</span>
+  </div>
+</header>
+
+<h2>The four shapes</h2>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Shape</th><th>File</th><th>Rows</th><th>What it is for</th></tr></thead>
+    <tbody>
+      <tr><td>Clean CSV, one table</td><td><a href="../data/clean/plays.csv"><code>data/clean/plays.csv</code></a></td><td class="num">2,183</td>
+        <td>Every play, with the artist's name, genre and country copied onto each row. The easy shape: one file, nothing to join.</td></tr>
+      <tr><td>Clean CSV, lookups</td><td><a href="../data/clean/artists.csv"><code>data/clean/artists.csv</code></a><br><a href="../data/clean/awards.csv"><code>data/clean/awards.csv</code></a></td><td class="num">40<br>33</td>
+        <td>The artist table, with a few honest gaps, and a one-to-many awards table.</td></tr>
+      <tr><td>SQLite database</td><td><code>data/music.db</code></td><td class="num">40 / 2,183 / 33</td>
+        <td>Three tables, <code>artists</code>, <code>plays</code> and <code>awards</code>, linked by <code>artist_id</code>. Open it in DB Browser for SQLite, or from Python with <code>sqlite3</code>.</td></tr>
+      <tr><td>Messy CSV</td><td><a href="../data/messy/plays_messy.csv"><code>data/messy/plays_messy.csv</code></a></td><td class="num">2,223</td>
+        <td>The same 2,183 plays as <code>plays.csv</code>, damaged the way real exports are damaged, plus 40 duplicate rows.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note">
+  <h4>Why one dataset</h4>
+  <p>Because then the numbers can be checked. Total minutes are 8,980.4 whether you add them up
+    with a loop in session 4, <code>SUM</code> in session 6 or pandas in session 8. When a
+    new tool gives a different number, something is wrong, and you know it straight away.</p>
+</div>
+
+<h2>The database tables</h2>
+<p class="tagline" style="font-size:16px">These are the tables in <code>data/music.db</code>.
+  The column types are the SQLite types from the <code>CREATE TABLE</code> statements in
+  <code>build_dataset.py</code>.</p>
+
+<div class="table-wrap">
+  <table>
+    <caption><code>plays</code> · 2,183 rows · one row per time a track was played</caption>
+    <thead><tr><th>Column</th><th>Type</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>play_id</code></td><td>INTEGER, primary key</td><td>1 to 2,183, numbered in date order.</td></tr>
+      <tr><td><code>played_at</code></td><td>TEXT, not null</td><td>The date only, written <code>YYYY-MM-DD</code>, from <code>2024-01-01</code> to <code>2025-12-31</code>. No time of day. 1,122 plays are in 2024 and 1,061 in 2025.</td></tr>
+      <tr><td><code>artist_id</code></td><td>INTEGER, references <code>artists</code></td><td>Who was played. 38 of the 40 artists appear; two never do.</td></tr>
+      <tr><td><code>track_name</code></td><td>TEXT, not null</td><td>The track. 168 different names, 229 different artist and track pairs: two artists can have a track with the same name.</td></tr>
+      <tr><td><code>minutes_played</code></td><td>REAL</td><td>How long it was listened to, from 0.15 to 11.01 minutes, 4.11 on average. Jazz tracks run longest. A skipped play is short.</td></tr>
+      <tr><td><code>device</code></td><td>TEXT</td><td>One of five: phone 1,039, laptop 524, speaker 336, car 179, tablet 105.</td></tr>
+      <tr><td><code>skipped</code></td><td>INTEGER</td><td><code>1</code> if the track was skipped, <code>0</code> if not. 258 skips, 11.8% of plays.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <caption><code>artists</code> · 40 rows · one row per artist</caption>
+    <thead><tr><th>Column</th><th>Type</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>artist_id</code></td><td>INTEGER, primary key</td><td>1 to 40.</td></tr>
+      <tr><td><code>artist_name</code></td><td>TEXT, not null</td><td>The name, unique.</td></tr>
+      <tr><td><code>country</code></td><td>TEXT</td><td>Where the artist is from: 25 different countries.</td></tr>
+      <tr><td><code>genre</code></td><td>TEXT</td><td>One of eight: Electronic 7 artists, Indie 6, Folk 5, Jazz 5, Latin 5, Rock 5, Pop 4, Afrobeat 3.</td></tr>
+      <tr><td><code>formed_year</code></td><td>INTEGER</td><td>1996 to 2023. <code>NULL</code> for two artists, Rosewood Lane and Cassette Revival.</td></tr>
+      <tr><td><code>still_active</code></td><td>INTEGER</td><td><code>1</code> for 34 artists, <code>0</code> for 5. <code>NULL</code> for one, Iron Fernway.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <caption><code>awards</code> · 33 rows · one row per award, several per artist</caption>
+    <thead><tr><th>Column</th><th>Type</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>award_id</code></td><td>INTEGER, primary key</td><td>1 to 33.</td></tr>
+      <tr><td><code>artist_id</code></td><td>INTEGER, references <code>artists</code></td><td>Who won it. 17 artists have awards: 7 have one, 4 have two, 6 have three.</td></tr>
+      <tr><td><code>award_name</code></td><td>TEXT</td><td>One of six names, such as <code>Best Live Act</code> or <code>Producer's Choice</code>.</td></tr>
+      <tr><td><code>year</code></td><td>INTEGER</td><td>2015 to 2025.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note">
+  <h4>Three things in the tables are there on purpose</h4>
+  <p><strong>The gaps in <code>artists</code></strong> are the three <code>NULL</code> values
+    above. Session 6 needs real ones to teach <code>IS NULL</code>, and a lookup table always
+    has a few. They are only in columns that are not copied into <code>plays.csv</code>, so
+    the clean CSV stays complete.</p>
+  <p><strong>Two artists are never played:</strong> Iron Fernway and Gravel Choir. Session 7
+    uses them to show what <code>LEFT JOIN</code> keeps and an inner join drops.</p>
+  <p><strong>Awards are one-to-many.</strong> Join <code>plays</code> to <code>awards</code>
+    and add up the minutes, and 8,980.4 becomes 9,732.1, because a play by an artist with
+    three awards is counted three times. That wrong total is session 7's fan-out lesson, and
+    it comes back in sessions 8 and 12.</p>
+</div>
+
+<h2>The CSV files</h2>
+
+<div class="table-wrap">
+  <table>
+    <caption><code>data/clean/plays.csv</code> · 2,183 rows · nine columns, in this order</caption>
+    <thead><tr><th>Column</th><th>pandas reads it as</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>play_id</code></td><td><code>int64</code></td><td>As in the database.</td></tr>
+      <tr><td><code>played_at</code></td><td><code>object</code> (text)</td><td>As in the database. pandas leaves dates as text until you convert them.</td></tr>
+      <tr><td><code>artist_name</code></td><td><code>object</code></td><td>Copied from <code>artists</code> instead of <code>artist_id</code>.</td></tr>
+      <tr><td><code>track_name</code></td><td><code>object</code></td><td>As in the database.</td></tr>
+      <tr><td><code>genre</code></td><td><code>object</code></td><td>Copied from <code>artists</code>.</td></tr>
+      <tr><td><code>country</code></td><td><code>object</code></td><td>Copied from <code>artists</code>: the artist's country, not the listener's.</td></tr>
+      <tr><td><code>minutes_played</code></td><td><code>float64</code></td><td>As in the database.</td></tr>
+      <tr><td><code>device</code></td><td><code>object</code></td><td>As in the database.</td></tr>
+      <tr><td><code>skipped</code></td><td><code>int64</code></td><td>As in the database.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note">
+  <h4><code>object</code> or <code>str</code>: the same thing, two pandas versions</h4>
+  <p>The table shows what <code>plays.dtypes</code> prints on pandas 2, the version
+    <code>project/requirements.txt</code> pins (<code>pandas==2.3.1</code>): every text column
+    is <code>object</code>. pandas 3 gives text its own type, so the same six columns print as
+    <code>str</code>. Read either word as "text". Either one on a column you expected to be
+    numbers means it needs converting.</p>
+</div>
+
+<div class="note">
+  <h4>The other two clean files match the database</h4>
+  <p><code>artists.csv</code> and <code>awards.csv</code> have the same columns and rows as
+    their tables. One difference shows up in pandas: the gaps in <code>formed_year</code> and
+    <code>still_active</code> are empty cells, so pandas reads those two columns as
+    <code>float64</code>, not whole numbers. A column of integers with one missing value
+    becomes a column of decimals. It surprises everybody once.</p>
+  <p>The first rows, as they are on disk:</p>
+  <pre>play_id,played_at,artist_name,track_name,genre,country,minutes_played,device,skipped
+1,2024-01-01,Fjord &amp; Flint,Golden Garden,Folk,Norway,4.65,phone,0
+2,2024-01-01,Basement Cartography,Summer Season,Indie,Canada,2.42,laptop,0</pre>
+</div>
+
+<h2>The damage in the messy file</h2>
+<p class="tagline" style="font-size:16px"><code>plays_messy.csv</code> is <code>plays.csv</code>
+  broken on purpose by the <code>damage</code> function in <code>build_dataset.py</code>. Each
+  kind of damage has a fix in session 9. The counts are from the file itself, out of 2,223
+  rows.</p>
+
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Damage</th><th>What you see</th><th>Rows</th><th>The fix in session 9</th></tr></thead>
+    <tbody>
+      <tr><td>A column name with a trailing space</td><td><code>minutes played </code> instead of <code>minutes_played</code>, and moved to the last column</td><td class="num">header</td><td><code>rename()</code></td></tr>
+      <tr><td>Exact duplicate rows</td><td>The same play twice</td><td class="num">40 extra</td><td><code>duplicated()</code>, <code>drop_duplicates()</code></td></tr>
+      <tr><td>Genre in different spellings</td><td><code>ELECTRONIC</code> 384 rows in capitals, <code>electronic</code> 251 in lower case, <code>"  Electronic "</code> 144 with spaces round it: 32 spellings of 8 genres</td><td class="num">779</td><td><code>.str.strip()</code>, then one case</td></tr>
+      <tr><td>Device in different spellings</td><td>340 rows in capitals, like <code>PHONE</code>, and 174 with a space at the end, like <code>"phone "</code>: 20 spellings of 5 devices</td><td class="num">see left</td><td><code>.str.strip().str.lower()</code></td></tr>
+      <tr><td>Three date formats</td><td><code>2024-03-15</code> 1,793 rows, <code>15/03/2024</code> 310, <code>15-03-2024</code> 120</td><td class="num">430</td><td><code>pd.to_datetime</code> with each <code>format</code> in turn</td></tr>
+      <tr><td>Numbers that arrive as text</td><td><code>6.91 min</code></td><td class="num">96</td><td>remove <code>" min"</code>, then <code>pd.to_numeric</code></td></tr>
+      <tr><td>Missing minutes</td><td>an empty cell</td><td class="num">94</td><td>count with <code>isna()</code>, then decide: left missing</td></tr>
+      <tr><td>Missing device</td><td>an empty cell</td><td class="num">70</td><td>labelled <code>unknown</code> (69 once the duplicates are gone)</td></tr>
+      <tr><td>Missing genre</td><td>an empty cell</td><td class="num">36</td><td>filled in from the same artist's other plays</td></tr>
+      <tr><td>Country written <code>NA</code></td><td>the text <code>NA</code></td><td class="num">49</td><td>filled in from the same artist's other plays</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note">
+  <h4>Worth knowing before you open it</h4>
+  <p><strong><code>NA</code> is read as missing.</strong> Plain <code>pd.read_csv</code> turns
+    the text <code>NA</code> into a missing value, so 49 countries quietly vanish before you
+    have looked at anything. Session 9's <code>load_messy</code> reads the file with
+    <code>keep_default_na=False</code>, so nothing is guessed and every decision is made in the
+    cleaning, where you can see it.</p>
+  <p><strong>One kind of damage never shows.</strong> <code>damage</code> also writes about 6%
+    of the minutes with a thousands separator, but no play is longer than 11.01 minutes, so
+    those values only come out with two decimals, like <code>4.20</code>. The pipeline still
+    handles a value like <code>1 234.50</code>, for when real data has one.</p>
+  <p><strong>What cleaning cannot recover:</strong> the 94 missing minutes (372.4 minutes, about
+    4% of the total) and the 69 missing devices. After cleaning, the file has 2,183 rows again,
+    and seven of the nine columns match <code>plays.csv</code> in every row. The other two are
+    exactly the information destroyed before the file reached you.</p>
+</div>
+
+<h2>Which sessions use what</h2>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>File</th><th>Sessions</th><th>How</th></tr></thead>
+    <tbody>
+      <tr><td><code>data/clean/plays.csv</code></td><td>4, 6, 8, 9, 10, 11, 12</td><td>The first real file in session 4, read with <code>csv.DictReader</code>. Counted in Python next to the same <code>GROUP BY</code> in session 6. Read with pandas from session 8. In sessions 9 and 10 it is the answer the cleaned messy file is checked against. In session 11 it stands in for "my own file".</td></tr>
+      <tr><td><code>data/clean/artists.csv</code></td><td>4, 8, 9, 10, 12</td><td>A by-hand join in the session 4 stretch, <code>merge</code> in session 8, a lookup in the session 9 cleaning notebook and the session 10 stretch, and the session 12 practice review.</td></tr>
+      <tr><td><code>data/clean/awards.csv</code></td><td>12</td><td>The session 12 practice review, where a merge with it fans out. Sessions 7 and 8 use the same data from the database.</td></tr>
+      <tr><td><code>data/music.db</code></td><td>6, 7, 8, 10</td><td>All of SQL in sessions 6 and 7, <code>read_sql</code> in session 8, and the check on the session 10 pipeline's total.</td></tr>
+      <tr><td><code>data/messy/plays_messy.csv</code></td><td>9, 10, 11, 12</td><td>Cleaned in session 9, the input of the session 10 pipeline and of <code>project/pipeline.py</code>, the file <code>find_problems</code> is tried on in session 11, and the <code>ValueError</code> examples in session 12.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>How it is made, and how to rebuild it</h2>
+<div class="note">
+  <h4>One seeded script, standard library only</h4>
+  <p><a href="../data/scripts/build_dataset.py"><code>data/scripts/build_dataset.py</code></a>
+    makes all five files from one random seed (<code>20260101</code>), so the same numbers come
+    out on every machine, and the numbers on the slides match yours. It uses only Python's
+    standard library, because it has to work in session 1, before anything is installed.</p>
+  <p>If you change or break a data file, run this from the repository folder. It overwrites
+    all five files with the originals.</p>
+  <pre>python data/scripts/build_dataset.py      # Windows
+python3 data/scripts/build_dataset.py     # macOS</pre>
+  <p>On Windows you should see:</p>
+  <pre>wrote data\clean\artists.csv  (40 rows)
+wrote data\clean\awards.csv  (33 rows)
+wrote data\clean\plays.csv  (2183 rows)
+wrote data\messy\plays_messy.csv  (2223 rows)
+wrote data\music.db  (40 artists, 2183 plays, 33 awards)</pre>
+  <p>On macOS the paths use <code>/</code>. Either way the CSV files come out identical, byte for byte, to
+    the ones in the repository, and the database holds exactly the same rows.</p>
+</div>
+
+<footer>
+  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
+</footer>
+
+</div>
+<script>
+(function () {
+  var KEY = "pycourse-theme";
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved) root.dataset.theme = saved;
+  } catch (e) { /* private browsing */ }
+
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var next = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = next;
+    try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
+  });
+})();
+</script>
+</body>
+</html>

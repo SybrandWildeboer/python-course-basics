@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jupyter cheatsheet · Python, SQL & Git</title>
+<link rel="stylesheet" href="assets/home.css">
+<style>
+.back { margin: 22px 0 0; font-size: 14.5px; }
+.back a, .note h4 a { color: var(--accent); text-decoration: none; }
+.tagline a, .note p a, .note li a { color: var(--accent); }
+.back a:hover { text-decoration: underline; }
+.sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 470px), 1fr)); gap: 16px; align-items: start; }
+.sheet > .note { margin: 0; min-width: 0; }
+.note h4 { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; }
+.note h4 .pill { font-size: 12px; padding: 2px 10px; font-weight: 600; }
+.note pre { font-size: 13.5px; line-height: 1.5; }
+.note ul { margin: 0 0 10px; padding-left: 20px; color: var(--ink-soft); font-size: 15px; }
+.ref-wrap { overflow-x: auto; margin: 4px 0 10px; }
+table.ref { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.ref th, table.ref td { text-align: left; vertical-align: top; padding: 6px 9px; border-bottom: 1px solid var(--line-soft); color: var(--ink-soft); }
+table.ref th { color: var(--ink-dim); font-weight: 650; font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+table.ref td code { white-space: nowrap; }
+@media print {
+  :root, :root[data-theme] {
+    --bg: #fff; --bg-deep: #fff; --surface: #fff; --surface-2: #fff; --surface-3: #eef1f5;
+    --line: #c4ccd8; --line-soft: #d9dee6; --ink: #000; --ink-soft: #1d2430; --ink-dim: #4b5566;
+    --accent: #2a49b0; --teal: #0d7a5d; --teal-soft: transparent;
+  }
+  body { background: #fff; padding: 0; }
+  #theme-toggle, .back { display: none; }
+  header { padding: 0 0 10px; }
+  h1 { background: none; color: #000; font-size: 28px; }
+  .tagline { font-size: 14px; }
+  h2 { margin: 18px 0 10px; }
+  .sheet { grid-template-columns: 1fr; gap: 8px; }
+  .note { break-inside: avoid; background: #fff; padding: 10px 12px; }
+  .note pre { font-size: 10.5px; white-space: pre-wrap; padding: 8px 10px; }
+  .note p, .note ul, table.ref { font-size: 12px; }
+  footer { margin-top: 20px; }
+}
+</style>
+</head>
+<body>
+<button id="theme-toggle" type="button">light / dark</button>
+<div class="wrap">
+
+<p class="back"><a href="index.html">← Course index</a> · <a href="cheatsheets.html">All cheatsheets</a></p>
+
+<header>
+  <div class="kicker">Cheatsheet · every notebook, from session 1</div>
+  <h1>Jupyter</h1>
+  <p class="tagline">Notebooks are where most of the course's work happens. This is the tool itself on one page: the keys, the one trap, kernels, notebooks in git, and when a script is the better shape.</p>
+  <div class="facts">
+    <span class="pill pill--accent">Restart and Run All</span>
+    <span class="pill">Keys and cells</span>
+    <span class="pill">Kernels</span>
+    <span class="pill">Notebooks and git</span>
+  </div>
+</header>
+
+<h2>Running cells</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>The keys</span><span><a class="pill" href="session-01.html">Session 1</a></span></h4>
+<div class="ref-wrap"><table class="ref">
+<tr><th>Keys</th><th>What it does</th></tr>
+<tr><td><code>Shift</code> <code>Enter</code></td><td>Run this cell and move to the next</td></tr>
+<tr><td><code>Ctrl</code>/<code>Cmd</code> <code>Enter</code></td><td>Run this cell and stay on it</td></tr>
+<tr><td><code>Alt</code>/<code>Option</code> <code>Enter</code></td><td>Run this cell and add a new one below</td></tr>
+<tr><td><code>Esc</code> then <code>A</code> or <code>B</code></td><td>Add a cell above or below</td></tr>
+<tr><td><code>Esc</code> then <code>D</code> <code>D</code></td><td>Delete this cell</td></tr>
+<tr><td><code>Esc</code> then <code>M</code> or <code>Y</code></td><td>Make it a markdown cell, or back to code</td></tr>
+<tr><td><code>Ctrl</code>/<code>Cmd</code> <code>/</code></td><td>Comment or uncomment the selected lines</td></tr>
+</table></div>
+<p><code>Ctrl</code> on Windows, <code>Cmd</code> on a Mac. <code>Esc</code> leaves the cell, so the next key is a command instead of typing. <code>Enter</code> goes back in.</p>
+</div>
+<div class="note">
+<h4><span>Showing values</span><span><a class="pill" href="session-01.html">Session 1</a> <a class="pill" href="session-08.html">Session 8</a></span></h4>
+<p>The last line of a cell shows its value without <code>print()</code>. Only the last line.</p>
+<pre>import pandas as pd
+
+plays = pd.read_csv(&quot;data/clean/plays.csv&quot;)
+plays.head()         # NOT shown: it is not the last line
+plays.shape          # shown: (2183, 9)</pre>
+<p>Want several things from one cell? <code>print()</code> each one. In a script nothing shows without <code>print()</code>, last line or not.</p>
+<p>The first cell of every course notebook finds the repository root and moves there, so paths like <code>data/clean/plays.csv</code> work. Run it first.</p>
+</div>
+</div>
+
+<h2>The one trap</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Cells remember what you ran, not what is on screen</span><span><a class="pill" href="session-01.html">Session 1</a> <a class="pill" href="session-10.html">Session 10</a></span></h4>
+<p>Scroll up, change a cell, run it, and everything below is now out of date. Delete the line that made a variable, and the cells using it still run, until tomorrow. The number beside a cell, <code>[1]</code>, <code>[2]</code>, is the order things really ran in.</p>
+<p><strong>The fix, and it is the whole fix: Restart and Run All</strong>, from the toolbar. It clears everything and runs from the top, in order.</p>
+<p>If a notebook cannot run cleanly from top to bottom, it is not finished, however good the output looks.</p>
+</div>
+<div class="note">
+<h4><span>A cell that will not stop</span><span><a class="pill" href="session-01.html">Session 1</a> <a class="pill" href="session-02.html">Session 2</a></span></h4>
+<p>A cell showing <code>[*]</code> is still running. Stop it with the square <strong>interrupt</strong> button in the toolbar, the notebook version of <code>Ctrl</code> <code>C</code> in a terminal.</p>
+<p>If that does not work, <strong>Restart</strong> the kernel. It throws away every variable, but it always works. Then run the cells again from the top.</p>
+<p>The usual cause is a <code>while</code> loop whose condition never changes. Something inside the loop has to move it towards false.</p>
+</div>
+</div>
+
+<h2>Kernels</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>In VS Code</span><span><a class="pill" href="session-01.html">Session 1</a> <a class="pill" href="session-10.html">Session 10</a></span></h4>
+<p>The kernel is the Python that runs the notebook. Packages have to be installed into that Python, or the import fails.</p>
+<ul>
+<li>Top right of the notebook, <strong>Select Kernel</strong>, then <strong>Python Environments</strong>, and pick your Python 3.12.</li>
+<li>If it asks for <code>ipykernel</code>, let VS Code install it.</li>
+<li>For <code>project/notebooks/explore.ipynb</code>, from session 10, pick the <code>.venv</code> Python.</li>
+<li><code>No module named 'pandas'</code> in a notebook usually means the kernel is a different Python from the one you installed into.</li>
+</ul>
+</div>
+<div class="note">
+<h4><span>In the browser</span><span><a class="pill" href="session-01.html">Session 1</a></span></h4>
+<pre>python -m pip install jupyterlab     # Windows; python3 on macOS
+jupyter lab                          # from the repository folder</pre>
+<p>The same notebooks, in a browser tab. Start it from the repository folder so every notebook is in reach. Stop the server with <code>Ctrl</code> <code>C</code> in the terminal.</p>
+</div>
+</div>
+
+<h2>Markdown cells</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Prose between the code</span><span><a class="pill" href="session-11.html">Session 11</a></span></h4>
+<p>Double-click a markdown cell to edit it, <code>Shift</code> <code>Enter</code> to show it formatted. The project's <code>explore.ipynb</code> asks you to write down every problem you find in one, before fixing any.</p>
+<pre># Heading
+## Smaller heading
+
+**bold**, *italic*, `code`
+
+- a list
+- another item
+
+1. numbered
+2. another</pre>
+<p>A notebook with prose between the cells is a document you can come back to. One without is code with output in it.</p>
+</div>
+</div>
+
+<h2>Notebooks and git</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Strip the output before you commit</span><span><a class="pill" href="session-05.html">Session 5</a></span></h4>
+<p>A <code>.ipynb</code> is JSON: your code, your prose, and the <strong>output of every cell</strong>. So diffs are hard to read, saved output makes files big, and every run changes the run numbers even when the code did not change.</p>
+<pre>python tools/nbtool.py check     # valid, and no saved output?
+python tools/nbtool.py strip     # remove saved output and run numbers
+python tools/nbtool.py run       # does every notebook still run?</pre>
+<p>Windows; <code>python3</code> on macOS. Each one takes a folder to narrow it down, as in <code>python tools/nbtool.py strip sessions/session-05</code>. <code>.ipynb_checkpoints/</code> is already in <code>.gitignore</code>. <code>sessions/session-05/notebooks/01-notebooks-and-git.ipynb</code> shows a real cell's JSON.</p>
+</div>
+</div>
+
+<h2>Notebook or script?</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Pick the shape for the job</span><span><a class="pill" href="session-10.html">Session 10</a></span></h4>
+<div class="ref-wrap"><table class="ref">
+<tr><th>A notebook when</th><th>A script when</th></tr>
+<tr><td>exploring, in small steps</td><td>somebody needs to <em>run</em> it</td></tr>
+<tr><td>you want the answer next to the code</td><td>it asks questions with <code>input()</code></td></tr>
+<tr><td>learning something new</td><td>it runs start to finish, unattended</td></tr>
+<tr><td>you will write it up with prose</td><td>you have run the same cells three times</td></tr>
+</table></div>
+<p>The session 2 guessing game and the session 3 menu ask questions, so they are scripts only. Most of the rest has both shapes: a notebook in <code>notebooks/</code> and a <code>.py</code> twin in <code>demos/</code>, <code>exercises/</code> or <code>homework/</code>.</p>
+</div>
+<div class="note">
+<h4><span>Import the script into the notebook</span><span><a class="pill" href="session-10.html">Session 10</a> <a class="pill" href="session-11.html">Session 11</a></span></h4>
+<p>Explore in the notebook, move the settled steps into <code>project/pipeline.py</code>, and import them back. This is the setup cell of <code>project/notebooks/explore.ipynb</code>, without its two <code>print</code> lines:</p>
+<pre>import importlib
+import sys
+from pathlib import Path
+
+import pandas as pd
+
+def find_project(start):
+    &quot;&quot;&quot;Return the folder holding pipeline.py, looking in start and above it.&quot;&quot;&quot;
+    for folder in [start, *start.parents]:
+        if (folder / &quot;pipeline.py&quot;).exists():
+            return folder
+        if (folder / &quot;project&quot; / &quot;pipeline.py&quot;).exists():
+            return folder / &quot;project&quot;
+    raise FileNotFoundError(f&quot;no pipeline.py found in or above {start}&quot;)
+
+
+PROJECT = find_project(Path.cwd())
+
+sys.path.insert(0, str(PROJECT))
+import pipeline
+
+importlib.reload(pipeline)      # pick up changes you made to pipeline.py since</pre>
+<pre>raw = pipeline.load(pipeline.INPUT)
+print(raw.shape)                # (2223, 9): the messy file
+data = pipeline.clean(raw)
+print(data.shape)               # (2183, 9)</pre>
+<p>The import runs nothing you did not ask for, because <code>pipeline.py</code> only does work inside <code>main()</code>, behind <code>if __name__ == &quot;__main__&quot;:</code>. Change <code>load</code> and <code>clean</code> in <code>pipeline.py</code>, not in the notebook, and run the setup cell again. It is also how you debug a script: import the failing function, call it on real data, and look at what comes back.</p>
+</div>
+</div>
+
+
+<footer>
+  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
+</footer>
+
+</div>
+<script>
+(function () {
+  var KEY = "pycourse-theme";
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved) root.dataset.theme = saved;
+  } catch (e) { /* private browsing */ }
+
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var next = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = next;
+    try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
+  });
+})();
+</script>
+</body>
+</html>

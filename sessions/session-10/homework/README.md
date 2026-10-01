@@ -2,69 +2,142 @@
 
 Budget: 2 to 4 hours. **Saturday:** one line, `Homework done` or `Homework not done`.
 
+Do task 3 first. It takes five minutes, and the waiting starts when you do it.
+
 ---
 
-## Task 1: One more analysis, one more output
+## Task 1: Give the pipeline a second question
 
-Add a second question to your pipeline.
+`pipeline.py` in this folder is today's genre pipeline. Add a second question to it:
+**how did my listening change, month by month?**
 
-1. Write a new function alongside `minutes_by_genre()` that answers it and **returns a
-   table**.
-2. Write a new output function that saves it, either as a CSV or a chart.
-3. Update `main()` to call both, and to print progress for the new step.
-
-Keep the shape. The analysis function should not know that files exist, and the output
-function should not know where the numbers came from. If you find yourself writing a function
-that calculates *and* saves, split it.
-
-Some second questions worth asking:
-
-- minutes per country, as a bar chart
-- the skip rate per device, as a table
-- plays per weekday (`played_at.dt.day_name()`), which might show something about routine
-- the top ten tracks by total minutes
-
-## Task 2: Delete `output/` and run it
-
-The real test.
-
-```bash
-rm -rf output/
-python3 src/pipeline.py
+```
+python sessions/session-10/homework/pipeline.py
 ```
 
-Everything should come back. If something does not, your project depends on a file you
-cannot regenerate, and finding that out now is much better than finding out in session 12.
-The usual culprit is a notebook that quietly wrote a file the script reads.
+The rule: **do not touch `load_messy` or `clean_plays`.** If the pipeline is built well, a
+new question needs only:
 
-Then do the same to the environment:
+1. `minutes_by_month(plays)`, which returns one row per month (`"2024-01"` to `"2025-12"`)
+   with the plays and the minutes,
+2. `save_month_chart(months, path)`, which draws it as a **line** chart titled with the
+   busiest month, and saves a PNG,
+3. `check_months(path, plays)`, which reads the CSV back and checks there are 24 rows and
+   that the plays add up to every cleaned play,
+4. a few lines in `main()` that call them. Save the table with the `save_csv` you already
+   have.
+
+The `TODO` markers in the file show where each piece goes. If you would rather work it out
+in a notebook first, `notebooks/03-monthly-homework.ipynb` imports today's pipeline and has
+the checks ready.
+
+When it runs, look at the chart and write one sentence about what it shows, as a comment at
+the bottom of the file.
+
+## Task 2: Your project, in its own environment
+
+The `project/` folder at the repository root is the scaffold for your final project. Make
+it run in its own virtual environment, following `project/README.md`:
+
+1. create `.venv` inside `project/`, activate it, and `pip install -r requirements.txt`,
+2. run `python pipeline.py` and open the chart it writes in `project/output/`,
+3. run `git status` and check that neither `.venv/` nor `output/` appears. If either does,
+   stop and ask.
+
+Then the real test, twice. Both are run from inside `project/`.
+
+**Delete `output/` and run it again.** Keep a copy of the summary first, so you can compare:
+
+```powershell
+# Windows (PowerShell)
+Copy-Item output\summary.csv summary-before.csv
+Remove-Item -Recurse -Force output
+python pipeline.py
+git diff --no-index summary-before.csv output\summary.csv
+Remove-Item summary-before.csv
+```
 
 ```bash
-rm -rf .venv/
+# macOS
+cp output/summary.csv summary-before.csv
+rm -rf output
+python pipeline.py
+git diff --no-index summary-before.csv output/summary.csv
+rm summary-before.csv
+```
+
+Both files should come back, and `git diff` should print nothing: the new summary is
+identical to the old one. If something does not come back, the project depends on a file
+it cannot make again, usually one a notebook wrote and the script reads. Much better to
+find that out now than in session 12.
+
+**Delete `.venv/` and build it again from `requirements.txt`.**
+
+```powershell
+# Windows (PowerShell)
+deactivate
+Remove-Item -Recurse -Force .venv
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python pipeline.py
+```
+
+```bash
+# macOS
+deactivate
+rm -rf .venv
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python3 src/pipeline.py
+python pipeline.py
 ```
 
-If that works, your project runs on a machine that is not yours. That is the whole point of
-`requirements.txt`, and this is the moment it stops being a ritual.
+If that works, the project runs on a machine that is not yours: the list in
+`requirements.txt` is enough to rebuild everything it needs. That is the whole point of the
+file. **If either rebuild fails, do not fix it quietly.** Write down what broke and send it
+to me; it is worth ten minutes at the start of session 11.
 
-**If either rebuild fails, do not fix it silently.** Note what broke and send it to me. It is
-exactly the kind of thing worth ten minutes of session 11.
+Then bring one real file of your own. In session 1 you named a repetitive spreadsheet task
+from your own week. Export that spreadsheet as a CSV, put it in `project/data/`, and point
+`INPUT` in `pipeline.py` at it. Files in `project/data/` are not committed (git ignores
+everything there except the README), so private data stays on your laptop. If it is an
+Excel file, saving it as CSV is simplest: `pd.read_excel` needs an extra package,
+`openpyxl`, which is not in `requirements.txt`.
+
+Do not rewrite the pipeline yet. Get as far as this:
+
+- run sections 1 and 2 of `project/notebooks/explore.ipynb` on your file, so `load` works
+  and you can see the columns,
+- write down, in the markdown cell there, every problem you can see in the data.
+
+The pipeline itself will fail at `clean`, because that is still written for the music data.
+That is expected, and it is where session 11 starts.
+
+## Task 3: Request your Spotify data (five minutes, do it first)
+
+If you use Spotify, your own listening history is a strong candidate for your project
+dataset: the same kind of data as the course's log, but yours. It has to be requested, and
+it does not arrive straight away. Spotify says the extended history can take up to 30 days,
+so request it today even if you are not sure you will use it.
+
+1. Log in at spotify.com in a browser (not the app) and open your **Account** page.
+2. Go to **Privacy settings**, then **Download your data**.
+3. Tick **Extended streaming history** only. The basic account data is much thinner, so
+   make sure it is the extended one.
+4. Confirm the request from the email Spotify sends.
+
+The menus move around from time to time; if these names do not match exactly, look for
+"Download your data". When the email with the files arrives, put them in `project/data/`.
+Git ignores everything in that folder except its README, so your listening history stays
+off GitHub. Session 11 offers it as an optional project dataset and covers what is inside.
+
+If you do not use Spotify, skip this task. Your spreadsheet from task 2 is a perfectly good
+project.
 
 ---
 
-## Before session 11
+## Stretch, if you want it
 
-Come with:
-
-- **one or two project ideas.** Not a plan, just a question you would like answered.
-- **data you can actually get hold of.** This matters more than the idea. You should already
-  have the file, or be able to download it in ten minutes.
-
-Think about that repetitive thing at work from session 1. Automating one annoying task is
-usually a better project than an ambitious analysis of data you do not have.
-
-Fair warning: I am going to scope whatever you bring down, quite hard. First ideas are almost
-always three projects wearing a coat, and finishing a small one beats abandoning a big one.
+Which **year** had more listening, and by how much? Answer it from the monthly table alone,
+without going back to the plays. (The first four characters of `month`.)

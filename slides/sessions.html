@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All twelve sessions: Python, SQL &amp; Git</title>
+<link rel="stylesheet" href="assets/home.css">
+<style>
+  .back { display: inline-block; margin-bottom: 22px; font-size: 14px; color: var(--ink-soft); text-decoration: none; }
+  .back:hover { color: var(--accent); }
+  .note a { color: var(--accent); }
+  .note.track-python, .note.track-git, .note.track-sql, .note.track-data, .note.track-build { border-left-color: var(--track-color); }
+  .table-wrap { overflow-x: auto; margin: 0 0 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; background: var(--surface); border: 1px solid var(--line-soft); border-radius: 12px; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line-soft); }
+  tr:last-child td { border-bottom: 0; }
+  th { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-dim); background: var(--surface-2); }
+  td { color: var(--ink-soft); }
+  td.path code { white-space: nowrap; font-size: 0.85em; }
+  td .pill { font-size: 12px; padding: 2px 9px; white-space: nowrap; }
+</style>
+</head>
+<body>
+<button id="theme-toggle" type="button">light / dark</button>
+<div class="wrap">
+
+<header>
+  <a class="back" href="index.html">← Course index</a>
+  <div class="kicker">Course materials · every session, every notebook</div>
+  <h1>All twelve sessions</h1>
+  <p class="tagline">Each session's folder, its run sheet, its slides, and every notebook in it,
+    listed from the files on disk. Use it to find the right file quickly, before a session or
+    when you come back to something weeks later.</p>
+  <div class="facts">
+    <span class="pill pill--accent">12 sessions</span>
+    <span class="pill">71 notebooks</span>
+    <span class="pill pill--teal">stretch notebooks in sessions 3 to 12</span>
+  </div>
+</header>
+
+<h2>How to read this page</h2>
+<div class="note">
+  <h4>The name of a notebook says what it is for</h4>
+  <p>A <strong>walkthrough</strong> notebook has no suffix: it is the session's material, to
+    run cell by cell. <code>-exercise</code> and <code>-homework</code> notebooks are yours to
+    fill in. <code>-solved</code> notebooks are the answers, for after you have tried.
+    The <code>-stretch-exercise</code> notebooks are optional extra exercises for when a
+    session runs early, and <code>-stretch-solved</code> has their worked answers.</p>
+  <p>Open a notebook in VS Code: open the repository folder, then the path shown here, and
+    pick the Python kernel at the top right. The browser cannot run a notebook, which is why
+    the paths below are not links.</p>
+  <p>The <strong>run sheet</strong> is each session's <code>README.md</code>: timings, what to
+    watch out for, and the numbers worth knowing. It is written for whoever teaches, and is
+    worth reading as a learner too.</p>
+</div>
+
+<div class="links">
+  <a class="link" href="#s01"><span class="ico">◆</span>
+    <span><strong>01 · Setup and first contact</strong><span class="sub">Python · 3 notebooks</span></span></a>
+  <a class="link" href="#s02"><span class="ico">◆</span>
+    <span><strong>02 · Control flow</strong><span class="sub">Python · 4 notebooks</span></span></a>
+  <a class="link" href="#s03"><span class="ico">◆</span>
+    <span><strong>03 · Functions</strong><span class="sub">Python · 7 notebooks</span></span></a>
+  <a class="link" href="#s04"><span class="ico">◆</span>
+    <span><strong>04 · Lists, dictionaries and files</strong><span class="sub">Python · 8 notebooks</span></span></a>
+  <a class="link" href="#s05"><span class="ico">◆</span>
+    <span><strong>05 · Git and GitHub</strong><span class="sub">Git · 3 notebooks</span></span></a>
+  <a class="link" href="#s06"><span class="ico">◆</span>
+    <span><strong>06 · SQL foundations</strong><span class="sub">SQL · 5 notebooks</span></span></a>
+  <a class="link" href="#s07"><span class="ico">◆</span>
+    <span><strong>07 · Joins and shaping</strong><span class="sub">SQL · 5 notebooks</span></span></a>
+  <a class="link" href="#s08"><span class="ico">◆</span>
+    <span><strong>08 · pandas</strong><span class="sub">Data · 8 notebooks</span></span></a>
+  <a class="link" href="#s09"><span class="ico">◆</span>
+    <span><strong>09 · Cleaning and visualization</strong><span class="sub">Data · 8 notebooks</span></span></a>
+  <a class="link" href="#s10"><span class="ico">◆</span>
+    <span><strong>10 · Putting it together</strong><span class="sub">Build · 7 notebooks</span></span></a>
+  <a class="link" href="#s11"><span class="ico">◆</span>
+    <span><strong>11 · Project scoping and setup</strong><span class="sub">Build · 7 notebooks</span></span></a>
+  <a class="link" href="#s12"><span class="ico">◆</span>
+    <span><strong>12 · Presentation, review and what is next</strong><span class="sub">Build · 6 notebooks</span></span></a>
+</div>
+
+<h2 id="s01">Session 01 · Python</h2>
+<div class="note track-python">
+  <h4>Setup and first contact</h4>
+  <p><strong>Goal:</strong> a working environment, and a script the learner wrote themselves that does something real.</p>
+  <p class="files"><a href="../sessions/session-01/">Folder <code>sessions/session-01/</code></a> ·
+    <a href="../sessions/session-01/README.md">Run sheet</a> ·
+    <a href="session-01.html">Slides (29)</a> ·
+    <a href="../sessions/session-01/homework/README.md">Homework</a></p>
+  <p>Homework is two scripts, <code>homework/temperature.py</code> and <code>homework/summary.py</code>, because both ask questions with <code>input()</code>.</p>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Notebook</th><th>Kind</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td class="path"><code>sessions/session-01/notebooks/01-first-steps.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>The walkthrough: print, variables, types, f-strings, conversion, plus how a notebook works and the run-order trap</td></tr>
+      <tr><td class="path"><code>sessions/session-01/notebooks/02-about-me-exercise.ipynb</code></td><td><span class="pill pill--accent">exercise</span></td><td>The live exercise, values handed in</td></tr>
+      <tr><td class="path"><code>sessions/session-01/notebooks/02-about-me-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked version, with a note on why <code>int(input(...))</code> nests that way</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="s02">Session 02 · Python</h2>
+<div class="note track-python">
+  <h4>Control flow</h4>
+  <p><strong>Goal:</strong> programs that make decisions and repeat themselves, and a learner who reads error messages instead of flinching at them.</p>
+  <p class="files"><a href="../sessions/session-02/">Folder <code>sessions/session-02/</code></a> ·
+    <a href="../sessions/session-02/README.md">Run sheet</a> ·
+    <a href="session-02.html">Slides (19)</a> ·
+    <a href="../sessions/session-02/homework/README.md">Homework</a></p>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Notebook</th><th>Kind</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td class="path"><code>sessions/session-02/notebooks/01-control-flow.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>The walkthrough, with cells to predict before running</td></tr>
+      <tr><td class="path"><code>sessions/session-02/notebooks/02-errors-on-purpose.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>Five errors, commented out, to uncomment one at a time. Also covers the notebook-only error: a cell that passes because of something you ran ten minutes ago</td></tr>
+      <tr><td class="path"><code>sessions/session-02/notebooks/03-statistics-homework.ipynb</code></td><td><span class="pill pill--teal">homework</span></td><td>Homework 2, with <code>assert</code> checks to verify against</td></tr>
+      <tr><td class="path"><code>sessions/session-02/notebooks/03-statistics-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked version, including the <code>highest = 0</code> bug demonstrated on negative numbers</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="s03">Session 03 · Python</h2>
+<div class="note track-python">
+  <h4>Functions</h4>
+  <p><strong>Goal:</strong> they stop writing one long script and start writing pieces. And <code>return</code> versus <code>print</code> finally lands.</p>
+  <p class="files"><a href="../sessions/session-03/">Folder <code>sessions/session-03/</code></a> ·
+    <a href="../sessions/session-03/README.md">Run sheet</a> ·
+    <a href="session-03.html">Slides (20)</a> ·
+    <a href="../sessions/session-03/homework/README.md">Homework</a></p>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Notebook</th><th>Kind</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td class="path"><code>sessions/session-03/notebooks/01-functions.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>The walkthrough. The return-versus-print section has cells to predict before running</td></tr>
+      <tr><td class="path"><code>sessions/session-03/notebooks/02-statistics-functions-exercise.ipynb</code></td><td><span class="pill pill--accent">exercise</span></td><td>The live exercise</td></tr>
+      <tr><td class="path"><code>sessions/session-03/notebooks/02-statistics-functions-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked version</td></tr>
+      <tr><td class="path"><code>sessions/session-03/notebooks/03-small-functions-homework.ipynb</code></td><td><span class="pill pill--teal">homework</span></td><td>Homework 1</td></tr>
+      <tr><td class="path"><code>sessions/session-03/notebooks/03-small-functions-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked version, with <code>split</code> and <code>join</code> demonstrated</td></tr>
+      <tr><td class="path"><code>sessions/session-03/notebooks/04-stretch-exercise.ipynb</code></td><td><span class="pill pill--accent">stretch</span></td><td>Optional stretch exercises, for when the live exercise finishes early</td></tr>
+      <tr><td class="path"><code>sessions/session-03/notebooks/04-stretch-solved.ipynb</code></td><td><span class="pill">stretch answers</span></td><td>Worked versions, with the reasoning written out</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="s04">Session 04 · Python</h2>
+<div class="note track-python">
+  <h4>Lists, dictionaries and files</h4>
+  <p><strong>Goal:</strong> hold a table's worth of data in memory, and get data in and out of files. And meet the dataset that carries the rest of the course.</p>
+  <p class="files"><a href="../sessions/session-04/">Folder <code>sessions/session-04/</code></a> ·
+    <a href="../sessions/session-04/README.md">Run sheet</a> ·
+    <a href="session-04.html">Slides (23)</a> ·
+    <a href="../sessions/session-04/homework/README.md">Homework</a></p>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Notebook</th><th>Kind</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td class="path"><code>sessions/session-04/notebooks/01-lists-and-dicts.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>Lists, dictionaries, and the "a list of dicts is a table" idea</td></tr>
+      <tr><td class="path"><code>sessions/session-04/notebooks/02-files-and-csv.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>Paths, <code>DictReader</code>, text-versus-number, the counting pattern, writing a CSV</td></tr>
+      <tr><td class="path"><code>sessions/session-04/notebooks/03-explore-plays-exercise.ipynb</code></td><td><span class="pill pill--accent">exercise</span></td><td>The live exercise</td></tr>
+      <tr><td class="path"><code>sessions/session-04/notebooks/03-explore-plays-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked version, with the expected output written out</td></tr>
+      <tr><td class="path"><code>sessions/session-04/notebooks/04-questions-homework.ipynb</code></td><td><span class="pill pill--teal">homework</span></td><td>Homework 2</td></tr>
+      <tr><td class="path"><code>sessions/session-04/notebooks/04-questions-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked version, showing the 2025 tie and the total-versus-average trap</td></tr>
+      <tr><td class="path"><code>sessions/session-04/notebooks/05-stretch-exercise.ipynb</code></td><td><span class="pill pill--accent">stretch</span></td><td>Optional stretch exercises, for when the live exercise finishes early</td></tr>
+      <tr><td class="path"><code>sessions/session-04/notebooks/05-stretch-solved.ipynb</code></td><td><span class="pill">stretch answers</span></td><td>Worked versions, with the reasoning written out</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="s05">Session 05 · Git</h2>
+<div class="note track-git">
+  <h4>Git and GitHub</h4>
+  <p><strong>Goal:</strong> four sessions of work under version control and pushed to their own GitHub repo, plus enough understanding that git does not feel frightening.</p>
+  <p class="files"><a href="../sessions/session-05/">Folder <code>sessions/session-05/</code></a> ·
+    <a href="../sessions/session-05/README.md">Run sheet</a> ·
+    <a href="session-05.html">Slides (20)</a> ·
+    <a href="../sessions/session-05/homework/README.md">Homework</a></p>
+  <p>Homework happens in the terminal and in your own repository: see <code>homework/README.md</code>.</p>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Notebook</th><th>Kind</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td class="path"><code>sessions/session-05/notebooks/01-notebooks-and-git.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>Why notebooks and git get along badly: JSON diffs, committed outputs, churning execution counts. Shows a real cell's JSON, and introduces <code>tools/nbtool.py check</code> and <code>strip</code></td></tr>
+      <tr><td class="path"><code>sessions/session-05/notebooks/02-stretch-exercise.ipynb</code></td><td><span class="pill pill--accent">stretch</span></td><td>Optional stretch exercises, for when the repo is pushed early. Instructions only; the work happens in the terminal</td></tr>
+      <tr><td class="path"><code>sessions/session-05/notebooks/02-stretch-solved.ipynb</code></td><td><span class="pill">stretch answers</span></td><td>Worked versions, with the real output of each command and the reasoning written out</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="s06">Session 06 · SQL</h2>
+<div class="note track-sql">
+  <h4>SQL foundations</h4>
+  <p><strong>Goal:</strong> they can ask a database questions and get answers back.</p>
+  <p class="files"><a href="../sessions/session-06/">Folder <code>sessions/session-06/</code></a> ·
+    <a href="../sessions/session-06/README.md">Run sheet</a> ·
+    <a href="session-06.html">Slides (25)</a> ·
+    <a href="../sessions/session-06/homework/README.md">Homework</a></p>
+  <p>Homework is SQL: write your queries in <code>homework/answers.sql</code>.</p>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Notebook</th><th>Kind</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td class="path"><code>sessions/session-06/notebooks/01-sql-from-python.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>Every query from the slides, via <code>sqlite3</code>, with a small <code>run()</code> helper that prints results as a table. Includes the Python counting dictionary and the <code>GROUP BY</code> next to each other</td></tr>
+      <tr><td class="path"><code>sessions/session-06/notebooks/02-queries-exercise.ipynb</code></td><td><span class="pill pill--accent">exercise</span></td><td>The ladder of ten</td></tr>
+      <tr><td class="path"><code>sessions/session-06/notebooks/02-queries-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked answers</td></tr>
+      <tr><td class="path"><code>sessions/session-06/notebooks/03-stretch-exercise.ipynb</code></td><td><span class="pill pill--accent">stretch</span></td><td>Optional stretch questions, for when the ladder finishes early</td></tr>
+      <tr><td class="path"><code>sessions/session-06/notebooks/03-stretch-solved.ipynb</code></td><td><span class="pill">stretch answers</span></td><td>Worked versions, with the reasoning written out</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="s07">Session 07 · SQL</h2>
+<div class="note track-sql">
+  <h4>Joins and shaping</h4>
+  <p><strong>Goal:</strong> questions that span two tables, and a learner who can spot fan-out and explain it.</p>
+  <p class="files"><a href="../sessions/session-07/">Folder <code>sessions/session-07/</code></a> ·
+    <a href="../sessions/session-07/README.md">Run sheet</a> ·
+    <a href="session-07.html">Slides (23)</a> ·
+    <a href="../sessions/session-07/homework/README.md">Homework</a></p>
+  <p>Homework is SQL: write your queries in <code>homework/answers.sql</code>.</p>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Notebook</th><th>Kind</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td class="path"><code>sessions/session-07/notebooks/01-joins-from-python.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>Joins, then the full fan-out demonstration: the wrong total, the row count that reveals it, the <code>SUM(DISTINCT)</code> that makes it worse, and the CTE that fixes it</td></tr>
+      <tr><td class="path"><code>sessions/session-07/notebooks/02-joins-exercise.ipynb</code></td><td><span class="pill pill--accent">exercise</span></td><td>The live exercise, including the written explanation</td></tr>
+      <tr><td class="path"><code>sessions/session-07/notebooks/02-joins-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked answers, and the second bug in the broken query: eleven countries silently disappear</td></tr>
+      <tr><td class="path"><code>sessions/session-07/notebooks/03-stretch-exercise.ipynb</code></td><td><span class="pill pill--accent">stretch</span></td><td>Optional stretch questions, for when the live exercise finishes early</td></tr>
+      <tr><td class="path"><code>sessions/session-07/notebooks/03-stretch-solved.ipynb</code></td><td><span class="pill">stretch answers</span></td><td>Worked versions, with the reasoning written out</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="s08">Session 08 · Data</h2>
+<div class="note track-data">
+  <h4>pandas</h4>
+  <p><strong>Goal:</strong> the questions from sessions 6 and 7, answered in Python. They leave able to read a SQL query and write its pandas twin, and to say when they would reach for which.</p>
+  <p class="files"><a href="../sessions/session-08/">Folder <code>sessions/session-08/</code></a> ·
+    <a href="../sessions/session-08/README.md">Run sheet</a> ·
+    <a href="session-08.html">Slides (23)</a> ·
+    <a href="../sessions/session-08/homework/README.md">Homework</a></p>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Notebook</th><th>Kind</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td class="path"><code>sessions/session-08/notebooks/01-dataframes.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>From a list of dicts to a DataFrame, the first looks, columns, masks and the brackets trap, sorting, <code>value_counts</code>, <code>groupby</code>, <code>read_sql</code>, <code>merge</code>. Ends with a SQL-to-pandas table</td></tr>
+      <tr><td class="path"><code>sessions/session-08/notebooks/02-sql-and-pandas.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>The four queries side by side with <code>assert</code>s, the fan-out diagnosis, the fake fixes, the real fix, <code>validate</code>, and when SQL versus pandas</td></tr>
+      <tr><td class="path"><code>sessions/session-08/notebooks/03-joins-in-pandas-exercise.ipynb</code></td><td><span class="pill pill--accent">exercise</span></td><td>The live exercise</td></tr>
+      <tr><td class="path"><code>sessions/session-08/notebooks/03-joins-in-pandas-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked answers, including the second bug: 25 countries become 14</td></tr>
+      <tr><td class="path"><code>sessions/session-08/notebooks/04-answers-in-pandas-homework.ipynb</code></td><td><span class="pill pill--teal">homework</span></td><td>Homework: the ten session 6 questions</td></tr>
+      <tr><td class="path"><code>sessions/session-08/notebooks/04-answers-in-pandas-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked answers, the traps marked, and a verdict on which was easier</td></tr>
+      <tr><td class="path"><code>sessions/session-08/notebooks/05-stretch-exercise.ipynb</code></td><td><span class="pill pill--accent">stretch</span></td><td>Optional stretch exercises, for when the live exercise finishes early</td></tr>
+      <tr><td class="path"><code>sessions/session-08/notebooks/05-stretch-solved.ipynb</code></td><td><span class="pill">stretch answers</span></td><td>Worked versions, with the reasoning written out</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="s09">Session 09 · Data</h2>
+<div class="note track-data">
+  <h4>Cleaning and visualization</h4>
+  <p><strong>Goal:</strong> turn a deliberately messy file into a chart that answers a question, and a learner who can say how much each cleaning decision moved the answer.</p>
+  <p class="files"><a href="../sessions/session-09/">Folder <code>sessions/session-09/</code></a> ·
+    <a href="../sessions/session-09/README.md">Run sheet</a> ·
+    <a href="session-09.html">Slides (24)</a> ·
+    <a href="../sessions/session-09/homework/README.md">Homework</a></p>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Notebook</th><th>Kind</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td class="path"><code>sessions/session-09/notebooks/01-cleaning.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>Every kind of damage found and fixed, the ledger, the zero count, and the comparison with the clean file</td></tr>
+      <tr><td class="path"><code>sessions/session-09/notebooks/02-charts.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>One question, one chart: answer titles, <code>:.1f</code> labels, bar or line, the misleading axis, saving a PNG</td></tr>
+      <tr><td class="path"><code>sessions/session-09/notebooks/03-cleaning-functions-exercise.ipynb</code></td><td><span class="pill pill--accent">exercise</span></td><td>The live exercise</td></tr>
+      <tr><td class="path"><code>sessions/session-09/notebooks/03-cleaning-functions-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked version, with the usual wrong numbers and what causes each</td></tr>
+      <tr><td class="path"><code>sessions/session-09/notebooks/04-decisions-homework.ipynb</code></td><td><span class="pill pill--teal">homework</span></td><td>The homework: decision diary and one chart</td></tr>
+      <tr><td class="path"><code>sessions/session-09/notebooks/04-decisions-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked version, including a chart whose honest title is "neck and neck"</td></tr>
+      <tr><td class="path"><code>sessions/session-09/notebooks/05-stretch-exercise.ipynb</code></td><td><span class="pill pill--accent">stretch</span></td><td>Optional stretch exercises, for when the live exercise finishes early</td></tr>
+      <tr><td class="path"><code>sessions/session-09/notebooks/05-stretch-solved.ipynb</code></td><td><span class="pill">stretch answers</span></td><td>Worked versions, with the reasoning written out</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="s10">Session 10 · Build</h2>
+<div class="note track-build">
+  <h4>Putting it together</h4>
+  <p><strong>Goal:</strong> turn notebook work into a script that runs from one command, from any folder, in its own environment. And leave with the <code>project/</code> scaffold that sessions 11 and 12 build on.</p>
+  <p class="files"><a href="../sessions/session-10/">Folder <code>sessions/session-10/</code></a> ·
+    <a href="../sessions/session-10/README.md">Run sheet</a> ·
+    <a href="session-10.html">Slides (22)</a> ·
+    <a href="../sessions/session-10/homework/README.md">Homework</a></p>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Notebook</th><th>Kind</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td class="path"><code>sessions/session-10/notebooks/01-notebook-to-script.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>The walkthrough. Builds the genre pipeline one checked function at a time, imports it to show <code>__name__</code>, runs it from three folders, and checks the total against <code>music.db</code></td></tr>
+      <tr><td class="path"><code>sessions/session-10/notebooks/02-device-pipeline-exercise.ipynb</code></td><td><span class="pill pill--accent">exercise</span></td><td>The live exercise: the same restructuring, function by function, with the checks ready</td></tr>
+      <tr><td class="path"><code>sessions/session-10/notebooks/02-device-pipeline-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked version, including why the top row is not a device, and the tablet that goes from last to first</td></tr>
+      <tr><td class="path"><code>sessions/session-10/notebooks/03-monthly-homework.ipynb</code></td><td><span class="pill pill--teal">homework</span></td><td>Homework 1, importing today's pipeline instead of copying it</td></tr>
+      <tr><td class="path"><code>sessions/session-10/notebooks/03-monthly-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked version: the summer dip, line versus bar, and why the axis starts at zero</td></tr>
+      <tr><td class="path"><code>sessions/session-10/notebooks/04-stretch-exercise.ipynb</code></td><td><span class="pill pill--accent">stretch</span></td><td>Optional stretch exercises, for when the live exercise finishes early</td></tr>
+      <tr><td class="path"><code>sessions/session-10/notebooks/04-stretch-solved.ipynb</code></td><td><span class="pill">stretch answers</span></td><td>Worked versions, with the reasoning written out</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="s11">Session 11 · Build</h2>
+<div class="note track-build">
+  <h4>Project scoping and setup</h4>
+  <p><strong>Goal:</strong> a question small enough to finish, written down with its must, should and could, and their own data running through <code>project/pipeline.py</code> before they leave. Rough is fine. Running is not optional.</p>
+  <p class="files"><a href="../sessions/session-11/">Folder <code>sessions/session-11/</code></a> ·
+    <a href="../sessions/session-11/README.md">Run sheet</a> ·
+    <a href="session-11.html">Slides (20)</a> ·
+    <a href="../sessions/session-11/homework/README.md">Homework</a></p>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Notebook</th><th>Kind</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td class="path"><code>sessions/session-11/notebooks/01-scoping-a-question.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>The walkthrough: the five-minute first look, the one-number test on the worked example, the check that the table adds up, the minutes-versus-share decision, a rough chart, and the same code shaped as load / clean / analyse / save</td></tr>
+      <tr><td class="path"><code>sessions/session-11/notebooks/02-first-run-exercise.ipynb</code></td><td><span class="pill pill--accent">exercise</span></td><td>The live exercise, part 2: read your own file (with the semicolon / decimal comma / encoding traps from Dutch Excel), first look, one number, one assert, then the six steps into <code>project/pipeline.py</code></td></tr>
+      <tr><td class="path"><code>sessions/session-11/notebooks/02-first-run-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>The same done on the worked example, with the first-look notes and the pipeline steps as they actually went</td></tr>
+      <tr><td class="path"><code>sessions/session-11/notebooks/03-milestone-1-homework.ipynb</code></td><td><span class="pill pill--teal">homework</span></td><td>Homework: logged cleaning steps, a <code>find_problems</code> function that returns a list, the must output checked two ways, and how to move it all into the pipeline</td></tr>
+      <tr><td class="path"><code>sessions/session-11/notebooks/03-milestone-1-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked version, including <code>find_problems</code> run on the session 9 messy file to show it failing properly (five problems, each with a count)</td></tr>
+      <tr><td class="path"><code>sessions/session-11/notebooks/04-stretch-exercise.ipynb</code></td><td><span class="pill pill--accent">stretch</span></td><td>Optional stretch: the Spotify route, on a practice export</td></tr>
+      <tr><td class="path"><code>sessions/session-11/notebooks/04-stretch-solved.ipynb</code></td><td><span class="pill">stretch answers</span></td><td>Worked versions, with the reasoning written out</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="s12">Session 12 · Build</h2>
+<div class="note track-build">
+  <h4>Presentation, review and what is next</h4>
+  <p><strong>Goal:</strong> they present their project and defend its numbers, review code by reading diffs, handle the errors they can predict without hiding the ones they cannot, turn their <code>assert</code> lines into tests, and leave with two first steps that have dates on them.</p>
+  <p class="files"><a href="../sessions/session-12/">Folder <code>sessions/session-12/</code></a> ·
+    <a href="../sessions/session-12/README.md">Run sheet</a> ·
+    <a href="session-12.html">Slides (21)</a> ·
+    <a href="../sessions/session-12/homework/README.md">Homework</a></p>
+  <p>Homework is the week after the course: tests for your project, starting from <code>homework/test_pipeline_starter.py</code>.</p>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Notebook</th><th>Kind</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td class="path"><code>sessions/session-12/notebooks/01-try-except.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>The empty list on real data, <code>try</code> / <code>except</code>, the bare-except typo, <code>if</code> versus <code>try</code>, <code>ValueError</code> on the messy minutes (2,033 numbers, 190 not), and catching <code>FileNotFoundError</code> in the outer layer</td></tr>
+      <tr><td class="path"><code>sessions/session-12/notebooks/02-pytest.ipynb</code></td><td><span class="pill">walkthrough</span></td><td>Tests as functions, a ten-line test runner, the <code>best = 0</code> bug caught twice, then real <code>pytest</code> on the demo files, and how to set it up in <code>project/</code></td></tr>
+      <tr><td class="path"><code>sessions/session-12/notebooks/03-robust-exercise.ipynb</code></td><td><span class="pill pill--accent">exercise</span></td><td>The live exercise: <code>safe_highest</code>, <code>to_minutes</code>, <code>summary_line</code>, then their tests</td></tr>
+      <tr><td class="path"><code>sessions/session-12/notebooks/03-robust-solved.ipynb</code></td><td><span class="pill">answers</span></td><td>Worked version: <code>to_minutes</code> recovers 2,129 values and leaves the 94 empty ones missing</td></tr>
+      <tr><td class="path"><code>sessions/session-12/notebooks/04-stretch-exercise.ipynb</code></td><td><span class="pill pill--accent">stretch</span></td><td>Optional stretch exercises</td></tr>
+      <tr><td class="path"><code>sessions/session-12/notebooks/04-stretch-solved.ipynb</code></td><td><span class="pill">stretch answers</span></td><td>Worked versions, with the reasoning written out</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
+</footer>
+
+</div>
+<script>
+(function () {
+  var KEY = "pycourse-theme";
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved) root.dataset.theme = saved;
+  } catch (e) { /* private browsing */ }
+
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var next = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = next;
+    try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
+  });
+})();
+</script>
+</body>
+</html>

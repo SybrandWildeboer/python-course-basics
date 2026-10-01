@@ -14,19 +14,19 @@
   <div>
     <div class="session-no">Session 09 of 12</div>
     <h1>Cleaning and visualization</h1>
-    <p class="goal">Turn a deliberately broken file into a chart that answers a question. The
-      most realistic session in the course.</p>
+    <p class="goal">Turn a deliberately messy file into a chart that answers a question, and
+      see how every cleaning decision changes the answer.</p>
     <div class="meta">
       <span class="pill pill--accent">2 hours</span>
-      <span class="pill">missing values, types, duplicates</span>
-      <span class="pill">matplotlib</span>
-      <span class="pill pill--rose">every fix is a decision</span>
+      <span class="pill">types, text, dates, missing values</span>
+      <span class="pill pill--rose">every decision changes the answer</span>
+      <span class="pill pill--teal">matplotlib</span>
     </div>
   </div>
   <aside class="notes">
-    <p>Everything so far has used clean data, which was a kindness rather than realism. Say
-    that at the start: cleaning is most of real data work, and this is the session that looks
-    most like the job.</p>
+    <p>The headline lesson is not any one pandas method. It is that cleaning is a series of
+    decisions, each one moves the numbers, and you should be able to say by how much. Keep
+    coming back to the ledger on slide 13.</p>
   </aside>
 </section>
 
@@ -35,729 +35,987 @@
   <h2>Homework review</h2>
   <div class="cols">
     <div class="card card--teal">
-      <div class="card-title"><span class="dot"></span>Five questions, answered twice</div>
-      <p>Did any pair of answers disagree? If so, which one was right, and why?</p>
-      <p class="nomargin">Question 4, the artists never played, is the one to check. It needs
-        a left join in both languages, because the answer is made entirely of rows with no
-        match.</p>
+      <div class="card-title"><span class="dot"></span>Your session 6 answers, in pandas</div>
+      <p>Did any of the ten disagree with your own <code>answers.sql</code>? Which one was
+        wrong, and how did you find out?</p>
+      <p class="nomargin">Question 3 is the one to look at first: <code>== None</code> finds
+        nothing in pandas, exactly as <code>= NULL</code> did in SQL.</p>
     </div>
     <div class="card card--amber">
-      <div class="card-title"><span class="dot"></span>The awkward one</div>
-      <p>How did the SQL version feel next to the pandas version?</p>
-      <p class="nomargin">The honest answer is that the aggregation was fine in both, and
-        getting the artist's <em>name</em> out was the fiddly part in SQL. Awkwardness moves
-        around; it does not live in one tool.</p>
+      <div class="card-title"><span class="dot"></span>The verdict</div>
+      <p>Which questions were easier in SQL, which in pandas, and which made no difference?</p>
+      <p class="nomargin">There is no right answer. A reason is what makes it a good
+        answer.</p>
     </div>
   </div>
   <div class="callout callout--key mt" style="margin-bottom:0">
     <span class="ico">◆</span>
     <div>
-      <p class="nomargin">One habit to carry into today: <code>.mean()</code> on a column of
-        0s and 1s gives you the rate directly. We will use that on missing values in about
-        twenty minutes.</p>
+      <p class="nomargin">Everything so far ran on a clean file. Today the file is damaged,
+        and the same family of problem comes back in a new form: <strong>a confident answer
+        to a question you did not quite ask.</strong></p>
     </div>
   </div>
   <aside class="notes">
-    <p>If they did not finish task 2, that is entirely fine. It was chosen to be a little out
-    of reach.</p>
+    <p>The session 8 homework hides three traps: question 3 (<code>== None</code>),
+    question 10 (a winner by one play) and question 9 (SQL threw the fraction away, Python
+    does not). If they found all three, say so; if not, find one together.</p>
   </aside>
 </section>
 
-<section class="slide slide--section" data-title="Section: Cleaning">
+<section class="slide slide--section" data-title="Section: The messy file">
   <div>
-    <div class="marker">Part one · the first hour</div>
-    <h2>Cleaning</h2>
-    <p>The part of the job nobody puts in the job description.</p>
+    <div class="marker">Part one</div>
+    <h2>The same log, exported badly</h2>
+    <p>Every kind of damage in this file is one you will meet in real data within a month.</p>
   </div>
 </section>
 
-<section class="slide" data-title="Why this matters">
-  <div class="eyebrow">Setting expectations</div>
-  <h2>This is most of the work, and it is not a detour</h2>
+<section class="slide" data-title="Look before you touch">
+  <div class="eyebrow">Step one, always</div>
+  <h2>Look before you touch</h2>
   <div class="cols cols-wide-left">
-    <div class="stack">
-      <p class="tight">Every dataset you have been given so far was clean, which is not what
-        data is like. Real files have missing values, three spellings of the same word, dates
-        in two formats, numbers stored as text, and rows that appear twice.</p>
-      <p class="nomargin">People who work with data spend most of their time here. It is not
-        the boring bit before the interesting bit. <strong>It is where the answers get
-        decided</strong>, because what you do about a gap changes the number you report.</p>
-    </div>
+    <figure class="code">
+      <figcaption>01-cleaning.ipynb</figcaption>
+      <pre class="sm"><code data-lang="python">df = pd.read_csv("data/messy/plays_messy.csv")
+
+df.shape
+# (2223, 9)          the clean log has 2183
+
+df.columns.tolist()
+# [..., 'skipped', 'minutes played ']
+
+df["minutes played "].dtype
+# dtype('O')         O for object: text
+
+df["minutes played "].sum()
+# TypeError: can only concatenate str
+#            (not "int") to str</code></pre>
+    </figure>
     <div class="stack">
       <div class="card card--rose card--compact">
-        <h4>The one thing to take from today</h4>
-        <p class="nomargin"><strong>Every cleaning step is a decision, not a rule.</strong>
-          Dropping rows with no duration and filling them with the average give different
-          answers. Neither is wrong. What is wrong is not noticing you chose.</p>
+        <h4>Forty rows too many</h4>
+        <p class="nomargin">2,223 against 2,183. Something has been added, and every count
+          and total is wrong until you know what.</p>
       </div>
-      <div class="card card--teal card--compact">
-        <p class="nomargin">So: write down what you did and why. Your future self will want
-          it, and so will anybody who has to trust your number.</p>
+      <div class="card card--accent card--compact">
+        <h4>A column name with spaces in it</h4>
+        <p class="nomargin"><code>'minutes played '</code>: one space in the middle, one at
+          the end. <code>tolist()</code> prints the quotes, and the quotes are the only way
+          to see the second one.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">And the minutes are text, so the first question anyone asks, the
+          total, does not even run. Session 4 had the same error from
+          <code>DictReader</code>.</p>
       </div>
     </div>
   </div>
   <aside class="notes">
-    <p>Do not let this become gloomy. The framing that lands is that cleaning is where the
-    judgement lives, which makes it the interesting part rather than the chore.</p>
+    <p>Let them run <code>df.head()</code> and <code>df.info()</code> themselves and call out
+    what looks wrong before you show this slide. Most people spot the capitals and the dates
+    in the first five rows. Very few spot the trailing space.</p>
   </aside>
 </section>
 
-<section class="slide" data-title="Meet the mess">
-  <div class="eyebrow">Do it now</div>
-  <h2>Meet the mess</h2>
-  <div class="cols">
-    <figure class="code">
-      <figcaption>first look</figcaption>
-      <pre class="sm"><code data-lang="python">messy = pd.read_csv("data/messy/plays_messy.csv")
-
-messy.shape        # (2223, 9)  ...was 2183
-messy.info()
-messy.isna().sum()</code></pre>
-    </figure>
-    <figure class="code out">
-      <figcaption>isna().sum()</figcaption>
-      <pre class="sm"><code data-lang="text">play_id             0
-played_at           0
-artist_name         0
-track_name          0
-genre              36
-country            49
-device             70
-skipped             0
-minutes played     94</code></pre>
-    </figure>
-  </div>
-  <div class="callout callout--warn" style="margin-bottom:0">
-    <span class="ico">▲</span>
-    <div>
-      <h4>Two things are already wrong, and one is invisible</h4>
-      <p class="nomargin"><strong>2,223 rows</strong>, when the clean file has 2,183. And look
-        at the last column name: <code>minutes played </code>. A space instead of an
-        underscore, <em>and a trailing space</em>. <code>df["minutes_played"]</code> raises a
-        <code>KeyError</code> and you will stare at it for a while.</p>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>Have them type df["minutes_played"] and hit the KeyError, then df.columns.tolist() to
-    see the real name with the space. It is a five-minute confusion the first time it happens
-    for real.</p>
-  </aside>
-</section>
-
-<section class="slide" data-title="Finding problems">
-  <div class="eyebrow">Diagnose before you fix</div>
-  <h2><code>value_counts()</code> on every category</h2>
-  <div class="cols">
-    <figure class="code">
-      <figcaption>what is actually in there</figcaption>
-      <pre class="sm"><code data-lang="python">messy["genre"].value_counts(dropna=False)</code></pre>
-    </figure>
-    <figure class="code out">
-      <figcaption>output, trimmed</figcaption>
-      <pre class="xs"><code data-lang="text">Electronic      353
-Folk            284
-Pop             183
-...
-ELECTRONIC       97
-FOLK             70
-POP              61
-electronic       58
-folk             48
-NaN              36
-  Electronic     35
-  Folk           33
-AFROBEAT         33
-...</code></pre>
-      </figure>
-  </div>
-  <div class="callout callout--key" style="margin-bottom:0">
-    <span class="ico">◆</span>
-    <div>
-      <p class="nomargin"><strong>Four spellings of Electronic:</strong>
-        <code>Electronic</code>, <code>ELECTRONIC</code>, <code>electronic</code>, and
-        <code>"  Electronic "</code> with spaces around it. To pandas those are four
-        completely different genres, so every <code>groupby("genre")</code> you have written
-        would silently split them into four rows.</p>
-    </div>
-  </div>
+<section class="slide" data-title="The damage">
+  <div class="eyebrow">Find all of it before fixing any of it</div>
+  <h2>The inventory</h2>
+  <table class="sm">
+    <tr><th>Damage</th><th>Where</th><th>How much</th><th>Fix</th></tr>
+    <tr><td>Spaces in a column name</td><td><code>minutes played </code></td><td>1 column</td>
+      <td><code>rename</code></td></tr>
+    <tr><td>Capitals and stray spaces</td><td><code>device</code>, <code>genre</code></td>
+      <td>20 spellings of 5 devices, 32 of 8 genres</td>
+      <td><code>.str.strip().str.lower()</code></td></tr>
+    <tr><td>Text in a number column</td><td><code>minutes played </code></td>
+      <td>96 end in <code>" min"</code></td><td>clean the text, then <code>pd.to_numeric</code></td></tr>
+    <tr><td>Dates written three ways</td><td><code>played_at</code></td>
+      <td>1,793 ISO, 310 with <code>/</code>, 120 with <code>-</code></td>
+      <td>each format, on purpose</td></tr>
+    <tr><td>The text <code>NA</code></td><td><code>country</code></td><td>49 rows</td>
+      <td>decide: Namibia, or missing?</td></tr>
+    <tr><td>Empty cells</td><td>genre, device, minutes</td><td>36, 70, 94</td>
+      <td>fill, label, or leave</td></tr>
+    <tr><td>Exact copies</td><td>whole rows</td><td>40 rows</td>
+      <td><code>drop_duplicates</code></td></tr>
+  </table>
   <div class="callout callout--tip" style="margin-bottom:0">
     <span class="ico">◆</span>
     <div>
-      <p class="nomargin">This is the habit from session 6's <code>DISTINCT</code> slide,
-        arriving where it matters. <strong>Run <code>value_counts(dropna=False)</code> on
-        every categorical column of any new dataset.</strong> It takes ten seconds and it is
-        how you find this.</p>
+      <p class="nomargin">Three tools find nearly all of it: <code>info()</code> for types and
+        gaps, <code>value_counts(dropna=False)</code> on every text column, and
+        <code>duplicated().sum()</code>. Run them on any new file before asking it a single
+        question.</p>
     </div>
   </div>
   <aside class="notes">
-    <p>dropna=False matters: without it the NaN row is hidden, and the missing values are
-    exactly what you are looking for.</p>
+    <p>The numbers here are for the file as loaded with a plain <code>read_csv</code>, all
+    2,223 rows. Build this table with them on the whiteboard rather than revealing it: ask
+    "what else?" until they run out, then fill the gaps.</p>
+    <p>The generator can also write thousands with a space, like 1 234.50, but no play in
+    this log lasts 1,000 minutes, so it never appears. Mention it only if asked.</p>
   </aside>
 </section>
 
-<section class="slide" data-title="Cleaning text">
-  <div class="eyebrow">Fix 1 and 2</div>
-  <h2>Renaming, and cleaning text</h2>
+<section class="slide" data-title="Names and text">
+  <div class="eyebrow">Fixes 1 and 2</div>
+  <h2><code>phone</code>, <code>PHONE</code> and <code>phone </code> are three words</h2>
   <div class="cols">
     <figure class="code">
-      <figcaption>cleaning.py</figcaption>
-      <pre class="sm"><code data-lang="python"># the column name with the trailing space
-df = messy.rename(
-    columns={"minutes played ": "minutes_played"}
-)
+      <figcaption>01-cleaning.ipynb</figcaption>
+      <pre class="sm"><code data-lang="python">df = df.rename(columns={"minutes played ":
+                        "minutes_played"})
 
-# strip whitespace from every text column
-for column in ["artist_name", "track_name",
-               "genre", "country", "device"]:
-    df[column] = df[column].str.strip()
+(df["device"] == "phone").sum()      # 799
 
-# then settle on ONE capitalisation
-df["genre"] = df["genre"].str.title()
-df["device"] = df["device"].str.lower()
+df["device"] = df["device"].str.strip().str.lower()
+df["genre"] = df["genre"].str.strip().str.title()
 
-df["genre"].value_counts(dropna=False)
-# 8 genres, as it should be</code></pre>
+(df["device"] == "phone").sum()      # 1024
+
+df["device"].value_counts(dropna=False)</code></pre>
+    </figure>
+    <div class="stack">
+      <figure class="code out" style="margin-bottom:0">
+        <figcaption>output</figcaption>
+        <pre class="xs"><code data-lang="out">device
+phone      1024
+laptop      515
+speaker     333
+car         177
+tablet      104
+NaN          70</code></pre>
+      </figure>
+      <div class="card card--compact card--accent">
+        <p class="nomargin"><code>.str</code> gives you the text methods from session 1,
+          applied to every row at once. One line, and the phone count goes up by 225.</p>
+      </div>
+      <div class="card card--compact card--rose">
+        <p class="nomargin"><code>value_counts()</code> leaves out missing values unless you
+          say <code>dropna=False</code>. Without it, 70 plays silently vanish from the
+          table.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Session 6 promised this moment. Point back to it: "phone and PHONE is what
+    session 9 is about." (In this file it is phone, PHONE and "phone " with a trailing
+    space.)</p>
+    <p>The trailing space in <code>"minutes played "</code> is invisible to
+    <code>print</code>. <code>print(repr(df.columns[-1]))</code> shows the quotes, and the space
+    before the closing one. It is the tool for any value that "is obviously right" and still
+    does not match.</p>
+    <p>The bug of the day is forgetting <code>df = </code> or <code>df["device"] = </code>.
+    Nearly every pandas method returns a new object. When "my fix did nothing", that is
+    why.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Numbers as text">
+  <div class="eyebrow">Fix 3</div>
+  <h2><code>errors="coerce"</code> never complains, so you have to</h2>
+  <div class="compare">
+    <div>
+      <span class="label">convert straight away</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="python">straight = pd.to_numeric(df["minutes_played"],
+                         errors="coerce")
+straight.isna().sum()      # 190
+straight.sum()             # 8333.2</code></pre>
+      </figure>
+    </div>
+    <div>
+      <span class="label">clean the text first, then convert</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="python">text = df["minutes_played"].str.replace(" min", "")
+fixed = pd.to_numeric(text, errors="coerce")
+fixed.isna().sum()         # 94, the real blanks
+fixed.sum()                # 8769.9</code></pre>
+      </figure>
+    </div>
+  </div>
+  <div class="cols mt">
+    <div class="card card--compact card--rose">
+      <p class="nomargin"><code>coerce</code> turns anything it cannot read into
+        <code>NaN</code>. The column had 94 empty cells; the straight conversion made 190.
+        The other 96 were good numbers like <code>"4.4 min"</code>, thrown away without a
+        word. That is 436.7 minutes.</p>
+    </div>
+    <div class="card card--compact card--teal">
+      <p class="nomargin"><strong>The rule:</strong> count the missing values before and
+        after. If the number went up, find out why before you go on. In the notebook an
+        <code>assert</code> does it: <code>fixed.isna().sum() == 94</code>.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This is the first number on the ledger that moves for a reason the learner chose.
+    Make them say both totals out loud. 8,333.2 looks just as plausible as 8,769.9, and that
+    is the problem.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Dates: guessing">
+  <div class="eyebrow">Fix 4, part one</div>
+  <h2>The error that helps, and the silence that does not</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>01-cleaning.ipynb</figcaption>
+        <pre class="sm"><code data-lang="python">pd.to_datetime(dates)
+# ValueError: time data "2025-08-16" doesn't
+# match format "%d-%m-%Y", at position 1.
+
+guessed = pd.to_datetime(dates, format="mixed")
+# no error, every row parsed</code></pre>
+      </figure>
+      <table class="sm">
+        <tr><th>Written</th><th><code>"mixed"</code> says</th><th>Really</th></tr>
+        <tr><td><code>03/09/2025</code></td><td>9 March</td><td>3 September</td></tr>
+        <tr><td><code>06/07/2024</code></td><td>7 June</td><td>6 July</td></tr>
+        <tr><td><code>10-01-2025</code></td><td>1 October</td><td>10 January</td></tr>
+      </table>
+    </div>
+    <div class="stack">
+      <div class="card card--compact card--teal">
+        <h4>The <code>ValueError</code> is a good error</h4>
+        <p class="nomargin">pandas guessed the format from the first row, met a row that did
+          not fit, and stopped. Loud and honest.</p>
+      </div>
+      <div class="card card--compact card--rose">
+        <h4><code>format="mixed"</code> gets 159 dates wrong</h4>
+        <p class="nomargin">It reads <code>03/09/2025</code> month first, the American way.
+          It only gets <code>16/08/2024</code> right because there is no 16th month.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">430 European dates. 174 have a day of 12 or less, so they fit
+          either way round. 15 of those have the same day and month. 174 − 15 = 159.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do the arithmetic with them. It is the same habit as the fan-out row count in
+    session 7: do not trust a number until you can explain it from smaller numbers.</p>
+    <p>The error message itself suggests <code>format="mixed"</code>. That is worth
+    pointing out: following a helpful suggestion is exactly how silent bugs get in.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Dates: deliberately">
+  <div class="eyebrow">Fix 4, part two</div>
+  <h2>Parse each format on purpose</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>01-cleaning.ipynb</figcaption>
+      <pre class="sm"><code data-lang="python">parsed = pd.to_datetime(dates, format="%Y-%m-%d",
+                        errors="coerce")
+parsed = parsed.fillna(
+    pd.to_datetime(dates, format="%d/%m/%Y", errors="coerce"))
+parsed = parsed.fillna(
+    pd.to_datetime(dates, format="%d-%m-%Y", errors="coerce"))
+
+assert parsed.isna().sum() == 0
+
+(guessed != parsed).sum()      # 159
+df["played_at"] = parsed</code></pre>
     </figure>
     <div class="stack">
       <div class="card card--compact card--accent">
-        <h4><code>.str</code> is how you reach the text</h4>
-        <p class="nomargin">A whole column at a time.
-          <code>.str.strip()</code>, <code>.str.lower()</code>,
-          <code>.str.title()</code>, <code>.str.replace()</code>,
-          <code>.str.contains()</code>. They are the ordinary string methods,
-          applied to every value.</p>
+        <h4>How it works</h4>
+        <p class="nomargin">Each line tries one format. Rows it does not fit become
+          <code>NaT</code>, "not a time", and the next line fills only those gaps. The
+          <code>assert</code> proves every row was read by one of the three.</p>
       </div>
       <div class="callout callout--warn" style="margin-bottom:0">
         <span class="ico">▲</span>
         <div>
-          <p class="nomargin"><strong>Strip before you compare, always.</strong>
-            <code>" Pop "</code> and <code>"Pop"</code> are different strings, and the
-            difference is invisible on screen. It is the single most annoying bug in this
-            whole area.</p>
+          <h4>Why dates matter most</h4>
+          <p class="nomargin">A wrong <code>"PHONE"</code> shows up in the first
+            <code>value_counts()</code>. A wrong date looks exactly like a right date. Play
+            645, the 3rd of August 2024, lands in March, and no total anywhere looks
+            odd.</p>
         </div>
       </div>
     </div>
   </div>
   <aside class="notes">
-    <p>.str.title() on "hip-hop" gives "Hip-Hop", which may or may not be what they want.
-    Mention that the choice of which capitalisation to standardise on is itself a decision.</p>
+    <p>The counts are 1,793 ISO, 310 with slashes and 120 with dashes, which add up to all
+    2,223 rows. Checking that the patterns cover every row is part of doing it
+    deliberately.</p>
   </aside>
 </section>
 
-<section class="slide" data-title="Fixing types">
-  <div class="eyebrow">Fix 3</div>
-  <h2>Numbers that arrived as text</h2>
+<section class="slide" data-title="NA">
+  <div class="eyebrow">Fix 5</div>
+  <h2><code>NA</code>: Namibia, or missing?</h2>
   <div class="cols">
     <figure class="code">
-      <figcaption>the damage, and the fix</figcaption>
-      <pre class="sm"><code data-lang="python">df["minutes_played"].head()
-# '4.65', '6.91 min', '1 234.50', ''
+      <figcaption>01-cleaning.ipynb</figcaption>
+      <pre class="sm"><code data-lang="python">df["country"].isna().sum()             # 49
 
-df["minutes_played"] = (
-    df["minutes_played"]
-    .str.replace(" min", "", regex=False)
-    .str.replace(" ", "", regex=False)
-)
+as_written = pd.read_csv(MESSY, keep_default_na=False)
+(as_written["country"] == "NA").sum()  # 49
 
-df["minutes_played"] = pd.to_numeric(
-    df["minutes_played"], errors="coerce"
-)
+"Namibia" in artists["country"].values # False
 
-df["minutes_played"].isna().sum()      # 94</code></pre>
+# every artist has one country: borrow it
+lookup = (df.dropna(subset=["country"])
+            .groupby("artist_name")["country"].first())
+df["country"] = df["country"].fillna(
+    df["artist_name"].map(lookup))</code></pre>
     </figure>
     <div class="stack">
-      <div class="card card--compact card--accent">
-        <h4><code>errors="coerce"</code> is the important bit</h4>
-        <p class="nomargin">Anything it cannot read becomes <code>NaN</code> instead of
-          stopping your program. That turns a crash into a countable problem, and counting it
-          is how you decide what to do next.</p>
+      <div class="card card--compact card--amber">
+        <h4>pandas decided for you</h4>
+        <p class="nomargin">The text <code>NA</code>, an empty cell, <code>N/A</code>,
+          <code>null</code> and a few others all become missing on a plain
+          <code>read_csv</code>. Usually helpful. A disaster if <code>NA</code> is a
+          country code.</p>
       </div>
       <div class="card card--compact card--teal">
-        <p class="nomargin">The related tools: <code>.astype(int)</code> when you are
-          certain, <code>pd.to_numeric</code> when you are not, and
-          <code>pd.to_datetime</code> for dates, which is the next slide and is worse than it
-          looks.</p>
+        <h4>Here it means missing, and we checked</h4>
+        <p class="nomargin">No artist is from Namibia, and the 23 artists with an
+          <code>NA</code> have their real country on their other plays. So it can be filled,
+          from the file itself.</p>
       </div>
       <div class="card card--compact card--plain">
-        <p class="nomargin">Always check <code>.isna().sum()</code> after a conversion. If it
-          jumped, your cleaning just created missing values.</p>
+        <p class="nomargin"><code>.map(lookup)</code> is the lookup dictionary from the
+          session 4 stretch. The same trick fills the 36 blank genres.</p>
       </div>
     </div>
   </div>
   <aside class="notes">
-    <p>Without errors="coerce" this raises and stops. With it, you get a number you can act
-    on. That difference is worth spelling out: coerce converts a blocking error into
-    information.</p>
-  </aside>
-</section>
-
-<section class="slide" data-title="The date trap">
-  <div class="eyebrow">Fix 4 · the one that matters</div>
-  <h2>The convenient way to parse dates is silently wrong</h2>
-  <div class="cols">
-    <div class="stack">
-      <figure class="code" style="margin-bottom:0">
-        <figcaption>three formats in one column</figcaption>
-        <pre class="xs"><code data-lang="text">2025-08-16      1793 rows
-16/08/2024       310 rows
-25-12-2025       120 rows</code></pre>
-      </figure>
-      <figure class="code" style="margin-bottom:0">
-        <figcaption>the one-liner everybody reaches for</figcaption>
-        <pre class="sm"><code data-lang="python">df["played_at"] = pd.to_datetime(
-    df["played_at"],
-    format="mixed",
-    dayfirst=True,
-)
-# runs fine. no warning. no error.</code></pre>
-      </figure>
-    </div>
-    <div class="stack">
-      <div class="callout callout--stop" style="margin-bottom:0">
-        <span class="ico">■</span>
-        <div>
-          <h4>It corrupts 628 of the 2,183 rows</h4>
-          <p class="nomargin"><code>dayfirst=True</code> is applied to <em>every</em> value,
-            including the ISO ones. <code>2025-09-06</code>, which is the 6th of September,
-            gets read as the 9th of June. <strong>29% of your dates are now wrong, and
-            nothing told you.</strong></p>
-        </div>
-      </div>
-      <figure class="code" style="margin-bottom:0">
-        <figcaption>parse each format on purpose</figcaption>
-        <pre class="sm"><code data-lang="python">raw = df["played_at"].str.strip()
-
-df["played_at"] = (
-    pd.to_datetime(raw, format="%Y-%m-%d",
-                   errors="coerce")
-    .fillna(pd.to_datetime(raw, format="%d/%m/%Y",
-                           errors="coerce"))
-    .fillna(pd.to_datetime(raw, format="%d-%m-%Y",
-                           errors="coerce"))
-)
-# 100% correct, checked against the clean file</code></pre>
-      </figure>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>This is the best slide in the session. The wrong version is more convenient, runs
-    without complaint, and produces a plausible date for every row. The only way to catch it
-    is to know the formats in your data and parse them deliberately.</p>
-    <p>The check that proves it: clean the messy file and compare play by play against
-    plays.csv. The notebook does exactly that.</p>
+    <p><code>keep_default_na=False</code> takes the decision back: text stays text and an
+    empty cell stays an empty string. That is what <code>load_messy</code> will use at the
+    end of the session, so the decisions are written down rather than guessed.</p>
+    <p>Before trusting the lookup, check its assumption: one country per artist. The
+    notebook asserts it.</p>
   </aside>
 </section>
 
 <section class="slide" data-title="Duplicates">
-  <div class="eyebrow">Fix 5</div>
-  <h2>Duplicates</h2>
-  <div class="cols cols-wide-left">
+  <div class="eyebrow">Fix 6</div>
+  <h2>Forty plays that never happened</h2>
+  <div class="cols">
     <figure class="code">
-      <figcaption>find, then remove</figcaption>
-      <pre class="sm"><code data-lang="python">df.duplicated().sum()          # 40
+      <figcaption>01-cleaning.ipynb</figcaption>
+      <pre class="sm"><code data-lang="python">df.duplicated().sum()                  # 40
+df.duplicated(subset="play_id").sum()  # 40
 
-# look at them before you delete anything
-df[df.duplicated(keep=False)].sort_values("play_id").head(6)
-
-before = len(df)
 df = df.drop_duplicates()
-print(before, "->", len(df))   # 2223 -> 2183
-
-# duplicated on SOME columns only
-df.duplicated(subset=["play_id"]).sum()</code></pre>
+len(df)                                # 2183</code></pre>
     </figure>
     <div class="stack">
+      <table class="sm">
+        <tr><th></th><th>Rows</th><th>Minutes</th><th>Phone plays</th></tr>
+        <tr><td>Before</td><td>2,223</td><td>8,769.9</td><td>1,024</td></tr>
+        <tr><td>After</td><td>2,183</td><td>8,608.0</td><td>1,004</td></tr>
+      </table>
       <div class="card card--compact card--accent">
-        <h4>Look before you delete</h4>
-        <p class="nomargin"><code>keep=False</code> shows you <em>all</em> copies rather than
-          just the extras, so you can see what is actually repeated. Sometimes two identical
-          rows are two real events.</p>
-      </div>
-      <div class="card card--compact card--teal">
-        <p class="nomargin">Here they are genuinely accidental: 40 rows copied during an
-          export, identical down to the <code>play_id</code>, which is supposed to be unique.
-          That last fact is what makes it safe to say they are duplicates.</p>
-      </div>
-      <div class="card card--compact card--plain">
-        <p class="nomargin">2,223 back to 2,183. The clean file has 2,183 rows, which is a
-          satisfying moment and a useful cross-check.</p>
+        <p class="nomargin"><code>duplicated()</code> marks a row <code>True</code> when an
+          identical row appeared above it. Checking <code>play_id</code> too is the stronger
+          test: a play should exist once, even if a copy was typed differently.</p>
       </div>
     </div>
   </div>
+  <div class="callout callout--key" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Duplicates move <strong>totals</strong> a lot and
+        <strong>rates</strong> hardly at all. The copies added 161.9 minutes, and the skip
+        rate only went from 11.9% to 11.8%. Which one you are reporting decides how much
+        this step matters.</p>
+    </div>
+  </div>
   <aside class="notes">
-    <p>The primary key argument matters: without a unique id, two identical rows might be two
-    real plays of the same track at the same time. Knowing the data is what tells you.</p>
+    <p>Before the <code>drop_duplicates</code>, the notebook looks:
+    <code>df[df.duplicated(keep=False)]</code> marks every row that has a twin, 80 here, so the
+    pairs show side by side. Look before you delete.</p>
+    <p>Here both checks say 40, so these are plain copies. In real exports they often are
+    not: the same order exported twice with a different timestamp. That is why checking the
+    id matters more than checking the whole row.</p>
   </aside>
 </section>
 
 <section class="slide" data-title="Missing values">
-  <div class="eyebrow">Fix 6 · the judgement call</div>
-  <h2>Missing values: drop, fill, or label?</h2>
-  <div class="cols-3">
-    <div class="card card--compact">
-      <div class="card-title"><span class="dot"></span>Drop the rows</div>
-      <figure class="code plain" style="margin:0 0 8px">
-        <pre class="xs"><code data-lang="python">df.dropna(
-  subset=["minutes_played"]
-)</code></pre>
+  <div class="eyebrow">Fix 7, the judgement call</div>
+  <h2>Three ways to handle a gap, three answers</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>94 plays with no minutes</figcaption>
+        <pre class="sm"><code data-lang="python">minutes.mean()             # 4.121  leave NaN
+minutes.dropna().mean()    # 4.121  drop them
+minutes.fillna(0).mean()   # 3.943  fill with 0
+
+len(df) - len(df.dropna()) # 159 rows gone
+
+df["device"] = df["device"].fillna("unknown")</code></pre>
       </figure>
-      <p class="nomargin">For the 94 plays with no duration. A play with no minutes cannot
-        answer a question about minutes.</p>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">pandas skips <code>NaN</code> when it adds up or averages, which
+          is why leaving and dropping agree.</p>
+      </div>
     </div>
-    <div class="card card--compact">
-      <div class="card-title"><span class="dot"></span>Fill with a value</div>
-      <figure class="code plain" style="margin:0 0 8px">
-        <pre class="xs"><code data-lang="python">df["minutes_played"].fillna(
-  df["minutes_played"].mean()
-)</code></pre>
-      </figure>
-      <p class="nomargin">Keeps every row and invents data. Defensible for a count, dishonest
-        for a total.</p>
-    </div>
-    <div class="card card--compact">
-      <div class="card-title"><span class="dot"></span>Label it</div>
-      <figure class="code plain" style="margin:0 0 8px">
-        <pre class="xs"><code data-lang="python">df["device"].fillna(
-  "unknown"
-)</code></pre>
-      </figure>
-      <p class="nomargin">For the 70 missing devices. Losing a whole play because nobody
-        recorded the device would be worse.</p>
-    </div>
-  </div>
-  <div class="callout callout--stop mt" style="margin-bottom:0">
-    <span class="ico">■</span>
-    <div>
-      <h4>These three give three different answers, and all three are defensible</h4>
-      <p class="nomargin">Drop the 94 and your total is 8,608 minutes. Fill them with the
-        average and it is about 8,995. Neither number is wrong. What would be wrong is
-        reporting one without knowing you chose it. <strong>Write the choice down.</strong></p>
+    <div class="stack">
+      <div class="card card--compact card--rose">
+        <h4><code>fillna(0)</code> is a claim</h4>
+        <p class="nomargin">It says 94 plays lasted no time at all. That is a different,
+          false statement, not a neutral placeholder.</p>
+      </div>
+      <div class="card card--compact card--rose">
+        <h4><code>dropna()</code> with no arguments is a blunt tool</h4>
+        <p class="nomargin">Any gap in any column drops the row: 159 plays, including 65
+          with perfectly good minutes that only lacked a device.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4>Recover, label, or leave</h4>
+        <p class="nomargin">Genre and country were recovered. Device gets a label of its own,
+          <code>"unknown"</code>. Minutes stay <code>NaN</code>, which is the number for
+          "nobody knows".</p>
+      </div>
     </div>
   </div>
   <aside class="notes">
-    <p>The two totals are the whole lesson of the session in one line. Put both on screen and
-    ask which they would report, and to whom.</p>
-    <p>A rule of thumb worth giving: drop when the missing value makes the row useless for
-    your question; label when the row is still useful; fill only when you can defend the
-    invented value out loud.</p>
+    <p>The session 4 stretch had this exact decision with the blank formed_year, and the
+    answer was a label of its own. Ask them which of the three they would choose before
+    showing the right-hand column.</p>
   </aside>
 </section>
 
-<section class="slide" data-title="The NA trap">
-  <div class="eyebrow">A trap worth knowing</div>
-  <h2>pandas decides some things are missing without asking</h2>
+<section class="slide" data-title="The ledger">
+  <div class="eyebrow">The lesson of the day</div>
+  <h2>Every decision moved the number</h2>
+  <table class="sm">
+    <tr><th>After this step</th><th>Rows</th><th>Total minutes</th><th>Phone plays</th></tr>
+    <tr><td>As loaded</td><td>2,223</td><td>cannot add up text</td><td>799</td></tr>
+    <tr><td><code>to_numeric</code> straight away</td><td>2,223</td><td>8,333.2</td><td>799</td></tr>
+    <tr><td>Strip <code>" min"</code> first</td><td>2,223</td><td>8,769.9</td><td>799</td></tr>
+    <tr><td>Strip and lower <code>device</code></td><td>2,223</td><td>8,769.9</td><td>1,024</td></tr>
+    <tr><td>Drop duplicates</td><td>2,183</td><td>8,608.0</td><td>1,004</td></tr>
+    <tr><td><strong>The clean file</strong></td><td>2,183</td><td>8,980.4</td><td>1,039</td></tr>
+  </table>
+  <div class="cols">
+    <div class="callout callout--stop" style="margin-bottom:0">
+      <span class="ico">■</span>
+      <div>
+        <p class="nomargin">The total went down, up, then down again. Stop at any row and
+          you have a confident, wrong answer, and nothing on screen says so.</p>
+      </div>
+    </div>
+    <div class="callout callout--key" style="margin-bottom:0">
+      <span class="ico">◆</span>
+      <div>
+        <p class="nomargin">The last row is a luxury real work never gives you. That is why
+          every step checks itself: missing values before and after, row counts, and
+          <code>value_counts()</code>.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This is the slide to photograph. If you are short of time, cut anything else in part
+    one, but show this.</p>
+    <p>The remaining gaps to the clean file are not cleaning failures: 372.4 minutes on
+    plays whose length was blanked, and 35 phone plays whose device was blanked. Slide 15
+    proves it.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="A count of zero">
+  <div class="eyebrow">Promised in session 2</div>
+  <h2>A count that happens to be zero</h2>
   <div class="cols">
     <figure class="code">
-      <figcaption>the file says NA, pandas says nothing</figcaption>
-      <pre class="sm"><code data-lang="python"># the messy file has 49 countries
-# written as the literal text "NA"
+      <figcaption>tablet: average minutes, month by month</figcaption>
+      <pre class="sm"><code data-lang="python">def average(numbers):          # session 3
+    return total(numbers) / len(numbers)
 
-messy["country"].isna().sum()           # 49
-(messy["country"] == "NA").sum()        # 0  !
-
-# read it again, taking the file literally
-raw = pd.read_csv(path, keep_default_na=False)
-(raw["country"] == "NA").sum()          # 49</code></pre>
+for month in sorted(months.unique()):
+    numbers = list(tablet.loc[months == month,
+                   "minutes_played"].dropna())
+    print(month, f"{average(numbers):.1f}")
+# 2024-01 4.0
+# 2024-02 4.8
+# 2024-03 4.0
+# 2024-04 3.5
+# ZeroDivisionError: division by zero</code></pre>
     </figure>
     <div class="stack">
       <div class="card card--compact card--rose">
-        <h4>Where did they go?</h4>
-        <p class="nomargin"><code>read_csv</code> treats a list of strings as missing by
-          default, including <code>NA</code>, <code>N/A</code>, <code>null</code>,
-          <code>NaN</code>, and an empty cell. Helpful most of the time.</p>
+        <h4>Nobody planted this</h4>
+        <p class="nomargin">May 2024 had one tablet play, and it is one of the 94 with no
+          minutes. After <code>dropna()</code> the list is empty, so <code>len</code> is
+          0.</p>
       </div>
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>the pandas way</figcaption>
+        <pre class="sm"><code data-lang="python">tablet.groupby(months)["minutes_played"].mean()
+# 2024-04    3.510000
+# 2024-05         NaN      no error at all</code></pre>
+      </figure>
       <div class="card card--compact card--amber">
-        <h4>And sometimes badly wrong</h4>
-        <p class="nomargin">If <code>NA</code> in your data means <strong>Namibia</strong>,
-          or North America, pandas has just deleted a real value and called it missing. The
-          same goes for a product code like <code>NULL</code>.</p>
-      </div>
-      <div class="card card--compact card--teal">
-        <p class="nomargin">The fix is to know your data.
-          <code>keep_default_na=False</code> takes the file literally, and
-          <code>na_values=[...]</code> lets you say exactly what counts as missing.</p>
+        <p class="nomargin">Plain Python <strong>stops</strong>. pandas <strong>carries
+          on</strong> with <code>NaN</code>. The loud one is easier to live with: the quiet
+          one ends up as a gap in a chart that looks like you stopped using your tablet.</p>
       </div>
     </div>
   </div>
   <aside class="notes">
-    <p>This one delights people, because it is a helpful default that can quietly destroy
-    data. It is also a good argument for always reading the raw file once before trusting any
-    loader.</p>
+    <p>Session 2 promised "by session 9 you will divide by a count that happens to be zero".
+    This is it, and it fell out of the data rather than being set up. Ask them to recognise
+    the error before you explain it.</p>
+    <p>The session 3 stretch had the fix for the Python version: <code>safe_average</code>
+    returning <code>None</code>. Proper handling with <code>try</code> is session 12.</p>
   </aside>
 </section>
 
-<section class="slide" data-title="Check the damage">
-  <div class="eyebrow">Before you move on</div>
-  <h2>Check what your cleaning threw away</h2>
-  <div class="cols cols-wide-left">
-    <figure class="code">
-      <figcaption>always, every time</figcaption>
-      <pre><code data-lang="python">print(messy.shape)      # (2223, 9)
-print(clean.shape)      # (2089, 9)
-
-lost = len(messy) - len(clean)
-print(f"{lost} rows removed "
-      f"({lost / len(messy) * 100:.1f}%)")
-# 134 rows removed (6.0%)
-
-clean.isna().sum()      # all zero now</code></pre>
-    </figure>
+<section class="slide" data-title="How close">
+  <div class="eyebrow">The luxury check</div>
+  <h2>How close did we get?</h2>
+  <div class="cols">
     <div class="stack">
-      <div class="callout callout--stop" style="margin-bottom:0">
-        <span class="ico">■</span>
-        <div>
-          <h4>6% is fine. 60% would not be.</h4>
-          <p class="nomargin">It is genuinely common to write a cleaning step that silently
-            discards most of the data, especially a <code>dropna()</code> with no
-            <code>subset</code>, which drops a row if <em>any</em> column is empty. Here that
-            would have cost you 238 rows instead of 94.</p>
-        </div>
-      </div>
+      <table class="sm">
+        <tr><th>Column</th><th>Cells matching the clean file</th></tr>
+        <tr><td><code>played_at</code>, <code>genre</code>, <code>country</code></td>
+          <td>2,183 of 2,183</td></tr>
+        <tr><td>the other four untouched columns</td><td>2,183 of 2,183</td></tr>
+        <tr><td><code>minutes_played</code></td><td>2,089: the 94 blanks</td></tr>
+        <tr><td><code>device</code></td><td>2,114: the 69 now <code>"unknown"</code></td></tr>
+      </table>
+      <figure class="code out" style="margin-bottom:0">
+        <figcaption>total minutes</figcaption>
+        <pre class="sm"><code data-lang="out">ours                         8,608.0
+the 94 we could not know       372.4
+the clean file               8,980.4</code></pre>
+      </figure>
+    </div>
+    <div class="stack">
       <div class="card card--compact card--teal">
-        <p class="nomargin">So print the shape before and after. Every time. It is one line
-          and it is the difference between cleaning your data and quietly deleting it.</p>
+        <p class="nomargin">Every date, every genre and every country came back. Every
+          minute that was in the file matches to the hundredth.</p>
+      </div>
+      <div class="card card--compact card--accent">
+        <p class="nomargin">What did not come back was destroyed before we got the file. No
+          amount of code recovers a number nobody wrote down.</p>
+      </div>
+      <div class="callout callout--key" style="margin-bottom:0">
+        <span class="ico">◆</span>
+        <div>
+          <h4>The sentence to remember</h4>
+          <p class="nomargin">Cleaning recovers what the file still knows, labels what it
+            does not, and never makes things up.</p>
+        </div>
       </div>
     </div>
   </div>
   <aside class="notes">
-    <p>Demonstrate a bare dropna() to see the row count fall further. It is the single most
-    common accidental data loss in pandas.</p>
+    <p>Both files are sorted by play_id and have the same 2,183 ids, so the comparison is a
+    plain <code>==</code> column by column. The notebook does it in a three-line loop.</p>
   </aside>
 </section>
 
 <section class="slide slide--section" data-title="Section: Charts">
   <div>
-    <div class="marker">Part two · the second hour</div>
-    <h2>Charts</h2>
-    <p>The data is clean. Now make it say something.</p>
+    <div class="marker">Part two</div>
+    <h2>One question, one chart</h2>
+    <p>If you cannot say the question in one sentence, the chart is not ready to draw.</p>
   </div>
 </section>
 
-<section class="slide" data-title="Figure and axes">
-  <div class="eyebrow">The structure</div>
-  <h2>A figure, and axes inside it</h2>
+<section class="slide" data-title="Anatomy">
+  <div class="eyebrow">matplotlib</div>
+  <h2>A title that gives the answer</h2>
   <div class="cols">
     <figure class="code">
-      <figcaption>the shape of every chart you will make</figcaption>
+      <figcaption>02-charts.ipynb</figcaption>
       <pre class="sm"><code data-lang="python">import matplotlib.pyplot as plt
 
-fig, ax = plt.subplots(figsize=(9, 4.5))
+by_genre = (plays.groupby("genre")["minutes_played"]
+                 .mean().sort_values(ascending=False))
+top = by_genre.index[0]
 
-ax.plot(monthly.index, monthly.values, marker="o")
+fig, ax = plt.subplots(figsize=(8, 4.5))
+bars = ax.bar(by_genre.index, by_genre.values)
 
-ax.set_title("Listening drops off every summer")
-ax.set_xlabel("Month")
-ax.set_ylabel("Minutes played")
-ax.set_ylim(bottom=0)
-ax.grid(axis="y", alpha=0.3)
-
-fig.tight_layout()
-fig.savefig("output/minutes_by_month.png", dpi=150)</code></pre>
+ax.set_title(f"{top} plays last longest: "
+             f"{by_genre.iloc[0]:.1f} minutes on average")
+ax.set_ylabel("average minutes per play")
+ax.bar_label(bars, fmt="{:.1f}")
+plt.show()</code></pre>
     </figure>
     <div class="stack">
+      <div class="diagram" style="margin:0">
+<svg viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="Bar chart of average minutes per play by genre, Jazz highest at 6.6">
+  <text class="d-label" x="16" y="20">Jazz plays last longest: 6.6 minutes on average</text>
+  <rect class="d-box-accent" x="27.3" y="67.8" width="44.1" height="198.2" rx="3"></rect>
+  <text class="d-mono" x="49.4" y="60.8" text-anchor="middle" style="font-size:13px">6.6</text>
+  <text class="d-sub" x="49.4" y="286.0" text-anchor="middle">Jazz</text>
+  <rect class="d-box-accent" x="94.1" y="107.5" width="44.1" height="158.5" rx="3"></rect>
+  <text class="d-mono" x="116.1" y="100.5" text-anchor="middle" style="font-size:13px">5.3</text>
+  <text class="d-sub" x="116.1" y="286.0" text-anchor="middle">Electronic</text>
+  <rect class="d-box-accent" x="160.8" y="144.6" width="44.1" height="121.4" rx="3"></rect>
+  <text class="d-mono" x="182.9" y="137.6" text-anchor="middle" style="font-size:13px">4.0</text>
+  <text class="d-sub" x="182.9" y="286.0" text-anchor="middle">Rock</text>
+  <rect class="d-box-accent" x="227.6" y="158.5" width="44.1" height="107.5" rx="3"></rect>
+  <text class="d-mono" x="249.6" y="151.5" text-anchor="middle" style="font-size:13px">3.6</text>
+  <text class="d-sub" x="249.6" y="286.0" text-anchor="middle">Folk</text>
+  <rect class="d-box-accent" x="294.3" y="162.9" width="44.1" height="103.1" rx="3"></rect>
+  <text class="d-mono" x="316.4" y="155.9" text-anchor="middle" style="font-size:13px">3.4</text>
+  <text class="d-sub" x="316.4" y="286.0" text-anchor="middle">Indie</text>
+  <rect class="d-box-accent" x="361.1" y="166.0" width="44.1" height="100.0" rx="3"></rect>
+  <text class="d-mono" x="383.1" y="159.0" text-anchor="middle" style="font-size:13px">3.3</text>
+  <text class="d-sub" x="383.1" y="286.0" text-anchor="middle">Afrobeat</text>
+  <rect class="d-box-accent" x="427.8" y="166.3" width="44.1" height="99.7" rx="3"></rect>
+  <text class="d-mono" x="449.9" y="159.3" text-anchor="middle" style="font-size:13px">3.3</text>
+  <text class="d-sub" x="449.9" y="286.0" text-anchor="middle">Latin</text>
+  <rect class="d-box-accent" x="494.6" y="170.6" width="44.1" height="95.4" rx="3"></rect>
+  <text class="d-mono" x="516.6" y="163.6" text-anchor="middle" style="font-size:13px">3.2</text>
+  <text class="d-sub" x="516.6" y="286.0" text-anchor="middle">Pop</text>
+  <line x1="16" y1="266" x2="550" y2="266" style="stroke:var(--line);stroke-width:1.5"></line>
+</svg>
+      </div>
       <div class="card card--compact card--accent">
-        <h4>Two objects, and the difference matters</h4>
-        <p class="nomargin">The <strong>figure</strong> is the picture: its size, and saving
-          it. The <strong>axes</strong> are the plot inside it: the data, the labels, the
-          limits. Almost everything you do is <code>ax.something()</code>.</p>
-      </div>
-      <div class="card card--compact card--teal">
-        <p class="nomargin">You will see tutorials using <code>plt.plot()</code> with no
-          <code>fig</code> or <code>ax</code>. It works, and it breaks down the moment you
-          want two charts. Learn the <code>fig, ax</code> version once and never think about
-          it again.</p>
-      </div>
-      <div class="card card--compact card--plain">
-        <p class="nomargin"><code>tight_layout()</code> stops your labels being cut off at
-          the edges. Add it out of habit.</p>
+        <p class="nomargin">"Minutes per genre" names the topic and makes the reader work.
+          "Jazz plays last longest" does the work for them. The <code>:.1f</code> from
+          session 1 turns 6.570129870 into a number a person would say.</p>
       </div>
     </div>
   </div>
   <aside class="notes">
-    <p>fig, ax = plt.subplots() is the one line to memorise. Everything else is discoverable
-    from there.</p>
+    <p><code>fig</code> is the whole picture, <code>ax</code> is the chart inside it.
+    Every chart in the course starts with <code>plt.subplots()</code>, so it is worth
+    making it a habit now.</p>
+    <p>This is the session 4 homework question, now as a chart. Sorting before plotting
+    makes the ranking the first thing the eye sees.</p>
   </aside>
 </section>
 
-<section class="slide" data-title="Which chart">
-  <div class="eyebrow">Choosing</div>
-  <h2>Four charts, and when each one is right</h2>
-  <table class="sm">
-    <tr><th style="width:150px">Chart</th><th style="width:200px">Use it for</th><th>In our data</th></tr>
-    <tr><td><strong>Line</strong> <code>ax.plot</code></td><td>Change over time</td>
-      <td>Minutes per month across the two years</td></tr>
-    <tr><td><strong>Bar</strong> <code>ax.bar</code></td><td>Comparing categories</td>
-      <td>Total minutes per genre, or per device</td></tr>
-    <tr><td><strong>Scatter</strong> <code>ax.scatter</code></td><td>Relationship between two
-      numbers</td><td>Plays per artist against their total minutes</td></tr>
-    <tr><td><strong>Histogram</strong> <code>ax.hist</code></td><td>Distribution of one
-      number</td><td>How play lengths are spread, and where the skips sit</td></tr>
-  </table>
+<section class="slide" data-title="Bar or line">
+  <div class="eyebrow">Choosing the chart</div>
+  <h2>Bars for categories, a line for time</h2>
+  <div class="diagram" style="margin-bottom:12px">
+<svg viewBox="0 0 1080 250" width="1080" height="250" role="img" aria-label="Line chart of plays per month, with dips in June to August of both years">
+  <text class="d-label" x="40" y="20">Listening dips every summer, in both years</text>
+  <text class="d-sub" x="32" y="210.0" text-anchor="end">0</text>
+  <text class="d-sub" x="32" y="148.6" text-anchor="end">50</text>
+  <line x1="40" y1="144.6" x2="1066" y2="144.6" style="stroke:var(--line-soft);stroke-width:1"></line>
+  <text class="d-sub" x="32" y="87.1" text-anchor="end">100</text>
+  <line x1="40" y1="83.1" x2="1066" y2="83.1" style="stroke:var(--line-soft);stroke-width:1"></line>
+  <line x1="40" y1="206" x2="1066" y2="206" style="stroke:var(--line);stroke-width:1.5"></line>
+  <polyline points="40.0,59.8 84.6,106.5 129.2,59.8 173.8,100.3 218.4,81.9 263.0,115.1 307.7,131.1 352.3,124.9 396.9,80.7 441.5,50.0 486.1,84.4 530.7,99.1 575.3,79.5 619.9,118.8 664.5,77.0 709.1,105.3 753.7,80.7 798.3,133.5 843.0,133.5 887.6,136.0 932.2,100.3 976.8,68.4 1021.4,62.3 1066.0,73.3" style="fill:none;stroke:var(--accent);stroke-width:2.5"></polyline>
+  <circle class="d-box-accent" cx="40.0" cy="59.8" r="4"></circle>
+  <text class="d-sub" x="40.0" y="226" text-anchor="middle">Jan 2024</text>
+  <circle class="d-box-accent" cx="84.6" cy="106.5" r="4"></circle>
+  <circle class="d-box-accent" cx="129.2" cy="59.8" r="4"></circle>
+  <circle class="d-box-accent" cx="173.8" cy="100.3" r="4"></circle>
+  <circle class="d-box-accent" cx="218.4" cy="81.9" r="4"></circle>
+  <circle class="d-box-accent" cx="263.0" cy="115.1" r="4"></circle>
+  <circle class="d-box-accent" cx="307.7" cy="131.1" r="4"></circle>
+  <text class="d-sub" x="307.7" y="226" text-anchor="middle">Jul 2024</text>
+  <circle class="d-box-accent" cx="352.3" cy="124.9" r="4"></circle>
+  <circle class="d-box-accent" cx="396.9" cy="80.7" r="4"></circle>
+  <circle class="d-box-accent" cx="441.5" cy="50.0" r="4"></circle>
+  <circle class="d-box-accent" cx="486.1" cy="84.4" r="4"></circle>
+  <circle class="d-box-accent" cx="530.7" cy="99.1" r="4"></circle>
+  <circle class="d-box-accent" cx="575.3" cy="79.5" r="4"></circle>
+  <text class="d-sub" x="575.3" y="226" text-anchor="middle">Jan 2025</text>
+  <circle class="d-box-accent" cx="619.9" cy="118.8" r="4"></circle>
+  <circle class="d-box-accent" cx="664.5" cy="77.0" r="4"></circle>
+  <circle class="d-box-accent" cx="709.1" cy="105.3" r="4"></circle>
+  <circle class="d-box-accent" cx="753.7" cy="80.7" r="4"></circle>
+  <circle class="d-box-accent" cx="798.3" cy="133.5" r="4"></circle>
+  <circle class="d-box-accent" cx="843.0" cy="133.5" r="4"></circle>
+  <text class="d-sub" x="843.0" y="226" text-anchor="middle">Jul 2025</text>
+  <circle class="d-box-accent" cx="887.6" cy="136.0" r="4"></circle>
+  <circle class="d-box-accent" cx="932.2" cy="100.3" r="4"></circle>
+  <circle class="d-box-accent" cx="976.8" cy="68.4" r="4"></circle>
+  <circle class="d-box-accent" cx="1021.4" cy="62.3" r="4"></circle>
+  <circle class="d-box-accent" cx="1066.0" cy="73.3" r="4"></circle>
+  <text class="d-mono" x="441.5" y="40.0" text-anchor="middle">127</text>
+  <text class="d-mono" x="887.6" y="126.0" text-anchor="middle">57</text>
+</svg>
+  </div>
   <div class="cols">
-    <div class="card card--compact card--accent">
-      <p class="nomargin"><strong>Time on the x-axis wants a line.</strong> A bar chart of 24
-        months is harder to read and says the same thing.</p>
-    </div>
-    <div class="card card--compact card--amber">
-      <p class="nomargin"><strong>Categories want bars, sorted.</strong> Alphabetical order
-        is almost never the order the reader wants; biggest first usually is.</p>
+    <figure class="code" style="margin-bottom:0">
+      <pre class="sm"><code data-lang="python">per_month = plays.groupby(plays["played_at"].str[:7]).size()
+ax.plot(per_month.index, per_month.values, marker="o")
+ax.set_ylim(bottom=0)</code></pre>
+    </figure>
+    <div class="card card--compact card--teal">
+      <p class="nomargin">A line says "this follows from that", which is only true when the
+        x-axis has an order. Genres have none, so they get bars. Months do, so they get a
+        line, and the two summer valleys jump out of 24 numbers.</p>
     </div>
   </div>
   <aside class="notes">
-    <p>The sorted-bars point is small and makes charts noticeably better. Sort by value unless
-    the category has a natural order, like days of the week.</p>
+    <p>The quietest months are June to August 2025: 59, 59 and 57 plays. The busiest is
+    October 2024 with 127. Session 4's stretch found the same shape by printing a table;
+    the chart makes it obvious in a second.</p>
   </aside>
 </section>
 
-<section class="slide" data-title="Labels">
-  <div class="eyebrow">Non-negotiable</div>
-  <h2>A chart without labels is not finished</h2>
-  <div class="cols">
-    <div class="card card--rose">
-      <div class="card-title"><span class="dot"></span>What an unlabelled chart says</div>
-      <p class="nomargin">"Here is a shape. You work out what it means, what the units are,
-        and when it is from." Nobody reading it can check whether you are right, which means
-        nobody should believe it.</p>
+<section class="slide" data-title="Honest axes">
+  <div class="eyebrow">Same numbers, two stories</div>
+  <h2>Bars start at zero</h2>
+  <div class="compare">
+    <div>
+      <span class="label">axis from 10%: speaker looks terrible</span>
+      <div class="diagram" style="margin:0">
+<svg viewBox="0 0 500 230" width="500" height="230" role="img" aria-label="Skip rate by device with the axis starting at 10 percent">
+  <rect class="d-box-rose" x="32.1" y="45.3" width="62.6" height="150.7" rx="3"></rect>
+  <text class="d-mono" x="63.4" y="38.3" text-anchor="middle" style="font-size:13px">14.0%</text>
+  <text class="d-sub" x="63.4" y="216.0" text-anchor="middle">speaker</text>
+  <rect class="d-box-accent" x="126.9" y="70.1" width="62.6" height="125.9" rx="3"></rect>
+  <text class="d-mono" x="158.2" y="63.1" text-anchor="middle" style="font-size:13px">13.3%</text>
+  <text class="d-sub" x="158.2" y="216.0" text-anchor="middle">tablet</text>
+  <rect class="d-box-accent" x="221.7" y="141.2" width="62.6" height="54.8" rx="3"></rect>
+  <text class="d-mono" x="253.0" y="134.2" text-anchor="middle" style="font-size:13px">11.5%</text>
+  <text class="d-sub" x="253.0" y="216.0" text-anchor="middle">laptop</text>
+  <rect class="d-box-accent" x="316.5" y="144.7" width="62.6" height="51.3" rx="3"></rect>
+  <text class="d-mono" x="347.8" y="137.7" text-anchor="middle" style="font-size:13px">11.4%</text>
+  <text class="d-sub" x="347.8" y="216.0" text-anchor="middle">phone</text>
+  <rect class="d-box-accent" x="411.3" y="172.8" width="62.6" height="23.2" rx="3"></rect>
+  <text class="d-mono" x="442.6" y="165.8" text-anchor="middle" style="font-size:13px">10.6%</text>
+  <text class="d-sub" x="442.6" y="216.0" text-anchor="middle">car</text>
+  <line x1="16" y1="196" x2="490" y2="196" style="stroke:var(--line);stroke-width:1.5"></line>
+  <text class="d-sub" x="490" y="22" text-anchor="end">axis starts at 10%</text>
+</svg>
+      </div>
     </div>
-    <div class="card card--teal">
-      <div class="card-title"><span class="dot"></span>The minimum, every time</div>
-      <ul class="tight nomargin">
-        <li>a <strong>title</strong> that says the finding, not the columns</li>
-        <li>both <strong>axis labels</strong>, with units</li>
-        <li>a <strong>legend</strong>, if there is more than one line</li>
-      </ul>
+    <div>
+      <span class="label">axis from zero: they are much the same</span>
+      <div class="diagram" style="margin:0">
+<svg viewBox="0 0 500 230" width="500" height="230" role="img" aria-label="Skip rate by device with the axis starting at zero">
+  <rect class="d-box-accent" x="32.1" y="47.4" width="62.6" height="148.6" rx="3"></rect>
+  <text class="d-mono" x="63.4" y="40.4" text-anchor="middle" style="font-size:13px">14.0%</text>
+  <text class="d-sub" x="63.4" y="216.0" text-anchor="middle">speaker</text>
+  <rect class="d-box-accent" x="126.9" y="54.3" width="62.6" height="141.7" rx="3"></rect>
+  <text class="d-mono" x="158.2" y="47.3" text-anchor="middle" style="font-size:13px">13.3%</text>
+  <text class="d-sub" x="158.2" y="216.0" text-anchor="middle">tablet</text>
+  <rect class="d-box-accent" x="221.7" y="74.3" width="62.6" height="121.7" rx="3"></rect>
+  <text class="d-mono" x="253.0" y="67.3" text-anchor="middle" style="font-size:13px">11.5%</text>
+  <text class="d-sub" x="253.0" y="216.0" text-anchor="middle">laptop</text>
+  <rect class="d-box-accent" x="316.5" y="75.3" width="62.6" height="120.7" rx="3"></rect>
+  <text class="d-mono" x="347.8" y="68.3" text-anchor="middle" style="font-size:13px">11.4%</text>
+  <text class="d-sub" x="347.8" y="216.0" text-anchor="middle">phone</text>
+  <rect class="d-box-accent" x="411.3" y="83.2" width="62.6" height="112.8" rx="3"></rect>
+  <text class="d-mono" x="442.6" y="76.2" text-anchor="middle" style="font-size:13px">10.6%</text>
+  <text class="d-sub" x="442.6" y="216.0" text-anchor="middle">car</text>
+  <line x1="16" y1="196" x2="490" y2="196" style="stroke:var(--line);stroke-width:1.5"></line>
+</svg>
+      </div>
     </div>
   </div>
-  <div class="callout callout--key mt">
-    <span class="ico">◆</span>
+  <div class="callout callout--warn mt" style="margin-bottom:0">
+    <span class="ico">▲</span>
     <div>
-      <h4>Titles: say the finding</h4>
-      <p class="nomargin"><code>"Minutes by month"</code> tells the reader what the axes
-        already tell them. <code>"Listening drops off every summer"</code> tells them what you
-        found. If you cannot write the second kind, you may not have found anything yet, and
-        that is useful to notice.</p>
-    </div>
-  </div>
-  <div class="callout callout--tip" style="margin-bottom:0">
-    <span class="ico">◆</span>
-    <div>
-      <p class="nomargin">Your homework is three charts plus a <code>findings.md</code> with
-        two or three sentences per chart. The sentences are the point; the charts are the
-        evidence.</p>
+      <p class="nomargin">Skip rate per device, every number correct in both. The length of a
+        bar <strong>is</strong> the number, so cutting the bottom off makes 14.0% look many
+        times bigger than 10.6%. Out of 336 speaker plays, the real difference is about
+        eleven skips.</p>
     </div>
   </div>
   <aside class="notes">
-    <p>The "title says the finding" rule transforms beginner charts. It also exposes charts
-    that show nothing, which is a useful side effect.</p>
+    <p>matplotlib starts bar axes at zero by default; the left chart needed
+    <code>set_ylim(10, 14.5)</code> to do the damage. So the lie takes effort, which is
+    worth saying. For lines you can sometimes argue for zooming in. For bars, never.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Histogram and scatter">
+  <div class="eyebrow">Choosing the chart, continued</div>
+  <h2>A histogram for a spread, a scatter for two numbers</h2>
+  <div class="cols">
+    <div class="diagram" style="margin:0">
+<svg viewBox="0 0 540 250" width="540" height="250" role="img" aria-label="Stacked histogram of play length in one-minute bins, skipped plays on top of played-through plays; nearly all skips are in the first two bins">
+  <text class="d-label" x="40" y="20">74% of skips last under a minute</text>
+  <text class="d-sub" x="32" y="220.0" text-anchor="end">0</text>
+  <text class="d-sub" x="32" y="141.8" text-anchor="end">200</text>
+  <line x1="40" y1="137.8" x2="530" y2="137.8" style="stroke:var(--line-soft);stroke-width:1"></line>
+  <text class="d-sub" x="32" y="63.6" text-anchor="end">400</text>
+  <line x1="40" y1="59.6" x2="530" y2="59.6" style="stroke:var(--line-soft);stroke-width:1"></line>
+  <rect class="d-box-accent" x="41.0" y="202.3" width="38.8" height="13.7"></rect>
+  <rect class="d-box-rose" x="41.0" y="128.0" width="38.8" height="74.3"></rect>
+  <rect class="d-box-accent" x="81.8" y="176.1" width="38.8" height="39.9"></rect>
+  <rect class="d-box-rose" x="81.8" y="151.1" width="38.8" height="25.0"></rect>
+  <rect class="d-box-accent" x="122.7" y="119.4" width="38.8" height="96.6"></rect>
+  <rect class="d-box-rose" x="122.7" y="117.8" width="38.8" height="1.6"></rect>
+  <rect class="d-box-accent" x="163.5" y="56.0" width="38.8" height="160.0"></rect>
+  <rect class="d-box-accent" x="204.3" y="61.5" width="38.8" height="154.5"></rect>
+  <rect class="d-box-accent" x="245.2" y="87.7" width="38.8" height="128.3"></rect>
+  <rect class="d-box-accent" x="286.0" y="131.5" width="38.8" height="84.5"></rect>
+  <rect class="d-box-accent" x="326.8" y="173.4" width="38.8" height="42.6"></rect>
+  <rect class="d-box-accent" x="367.7" y="195.7" width="38.8" height="20.3"></rect>
+  <rect class="d-box-accent" x="408.5" y="205.4" width="38.8" height="10.6"></rect>
+  <rect class="d-box-accent" x="449.3" y="214.4" width="38.8" height="1.6"></rect>
+  <rect class="d-box-accent" x="490.2" y="215.6" width="38.8" height="0.4"></rect>
+  <text class="d-sub" x="40.0" y="234" text-anchor="middle">0</text>
+  <text class="d-sub" x="121.7" y="234" text-anchor="middle">2</text>
+  <text class="d-sub" x="203.3" y="234" text-anchor="middle">4</text>
+  <text class="d-sub" x="285.0" y="234" text-anchor="middle">6</text>
+  <text class="d-sub" x="366.7" y="234" text-anchor="middle">8</text>
+  <text class="d-sub" x="448.3" y="234" text-anchor="middle">10</text>
+  <line x1="40" y1="216" x2="530" y2="216" style="stroke:var(--line);stroke-width:1.5"></line>
+  <text class="d-sub" x="530" y="234" text-anchor="end">minutes</text>
+  <rect class="d-box-rose" x="380" y="44" width="12" height="12"></rect>
+  <text class="d-sub" x="398" y="55">skipped</text>
+  <rect class="d-box-accent" x="380" y="64" width="12" height="12"></rect>
+  <text class="d-sub" x="398" y="75">played through</text>
+  <text class="d-mono" x="60.4" y="122.0" text-anchor="middle" style="font-size:12px">225</text>
+</svg>
+    </div>
+    <div class="stack">
+      <table class="sm">
+        <tr><th>The question is about</th><th>Chart</th></tr>
+        <tr><td>comparing categories</td><td>bar, <code>ax.bar</code></td></tr>
+        <tr><td>change over time</td><td>line, <code>ax.plot</code></td></tr>
+        <tr><td>how one number is spread out</td><td>histogram, <code>ax.hist</code></td></tr>
+        <tr><td>whether two numbers move together</td><td>scatter, <code>ax.scatter</code></td></tr>
+      </table>
+      <figure class="code" style="margin-bottom:0">
+        <pre class="xs"><code data-lang="python">ax.hist([kept, skips], bins=range(0, 13), stacked=True,
+        label=["played through", "skipped"])
+ax.legend()</code></pre>
+      </figure>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin"><strong>Out of what?</strong> 190 plays are under a minute and
+        skipped. That is 73.6% of the 258 skips, and 84.4% of the 225 short plays: two
+        questions, two answers. Draw the line at two minutes instead and it is 98.4% of skips,
+        but only 65.0% of short plays.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>"Short" is under one minute, the line the session 6 stretch drew with
+    <code>CASE WHEN minutes_played &lt; 1</code>. Read the two sentences aloud, "most skips are
+    short" and "most short plays are skips", and ask which the chart supports. Then move the
+    line to two minutes: the first becomes 98.4% and the second drops to 65.0%. A percentage in
+    a title needs its "out of what".</p>
+    <p>The scatter in notebook 02 is plays against minutes per artist: Sara Lindqvist has the
+    most plays (242), Glass Tram the most minutes (1,175.1), because a Glass Tram play averages
+    5.1 minutes against 3.2. Each new chart in the notebook ends with a "what this does not
+    show" sentence, which the homework now asks for too.</p>
   </aside>
 </section>
 
 <section class="slide" data-title="Saving">
-  <div class="eyebrow">Practical</div>
-  <h2><code>savefig</code>, and why saving beats showing</h2>
+  <div class="eyebrow">For someone else</div>
+  <h2>Save it, then check it against the list</h2>
   <div class="cols">
-    <figure class="code">
-      <figcaption>saving</figcaption>
-      <pre class="sm"><code data-lang="python">fig.savefig("output/chart.png", dpi=150)
-plt.close(fig)        # free the memory
-
-# in a script, tell matplotlib not to
-# try to open a window at all
-import matplotlib
-matplotlib.use("Agg")</code></pre>
-    </figure>
     <div class="stack">
-      <div class="card card--compact card--accent">
-        <h4>In a notebook, charts just appear</h4>
-        <p class="nomargin">Which is why notebooks are so good for this work. You still want
-          <code>savefig</code> when the chart needs to go into a document, an email, or a
-          repo.</p>
-      </div>
-      <div class="card card--compact card--amber">
-        <h4>In a script, <code>plt.show()</code> blocks</h4>
-        <p class="nomargin">It opens a window and waits for you to close it. That is fine
-          once and useless in anything scheduled or automated, where nobody is there to click.
-          Save instead.</p>
-      </div>
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>02-charts.ipynb</figcaption>
+        <pre class="sm"><code data-lang="python">os.makedirs("output", exist_ok=True)
+
+fig.savefig("output/minutes_by_genre.png",
+            dpi=150, bbox_inches="tight")
+plt.show()                  # after saving</code></pre>
+      </figure>
       <div class="card card--compact card--plain">
-        <p class="nomargin"><code>dpi=150</code> is a good default: sharp on a screen, small
-          enough to email. <code>output/</code> is in <code>.gitignore</code>, because a
-          generated file can always be regenerated.</p>
+        <ul class="tight nomargin">
+          <li><code>output/</code> is in <code>.gitignore</code>: generated files stay out of
+            commits</li>
+          <li><code>dpi=150</code> is sharp enough for a slide</li>
+          <li><code>bbox_inches="tight"</code> keeps long labels from being cut off</li>
+        </ul>
       </div>
+      <div class="card card--compact card--rose">
+        <p class="nomargin"><strong>Save before you show.</strong> In a script,
+          <code>plt.savefig()</code> after <code>plt.show()</code> writes a blank
+          picture.</p>
+      </div>
+    </div>
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Every chart, every time</div>
+      <ol class="tight nomargin">
+        <li>Can I say the question in one sentence?</li>
+        <li>Does the title give the answer?</li>
+        <li>Bars for categories, a line for time?</li>
+        <li>Do the bars start at zero?</li>
+        <li>Units on the axis, numbers rounded to what a person would say?</li>
+        <li>Would it make sense to someone who was not in the room?</li>
+      </ol>
     </div>
   </div>
   <aside class="notes">
-    <p>The Agg backend point saves a real headache the first time they run a chart script on
-    a machine with no display, which is every server they will ever meet.</p>
+    <p>Open the PNG from the VS Code explorer. Seeing the file exist is what makes "a chart
+    is for someone else" concrete. In session 10 the pipeline writes this file on every
+    run.</p>
   </aside>
 </section>
 
-<section class="slide" data-title="Misleading charts">
-  <div class="eyebrow">Ethics, briefly</div>
-  <h2>The easiest way to mislead with a chart</h2>
-  <div class="cols">
+<section class="slide" data-title="As functions">
+  <div class="eyebrow">For next week</div>
+  <h2>Thirty cells become two functions</h2>
+  <div class="cols cols-wide-left">
     <figure class="code">
-      <figcaption>the same data, twice</figcaption>
-      <pre class="sm"><code data-lang="python"># honest
-ax.set_ylim(bottom=0)
+      <figcaption>solutions/cleaning.py</figcaption>
+      <pre class="sm"><code data-lang="python">def load_messy(path):
+    """Return the messy CSV, with nothing guessed."""
+    return pd.read_csv(path, keep_default_na=False)
 
-# dramatic, and the same numbers
-ax.set_ylim(3.9, 4.4)</code></pre>
+
+def clean_plays(df):
+    """Return a cleaned copy, shaped like the clean file."""
+    df = df.rename(columns={"minutes played ": "minutes_played"})
+    df = df.drop_duplicates().copy()
+    ...                                  # every fix from today
+    return df[COLUMNS].sort_values("play_id")
+
+
+raw = load_messy("data/messy/plays_messy.csv")
+plays = clean_plays(raw)</code></pre>
     </figure>
     <div class="stack">
-      <div class="card card--rose card--compact">
-        <h4>Average minutes per device</h4>
-        <p class="nomargin">car 4.38, phone 4.18, laptop 4.09, speaker 3.99. Starting the
-          axis at zero: four bars of nearly identical height, because the difference between
-          highest and lowest is about 10%. Starting it at 3.9: the car bar towers over the
-          speaker, and it looks like a finding.</p>
+      <div class="card card--compact card--accent">
+        <h4>The session 3 rule, still</h4>
+        <p class="nomargin">The functions calculate and return. Only the bottom of the file
+          prints. In session 10 a pipeline calls these exact shapes and writes a CSV and a
+          chart instead.</p>
       </div>
-      <div class="card card--teal card--compact">
-        <p class="nomargin"><strong>Bar charts should start at zero.</strong> The length of a
-          bar is the quantity, so cutting the bottom off lies about the ratio. Line charts
-          have more latitude, since they are about change rather than magnitude, but say so if
-          you crop.</p>
+      <div class="card card--compact card--teal">
+        <h4>A promise you can test</h4>
+        <p class="nomargin"><code>clean_plays</code> returns the same columns, order and
+          types as <code>data/clean/plays.csv</code>. So everything from session 8 works on
+          it unchanged.</p>
       </div>
-      <div class="card card--compact card--amber">
-        <p class="nomargin">This happens by accident at least as often as on purpose,
-          because some plotting tools crop by default to "use the space well". Check your
-          y-axis before you send a chart to anybody.</p>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">A notebook is for finding the steps. A function is for keeping
+          them.</p>
       </div>
     </div>
   </div>
   <aside class="notes">
-    <p>Make both versions live, side by side, with their own data. It takes two minutes and
-    it is the sort of thing people remember for years.</p>
+    <p>The names matter: session 10 reuses <code>load_messy</code> and
+    <code>clean_plays</code> by name, as the first two steps of load, clean, analyse,
+    save.</p>
   </aside>
 </section>
 
 <section class="slide" data-title="Live exercise">
-  <div class="eyebrow">Your turn · 40 minutes</div>
-  <h2>Clean it, then chart it</h2>
+  <div class="eyebrow">Your turn · 15 to 20 minutes</div>
+  <h2>The cleaning, as two functions</h2>
   <div class="exercise">
     <div class="tag">◆ Live exercise</div>
-    <h3>From the messy file to one labelled, saved chart that answers a question</h3>
     <div class="cols">
       <div>
-        <h4>Clean</h4>
+        <h4>Write them</h4>
         <ol class="tight">
-          <li>Load it and print <code>shape</code> and <code>isna().sum()</code></li>
-          <li>Fix the column name</li>
-          <li><code>value_counts</code> on every category, and fix the text</li>
-          <li>Make the minutes numeric and the dates real dates</li>
-          <li>Drop the duplicates</li>
-          <li>Decide what to do about each kind of missing value, <strong>and write down
-            why</strong></li>
-          <li>Print the shape again, and the percentage lost</li>
+          <li><code>load_messy(path)</code>: read it, guess nothing</li>
+          <li><code>clean_plays(df)</code>: every fix from today, in one function</li>
+          <li>Two helpers if you like: <code>parse_dates</code> and
+            <code>fill_from_artist</code></li>
         </ol>
       </div>
       <div>
-        <h4>Then chart</h4>
-        <ol class="tight" start="8">
-          <li>Pick <strong>one question</strong> you can answer with a chart</li>
-          <li>Build the chart with <code>fig, ax</code></li>
-          <li>Title that states the finding, both axes labelled</li>
-          <li>Save it as a PNG in <code>output/</code></li>
+        <h4>Prove them</h4>
+        <ol class="tight" start="4">
+          <li>Uncomment the checks: rows, columns, types, ids</li>
+          <li>Predict which columns will match the clean file, then count</li>
+          <li>If there is time: the genre chart from <strong>your</strong> data</li>
         </ol>
       </div>
     </div>
@@ -765,15 +1023,15 @@ ax.set_ylim(3.9, 4.4)</code></pre>
   <div class="callout callout--tip mt" style="margin-bottom:0">
     <span class="ico">◆</span>
     <div>
-      <p class="nomargin">Notebook:
-        <code>sessions/session-09/notebooks/03-clean-and-chart-exercise.ipynb</code>. Do the
-        cleaning as a <strong>function</strong> that takes the messy frame and returns a clean
-        one. Session 10 will call it.</p>
+      <p class="nomargin">File: <code>notebooks/03-cleaning-functions-exercise.ipynb</code>.
+        Notebook 01 stays open in another tab. Copy from it freely; the work is choosing the
+        order and making it one function.</p>
     </div>
   </div>
   <aside class="notes">
-    <p>Pushing them to write clean() as a function now pays off directly next session, when
-    the pipeline needs exactly that shape.</p>
+    <p>The usual failure is the dtypes check on <code>played_at</code>: the clean file stores
+    dates as text, so parsed dates need <code>.dt.strftime("%Y-%m-%d")</code> at the end.
+    Let them hit it and read the assert.</p>
   </aside>
 </section>
 
@@ -783,33 +1041,33 @@ ax.set_ylim(3.9, 4.4)</code></pre>
   <div class="cols">
     <div class="card card--teal">
       <div class="card-title"><span class="dot"></span>Task 1 · you can finish this</div>
-      <h4>Three charts, three questions</h4>
-      <p>Three different questions, three different chart types, each one saved as a PNG in
-        <code>output/</code>.</p>
-      <p class="nomargin">Every one needs a title that states the finding and both axes
-        labelled. Commit the code; the PNGs are gitignored on purpose.</p>
+      <h4>A decision diary</h4>
+      <p><strong>Which device gets skipped most?</strong> Answer it five times: as loaded,
+        text cleaned, duplicates dropped, fully cleaned, and the clean file.</p>
+      <p class="nomargin">One <code>skip_rates(df)</code> function, used at every step. Then:
+        which decision changed the answer most?</p>
     </div>
     <div class="card card--amber">
       <div class="card-title"><span class="dot"></span>Task 2 · you might not finish this</div>
-      <h4><code>findings.md</code></h4>
-      <p>Two or three sentences per chart: what it shows, and what you are <strong>not</strong>
-        entitled to conclude from it.</p>
-      <p class="nomargin">Then one paragraph listing every cleaning decision you made and
-        what it cost you.</p>
+      <h4>One chart, one answer</h4>
+      <p>Your own question about the log, answered with one chart saved to
+        <code>output/</code>.</p>
+      <p class="nomargin">The checklist is the marking scheme. Underneath, one sentence you
+        would say about it in a meeting, and one on what it does <strong>not</strong>
+        show.</p>
     </div>
   </div>
-  <div class="callout callout--key mt" style="margin-bottom:0">
+  <div class="callout callout--tip mt" style="margin-bottom:0">
     <span class="ico">◆</span>
     <div>
-      <p class="nomargin">Task 2 is the harder one and it is not about code at all. Writing
-        "the speaker has the highest skip rate, but it is 47 skips out of 336 plays and I
-        would not bet much on the gap" is a more valuable skill than any method on these
-        slides.</p>
+      <p class="nomargin">File: <code>notebooks/04-decisions-homework.ipynb</code>. In task 1,
+        one step crowns a winner that is not a device at all. Decide what to do about it.</p>
     </div>
   </div>
   <aside class="notes">
-    <p>Be explicit that task 2 is prose. People who can write two honest sentences about a
-    chart are rarer and more useful than people who can make the chart.</p>
+    <p>The answers: <code>"CAR"</code> wins as loaded, speaker wins after text cleaning,
+    and <code>"unknown"</code> wins after the full clean. The discussion about whether
+    "unknown" may win a ranking is the real homework.</p>
   </aside>
 </section>
 
@@ -818,35 +1076,32 @@ ax.set_ylim(3.9, 4.4)</code></pre>
   <h2>What you can do now</h2>
   <div class="cols">
     <ul class="checklist">
-      <li>Find problems with <code>info</code>, <code>isna</code>,
-        <code>duplicated</code> and <code>value_counts</code></li>
-      <li>Clean text with <code>.str</code>, and strip before comparing</li>
-      <li>Convert types with <code>to_numeric</code> and
-        <code>errors="coerce"</code></li>
-      <li>Parse dates deliberately, rather than conveniently</li>
-      <li>Find and remove duplicate rows</li>
+      <li>Find the damage before fixing it</li>
+      <li>Fix names, text, numbers and dates</li>
+      <li>Parse mixed dates on purpose, not by guessing</li>
+      <li>Decide what <code>NA</code> and a blank mean</li>
+      <li>Recover, label or leave a missing value, and say why</li>
     </ul>
     <ul class="checklist">
-      <li>Choose between dropping, filling and labelling, and say why</li>
-      <li>Check how much data your cleaning removed</li>
-      <li>Build a chart with <code>fig, ax</code></li>
-      <li>Pick the right chart for the question</li>
-      <li>Label it properly, and spot a misleading y-axis</li>
+      <li><strong>Say how much each decision moved the answer</strong></li>
+      <li>Recognise a zero count, loud and quiet</li>
+      <li>Draw one chart that answers one question</li>
+      <li>Choose bars or a line, and start bars at zero</li>
+      <li>Save a chart, and keep the cleaning as functions</li>
     </ul>
   </div>
   <div class="callout callout--key mt">
     <span class="ico">◆</span>
     <div>
-      <h4>Next session: one script, end to end</h4>
-      <p class="nomargin">Everything you have done so far has been in pieces. Next time we
-        build a single pipeline that goes from the database to a finished chart and CSV, with
-        a virtual environment and a proper project layout. It becomes the template for your
-        project, which you choose in session 11.</p>
+      <h4>Next session: putting it together</h4>
+      <p class="nomargin">Today's notebook becomes a script that runs from start to finish:
+        load, clean, analyse, save, with your two functions as the first two steps. Plus a
+        virtual environment, so it runs the same on any machine.</p>
     </div>
   </div>
   <aside class="notes">
-    <p>Commit and push. Ask them to keep their clean() function tidy, because next session
-    starts by lifting it into the pipeline.</p>
+    <p>Commit and push the notebooks and <code>cleaning.py</code>, or their own version of
+    it. Session 10 starts from those two functions.</p>
   </aside>
 </section>
 

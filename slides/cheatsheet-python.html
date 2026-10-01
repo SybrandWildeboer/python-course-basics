@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python cheatsheet · Python, SQL & Git</title>
+<link rel="stylesheet" href="assets/home.css">
+<style>
+.back { margin: 22px 0 0; font-size: 14.5px; }
+.back a, .note h4 a { color: var(--accent); text-decoration: none; }
+.tagline a, .note p a, .note li a { color: var(--accent); }
+.back a:hover { text-decoration: underline; }
+.sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 470px), 1fr)); gap: 16px; align-items: start; }
+.sheet > .note { margin: 0; min-width: 0; }
+.note h4 { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; }
+.note h4 .pill { font-size: 12px; padding: 2px 10px; font-weight: 600; }
+.note pre { font-size: 13.5px; line-height: 1.5; }
+.note ul { margin: 0 0 10px; padding-left: 20px; color: var(--ink-soft); font-size: 15px; }
+.ref-wrap { overflow-x: auto; margin: 4px 0 10px; }
+table.ref { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.ref th, table.ref td { text-align: left; vertical-align: top; padding: 6px 9px; border-bottom: 1px solid var(--line-soft); color: var(--ink-soft); }
+table.ref th { color: var(--ink-dim); font-weight: 650; font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+table.ref td code { white-space: nowrap; }
+@media print {
+  :root, :root[data-theme] {
+    --bg: #fff; --bg-deep: #fff; --surface: #fff; --surface-2: #fff; --surface-3: #eef1f5;
+    --line: #c4ccd8; --line-soft: #d9dee6; --ink: #000; --ink-soft: #1d2430; --ink-dim: #4b5566;
+    --accent: #2a49b0; --teal: #0d7a5d; --teal-soft: transparent;
+  }
+  body { background: #fff; padding: 0; }
+  #theme-toggle, .back { display: none; }
+  header { padding: 0 0 10px; }
+  h1 { background: none; color: #000; font-size: 28px; }
+  .tagline { font-size: 14px; }
+  h2 { margin: 18px 0 10px; }
+  .sheet { grid-template-columns: 1fr; gap: 8px; }
+  .note { break-inside: avoid; background: #fff; padding: 10px 12px; }
+  .note pre { font-size: 10.5px; white-space: pre-wrap; padding: 8px 10px; }
+  .note p, .note ul, table.ref { font-size: 12px; }
+  footer { margin-top: 20px; }
+}
+</style>
+</head>
+<body>
+<button id="theme-toggle" type="button">light / dark</button>
+<div class="wrap">
+
+<p class="back"><a href="index.html">← Course index</a> · <a href="cheatsheets.html">All cheatsheets</a></p>
+
+<header>
+  <div class="kicker">Cheatsheet · sessions 1 to 4, 10 and 12</div>
+  <h1>Python</h1>
+  <p class="tagline">The Python the course teaches, on one page. Every snippet here was run against the repository's data, and the comments show what it printed.</p>
+  <div class="facts">
+    <span class="pill pill--accent">Values and f-strings</span>
+    <span class="pill">Loops and functions</span>
+    <span class="pill">Lists, dicts, CSV</span>
+    <span class="pill">try / except and pytest</span>
+  </div>
+</header>
+
+<h2>Running code</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Notebook or script</span><span><a class="pill" href="session-01.html">Session 1</a> <a class="pill" href="session-10.html">Session 10</a></span></h4>
+<p>In a notebook, <code>Shift</code> <code>Enter</code> runs a cell and moves on, and the last line of a cell shows itself. In a script nothing appears unless you <code>print()</code> it. Run scripts from the repository root, so paths like <code>data/clean/plays.csv</code> are found.</p>
+<pre>python sessions/session-01/demos/hello.py      # Windows
+python3 sessions/session-01/demos/hello.py     # macOS</pre>
+<p>A script that is also meant to be imported ends with the two lines from session 10:</p>
+<pre>def main():
+    print(&quot;run as a script&quot;)
+
+
+if __name__ == &quot;__main__&quot;:     # true only when this file is run, not imported
+    main()</pre>
+</div>
+<div class="note">
+<h4><span>Comments and help</span><span><a class="pill" href="session-01.html">Session 1</a> <a class="pill" href="session-03.html">Session 3</a></span></h4>
+<pre># Everything after a hash is a note for humans. Python skips it.
+print(len(&quot;Fjord &amp; Flint&quot;))    # 13: len() counts characters, spaces included
+help(len)                      # the docstring of any function</pre>
+</div>
+</div>
+<h2>Values</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Variables and types</span><span><a class="pill" href="session-01.html">Session 1</a></span></h4>
+<pre>artist = &quot;Fjord &amp; Flint&quot;   # str    text, in quotes
+plays = 237                # int    a whole number
+minutes = 846.2            # float  a decimal
+skipped = False            # bool   True or False
+
+print(type(minutes))       # &lt;class &#x27;float&#x27;&gt;
+plays = plays + 1          # the right side first, then store it
+print(plays)               # 238</pre>
+<p>One <code>=</code> stores a value. Two, <code>==</code>, asks a question.</p>
+</div>
+<div class="note">
+<h4><span>Arithmetic and conversion</span><span><a class="pill" href="session-01.html">Session 1</a></span></h4>
+<pre>print(10 / 4)          # 2.5   / always gives a float
+print(10 // 4)         # 2     whole-number division
+print(10 % 4)          # 2     the remainder
+print(4 + 4, &quot;4&quot; + &quot;4&quot;)   # 8 44   numbers add, text joins
+
+print(int(&quot;41&quot;), float(&quot;4.65&quot;), str(41))   # 41 4.65 41
+print(int(4.99), round(4.99))              # 4 5   int() chops, round() rounds
+print(round(846.2391, 1))                  # 846.2</pre>
+<p><code>int("forty one")</code> stops with a <code>ValueError</code>. Text that is not a number cannot become one.</p>
+</div>
+<div class="note">
+<h4><span>f-strings</span><span><a class="pill" href="session-01.html">Session 1</a></span></h4>
+<pre>artist, plays, total = &quot;Glass Tram&quot;, 229, 1175.0912
+print(f&quot;{artist} has {plays} plays&quot;)      # Glass Tram has 229 plays
+print(f&quot;next year: {plays + 1}&quot;)          # any expression fits in { }
+print(f&quot;{total:.1f} minutes&quot;)             # 1175.1 minutes
+print(f&quot;{8980.4:,.0f} minutes&quot;)           # 8,980 minutes
+print(f&quot;[{&#x27;Jazz&#x27;:12}][{154:&gt;5}]&quot;)         # [Jazz        ][  154]
+print(f&quot;{artist.upper()}&quot;)                # GLASS TRAM</pre>
+<p><code>:.1f</code> one decimal, <code>:,</code> thousands separator, <code>:12</code> pad to 12 wide, <code>:&gt;5</code> right-align in 5.</p>
+</div>
+<div class="note">
+<h4><span>input() and text methods</span><span><a class="pill" href="session-01.html">Session 1</a> <a class="pill" href="session-03.html">Session 3</a></span></h4>
+<pre>year_text = input(&quot;Birth year: &quot;)   # ALWAYS text, even if digits are typed
+year = int(year_text)               # convert before doing maths
+print(f&quot;You are about {2026 - year}&quot;)
+
+name = &quot;  Sara Lindqvist &quot;
+print(name.strip())                 # Sara Lindqvist   spaces off both ends
+print(name.strip().upper())         # SARA LINDQVIST
+print(&quot;2025-04-17&quot;.startswith(&quot;2025&quot;))       # True
+print(&quot;Sara Lindqvist&quot;.split())              # [&#x27;Sara&#x27;, &#x27;Lindqvist&#x27;]
+print(&quot;.&quot;.join([&quot;S&quot;, &quot;L&quot;]))                  # S.L</pre>
+</div>
+</div>
+<h2>Decisions and loops</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Comparisons and if</span><span><a class="pill" href="session-02.html">Session 2</a></span></h4>
+<pre>minutes = 7.1
+if minutes &gt; 8:
+    print(&quot;long&quot;)
+elif minutes &gt; 4:
+    print(&quot;normal&quot;)          # this one: the first true test wins
+else:
+    print(&quot;short&quot;)
+
+device, skipped = &quot;phone&quot;, 0
+if device == &quot;phone&quot; and not skipped:
+    print(&quot;a full play on the phone&quot;)
+if device == &quot;car&quot; or device == &quot;tablet&quot;:
+    print(&quot;not printed&quot;)
+print(&quot;a&quot; == &quot;A&quot;, 5 != 5)    # False False   capitals matter</pre>
+<p><code>== != &gt; &lt; &gt;= &lt;=</code>, joined with <code>and</code>, <code>or</code>, <code>not</code>. The colon and the indent are grammar. Order the <code>elif</code>s from strictest to loosest.</p>
+</div>
+<div class="note">
+<h4><span>for, range and the accumulator</span><span><a class="pill" href="session-02.html">Session 2</a></span></h4>
+<pre>for i in range(1, 6):        # 1 2 3 4 5   the end is NOT included
+    print(i, end=&quot; &quot;)
+print()
+
+minutes = [4.65, 2.42, 7.10, 3.05]
+total = 0                    # 1. set up BEFORE the loop
+for m in minutes:
+    total += m               # 2. update inside
+print(round(total, 2))       # 3. use after: 17.22</pre>
+<p><code>range(5)</code> is 0 to 4. <code>range(0, 20, 5)</code> is 0, 5, 10, 15. Put <code>total = 0</code> inside the loop and it resets every time round.</p>
+</div>
+<div class="note">
+<h4><span>while, break, continue</span><span><a class="pill" href="session-02.html">Session 2</a></span></h4>
+<pre>count = 3
+while count &gt; 0:
+    print(count)
+    count -= 1               # without this it never ends
+print(&quot;Go&quot;)
+
+for i in range(1, 100):
+    if i * i &gt; 50:
+        print(i, &quot;squared passes 50&quot;)   # 8 squared passes 50
+        break                # stop the loop
+
+for i in range(1, 11):
+    if i % 2 == 0:
+        continue             # skip to the next one
+    print(i, end=&quot; &quot;)        # 1 3 5 7 9
+print()</pre>
+</div>
+</div>
+<h2>Functions</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>def and return</span><span><a class="pill" href="session-03.html">Session 3</a></span></h4>
+<pre>def average(numbers):
+    &quot;&quot;&quot;Return the mean of a list of numbers.&quot;&quot;&quot;
+    return sum(numbers) / len(numbers)
+
+
+result = average([4.65, 2.42, 7.10, 3.05])
+print(round(result, 2))          # 4.3
+print(round(average([2, 4]) + 1, 1))   # 4.0: a returned value can be used</pre>
+<p>Define once, call with brackets. Without them, <code>average</code> is the function itself and nothing runs. The docstring is what <code>help(average)</code> shows.</p>
+</div>
+<div class="note">
+<h4><span>return versus print</span><span><a class="pill" href="session-03.html">Session 3</a></span></h4>
+<pre>def double_p(n):
+    print(n * 2)          # shows a human, hands back nothing
+
+
+def double_r(n):
+    return n * 2          # hands a value back to the program
+
+
+x = double_p(5)           # prints 10
+print(x)                  # None
+print(double_r(5) + 1)    # 11</pre>
+<p><code>double_p(5) + 1</code> is a <code>TypeError</code> about <code>NoneType</code>. A function with no <code>return</code>, or one that falls off the end of an <code>if</code>, gives <code>None</code>. Calculate and return; let the outer layer print.</p>
+</div>
+<div class="note">
+<h4><span>Parameters, defaults, guard clauses</span><span><a class="pill" href="session-03.html">Session 3</a></span></h4>
+<pre>def describe(artist, plays, unit=&quot;plays&quot;):
+    if plays &lt; 0:                          # guard clause: odd cases first
+        return &quot;not a real count&quot;
+    return f&quot;{artist}: {plays} {unit}&quot;
+
+
+print(describe(&quot;DJ Kompas&quot;, 215))                 # DJ Kompas: 215 plays
+print(describe(&quot;DJ Kompas&quot;, 1169.2, &quot;minutes&quot;))   # DJ Kompas: 1169.2 minutes
+print(describe(plays=-1, artist=&quot;x&quot;))             # by name, any order</pre>
+</div>
+<div class="note">
+<h4><span>Scope and assert</span><span><a class="pill" href="session-03.html">Session 3</a></span></h4>
+<pre>VAT = 1.21                   # defined outside: readable inside
+
+
+def calculate():
+    subtotal = 100           # lives only while the function runs
+    return subtotal * VAT
+
+
+print(round(calculate(), 2))     # 121.0
+# print(subtotal)  -&gt;  NameError: name &#x27;subtotal&#x27; is not defined
+
+assert average([2, 4]) == 3      # silent when true
+assert round(average([-5, -2, -9]), 1) == -5.3</pre>
+<p>An <code>assert</code> that fails stops with an <code>AssertionError</code>. Check the awkward cases on purpose: negatives, one value, empty.</p>
+</div>
+</div>
+<h2>Lists and dictionaries</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Lists</span><span><a class="pill" href="session-04.html">Session 4</a></span></h4>
+<pre>devices = [&quot;phone&quot;, &quot;laptop&quot;, &quot;speaker&quot;, &quot;car&quot;]
+print(devices[0], devices[-1])     # phone car   counting starts at 0
+print(devices[1:3])                # [&#x27;laptop&#x27;, &#x27;speaker&#x27;]  end not included
+print(len(devices))                # 4
+devices.append(&quot;tablet&quot;)
+print(&quot;car&quot; in devices)            # True
+print(sorted(devices))             # a NEW sorted list
+devices.sort()                     # sorts in place, returns None
+# devices = devices.sort()         # throws the list away. Never.
+
+for n, d in enumerate(devices, start=1):
+    print(n, d, end=&quot;  &quot;)          # 1 car  2 laptop  3 phone ...
+print()</pre>
+<p><code>devices[9]</code> is an <code>IndexError</code>.</p>
+</div>
+<div class="note">
+<h4><span>List comprehensions</span><span><a class="pill" href="session-04.html">Session 4</a></span></h4>
+<pre>minutes = [4.65, 2.42, 9.30, 0.51, 7.10]
+long_ones = [m for m in minutes if m &gt; 5]     # filter
+print(long_ones)                              # [9.3, 7.1]
+rounded = [round(m) for m in minutes]         # transform
+print(rounded)                                # [5, 2, 9, 1, 7]
+print(sum(1 for m in minutes if m &lt; 1))       # 1: count matches</pre>
+<p>The same as a <code>for</code> loop with an <code>append</code>, on one line.</p>
+</div>
+<div class="note">
+<h4><span>Dictionaries</span><span><a class="pill" href="session-04.html">Session 4</a></span></h4>
+<pre>play = {&quot;artist_name&quot;: &quot;Fjord &amp; Flint&quot;, &quot;genre&quot;: &quot;Folk&quot;, &quot;minutes_played&quot;: 4.65}
+print(play[&quot;genre&quot;])                 # Folk
+play[&quot;device&quot;] = &quot;phone&quot;             # add or update a key
+print(&quot;genre&quot; in play)               # True
+print(play.get(&quot;mood&quot;))              # None: no crash
+print(play.get(&quot;mood&quot;, &quot;unknown&quot;))   # a default you chose
+
+for key, value in play.items():      # the loop you will use most
+    print(f&quot;{key}: {value}&quot;)</pre>
+<p><code>play["mood"]</code> is a <code>KeyError</code>. <code>.keys()</code>, <code>.values()</code>, <code>.items()</code>.</p>
+</div>
+<div class="note">
+<h4><span>The counting pattern</span><span><a class="pill" href="session-04.html">Session 4</a></span></h4>
+<pre>genres = [&quot;Folk&quot;, &quot;Jazz&quot;, &quot;Folk&quot;, &quot;Rock&quot;, &quot;Folk&quot;]
+counts = {}
+for g in genres:
+    counts[g] = counts.get(g, 0) + 1
+print(counts)                        # {&#x27;Folk&#x27;: 3, &#x27;Jazz&#x27;: 1, &#x27;Rock&#x27;: 1}
+
+# biggest first: keep this recipe
+for g, n in sorted(counts.items(), key=lambda pair: pair[1], reverse=True):
+    print(f&quot;{g:6} {n:&gt;3}&quot;)</pre>
+<p>A list of dictionaries is a table: one dictionary per row, one key per column. This loop is <code>GROUP BY</code> in session 6 and <code>value_counts()</code> in session 8.</p>
+</div>
+</div>
+<h2>Files</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Read a CSV</span><span><a class="pill" href="session-04.html">Session 4</a></span></h4>
+<pre>import csv
+
+with open(&quot;data/clean/plays.csv&quot;, encoding=&quot;utf-8&quot;) as f:
+    rows = list(csv.DictReader(f))   # list(): or you can only loop once
+
+print(len(rows))                     # 2183
+print(list(rows[0].keys()))          # the column names
+print(rows[0][&quot;genre&quot;])              # Folk
+
+total = 0.0
+for row in rows:
+    total += float(row[&quot;minutes_played&quot;])   # every value arrives as TEXT
+print(f&quot;{total:,.1f}&quot;)               # 8,980.4</pre>
+</div>
+<div class="note">
+<h4><span>Write a CSV</span><span><a class="pill" href="session-04.html">Session 4</a></span></h4>
+<pre>import os
+
+jazz = [row for row in rows if row[&quot;genre&quot;] == &quot;Jazz&quot;]
+print(len(jazz))                         # 154
+
+os.makedirs(&quot;output&quot;, exist_ok=True)     # &quot;w&quot; fails if the folder is missing
+with open(&quot;output/jazz.csv&quot;, &quot;w&quot;, newline=&quot;&quot;, encoding=&quot;utf-8&quot;) as f:
+    writer = csv.DictWriter(f, fieldnames=rows[0].keys())
+    writer.writeheader()
+    writer.writerows(jazz)</pre>
+<p><code>"w"</code> replaces the file without asking. <code>newline=""</code> stops blank lines on Windows. <code>output/</code> is in <code>.gitignore</code>.</p>
+</div>
+<div class="note">
+<h4><span>Where am I?</span><span><a class="pill" href="session-04.html">Session 4</a> <a class="pill" href="session-10.html">Session 10</a></span></h4>
+<pre>import os
+from pathlib import Path
+
+print(os.getcwd())                       # the folder Python is looking in
+print(Path(&quot;data/clean/plays.csv&quot;).exists())   # True from the repo root</pre>
+<p>Got a <code>FileNotFoundError</code>? Print the working directory first. The file is almost always fine; Python is looking somewhere else.</p>
+</div>
+</div>
+<h2>When things go wrong</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>try / except</span><span><a class="pill" href="session-12.html">Session 12</a></span></h4>
+<pre>def to_number(text):
+    &quot;&quot;&quot;Return text as a float, or None if it is not a number.&quot;&quot;&quot;
+    try:
+        return float(text)
+    except ValueError:               # name the error you expect
+        return None
+
+
+print(to_number(&quot;4.2&quot;), to_number(&quot;4.2 min&quot;), to_number(&quot;&quot;))   # 4.2 None None
+
+try:
+    average([])
+except ZeroDivisionError as error:
+    print(&quot;could not average:&quot;, error)     # division by zero</pre>
+<p>Never a bare <code>except:</code>. It catches typos too, so a <code>NameError</code> turns into a quiet wrong answer. Catch a missing file in <code>main()</code>, not inside the loader.</p>
+</div>
+<div class="note">
+<h4><span>Tests with pytest</span><span><a class="pill" href="session-12.html">Session 12</a></span></h4>
+<pre># test_statistics_functions.py: a test is a function starting test_
+import pytest
+
+
+def test_average_of_two_numbers():
+    assert average([2, 4]) == 3
+
+
+def test_average_of_an_empty_list_raises():
+    with pytest.raises(ZeroDivisionError):
+        average([])</pre>
+<pre>python -m pip install pytest                   # once, into the active environment
+python -m pytest sessions/session-12/demos     # name the folder</pre>
+<p>On macOS, <code>python3</code> until a virtual environment is active.</p>
+</div>
+<div class="note">
+<h4><span>Error messages, decoded</span><span><a class="pill" href="session-02.html">Session 2</a> <a class="pill" href="session-03.html">Session 3</a> <a class="pill" href="session-04.html">Session 4</a></span></h4>
+<div class="ref-wrap"><table class="ref">
+<tr><th>Error</th><th>Usually means</th></tr>
+<tr><td><code>SyntaxError</code></td><td>A missing colon, bracket or quote, or <code>=</code> where <code>==</code> was meant. Smart quotes pasted from a chat app</td></tr>
+<tr><td><code>IndentationError</code></td><td>The lines inside an <code>if</code>, loop or function are not indented the same</td></tr>
+<tr><td><code>NameError</code></td><td>A typo, a variable used before it exists, or one that only lived inside a function</td></tr>
+<tr><td><code>TypeError</code></td><td>Mixing types: text plus a number, or a <code>None</code> from a function that printed instead of returning</td></tr>
+<tr><td><code>ValueError</code></td><td>Right type, wrong content: <code>int("forty one")</code></td></tr>
+<tr><td><code>KeyError</code></td><td>A dictionary key or column name that is not there. Print <code>.keys()</code></td></tr>
+<tr><td><code>IndexError</code></td><td>A position past the end of a list</td></tr>
+<tr><td><code>FileNotFoundError</code></td><td>Running from the wrong folder. Print <code>os.getcwd()</code></td></tr>
+<tr><td><code>ZeroDivisionError</code></td><td>Dividing by <code>len()</code> of an empty list</td></tr>
+</table></div>
+<p>Read the last line first: it names the error. Then the line number above it says where.</p>
+</div>
+</div>
+
+<footer>
+  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
+</footer>
+
+</div>
+<script>
+(function () {
+  var KEY = "pycourse-theme";
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved) root.dataset.theme = saved;
+  } catch (e) { /* private browsing */ }
+
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var next = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = next;
+    try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
+  });
+})();
+</script>
+</body>
+</html>

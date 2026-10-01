@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pandas cheatsheet · Python, SQL & Git</title>
+<link rel="stylesheet" href="assets/home.css">
+<style>
+.back { margin: 22px 0 0; font-size: 14.5px; }
+.back a, .note h4 a { color: var(--accent); text-decoration: none; }
+.tagline a, .note p a, .note li a { color: var(--accent); }
+.back a:hover { text-decoration: underline; }
+.sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 470px), 1fr)); gap: 16px; align-items: start; }
+.sheet > .note { margin: 0; min-width: 0; }
+.note h4 { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; }
+.note h4 .pill { font-size: 12px; padding: 2px 10px; font-weight: 600; }
+.note pre { font-size: 13.5px; line-height: 1.5; }
+.note ul { margin: 0 0 10px; padding-left: 20px; color: var(--ink-soft); font-size: 15px; }
+.ref-wrap { overflow-x: auto; margin: 4px 0 10px; }
+table.ref { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.ref th, table.ref td { text-align: left; vertical-align: top; padding: 6px 9px; border-bottom: 1px solid var(--line-soft); color: var(--ink-soft); }
+table.ref th { color: var(--ink-dim); font-weight: 650; font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+table.ref td code { white-space: nowrap; }
+@media print {
+  :root, :root[data-theme] {
+    --bg: #fff; --bg-deep: #fff; --surface: #fff; --surface-2: #fff; --surface-3: #eef1f5;
+    --line: #c4ccd8; --line-soft: #d9dee6; --ink: #000; --ink-soft: #1d2430; --ink-dim: #4b5566;
+    --accent: #2a49b0; --teal: #0d7a5d; --teal-soft: transparent;
+  }
+  body { background: #fff; padding: 0; }
+  #theme-toggle, .back { display: none; }
+  header { padding: 0 0 10px; }
+  h1 { background: none; color: #000; font-size: 28px; }
+  .tagline { font-size: 14px; }
+  h2 { margin: 18px 0 10px; }
+  .sheet { grid-template-columns: 1fr; gap: 8px; }
+  .note { break-inside: avoid; background: #fff; padding: 10px 12px; }
+  .note pre { font-size: 10.5px; white-space: pre-wrap; padding: 8px 10px; }
+  .note p, .note ul, table.ref { font-size: 12px; }
+  footer { margin-top: 20px; }
+}
+</style>
+</head>
+<body>
+<button id="theme-toggle" type="button">light / dark</button>
+<div class="wrap">
+
+<p class="back"><a href="index.html">← Course index</a> · <a href="cheatsheets.html">All cheatsheets</a></p>
+
+<header>
+  <div class="kicker">Cheatsheet · sessions 8 to 10</div>
+  <h1>pandas</h1>
+  <p class="tagline">Loading, filtering, grouping, merging and cleaning the listening log. Every snippet here was run against the repository's data, top to bottom, and the comments show what came back.</p>
+  <div class="facts">
+    <span class="pill pill--accent">import pandas as pd</span>
+    <span class="pill">Masks and groupby</span>
+    <span class="pill">merge and fan-out</span>
+    <span class="pill">Cleaning the messy file</span>
+  </div>
+</header>
+
+<h2>Loading and looking</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Load</span><span><a class="pill" href="session-08.html">Session 8</a></span></h4>
+<pre>import sqlite3
+import pandas as pd
+
+plays = pd.read_csv(&quot;data/clean/plays.csv&quot;)
+
+con = sqlite3.connect(&quot;data/music.db&quot;)
+artists = pd.read_sql(&quot;SELECT * FROM artists&quot;, con)
+awards = pd.read_sql(&quot;SELECT * FROM awards&quot;, con)
+db_plays = pd.read_sql(&quot;SELECT * FROM plays&quot;, con)   # artist_id, no names
+con.close()</pre>
+<p><code>read_sql</code> takes any query, so the database can do the grouping and send back only the answer.</p>
+</div>
+<div class="note">
+<h4><span>First looks</span><span><a class="pill" href="session-08.html">Session 8</a></span></h4>
+<pre>print(plays.head())         # first five rows; .tail() for the last
+print(plays.shape)          # (2183, 9)   an attribute, no brackets
+plays.info()                # columns, types, non-null counts
+print(plays.dtypes[&quot;minutes_played&quot;])     # float64: converted for you
+print(plays[&quot;device&quot;].unique())           # the distinct values</pre>
+<p><code>plays.shape()</code> is <code>TypeError: 'tuple' object is not callable</code>. In a notebook the last line of a cell shows itself; in a script, <code>print()</code> it.</p>
+</div>
+<div class="note">
+<h4><span>Columns</span><span><a class="pill" href="session-08.html">Session 8</a></span></h4>
+<pre>genre = plays[&quot;genre&quot;]                           # one column: a Series
+two = plays[[&quot;track_name&quot;, &quot;minutes_played&quot;]]    # a list of names: a DataFrame
+print(round(plays[&quot;minutes_played&quot;].sum(), 1))   # 8980.4
+print(round(plays[&quot;minutes_played&quot;].mean(), 2))  # 4.11
+print(plays[&quot;minutes_played&quot;].max())             # 11.01
+
+plays[&quot;month&quot;] = plays[&quot;played_at&quot;].str[:7]      # new column: &#x27;2024-01&#x27;</pre>
+<p>Single brackets for a column, double for a table. <code>.sum() .mean() .min() .max() .count() .nunique()</code> all work on a column.</p>
+</div>
+</div>
+<h2>Filtering and sorting</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Masks</span><span><a class="pill" href="session-08.html">Session 8</a></span></h4>
+<pre>long_ones = plays[&quot;minutes_played&quot;] &gt; 9    # one True/False per row
+print(long_ones.sum())                     # 32: True counts as 1
+print(len(plays[long_ones]))               # 32 rows kept
+
+speaker_2025 = (plays[&quot;device&quot;] == &quot;speaker&quot;) &amp; (plays[&quot;played_at&quot;] &gt;= &quot;2025-01-01&quot;)
+print(speaker_2025.sum())                  # 174
+
+print(plays[&quot;device&quot;].isin([&quot;car&quot;, &quot;tablet&quot;]).sum())   # 284
+print((~plays[&quot;device&quot;].isin([&quot;phone&quot;])).sum())        # 1144: ~ is NOT</pre>
+<p><code>&amp;</code> and, <code>|</code> or, <code>~</code> not, and brackets round every condition. Python's <code>and</code> gives <code>ValueError: The truth value of a Series is ambiguous</code>.</p>
+</div>
+<div class="note">
+<h4><span>The bracket trap</span><span><a class="pill" href="session-08.html">Session 8</a></span></h4>
+<pre>right = (plays[&quot;minutes_played&quot;] &gt; 5) &amp; ((plays[&quot;device&quot;] == &quot;phone&quot;) | (plays[&quot;device&quot;] == &quot;laptop&quot;))
+wrong = (plays[&quot;minutes_played&quot;] &gt; 5) &amp; (plays[&quot;device&quot;] == &quot;phone&quot;) | (plays[&quot;device&quot;] == &quot;laptop&quot;)
+print(right.sum(), wrong.sum())     # 523 871</pre>
+<p><code>&amp;</code> is worked out before <code>|</code>, so the wrong one is "long phone plays, or any laptop play". It runs. Name each condition on its own line first.</p>
+</div>
+<div class="note">
+<h4><span>Sorting, and assigning back</span><span><a class="pill" href="session-08.html">Session 8</a> <a class="pill" href="session-09.html">Session 9</a></span></h4>
+<pre>longest = plays.sort_values(&quot;minutes_played&quot;, ascending=False)
+print(longest[[&quot;track_name&quot;, &quot;minutes_played&quot;]].head(3))   # Paper Avenue 11.01 first
+
+plays.sort_values(&quot;played_at&quot;)          # does nothing to plays
+plays[&quot;device&quot;].str.upper()             # nor does this</pre>
+<p>Nearly every method returns a new object. If "my fix did nothing", it was not assigned back: <code>df["device"] = df["device"].str.lower()</code>.</p>
+</div>
+</div>
+<h2>Grouping and joining</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>value_counts and groupby</span><span><a class="pill" href="session-08.html">Session 8</a></span></h4>
+<pre>print(plays[&quot;genre&quot;].value_counts().head(3))     # Electronic 547, Folk 438, Pop 302
+
+print(plays.groupby(&quot;genre&quot;)[&quot;minutes_played&quot;].sum().round(1).head(3))   # Afrobeat 596.8 ...
+
+per_genre = plays.groupby(&quot;genre&quot;).agg(
+    plays=(&quot;play_id&quot;, &quot;count&quot;),
+    minutes=(&quot;minutes_played&quot;, &quot;sum&quot;),
+    avg_min=(&quot;minutes_played&quot;, &quot;mean&quot;),
+)
+print(per_genre.sort_values(&quot;avg_min&quot;, ascending=False).round(2).head(2))  # Jazz 6.57 on top
+print(per_genre[per_genre[&quot;plays&quot;] &gt; 300].index.tolist())   # HAVING: a mask after</pre>
+<p><code>agg</code> takes <code>new_name=("column", "function")</code>. <code>.reset_index()</code> turns the group labels back into an ordinary column.</p>
+</div>
+<div class="note">
+<h4><span>merge is JOIN</span><span><a class="pill" href="session-08.html">Session 8</a></span></h4>
+<pre>named = db_plays.merge(artists, on=&quot;artist_id&quot;)             # inner join
+print(len(db_plays), len(named))                            # 2183 2183: good
+
+everyone = artists.merge(db_plays, on=&quot;artist_id&quot;, how=&quot;left&quot;)   # LEFT JOIN
+print(len(everyone))                                             # 2185
+print(everyone[everyone[&quot;play_id&quot;].isna()][&quot;artist_name&quot;].tolist())
+# [&#x27;Iron Fernway&#x27;, &#x27;Gravel Choir&#x27;]
+
+counts = everyone.groupby(&quot;artist_name&quot;)[&quot;play_id&quot;].count()   # COUNT(p.play_id)
+sizes = everyone.groupby(&quot;artist_name&quot;).size()                # COUNT(*)
+print(counts[&quot;Iron Fernway&quot;], sizes[&quot;Iron Fernway&quot;])          # 0 1</pre>
+<p><code>merge</code> is an inner join unless you say <code>how="left"</code>. Count the rows before and after, every time.</p>
+</div>
+<div class="note">
+<h4><span>Fan-out, and validate=</span><span><a class="pill" href="session-08.html">Session 8</a></span></h4>
+<pre>with_awards = db_plays.merge(awards, on=&quot;artist_id&quot;)
+print(len(with_awards), round(with_awards[&quot;minutes_played&quot;].sum(), 1))   # 2371 9732.1
+
+per_artist = (db_plays.groupby(&quot;artist_id&quot;)
+              .agg(plays=(&quot;play_id&quot;, &quot;count&quot;), minutes=(&quot;minutes_played&quot;, &quot;sum&quot;))
+              .reset_index())                          # aggregate FIRST
+n_awards = awards.groupby(&quot;artist_id&quot;).size().rename(&quot;awards&quot;).reset_index()
+summary = per_artist.merge(n_awards, on=&quot;artist_id&quot;, how=&quot;left&quot;, validate=&quot;one_to_one&quot;)
+summary[&quot;awards&quot;] = summary[&quot;awards&quot;].fillna(0).astype(int)   # COALESCE(x, 0)
+
+try:
+    db_plays.merge(awards, on=&quot;artist_id&quot;, validate=&quot;many_to_one&quot;)
+except pd.errors.MergeError as error:
+    print(error)   # Merge keys are not unique in right dataset; not a many-to-one merge</pre>
+<p><code>validate=</code> turns a silent fan-out into an error. SQL has no such switch. <code>drop_duplicates()</code> is not the fix.</p>
+</div>
+<div class="note">
+<h4><span>SQL to pandas</span><span><a class="pill" href="session-08.html">Session 8</a></span></h4>
+<div class="ref-wrap"><table class="ref">
+<tr><th>SQL</th><th>pandas</th></tr>
+<tr><td><code>SELECT a, b</code></td><td><code>df[["a", "b"]]</code></td></tr>
+<tr><td><code>WHERE</code></td><td><code>df[mask]</code></td></tr>
+<tr><td><code>IN (…)</code></td><td><code>.isin([…])</code></td></tr>
+<tr><td><code>IS NULL</code></td><td><code>.isna()</code></td></tr>
+<tr><td><code>ORDER BY … DESC</code></td><td><code>.sort_values(…, ascending=False)</code></td></tr>
+<tr><td><code>LIMIT 5</code></td><td><code>.head(5)</code></td></tr>
+<tr><td><code>DISTINCT</code></td><td><code>.unique()</code>, <code>.value_counts()</code></td></tr>
+<tr><td><code>GROUP BY</code></td><td><code>.groupby(…)</code></td></tr>
+<tr><td><code>HAVING</code></td><td>a mask on the grouped result</td></tr>
+<tr><td><code>COUNT(*)</code> / <code>COUNT(col)</code></td><td><code>.size()</code> / <code>.count()</code></td></tr>
+<tr><td><code>JOIN … USING (k)</code></td><td><code>.merge(…, on="k")</code></td></tr>
+<tr><td><code>LEFT JOIN</code></td><td><code>.merge(…, how="left")</code></td></tr>
+<tr><td><code>COALESCE(x, 0)</code></td><td><code>.fillna(0)</code></td></tr>
+<tr><td>a CTE</td><td>a variable with a good name</td></tr>
+</table></div>
+</div>
+</div>
+<h2>Cleaning</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Find the damage first</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<pre>df = pd.read_csv(&quot;data/messy/plays_messy.csv&quot;)
+print(df.shape)                       # (2223, 9): 40 more than the clean file
+print(df.columns.tolist()[-1])        # &#x27;minutes played &#x27; with two spaces
+print(df.isna().sum()[lambda s: s &gt; 0].to_dict())
+# {&#x27;genre&#x27;: 36, &#x27;country&#x27;: 49, &#x27;device&#x27;: 70, &#x27;minutes played &#x27;: 94}
+print(df[&quot;device&quot;].nunique())         # 20 spellings of five devices
+print(df[&quot;device&quot;].value_counts(dropna=False))   # NaN 70 shows up only with dropna=False
+print(df.duplicated().sum())          # 40 exact duplicate rows</pre>
+<p><code>value_counts()</code> and <code>groupby</code> hide missing values unless you pass <code>dropna=False</code>. Count the missing values before and after every fix.</p>
+</div>
+<div class="note">
+<h4><span>Names, text and numbers</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<pre>df = df.rename(columns={&quot;minutes played &quot;: &quot;minutes_played&quot;})
+df[&quot;device&quot;] = df[&quot;device&quot;].str.strip().str.lower()    # &#x27; PHONE&#x27; -&gt; &#x27;phone&#x27;
+df[&quot;genre&quot;] = df[&quot;genre&quot;].str.strip().str.title()      # &#x27;INDIE&#x27; -&gt; &#x27;Indie&#x27;
+
+text = df[&quot;minutes_played&quot;].str.replace(&quot; min&quot;, &quot;&quot;)    # &#x27;4.2 min&#x27; -&gt; &#x27;4.2&#x27;
+df[&quot;minutes_played&quot;] = pd.to_numeric(text, errors=&quot;coerce&quot;)
+print(df[&quot;minutes_played&quot;].isna().sum())               # 94: only the real blanks</pre>
+<p><code>errors="coerce"</code> turns anything unreadable into <code>NaN</code> without a word. Converting before stripping <code>" min"</code> loses 190 values instead of 94.</p>
+</div>
+<div class="note">
+<h4><span>Dates</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<pre>dates = df[&quot;played_at&quot;]
+parsed = pd.to_datetime(dates, format=&quot;%Y-%m-%d&quot;, errors=&quot;coerce&quot;)
+parsed = parsed.fillna(pd.to_datetime(dates, format=&quot;%d/%m/%Y&quot;, errors=&quot;coerce&quot;))
+parsed = parsed.fillna(pd.to_datetime(dates, format=&quot;%d-%m-%Y&quot;, errors=&quot;coerce&quot;))
+print(parsed.isna().sum())                 # 0: every date read
+df[&quot;played_at&quot;] = parsed.dt.strftime(&quot;%Y-%m-%d&quot;)   # back to text, like the clean file</pre>
+<p>One format at a time, on purpose. <code>format="mixed"</code> raises no error and gets 159 dates wrong: it reads 03/09/2025 as the 9th of March.</p>
+</div>
+<div class="note">
+<h4><span>Missing values and duplicates</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<pre>lookup = df.dropna(subset=[&quot;genre&quot;]).groupby(&quot;artist_name&quot;)[&quot;genre&quot;].first()
+df[&quot;genre&quot;] = df[&quot;genre&quot;].fillna(df[&quot;artist_name&quot;].map(lookup))   # fill from the artist
+
+df = df.drop_duplicates()
+print(len(df))                                  # 2183
+df[&quot;device&quot;] = df[&quot;device&quot;].fillna(&quot;unknown&quot;)   # still counted, still visible
+
+m = df[&quot;minutes_played&quot;]
+print(round(m.mean(), 3), round(m.fillna(0).mean(), 3))   # 4.121 3.943</pre>
+<p><code>.mean()</code> skips <code>NaN</code>. <code>fillna(0)</code> claims those plays lasted zero minutes. <code>dropna()</code> with no arguments drops a row missing anything; say which column with <code>subset=</code>.</p>
+</div>
+<div class="note">
+<h4><span>Save the result</span><span><a class="pill" href="session-08.html">Session 8</a> <a class="pill" href="session-10.html">Session 10</a></span></h4>
+<pre>import os
+
+os.makedirs(&quot;output&quot;, exist_ok=True)
+per_genre.round(2).to_csv(&quot;output/per_genre.csv&quot;)         # keeps genre as a column
+plays.head(10).to_csv(&quot;output/sample.csv&quot;, index=False)   # no row numbers
+print(pd.read_csv(&quot;output/per_genre.csv&quot;).columns.tolist())
+# [&#x27;genre&#x27;, &#x27;plays&#x27;, &#x27;minutes&#x27;, &#x27;avg_min&#x27;]</pre>
+<p>Session 10 puts this in a pipeline: <code>load → clean → analyse → save</code>, one function each, with a check that reads the file back. See <a href="../sessions/session-10/demos/genre_pipeline.py">genre_pipeline.py</a>.</p>
+</div>
+</div>
+
+<footer>
+  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
+</footer>
+
+</div>
+<script>
+(function () {
+  var KEY = "pycourse-theme";
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved) root.dataset.theme = saved;
+  } catch (e) { /* private browsing */ }
+
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var next = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = next;
+    try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
+  });
+})();
+</script>
+</body>
+</html>

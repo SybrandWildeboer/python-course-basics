@@ -32,7 +32,9 @@ Anything interactive, like the session 2 guessing game, is a script only, becaus
 is awkward in a notebook.
 
 ```
-slides/                 one deck per session, plus the course index
+slides/                 one deck per session, the course index, and the course pages:
+                        start, install, troubleshooting, cheatsheets, dataset,
+                        instructor notes and project template
 sessions/session-NN/
     notebooks/          where you work
     demos/              the same material as scripts
@@ -41,11 +43,8 @@ sessions/session-NN/
     homework/           homework, with answers in homework/solutions/
     README.md           run sheet and notes for whoever is teaching
 data/                   the dataset: CSVs, a messy version, a SQLite database
-cheatsheets/            quick reference per topic
-docs/                   install guide and troubleshooting
-instructor/             prep and course-wide notes
 my-work/                your scratch space
-project/                your final project, from session 11
+project/                the project template from session 10, your project from session 11
 tools/                  scripts that check the course materials
 ```
 
@@ -57,7 +56,7 @@ artists and two years. It appears in four shapes.
 | Shape | Where | Used in |
 |---|---|---|
 | Clean CSVs | `data/clean/` | sessions 4, 8 |
-| SQLite database, three tables | `data/music.db` | sessions 6, 7, 10 |
+| SQLite database, three tables | `data/music.db` | sessions 6, 7, 8, 10 |
 | Deliberately messy CSV | `data/messy/` | session 9 |
 | Everything above | | session 10 onward |
 
@@ -87,7 +86,18 @@ python3 data/scripts/build_dataset.py
 
 ## Checking the materials
 
-If you change anything, these three will tell you whether it still holds together.
+If you change anything, one command tells you whether it still holds together. On Windows
+type `python`, on macOS `python3`.
+
+```bash
+python tools/check_all.py         # everything, a few minutes
+python tools/check_all.py --fast  # skip running the notebooks and scripts
+```
+
+It runs the checks below, then runs every script under `sessions/` and `project/`, the
+session 12 tests with pytest, and makes sure nothing was written outside the gitignored
+`output/` folders. Scripts that ask for input are skipped, and it says so. You can also run
+any one check on its own:
 
 ```bash
 python3 tools/check_slides.py     # every slide fits, no overflow, notes present
@@ -96,10 +106,11 @@ python3 tools/nbtool.py check     # notebooks are valid and carry no saved outpu
 python3 tools/nbtool.py run       # every notebook still runs top to bottom
 ```
 
-`check_slides.py` and `nbtool.py run` need a couple of extras:
+`check_slides.py`, `nbtool.py run` and the tests need a couple of extras. Without them,
+`check_all.py` reports those checks as skipped rather than failed:
 
 ```bash
-pip install playwright nbformat nbclient ipykernel
+pip install playwright nbformat nbclient ipykernel pytest
 playwright install chromium
 ```
 

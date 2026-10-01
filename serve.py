@@ -33,6 +33,13 @@ class CourseHandler(http.server.SimpleHTTPRequestHandler):
 
     quiet = False
 
+    # Show markdown (READMEs, homework) as text in the browser instead of
+    # offering it as a download.
+    extensions_map = {
+        **http.server.SimpleHTTPRequestHandler.extensions_map,
+        ".md": "text/plain; charset=utf-8",
+    }
+
     def do_GET(self) -> None:  # noqa: N802  (the stdlib spells it this way)
         # "/" should land on the course index, not a directory listing.
         if self.path in ("/", "/index.html"):

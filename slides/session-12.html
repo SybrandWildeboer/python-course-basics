@@ -14,491 +14,817 @@
   <div>
     <div class="session-no">Session 12 of 12</div>
     <h1>Presentation, review and what is next</h1>
-    <p class="goal">You present. We review the code together. Then a map of where to go from
-      here, and two or three concrete first steps.</p>
+    <p class="goal">You present your project, we review the code together, two promises from
+      earlier sessions get kept, and you leave with a map and two concrete first steps.</p>
     <div class="meta">
       <span class="pill pill--accent">2 hours</span>
-      <span class="pill">You talk first</span>
-      <span class="pill">A real review</span>
-      <span class="pill pill--teal">The map ahead</span>
+      <span class="pill">your presentation</span>
+      <span class="pill pill--amber">code review</span>
+      <span class="pill">try / except</span>
+      <span class="pill">pytest</span>
+      <span class="pill pill--teal">where next</span>
     </div>
   </div>
   <aside class="notes">
-    <p>Today is mostly listening. Resist the urge to fill silence or to correct things during
-    the presentation; note them for the review.</p>
+    <p>The last session. The first half belongs to them: they present, then we read their
+    code together. The second half is the material earlier sessions kept deferring, taught
+    briefly, and then the map.</p>
   </aside>
 </section>
 
-<section class="slide" data-title="You present">
-  <div class="eyebrow">0:00 to 0:25</div>
-  <h2>Over to you</h2>
-  <div class="cols cols-wide-left">
-    <div class="stack">
-      <div class="card card--accent">
-        <div class="card-title"><span class="dot"></span>Cover these five things</div>
-        <ol class="tight nomargin">
-          <li><strong>The question</strong>, and why you picked it</li>
-          <li><strong>How you approached it</strong></li>
-          <li><strong>A walkthrough of the code</strong>, in the order it runs</li>
-          <li><strong>The result</strong>, and run it live</li>
-          <li><strong>What was hardest</strong>, and anything you abandoned</li>
-        </ol>
-      </div>
-      <div class="card card--teal card--compact">
-        <p class="nomargin">Fifteen to twenty minutes. I will not interrupt to correct
-          things; I am writing them down for the review afterwards.</p>
-      </div>
-    </div>
-    <div class="stack">
-      <div class="card card--amber card--compact">
-        <h4>Point five is the interesting one</h4>
-        <p class="nomargin">What you abandoned, and why, tells me more about how you are
-          thinking than the finished code does. Deciding not to do something is a skill, not
-          a failure.</p>
-      </div>
-      <div class="card card--compact card--plain">
-        <p class="nomargin">If something does not work, show it anyway and say so. A project
-          with an honest "this bit is broken and here is what I think is wrong" is stronger
-          than one that quietly avoids the subject.</p>
-      </div>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>Do not interrupt. Write things down: naming, repetition, functions doing too much,
-    charts that over-claim, anything that would break if the data changed.</p>
-    <p>If they are nervous, remind them this is a conversation, not an exam. Nobody is being
-    marked.</p>
-  </aside>
-</section>
-
-<section class="slide slide--section" data-title="Section: Review">
-  <div>
-    <div class="marker">0:25 to 1:00</div>
-    <h2>Code review</h2>
-    <p>A real review, the way it happens at work. Not an inspection.</p>
-  </div>
-</section>
-
-<section class="slide" data-title="How a review works">
-  <div class="eyebrow">Setting expectations</div>
-  <h2>What a code review actually is</h2>
-  <div class="cols">
-    <div class="card card--teal">
-      <div class="card-title"><span class="dot"></span>What it is</div>
-      <ul class="tight nomargin">
-        <li>Two people reading code together</li>
-        <li>Questions more than statements</li>
-        <li>Finding the two or three things worth changing</li>
-        <li>About the code, never about you</li>
-      </ul>
-    </div>
-    <div class="card card--rose">
-      <div class="card-title"><span class="dot"></span>What it is not</div>
-      <ul class="tight nomargin">
-        <li>A list of everything imperfect</li>
-        <li>A test with a score</li>
-        <li>Me rewriting it the way I would have</li>
-        <li>An argument about style</li>
-      </ul>
-    </div>
-  </div>
-  <div class="callout callout--key mt" style="margin-bottom:0">
-    <span class="ico">◆</span>
-    <div>
-      <p class="nomargin">You should push back. If I suggest something and you have a reason
-        for what you did, say so: half the time the reason is good and I did not know it. A
-        review where one person just accepts everything is not a review, it is a lecture with
-        extra steps.</p>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>Mean the push-back invitation. If they defend a decision well, say so out loud; it is
-    the most useful thing that can happen today.</p>
-  </aside>
-</section>
-
-<section class="slide" data-title="Review questions">
-  <div class="eyebrow">The angles</div>
-  <h2>Five questions we will ask of your code</h2>
-  <table class="sm">
-    <tr><th style="width:290px">Question</th><th>What we are looking for</th></tr>
-    <tr><td><strong>Is it readable?</strong> Would you understand this in six months?</td>
-      <td>Names that say what things are. A structure you can follow top to bottom without
-        holding much in your head</td></tr>
-    <tr><td><strong>Does each function do one thing?</strong></td>
-      <td>If you cannot name it after one thing, it is more than one. Watch for
-        load-and-clean-and-save</td></tr>
-    <tr><td><strong>What happens if the data changes slightly?</strong></td>
-      <td>An extra column, a new category, a missing month, twice as many rows. What breaks,
-        and would you notice?</td></tr>
-    <tr><td><strong>Where is the repetition?</strong></td>
-      <td>The same three lines twice usually wants to be a function with a parameter</td></tr>
-    <tr><td><strong>Does the conclusion follow from the analysis?</strong></td>
-      <td>The most important one. Does the code actually compute what the README claims?</td></tr>
-  </table>
-  <div class="callout callout--key" style="margin-bottom:0">
-    <span class="ico">◆</span>
-    <div>
-      <p class="nomargin">That last question is the one professionals get wrong most often,
-        and it has nothing to do with Python. A correct calculation of the wrong thing is the
-        most expensive bug there is, because everything about it looks fine.</p>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>Work through the code with these five, in this order. "What if the data changed" is the
-    one that most reliably finds real fragility: hardcoded column lists, assumed date ranges,
-    a groupby that silently drops a new category.</p>
-  </aside>
-</section>
-
-<section class="slide" data-title="Fix two things">
-  <div class="eyebrow">Live</div>
-  <h2>Pick two or three things and fix them now</h2>
+<section class="slide" data-title="Today">
+  <div class="eyebrow">The plan</div>
+  <h2>Today, and how it differs</h2>
   <div class="cols">
     <div class="stack">
-      <div class="card card--accent card--compact">
-        <h4>Why live, and why only two or three</h4>
-        <p class="nomargin">Because a list of improvements you take away is a list you will
-          not do. Two changes made now, with the code in front of you, are worth more than
-          ten written down.</p>
-      </div>
       <div class="card card--teal card--compact">
-        <h4>Good candidates</h4>
+        <div class="card-title"><span class="dot"></span>First hour · you lead</div>
         <ul class="tight nomargin">
-          <li>a name that is not quite right</li>
-          <li>a function doing two things, split in half</li>
-          <li>a repeated block turned into a parameter</li>
-          <li>a chart title that claims more than the data shows</li>
-          <li>a hardcoded value lifted to the top of the file</li>
+          <li>Ten minutes: your project, presented</li>
+          <li>Questions about it</li>
+          <li>We review your code together, as diffs</li>
+        </ul>
+      </div>
+      <div class="card card--amber card--compact">
+        <div class="card-title"><span class="dot"></span>Second hour · two promises, then the map</div>
+        <ul class="tight nomargin">
+          <li><code>try</code> / <code>except</code>, promised in sessions 2, 3 and 4</li>
+          <li><code>pytest</code>, promised in session 3</li>
+          <li>Where to go next, and two first steps</li>
         </ul>
       </div>
     </div>
     <div class="stack">
-      <div class="card card--amber card--compact">
-        <h4>And the final commit</h4>
-        <p class="nomargin">Finish with the changes committed and pushed. The last thing in
-          your history should be a real improvement made in a review, which is exactly how
-          professional work goes.</p>
+      <div class="card card--plain card--compact">
+        <h4>Where your project should be</h4>
+        <p class="nomargin">Milestone 3 from your scoping worksheet: <code>project/README.md</code>
+          updated, a clean run of <code>python project/pipeline.py</code> from a fresh
+          terminal, and the story rehearsed once out loud.</p>
       </div>
-      <div class="card card--compact card--plain">
-        <p class="nomargin">Then run the delete-and-rerun test one last time. If
-          <code>output/</code> regenerates after the edits, nothing got broken.</p>
+      <div class="callout callout--tip" style="margin-bottom:0">
+        <span class="ico">◆</span>
+        <div>
+          <p class="nomargin">If it is not all there, that is fine. Present what you have and
+            say what is missing. A half-finished project explained honestly is a better
+            presentation than a finished one explained vaguely.</p>
+        </div>
       </div>
     </div>
   </div>
-  <div class="callout callout--tip mt" style="margin-bottom:0">
+  <aside class="notes">
+    <p>No homework review today in the usual sense: the presentation is the homework review.
+    Check before they start that the pipeline runs and the chart is current. A stale chart
+    on screen derails the whole ten minutes.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Your project">
+  <div>
+    <div class="marker">Part one · 25 minutes</div>
+    <h2>Your project</h2>
+    <p>Ten minutes to present, then questions. This is practice at the part of data work
+      that gets taught least: telling someone what you found, in a way they can check.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Ten minutes">
+  <div class="eyebrow">The structure</div>
+  <h2>Ten minutes, five parts, one chart</h2>
+  <table class="sm">
+    <tr><th style="width:230px">Part</th><th style="width:80px">Time</th><th>What to say</th></tr>
+    <tr><td><strong>The question</strong></td><td>1 min</td>
+      <td>One sentence. Which repetitive task it started from, and why you cared.</td></tr>
+    <tr><td><strong>The data</strong></td><td>2 min</td>
+      <td>Where it came from, how many rows, what one row is. The cleaning decisions that
+        changed the answer, with how many rows each touched.</td></tr>
+    <tr><td><strong>One chart</strong></td><td>3 min</td>
+      <td>From <code>project/output/</code>, with the answer in its title. What each axis is,
+        where to look, what it shows.</td></tr>
+    <tr><td><strong>What surprised you</strong></td><td>2 min</td>
+      <td>In the data, or in the work. A bug that taught you something counts.</td></tr>
+    <tr><td><strong>What you would do next</strong></td><td>2 min</td>
+      <td>Your <em>could</em> list, and what you would do differently if you started again.</td></tr>
+  </table>
+  <div class="cols">
+    <div class="card card--compact card--accent">
+      <p class="nomargin"><strong>Show the chart full screen, not the code.</strong> Keep
+        <code>project/pipeline.py</code> open behind it for the review that follows.</p>
+    </div>
+    <div class="card card--compact card--plain">
+      <p class="nomargin">Notes and a prep checklist:
+        <code>sessions/session-12/worksheets/presentation.md</code></p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Keep time, gently. Most people spend six minutes on the data and rush the chart. If
+    they are running long, say "one minute on the chart, please" rather than stopping them.</p>
+    <p>Do not interrupt with questions. Write them down for afterwards.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Questions">
+  <div class="eyebrow">Afterwards</div>
+  <h2>The four questions any reviewer asks</h2>
+  <div class="cols cols-wide-left">
+    <ol class="steps">
+      <li><p class="nomargin"><strong>How do you know the number is right?</strong> Which
+        number was confirmed a second way, and how?</p></li>
+      <li><p class="nomargin"><strong>What did cleaning remove?</strong> Would the answer
+        change if it had not?</p></li>
+      <li><p class="nomargin"><strong>What is the smallest change to the data that would
+        change your conclusion?</strong></p></li>
+      <li><p class="nomargin"><strong>Who else could run this,</strong> and what would they
+        need?</p></li>
+    </ol>
+    <div class="stack">
+      <div class="card card--teal card--compact">
+        <h4>"I do not know yet" is a good answer</h4>
+        <p class="nomargin">Followed by how you would find out. Making up a confident answer
+          on the spot is the habit to avoid, in this room and every other.</p>
+      </div>
+      <div class="card card--amber card--compact">
+        <h4>Then one thing to keep</h4>
+        <p class="nomargin">Before any criticism: the one decision in the project that was
+          clearly right. Feedback that only lists problems teaches people to avoid feedback.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Question 3 is the hardest and the most valuable. If the conclusion rests on 12 plays
+    in one month, say so kindly: the honest version of the finding is smaller and still
+    interesting.</p>
+    <p>Say the thing to keep first, and mean it. Then at most two improvements.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Code review">
+  <div>
+    <div class="marker">Part two · 25 minutes</div>
+    <h2>Reading code together</h2>
+    <p>Session 5 said reading diffs is what makes code review possible. This is where it
+      pays off.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="A diff to review">
+  <div class="eyebrow">Warm-up · somebody else's commit</div>
+  <h2>What would you say about this diff?</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code out">
+      <figcaption>git show · "Add awards per genre, and stop crashing on missing files"</figcaption>
+      <pre class="xs"><code data-lang="text"> HERE = Path(__file__).resolve().parent
+-PLAYS = HERE / "data" / "plays.csv"
++PLAYS = Path("C:/Users/sam/Desktop/plays.csv")
+
+ def load(path):
+-    return pd.read_csv(path)
++    try:
++        return pd.read_csv(path)
++    except:
++        return pd.DataFrame()
+
++def add_awards(plays, awards, artists):
++    awards = awards.merge(artists[["artist_id", "artist_name"]], on="artist_id")
++    return plays.merge(awards, on="artist_name", how="left")
+
+     summary = (plays.groupby("genre", as_index=False)
+-               .agg(minutes=("minutes_played", "sum")))
++               .agg(minutes=("minutes_played", "sum"),
++                    awards=("award_id", "count")))
++    print(summary)</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--rose card--compact">
+        <h4>It runs, on Sam's laptop</h4>
+        <p class="nomargin">Total minutes go from <strong>8,980.4</strong> to
+          <strong>13,732.9</strong>. Rock jumps from last of eight genres to third. Folk's
+          9 awards become 1,095.</p>
+      </div>
+      <div class="card card--amber card--compact">
+        <p class="nomargin">On every other laptop it crashes with
+          <code>KeyError: 'artist_name'</code>, which says nothing about files at all.</p>
+      </div>
+      <div class="card card--plain card--compact">
+        <p class="nomargin">Full diff and answers: <code>worksheets/practice-review.diff</code>
+          and <code>practice-review-answers.md</code>.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Five planted problems: the absolute path, the bare except returning an empty
+    DataFrame, fan-out from the merge (2,183 rows become 3,391), print inside analyse, and
+    two changes in one commit. Let them find as many as they can with the checklist before
+    you say anything.</p>
+    <p>The fan-out one is session 7 in pandas, in the wild. If they spot it unaided, the
+    course has done its job on that topic.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Review checklist">
+  <div class="eyebrow">Reference · keep this one</div>
+  <h2>The review checklist, cheapest check first</h2>
+  <table class="sm">
+    <tr><th style="width:190px">Ask</th><th>What to look for</th><th style="width:150px">From</th></tr>
+    <tr><td>Does it run?</td><td>A fresh terminal, the repo root, <code>python project/pipeline.py</code>; then the tests</td><td>session 10</td></tr>
+    <tr><td>One thing per commit?</td><td>A message that says what and why. "Add X and fix Y" is two commits</td><td>session 5</td></tr>
+    <tr><td>Are the numbers right?</td><td>Row count after every merge, or <code>validate="many_to_one"</code>. Every division has a plan for zero</td><td>sessions 7, 8, 9</td></tr>
+    <tr><td>Decisions written down?</td><td>Each cleaning step, with how many rows it touched</td><td>sessions 9, 11</td></tr>
+    <tr><td>Errors handled honestly?</td><td>No bare <code>except:</code>. A missing file never becomes empty data</td><td>today</td></tr>
+    <tr><td>Shape and names?</td><td>Calculating functions return, only <code>main()</code> prints. No <code>df2</code>, no <code>C:/Users/...</code></td><td>sessions 3, 10</td></tr>
+    <tr><td>What goes into git?</td><td>No private data, no <code>output/</code>, no <code>.venv/</code>. <code>requirements.txt</code> complete</td><td>sessions 5, 11</td></tr>
+  </table>
+  <div class="callout callout--key" style="margin-bottom:0">
     <span class="ico">◆</span>
     <div>
-      <p class="nomargin">Say clearly what you did well, and be specific about it. Twelve
-        weeks ago you had never written a line of Python. That is worth more than a moment's
-        acknowledgement.</p>
+      <p class="nomargin"><strong>Sort comments by cost.</strong> A wrong number matters more
+        than a variable name. The expensive mistakes produce no error at all, which is why
+        they come before style. Full version: <code>worksheets/review-checklist.md</code>.</p>
     </div>
   </div>
   <aside class="notes">
-    <p>Do the praise properly and specifically. Vague encouragement is forgettable; "your
-    clean() docstring records the decisions, which most professionals do not bother with" is
-    not.</p>
+    <p>The right-hand column is deliberate: every line of the checklist is something an
+    earlier session taught. Point that out. A code review is mostly the whole course, applied
+    to one diff.</p>
   </aside>
 </section>
 
-<section class="slide slide--section" data-title="Section: Next">
-  <div>
-    <div class="marker">1:00 to 1:45</div>
-    <h2>What is next</h2>
-    <p>A map, not a syllabus. You do not need most of this, and it helps to know it is
-      there.</p>
-  </div>
-</section>
-
-<section class="slide" data-title="Straight extensions">
-  <div class="eyebrow">Closest to what you know</div>
-  <h2>Five things that plug straight into what you can already do</h2>
+<section class="slide" data-title="Review together">
+  <div class="eyebrow">Do it now · your code</div>
+  <h2>Reviewing your own project, as diffs</h2>
   <div class="cols">
-    <div class="stack">
-      <div class="card card--compact card--teal">
-        <h4>Error handling: <code>try</code> / <code>except</code></h4>
-        <p class="nomargin">The thing you kept bumping into: what should happen when the file
-          is missing or the input is nonsense? You have wanted this since session 3.</p>
-      </div>
-      <div class="card card--compact card--teal">
-        <h4>Testing: <code>pytest</code></h4>
-        <p class="nomargin">Code that checks your code. You have already done the honest
-          version with <code>assert</code> in session 3; <code>pytest</code> is that, with a
-          runner and better messages.</p>
-      </div>
-      <div class="card card--compact card--teal">
-        <h4>APIs and <code>requests</code></h4>
-        <p class="nomargin">Getting data from the internet instead of a file. Usually about
-          fifteen lines, and it turns "the data I have" into "the data that exists".</p>
-      </div>
-    </div>
-    <div class="stack">
-      <div class="card card--compact card--teal">
-        <h4>Automation</h4>
-        <p class="nomargin">Making a script run itself: <code>cron</code> on Mac and Linux,
-          Task Scheduler on Windows, GitHub Actions in the cloud. This is where the
-          "automate the annoying thing" idea actually pays off.</p>
-      </div>
-      <div class="card card--compact card--teal">
-        <h4>More of the notebook and script split</h4>
-        <p class="nomargin">You already have this. The next step is noticing, over time,
-          which of your habits belong in which shape.</p>
-      </div>
-      <div class="card card--accent card--compact">
-        <p class="nomargin"><strong>If you only do one:</strong> <code>try</code> /
-          <code>except</code>. It is small, it is immediately useful, and it makes everything
-          you have already written more robust.</p>
-      </div>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>try/except is the right recommendation here because they have hit the need for it
-    repeatedly and it is a single afternoon of learning.</p>
-  </aside>
-</section>
+    <figure class="code">
+      <figcaption>terminal, at the repository root</figcaption>
+      <pre class="sm"><code data-lang="bash"># what happened to the project, one line each
+git log --oneline -- project/
 
-<section class="slide" data-title="Git with people">
-  <div class="eyebrow">The social half of git</div>
-  <h2>Git, with other people in it</h2>
-  <div class="cols">
-    <div class="stack">
-      <p class="tight">Everything you learned in session 5 was git on your own. The other
-        half is what makes it worth the trouble.</p>
-      <ul class="tight nomargin">
-        <li><strong>Forks and pull requests:</strong> propose a change to somebody else's
-          project without needing permission first</li>
-        <li><strong>Code review on a pull request:</strong> what we did today, in writing,
-          asynchronously</li>
-        <li><strong>Merge conflicts:</strong> what happens when two people change the same
-          lines. Survivable, and less frightening once you have done one</li>
-        <li><strong>Branch per change:</strong> the habit that makes all of the above work</li>
-      </ul>
-    </div>
+# one commit: its message and its diff
+git show 3f2a91c
+
+# everything since session 11, one file
+git diff 3f2a91c HEAD -- project/pipeline.py
+
+# before your next commit: your own diff
+git diff</code></pre>
+    </figure>
     <div class="stack">
       <div class="card card--accent card--compact">
-        <h4>Day to day, on a team</h4>
-        <p class="nomargin">Pull the latest main. Branch. Make a small change. Push, open a
-          pull request, get it reviewed, merge. Repeat. That loop is most of what software
-          work looks like from the outside.</p>
+        <h4>How to write a review comment</h4>
+        <ul class="tight nomargin">
+          <li>Point at a line, and say what you see</li>
+          <li>Ask when unsure: "is this merge meant to repeat each play?"</li>
+          <li>Say one thing to keep</li>
+          <li>Two comments that matter beat ten that do not</li>
+        </ul>
       </div>
       <div class="card card--teal card--compact">
-        <h4>A good way to practise</h4>
-        <p class="nomargin">Fix a typo in the documentation of a project you use, as a pull
-          request. Genuinely useful, completely safe, and it teaches the whole mechanism in
-          one go.</p>
+        <p class="nomargin">The most useful reviewer you have is <strong>you, tomorrow</strong>.
+          Run <code>git diff</code> before every commit and read it as if somebody else wrote
+          it. That habit outlasts everything else on this slide.</p>
       </div>
     </div>
   </div>
   <aside class="notes">
-    <p>The documentation-typo pull request is a real recommendation. It is the least
-    intimidating way into the workflow and maintainers are usually delighted.</p>
+    <p>The hashes are placeholders; use theirs from git log. If their history is one giant
+    commit, review the current pipeline.py top to bottom instead, and mention that small
+    commits are what make review possible at all.</p>
+    <p>Let them drive the terminal. You read along and ask questions from the checklist.</p>
   </aside>
 </section>
 
-<section class="slide" data-title="SQL at scale">
-  <div class="eyebrow">If the data grows</div>
-  <h2>SQL beyond SQLite</h2>
-  <div class="cols-3">
-    <div class="card card--compact">
-      <div class="card-title"><span class="dot"></span>PostgreSQL, and the server model</div>
-      <p class="nomargin">SQLite is a file. Postgres is a program that many people and
-        programs talk to at once. Same SQL, plus users, permissions and backups.</p>
-      <p class="nomargin mt-s">This is what "the database" means at most workplaces.</p>
-    </div>
-    <div class="card card--compact">
-      <div class="card-title"><span class="dot"></span>Indexes, and why queries get slow</div>
-      <p class="nomargin">An index is the difference between reading every row and jumping
-        straight to the right ones. It is why one query takes 20ms and a similar-looking one
-        takes 40 seconds.</p>
-      <p class="nomargin mt-s">Learn <code>EXPLAIN</code> when you first meet a slow query.</p>
-    </div>
-    <div class="card card--compact">
-      <div class="card-title"><span class="dot"></span>Window functions</div>
-      <p class="nomargin">The thing that was missing in session 8's awkward question: a
-        running total, a rank within a group, a comparison to the previous row.</p>
-      <p class="nomargin mt-s">The biggest single upgrade to your SQL from here.</p>
-    </div>
-  </div>
-  <div class="callout callout--tip mt" style="margin-bottom:0">
-    <span class="ico">◆</span>
-    <div>
-      <p class="nomargin">Everything you learned in sessions 6 and 7 transfers unchanged.
-        <code>SELECT</code>, <code>WHERE</code>, <code>GROUP BY</code>, joins and CTEs are the
-        same in every database, and fan-out is fan-out everywhere.</p>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>Window functions are the honest answer to "what should I learn next in SQL". They
-    solve problems they have already hit.</p>
-  </aside>
-</section>
-
-<section class="slide" data-title="Directions">
-  <div class="eyebrow">Four directions</div>
-  <h2>Where people usually go from here</h2>
-  <div class="cols">
-    <div class="stack">
-      <div class="card card--compact card--accent">
-        <h4>Automation and scripting</h4>
-        <p class="nomargin"><strong>The highest-value path if your job has repetitive work in
-          it.</strong> Files, spreadsheets, emails, reports. Unglamorous, and it buys back
-          hours every week for the rest of your career.</p>
-      </div>
-      <div class="card card--compact card--teal">
-        <h4>Data analysis</h4>
-        <p class="nomargin">Deeper pandas, some statistics, and dashboards. The main thing to
-          add is not a library: it is enough statistics to know when a difference is real,
-          which is the question your <code>findings.md</code> kept running into.</p>
-      </div>
-    </div>
-    <div class="stack">
-      <div class="card card--compact card--violet" style="border-color:rgba(185,140,255,0.35);background:linear-gradient(160deg,var(--violet-soft),var(--surface) 55%)">
-        <h4>Web</h4>
-        <p class="nomargin"><strong>Streamlit</strong> turns a script into a shareable web
-          page in an afternoon, and it is the fastest way to make your work visible to
-          somebody else. <strong>Flask</strong> or <strong>FastAPI</strong> for real backends,
-          which is a bigger commitment.</p>
-      </div>
-      <div class="card card--compact card--amber">
-        <h4>Machine learning</h4>
-        <p class="nomargin">Honestly: it is mostly data work with a model at the end. The
-          pandas and SQL you have are 80% of the job, and the cleaning judgement from session
-          9 matters more than the algorithm. Do not start here because it sounds exciting.</p>
-      </div>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>Be honest about machine learning. People arrive wanting it and it is usually the wrong
-    next step; the data skills they now have are the bottleneck, not the models.</p>
-    <p>Streamlit is worth naming specifically. Seeing your own work as a web page is
-    motivating in a way that another script is not.</p>
-  </aside>
-</section>
-
-<section class="slide" data-title="How to keep going">
-  <div class="eyebrow">The honest answer</div>
-  <h2>How you actually get better from here</h2>
+<section class="slide" data-title="If the data changes">
+  <div class="eyebrow">The question that finds real fragility</div>
+  <h2>What happens if the data changes slightly?</h2>
   <div class="cols cols-wide-left">
     <div class="stack">
-      <div class="big big--accent" style="font-size:34px;max-width:30ch">Build things you want
-        to exist. Look up what you do not know as you need it. Read error messages
-        carefully.</div>
-      <p class="nomargin">That is it. There is no course that substitutes for it, including
-        this one. Twelve sessions got you to the point where the next thing you learn can come
-        from needing it.</p>
+      <table class="sm">
+        <tr><th style="width:170px">Next month's file has</th><th>Look for</th></tr>
+        <tr><td><strong>An extra column</strong>, or one renamed</td>
+          <td>A hardcoded column list, a rename that only knows one spelling. Does it fail
+            loudly, or carry on with the wrong column?</td></tr>
+        <tr><td><strong>A new category</strong></td>
+          <td>A genre or device the code has never seen: a fixed list in a chart, a colour per
+            name, a check that expects exactly eight rows</td></tr>
+        <tr><td><strong>A missing month</strong></td>
+          <td>Assumed date ranges, "24 rows" asserted, a chart whose line quietly joins across
+            the gap</td></tr>
+      </table>
+      <p class="nomargin">Walk through your own <code>pipeline.py</code> with each one. Twice
+        the rows is the fourth: does anything get slow, or assume a size?</p>
     </div>
     <div class="stack">
+      <div class="exercise">
+        <div class="tag">◆ Fix it live</div>
+        <ol class="tight nomargin">
+          <li>From the review, <strong>pick two or three things</strong>, not ten</li>
+          <li>Fix them now, one at a time</li>
+          <li>Commit each, with a message that says why</li>
+          <li>Rerun: delete <code>project/output/</code>, run the pipeline and the tests</li>
+        </ol>
+      </div>
       <div class="card card--compact card--teal">
-        <h4>What not to do</h4>
-        <p class="nomargin">Do not work through another twelve-week syllabus. You are past the
-          stage where structured teaching is the fastest route, and tutorials feel productive
-          in a way that building does not, which is exactly the trap.</p>
-      </div>
-      <div class="card card--compact card--accent">
-        <h4>What to do instead</h4>
-        <p class="nomargin">Pick something slightly too hard, start it, and get stuck. The
-          getting stuck is the learning. Everything you found hard in the last twelve weeks
-          you now find easy, and that happened by being stuck and then not being stuck.</p>
-      </div>
-      <div class="card card--compact card--plain">
-        <p class="nomargin">And keep the repo. It is a reference written in your own words,
-          about your own confusions, which is better than any documentation.</p>
+        <p class="nomargin">A list of improvements you take home is a list you will not do.
+          Two fixes made in the room, committed and rerun, are worth more.</p>
       </div>
     </div>
   </div>
   <aside class="notes">
-    <p>This is the most important slide in the session. Say it plainly and do not soften it
-    with a reading list.</p>
+    <p>This question finds more real problems than any other: hardcoded column lists,
+    assumed date ranges, a groupby or a chart that silently drops a new category. Ask it with
+    their file open, and let them find the line.</p>
+    <p>Then fix two or three things live, in their repo, with them typing. Commit, push, and
+    run the delete-and-rerun test once more, so the last run of the course is a clean one.</p>
   </aside>
 </section>
 
-<section class="slide" data-title="Concrete next steps">
-  <div class="eyebrow">1:45 to 2:00</div>
-  <h2>Two or three things, not twenty</h2>
-  <div class="cols-3">
-    <div class="card card--accent">
-      <div class="card-title"><span class="dot"></span>1 · A second project</div>
-      <p>Chosen by you, slightly harder than the first. Same shape: a question, a script, a
-        chart, a conclusion.</p>
-      <p class="nomargin"><strong>The first task:</strong> write the question at the top of a
-        README, today or tomorrow.</p>
-    </div>
-    <div class="card card--teal">
-      <div class="card-title"><span class="dot"></span>2 · One named topic</div>
-      <p>Whichever of today's map you actually want. One topic, one resource, not a
-        collection.</p>
-      <p class="nomargin"><strong>The first task:</strong> apply it to something in your
-        existing project, not to an exercise.</p>
-    </div>
-    <div class="card card--amber">
-      <div class="card-title"><span class="dot"></span>3 · Something ongoing</div>
-      <p>A small habit. Automating one annoying thing at work, or a short exercise a few
-        times a week.</p>
-      <p class="nomargin"><strong>The first task:</strong> name the annoying thing out loud
-        right now, and we will size it together.</p>
-    </div>
+<section class="slide slide--section" data-title="Section: Two promises">
+  <div>
+    <div class="marker">Part three · 40 minutes</div>
+    <h2>Two promises kept</h2>
+    <p><code>try</code> / <code>except</code>, which sessions 2, 3 and 4 kept calling
+      "session 12 material". And <code>pytest</code>, which session 3 put on the map.</p>
   </div>
-  <div class="callout callout--key mt" style="margin-bottom:0">
-    <span class="ico">◆</span>
-    <div>
-      <p class="nomargin">We fill these in together, now, based on what you actually enjoyed
-        over the twelve weeks rather than on what sounds impressive. Each one gets
-        <strong>one specific resource and one specific first task</strong>, written into your
-        repo before you close the laptop.</p>
+</section>
+
+<section class="slide" data-title="Errors you expect">
+  <div class="eyebrow">Idea 1</div>
+  <h2>Some errors are not bugs</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>01-try-except.ipynb</figcaption>
+      <pre class="sm"><code data-lang="python">rows = load_rows("data/clean/plays.csv")
+phone = minutes_on(rows, "phone")    # 1039 values
+radio = minutes_on(rows, "radio")    # [] : no such device
+
+average(radio)
+# ZeroDivisionError: division by zero
+
+highest(radio)
+# IndexError: list index out of range
+
+float("4.2 min")
+# ValueError: could not convert string to float
+
+load_rows("data/clean/play.csv")
+# FileNotFoundError: [Errno 2] No such file or directory</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>Your session 3 functions, unchanged</h4>
+        <p class="nomargin">Nothing is wrong with <code>average</code>. It was asked for the
+          average of nothing, and there is no such number.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>Predictable</h4>
+        <p class="nomargin">You can say in advance <strong>when</strong> each of these happens
+          and <strong>which</strong> error it will be. That is the test for whether
+          <code>try</code> is the right tool.</p>
+      </div>
+      <div class="card card--rose card--compact">
+        <p class="nomargin">A <code>NameError</code> from a typo is not predictable. It is a
+          bug. You fix it, you do not catch it.</p>
+      </div>
     </div>
   </div>
   <aside class="notes">
-    <p>Pick these based on what they visibly enjoyed, not what is most marketable. Somebody
-    who lit up during the joins session should not be pointed at machine learning.</p>
-    <p>Write them into their repo as NEXT.md before the session ends, with the resource and
-    the first task filled in. A plan that exists in a file survives; a plan discussed out
-    loud does not.</p>
+    <p>All four errors are ones they have met: ZeroDivisionError and IndexError in session 2
+    homework, ValueError from input() in sessions 1 and 3, FileNotFoundError in session 4.
+    Today is not new errors, it is a new response to old ones.</p>
   </aside>
 </section>
 
-<section class="slide" data-title="Where you started">
-  <div class="eyebrow">Twelve weeks</div>
-  <h2>Where you started, and where you are</h2>
+<section class="slide" data-title="try and except">
+  <div class="eyebrow">Idea 2</div>
+  <h2><code>try</code> / <code>except</code>: say what to do instead</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>the shape</figcaption>
+        <pre class="sm"><code data-lang="python">try:
+    result = average(radio)
+except ZeroDivisionError:
+    result = None
+
+print(result)          # None</code></pre>
+      </figure>
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>text that may not be a number</figcaption>
+        <pre class="sm"><code data-lang="python">def to_number(text):
+    """Return text as a float, or None."""
+    try:
+        return float(text)
+    except ValueError:
+        return None</code></pre>
+      </figure>
+    </div>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>How it runs</h4>
+        <p class="nomargin">Python runs the <code>try</code> block. If that named error
+          happens, it jumps to <code>except</code>. If nothing goes wrong, <code>except</code>
+          is skipped.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>The session 3 menu, fixed</h4>
+        <p class="nomargin">The homework solution checked numbers with
+          <code>.lstrip("-").replace(".", "", 1).isdigit()</code> and called it "not elegant".
+          It also refused <code>"1e3"</code>. Asking <code>float()</code> itself is the only
+          check that always agrees with <code>float()</code>.</p>
+      </div>
+      <div class="card card--plain card--compact">
+        <p class="nomargin">For the empty list, an <code>if len(numbers) == 0</code> is
+          clearer. <code>try</code> earns its place when checking first is awkward: text, and
+          files.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Run to_number over the messy file's minutes column in the notebook: 2,033 numbers and
+    190 that are not, which are 96 like "4.2 min" and 94 empty strings. Returning None is a
+    decision, not a fix; that is session 9's lesson again.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Never a bare except">
+  <div class="eyebrow">Idea 3 · the rule</div>
+  <h2>Name the error. Never a bare <code>except:</code></h2>
   <div class="compare">
     <div>
-      <span class="label">session 1, week one</span>
+      <span class="label">catches everything</span>
       <figure class="code">
-        <pre class="sm"><code data-lang="python">name = input("What is your name? ")
-birth_year = int(input("Birth year? "))
+        <pre class="sm"><code data-lang="python">try:
+    result = averag(radio)    # typo
+except:
+    result = None
 
-print(f"Hello {name}, you are "
-      f"about {2026 - birth_year}")</code></pre>
+print(result)</code></pre>
+      </figure>
+      <figure class="code out" style="margin:0">
+        <pre class="sm"><code data-lang="out">None</code></pre>
       </figure>
     </div>
     <div>
-      <span class="label">session 12, your own project</span>
+      <span class="label">catches the one you expected</span>
       <figure class="code">
-        <pre class="sm"><code data-lang="python">def main():
-    plays = clean(load())
-    summary = minutes_by_genre(plays)
-    write_csv(summary)
-    write_chart(minutes_by_month(plays))
+        <pre class="sm"><code data-lang="python">try:
+    result = averag(radio)    # typo
+except ZeroDivisionError:
+    result = None
 
-
-if __name__ == "__main__":
-    main()</code></pre>
+print(result)</code></pre>
+      </figure>
+      <figure class="code out" style="margin:0">
+        <pre class="sm"><code data-lang="out">NameError: name 'averag' is not defined</code></pre>
       </figure>
     </div>
   </div>
-  <div class="callout callout--key mt" style="margin-bottom:0">
-    <span class="ico">◆</span>
+  <div class="callout callout--stop mt" style="margin-bottom:0">
+    <span class="ico">■</span>
     <div>
-      <p class="nomargin">Between those two there are twelve sessions, a few hundred lines of
-        your own code, a repo full of commits with real messages, and a project you chose,
-        scoped, built and presented. <strong>You did that in twelve weeks, from
-        nothing.</strong></p>
+      <h4>The bare <code>except</code> turned a typo into "the list was empty"</h4>
+      <p class="nomargin">You would now spend an hour looking for a data problem that does
+        not exist. Catch the one error you expected, by name, and let everything else crash.
+        An unexpected crash is information. A swallowed one is a lie you find later.</p>
     </div>
   </div>
   <aside class="notes">
-    <p>Show them their own first file if you still have it. It lands harder than any
-    summary.</p>
-    <p>End warmly and end on time. And tell them the questions channel stays open, because it
-    costs you very little and it matters a lot in the month after a course ends.</p>
+    <p>except Exception is the same thing in a more respectable coat. They will see it in
+    other people's code. Treat it as a question to ask in review, not a pattern to copy.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Where to catch">
+  <div class="eyebrow">Idea 4 · the bad file path</div>
+  <h2>Catch it in the outer layer</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>not this</figcaption>
+        <pre class="sm"><code data-lang="python">def load_rows(path):
+    try:
+        with open(path, encoding="utf-8") as f:
+            return list(csv.DictReader(f))
+    except FileNotFoundError:
+        return []        # "no file" becomes "no plays"</code></pre>
+      </figure>
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>this: main() knows a person is waiting</figcaption>
+        <pre class="sm"><code data-lang="python">def main():
+    try:
+        rows = load_rows(PLAYS)
+    except FileNotFoundError:
+        raise SystemExit(f"No file at {PLAYS}. "
+                         "Check the name and the folder.")
+    ...</code></pre>
+      </figure>
+    </div>
+    <div class="stack">
+      <div class="card card--rose card--compact">
+        <h4>The empty list lies</h4>
+        <p class="nomargin">Every number downstream becomes a confident zero, or a crash three
+          functions later that has nothing to do with files. It is the same lie as returning
+          <code>0</code> for the average of nothing.</p>
+      </div>
+      <div class="callout callout--key" style="margin-bottom:0">
+        <span class="ico">◆</span>
+        <div>
+          <h4>The session 3 rule, extended</h4>
+          <p class="nomargin">Functions that calculate <strong>return</strong>, and let errors
+            travel. Only the outer layer <strong>prints</strong>, and decides what to do about
+            errors.</p>
+        </div>
+      </div>
+      <div class="card card--plain card--compact">
+        <p class="nomargin"><code>raise SystemExit(message)</code> prints the message and
+          stops, without a traceback, because there is nothing more to learn from one.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This is exactly the bug in the practice diff from part two: load returned an empty
+    DataFrame, and the crash came later as KeyError 'artist_name'. Connect the two out loud.</p>
+    <p>Live exercise part 1 here: notebook 03, safe_highest, to_minutes and summary_line.
+    Fifteen minutes.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="A test is a function">
+  <div class="eyebrow">Idea 5</div>
+  <h2>From <code>assert</code> lines to tests</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>demos/test_statistics_functions.py</figcaption>
+      <pre class="sm"><code data-lang="python">import pytest
+
+from statistics_functions import average, highest
+
+
+def test_highest_with_only_negatives():
+    assert highest([-5, -2, -9]) == -2
+
+
+def test_highest_of_a_single_value():
+    assert highest([7]) == 7
+
+
+def test_average_of_an_empty_list_raises():
+    with pytest.raises(ZeroDivisionError):
+        average([])</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>Your session 3 asserts, each in a function</h4>
+        <p class="nomargin">Named as a sentence that says what should be true, starting with
+          <code>test_</code>, in a file whose name starts with <code>test_</code>.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4><code>pytest.raises</code></h4>
+        <p class="nomargin">"Inside this block I expect a <code>ZeroDivisionError</code>."
+          The test passes only if the error happens. That pins down a decision you made on
+          purpose.</p>
+      </div>
+      <div class="card card--plain card--compact">
+        <p class="nomargin">The functions moved to <code>statistics_functions.py</code>, with
+          no prints and no asserts at the bottom, because importing a file runs it.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Three problems with asserts at the bottom of a file: they stop at the first failure,
+    they run on every import, and nobody runs them on purpose. Tests fix all three.</p>
+    <p>The notebook builds a ten-line test runner first, so pytest arrives as "this, with a
+    nicer report" rather than as magic.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Running pytest">
+  <div class="eyebrow">Idea 6 · do it now</div>
+  <h2><code>python -m pytest</code>, then break something</h2>
+  <div class="cols cols-wide-right">
+    <div class="stack">
+      <figure class="code out" style="margin-bottom:0">
+        <figcaption>python -m pytest sessions/session-12/demos</figcaption>
+        <pre class="xs"><code data-lang="out">collected 9 items
+
+test_statistics_functions.py .........  [100%]
+
+============ 9 passed in 0.13s ============</code></pre>
+      </figure>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">Each dot is a passing test. Not installed? With the project's
+          virtual environment active: <code>python -m pip install pytest</code></p>
+      </div>
+    </div>
+    <figure class="code out">
+      <figcaption>the same tests, with highest() starting at best = 0</figcaption>
+      <pre class="xs"><code data-lang="out">test_statistics_functions.py ..F....F.  [100%]
+
+_______ test_highest_with_only_negatives _______
+
+    def test_highest_with_only_negatives():
+>       assert highest([-5, -2, -9]) == -2
+E       assert 0 == -2
+E        +  where 0 = highest([-5, -2, -9])
+
+_____ test_highest_of_an_empty_list_raises _____
+
+    def test_highest_of_an_empty_list_raises():
+>       with pytest.raises(IndexError):
+E       Failed: DID NOT RAISE &lt;class 'IndexError'&gt;
+
+======= 2 failed, 7 passed in 0.12s =======</code></pre>
+    </figure>
+  </div>
+  <aside class="notes">
+    <p>Output trimmed to the lines that matter; the full report also prints the platform and
+    rootdir. The second failure is the one to dwell on: with best = 0, highest([]) stops
+    crashing and quietly answers 0. The test for the awkward case caught a lie the first test
+    could not see.</p>
+    <p>python -m pytest rather than pytest, for the same reason as python -m pip: it is the
+    pytest of the Python you are actually using.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Tests in your project">
+  <div class="eyebrow">Idea 7 · in project/</div>
+  <h2>What to test, and where it goes</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>project/test_pipeline.py</figcaption>
+        <pre class="sm"><code data-lang="python">import pandas as pd
+
+from pipeline import parse_minutes
+
+
+def test_parse_minutes_reads_every_messy_form():
+    raw = pd.Series(["4.65", "1 234.50", "4.2 min"])
+    assert parse_minutes(raw).tolist() == [4.65, 1234.5, 4.2]
+
+
+def test_parse_minutes_leaves_empty_text_missing():
+    assert parse_minutes(pd.Series([""])).isna().all()</code></pre>
+      </figure>
+      <div class="card card--plain card--compact">
+        <p class="nomargin">Starter: <code>homework/test_pipeline_starter.py</code>. Worked
+          example: <code>homework/solutions/</code>.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>Test the calculating functions</h4>
+        <p class="nomargin">Clean and analyse, where the decisions live. On three or four rows
+          you build by hand, never on the whole file. If you need a calculator to know the
+          answer, the test is too big.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>The awkward cases</h4>
+        <p class="nomargin">Empty, one item, negatives, zero, missing. The ordinary case
+          nearly always works.</p>
+      </div>
+      <div class="card card--amber card--compact">
+        <h4>You can only test what returns</h4>
+        <p class="nomargin">A function that prints its answer cannot be checked by a test at
+          all. The session 3 rule pays out one more time.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Install into the project venv, add pytest to project/requirements.txt, put the test
+    file next to pipeline.py, run python -m pytest from inside project/.</p>
+    <p>Live exercise part 2 here: tests for the three functions from part 1, then
+    python -m pytest sessions/session-12/exercises. One test is already written and fails
+    until safe_highest works: let them watch it turn from F to a dot.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: What is next">
+  <div>
+    <div class="marker">Part four · 15 minutes</div>
+    <h2>Where to go next</h2>
+    <p>A map, not a syllabus. Pick a question first, then learn exactly as much of a tool as
+      the question needs.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="The map">
+  <div class="eyebrow">The map</div>
+  <h2>Six directions from here</h2>
+  <table class="sm">
+    <tr><th style="width:200px">Direction</th><th>When you want it</th><th style="width:330px">Start with</th></tr>
+    <tr><td><strong>More pandas</strong></td><td>Reshaping, time series, long cleaning chains</td>
+      <td><em>Python for Data Analysis</em>, free online</td></tr>
+    <tr><td><strong>SQL in the real world</strong></td><td>Data in a company database, or too big for pandas</td>
+      <td>Select Star SQL; DuckDB, which queries a CSV directly</td></tr>
+    <tr><td><strong>APIs and <code>requests</code></strong></td><td>The data is on a website that serves programs</td>
+      <td><code>requests</code> quickstart; Open-Meteo, no key needed</td></tr>
+    <tr><td><strong>Automation</strong></td><td>Your session 1 task should run without you</td>
+      <td><em>Automate the Boring Stuff</em>; Task Scheduler or cron</td></tr>
+    <tr><td><strong>Collaborating with git</strong></td><td>Anybody else touches your code</td>
+      <td>GitHub Skills: pull requests and review</td></tr>
+    <tr><td><strong>Dashboards</strong></td><td>Others need to look, and change one thing</td>
+      <td>Streamlit; your <code>analyse()</code> does not change</td></tr>
+  </table>
+  <div class="callout callout--tip" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Each direction has a "first two hours" task on your own project, and
+        the links, in <code>sessions/session-12/worksheets/where-next.md</code>. Not on it:
+        machine learning. It is mostly data work with a model at the end, and usually the
+        wrong next step.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Ask which one their project's could list points at. It usually picks itself: a
+    Spotify project wants APIs or automation, a work spreadsheet wants automation or SQL.</p>
+    <p>The DuckDB example in the worksheet runs as written and gives the same genre totals as
+    session 6.</p>
+    <p>Be honest about machine learning if it comes up. It is mostly data work with a model
+    at the end: the pandas and SQL from this course are most of the job, and for a first
+    project after a course it is usually the wrong next step. Somebody who lit up during the
+    joins session should not be pointed at it because it sounds impressive.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Two first steps">
+  <div class="eyebrow">Before you leave</div>
+  <h2>Honest advice, and your two first steps</h2>
+  <div class="cols">
+    <div class="stack">
+      <div class="card card--compact card--plain">
+        <h4>Typing beats watching</h4>
+        <p class="nomargin">Videos feel productive and teach less than an hour breaking
+          something of your own.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <h4>AI assistants</h4>
+        <p class="nomargin">Good at explaining an error, and at drafting code you can check.
+          Review their code like any other diff. If you could not have reviewed it, do not
+          commit it.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <h4>Stuck? Send three things</h4>
+        <p class="nomargin">The command you ran, the last line of the error, and what you
+          expected instead.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card card--teal">
+        <div class="card-title"><span class="dot"></span>Step 1 · this week</div>
+        <p class="nomargin">Put the project in shape: five tests, one specific
+          <code>except</code> in <code>main()</code>, the README, your own diff reviewed,
+          pushed. Then clone it fresh and run it. Details in <code>homework/README.md</code>.</p>
+      </div>
+      <div class="card card--amber">
+        <div class="card-title"><span class="dot"></span>Step 2 · within two weeks</div>
+        <p class="nomargin">One direction from the map, on your own project, for the first two
+          hours. Write the direction, the first thing, and a date in
+          <code>where-next.md</code> now, before you leave.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Make them write step 2 down in the room, with a date. A plan written down with a date
+    happens far more often than one agreed in conversation.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Recap">
+  <div class="eyebrow">Wrap up · twelve sessions</div>
+  <h2>What you can do now</h2>
+  <div class="cols">
+    <ul class="checklist">
+      <li>Write Python that loops, decides and is built from functions</li>
+      <li>Read a CSV, count it, and write one back out</li>
+      <li>Keep your work in git, and read a diff</li>
+      <li>Ask a database questions in SQL, joins included</li>
+      <li>Spot fan-out, and fix it by aggregating first</li>
+    </ul>
+    <ul class="checklist">
+      <li>Do the same in pandas, and say when to use which</li>
+      <li>Clean messy data and write down what each decision cost</li>
+      <li>Turn a notebook into a pipeline that runs anywhere</li>
+      <li>Handle the errors you expect, and let the rest crash</li>
+      <li><strong>Prove your functions work, with tests</strong></li>
+    </ul>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>The habit that matters most</h4>
+      <p class="nomargin">Know roughly what the answer should be before you run the code, and
+        check it a second way afterwards. Tools change every few years. That habit has not
+        changed in fifty, and it is what separates analysis people can trust from analysis
+        that only looks right.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Go through the list slowly and let them notice how far it goes. Twelve sessions ago
+    the first item was "print a line".</p>
+    <p>Ask for the link to the pushed project when homework step 1 is done.</p>
+    <p>To close: put his session 1 file on screen next to the project. Twelve sessions, a
+    few hundred lines of his own code, real commits, and a project he chose, scoped, built
+    and presented. Then say that the questions channel stays open after the course; the
+    month after is when he will need it most. End on time.</p>
   </aside>
 </section>
 

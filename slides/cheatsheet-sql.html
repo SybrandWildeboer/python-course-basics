@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQL cheatsheet · Python, SQL & Git</title>
+<link rel="stylesheet" href="assets/home.css">
+<style>
+.back { margin: 22px 0 0; font-size: 14.5px; }
+.back a, .note h4 a { color: var(--accent); text-decoration: none; }
+.tagline a, .note p a, .note li a { color: var(--accent); }
+.back a:hover { text-decoration: underline; }
+.sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 470px), 1fr)); gap: 16px; align-items: start; }
+.sheet > .note { margin: 0; min-width: 0; }
+.note h4 { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; }
+.note h4 .pill { font-size: 12px; padding: 2px 10px; font-weight: 600; }
+.note pre { font-size: 13.5px; line-height: 1.5; }
+.note ul { margin: 0 0 10px; padding-left: 20px; color: var(--ink-soft); font-size: 15px; }
+.ref-wrap { overflow-x: auto; margin: 4px 0 10px; }
+table.ref { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.ref th, table.ref td { text-align: left; vertical-align: top; padding: 6px 9px; border-bottom: 1px solid var(--line-soft); color: var(--ink-soft); }
+table.ref th { color: var(--ink-dim); font-weight: 650; font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+table.ref td code { white-space: nowrap; }
+@media print {
+  :root, :root[data-theme] {
+    --bg: #fff; --bg-deep: #fff; --surface: #fff; --surface-2: #fff; --surface-3: #eef1f5;
+    --line: #c4ccd8; --line-soft: #d9dee6; --ink: #000; --ink-soft: #1d2430; --ink-dim: #4b5566;
+    --accent: #2a49b0; --teal: #0d7a5d; --teal-soft: transparent;
+  }
+  body { background: #fff; padding: 0; }
+  #theme-toggle, .back { display: none; }
+  header { padding: 0 0 10px; }
+  h1 { background: none; color: #000; font-size: 28px; }
+  .tagline { font-size: 14px; }
+  h2 { margin: 18px 0 10px; }
+  .sheet { grid-template-columns: 1fr; gap: 8px; }
+  .note { break-inside: avoid; background: #fff; padding: 10px 12px; }
+  .note pre { font-size: 10.5px; white-space: pre-wrap; padding: 8px 10px; }
+  .note p, .note ul, table.ref { font-size: 12px; }
+  footer { margin-top: 20px; }
+}
+</style>
+</head>
+<body>
+<button id="theme-toggle" type="button">light / dark</button>
+<div class="wrap">
+
+<p class="back"><a href="index.html">← Course index</a> · <a href="cheatsheets.html">All cheatsheets</a></p>
+
+<header>
+  <div class="kicker">Cheatsheet · sessions 6 and 7</div>
+  <h1>SQL</h1>
+  <p class="tagline">The SQL the course teaches, against <code>data/music.db</code>. Every query here was run against the real database, and the row counts in the comments are what came back.</p>
+  <div class="facts">
+    <span class="pill pill--teal">SQLite</span>
+    <span class="pill">SELECT to HAVING</span>
+    <span class="pill">Joins and fan-out</span>
+    <span class="pill">CTEs</span>
+  </div>
+</header>
+
+<h2>The database</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Three tables in data/music.db</span><span><a class="pill" href="session-06.html">Session 6</a></span></h4>
+<div class="ref-wrap"><table class="ref">
+<tr><th>Table</th><th>Rows</th><th>Columns</th></tr>
+<tr><td><code>plays</code></td><td>2,183</td><td><code>play_id</code>, <code>played_at</code> (text, YYYY-MM-DD), <code>artist_id</code>, <code>track_name</code>, <code>minutes_played</code>, <code>device</code>, <code>skipped</code> (0 or 1)</td></tr>
+<tr><td><code>artists</code></td><td>40</td><td><code>artist_id</code>, <code>artist_name</code>, <code>country</code>, <code>genre</code>, <code>formed_year</code>, <code>still_active</code></td></tr>
+<tr><td><code>awards</code></td><td>33</td><td><code>award_id</code>, <code>artist_id</code>, <code>award_name</code>, <code>year</code></td></tr>
+</table></div>
+<p><code>plays</code> has <code>artist_id</code>, not names. The names, genre and country are in <code>artists</code>; joining them back is session 7. Two artists have no plays at all, and two have no <code>formed_year</code>.</p>
+</div>
+<div class="note">
+<h4><span>Where to run it</span><span><a class="pill" href="session-06.html">Session 6</a> <a class="pill" href="session-08.html">Session 8</a></span></h4>
+<p>In DB Browser for SQLite: open <code>data/music.db</code>, Execute SQL tab, <code>Ctrl</code> <code>Enter</code> (<code>Cmd</code> <code>Enter</code> on a Mac) runs the query the cursor is in. From Python:</p>
+<pre>import sqlite3
+import pandas as pd
+
+con = sqlite3.connect(&quot;data/music.db&quot;)
+print(con.execute(&quot;SELECT COUNT(*) FROM plays&quot;).fetchone())   # (2183,)
+print(pd.read_sql(&quot;SELECT * FROM artists LIMIT 3&quot;, con))      # a DataFrame
+con.close()</pre>
+<p>Worked answers to compare with: <a href="../sessions/session-06/demos/walkthrough.sql">session 6 walkthrough</a>, <a href="../sessions/session-07/demos/walkthrough.sql">session 7 walkthrough</a>.</p>
+</div>
+</div>
+<h2>One table</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>SELECT and WHERE</span><span><a class="pill" href="session-06.html">Session 6</a></span></h4>
+<pre>SELECT track_name, minutes_played     -- which columns
+FROM plays                            -- from which table
+WHERE minutes_played &gt; 8;             -- which rows: 82
+
+SELECT * FROM plays WHERE device = &#x27;phone&#x27;;          -- 1039 rows
+SELECT * FROM plays WHERE played_at &gt;= &#x27;2025-01-01&#x27;; -- 1061 rows</pre>
+<p>One <code>=</code> in SQL, and <code>'single quotes'</code> for text. Double quotes mean a column name. Dates as YYYY-MM-DD text compare and sort correctly.</p>
+</div>
+<div class="note">
+<h4><span>AND, OR, IN, BETWEEN, LIKE</span><span><a class="pill" href="session-06.html">Session 6</a></span></h4>
+<pre>SELECT * FROM plays
+WHERE (device = &#x27;car&#x27; OR device = &#x27;tablet&#x27;)   -- bracket any mix
+  AND minutes_played &gt; 5;                     -- 107 rows
+
+SELECT * FROM plays WHERE device IN (&#x27;car&#x27;, &#x27;tablet&#x27;);   -- 284 rows
+SELECT * FROM plays
+WHERE played_at BETWEEN &#x27;2025-06-01&#x27; AND &#x27;2025-08-31&#x27;;   -- 175, both ends in
+SELECT artist_name FROM artists WHERE artist_name LIKE &#x27;The %&#x27;;  -- 5 rows</pre>
+<p><code>AND</code> binds tighter than <code>OR</code>. In <code>LIKE</code>, <code>%</code> is any run of characters and <code>_</code> exactly one.</p>
+</div>
+<div class="note">
+<h4><span>NULL</span><span><a class="pill" href="session-06.html">Session 6</a></span></h4>
+<pre>SELECT artist_name FROM artists WHERE formed_year = NULL;   -- 0 rows, no warning
+SELECT artist_name, formed_year, still_active FROM artists
+WHERE formed_year IS NULL OR still_active IS NULL;          -- 3 rows
+SELECT COUNT(*), COUNT(formed_year) FROM artists;           -- 40 | 38</pre>
+<p><code>NULL</code> means unknown, not zero. Test it with <code>IS NULL</code> and <code>IS NOT NULL</code>. <code>COUNT(column)</code> and <code>AVG</code> skip NULLs.</p>
+</div>
+<div class="note">
+<h4><span>ORDER BY, LIMIT, DISTINCT</span><span><a class="pill" href="session-06.html">Session 6</a></span></h4>
+<pre>SELECT track_name, minutes_played FROM plays
+ORDER BY minutes_played DESC          -- ASC is the default
+LIMIT 5;                              -- Paper Avenue 11.01 first
+
+SELECT DISTINCT device FROM plays;              -- 5 values
+SELECT COUNT(DISTINCT track_name) FROM plays;   -- 168</pre>
+<p><code>LIMIT</code> without <code>ORDER BY</code> gives arbitrary rows, not the first of anything. Run <code>DISTINCT</code> on every text column of a new table.</p>
+</div>
+<div class="note">
+<h4><span>Aggregates</span><span><a class="pill" href="session-06.html">Session 6</a></span></h4>
+<pre>SELECT COUNT(*)                      AS plays,
+       ROUND(SUM(minutes_played), 1) AS total_min,
+       ROUND(AVG(minutes_played), 2) AS avg_min,
+       MAX(minutes_played)           AS longest,
+       MIN(played_at)                AS first_day
+FROM plays;                          -- 2183 | 8980.4 | 4.11 | 11.01 | 2024-01-01</pre>
+<p><code>AS</code> names a result column. <code>COUNT(*)</code> counts rows; <code>COUNT(col)</code> counts non-NULL values.</p>
+</div>
+<div class="note">
+<h4><span>GROUP BY and HAVING</span><span><a class="pill" href="session-06.html">Session 6</a></span></h4>
+<pre>SELECT device,
+       COUNT(*)                      AS plays,
+       ROUND(AVG(minutes_played), 2) AS avg_min
+FROM plays
+WHERE played_at &gt;= &#x27;2025-01-01&#x27;      -- rows, before grouping
+GROUP BY device
+HAVING COUNT(*) &gt; 100                -- groups, after grouping
+ORDER BY plays DESC;                 -- phone 479, laptop 261, speaker 174</pre>
+<p>The rule: every column in the <code>SELECT</code> is either in the <code>GROUP BY</code> or inside an aggregate. SQLite lets you break it and quietly picks a value.</p>
+</div>
+<div class="note">
+<h4><span>The order it runs in</span><span><a class="pill" href="session-06.html">Session 6</a></span></h4>
+<div class="ref-wrap"><table class="ref">
+<tr><th>Written</th><th>Runs</th></tr>
+<tr><td><code>SELECT</code> … <code>FROM</code> … <code>WHERE</code> … <code>GROUP BY</code> … <code>HAVING</code> … <code>ORDER BY</code> … <code>LIMIT</code></td>
+<td><code>FROM</code> → <code>WHERE</code> → <code>GROUP BY</code> → <code>HAVING</code> → <code>SELECT</code> → <code>ORDER BY</code> → <code>LIMIT</code></td></tr>
+</table></div>
+<p>Why <code>WHERE COUNT(*) &gt; 100</code> fails (nothing is counted yet), and why an <code>AS</code> name works in <code>ORDER BY</code> but not in <code>WHERE</code>.</p>
+</div>
+<div class="note">
+<h4><span>Dates, rates and whole numbers</span><span><a class="pill" href="session-06.html">Session 6</a></span></h4>
+<pre>SELECT strftime(&#x27;%Y&#x27;, played_at) AS year, COUNT(*) AS plays
+FROM plays GROUP BY year;            -- 2024 1122 | 2025 1061
+
+SELECT device,
+       ROUND(100.0 * SUM(skipped) / COUNT(*), 1) AS skip_pct
+FROM plays GROUP BY device ORDER BY skip_pct DESC;   -- speaker 14.0 first
+
+SELECT 19 / 179, 100.0 * 19 / 179;   -- 0 | 10.61...</pre>
+<p>Whole number divided by whole number is a whole number in SQLite. Multiply by <code>100.0</code> first. <code>substr(played_at, 1, 7)</code> gives the month as <code>2025-04</code>.</p>
+</div>
+</div>
+<h2>Two tables and more</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>JOIN</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
+<pre>SELECT p.played_at, a.artist_name, p.track_name
+FROM plays AS p
+JOIN artists AS a ON a.artist_id = p.artist_id
+ORDER BY p.played_at
+LIMIT 5;
+
+SELECT artist_id, artist_name, track_name    -- same key name on both sides
+FROM plays
+JOIN artists USING (artist_id)
+LIMIT 5;</pre>
+<p>Read <code>ON</code> as the matching rule. A column in both tables needs its prefix: <code>artist_id</code> alone is <code>ambiguous column name</code>. A plain <code>JOIN</code> is an inner join: rows with no match vanish.</p>
+</div>
+<div class="note">
+<h4><span>LEFT JOIN</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
+<pre>SELECT a.artist_name, COUNT(p.play_id) AS plays   -- NOT COUNT(*)
+FROM artists a
+LEFT JOIN plays p USING (artist_id)
+GROUP BY a.artist_id
+ORDER BY plays
+LIMIT 2;                         -- Iron Fernway 0, Gravel Choir 0
+
+SELECT a.artist_name             -- only the unmatched ones
+FROM artists a
+LEFT JOIN plays p ON p.artist_id = a.artist_id
+WHERE p.play_id IS NULL;         -- 2 rows</pre>
+<p>Every row of the left table survives, with NULLs where nothing matched. <code>COUNT(*)</code> would count that NULL row and say 1.</p>
+</div>
+<div class="note">
+<h4><span>Fan-out: check the row count</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
+<pre>SELECT COUNT(*), ROUND(SUM(minutes_played), 1)
+FROM plays;                                      -- 2183 | 8980.4
+
+SELECT COUNT(*), ROUND(SUM(p.minutes_played), 1)
+FROM plays p
+JOIN awards w ON w.artist_id = p.artist_id;      -- 2371 | 9732.1  wrong</pre>
+<p>An artist with three awards gets every play counted three times. No error. After any join, compare the row count with the one before. <code>SUM(DISTINCT)</code> is not the fix: it drops real plays that share a value.</p>
+</div>
+<div class="note">
+<h4><span>The fix: aggregate first, with a CTE</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
+<pre>WITH per_artist AS (
+    SELECT artist_id,
+           COUNT(*)                      AS plays,
+           ROUND(SUM(minutes_played), 1) AS minutes
+    FROM plays
+    GROUP BY artist_id
+)
+SELECT a.artist_name, s.plays, s.minutes, COUNT(w.award_id) AS awards
+FROM per_artist s
+JOIN artists a USING (artist_id)
+LEFT JOIN awards w USING (artist_id)
+GROUP BY a.artist_id
+ORDER BY s.minutes DESC
+LIMIT 3;    -- Glass Tram 229 1175.1 2 | DJ Kompas 215 1169.2 1 | Fjord &amp; Flint 237 846.2 3</pre>
+<p>One row per artist before the awards join, so there is nothing to duplicate. The same thing works as a subquery in <code>FROM ( … ) AS s</code>; a CTE reads top to bottom instead of inside out.</p>
+</div>
+<div class="note">
+<h4><span>COALESCE and views</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
+<pre>SELECT a.artist_name, COALESCE(w.award_name, &#x27;none&#x27;) AS award
+FROM artists a
+LEFT JOIN awards w USING (artist_id)
+WHERE a.artist_name = &#x27;Iron Fernway&#x27;;          -- Iron Fernway | none
+
+CREATE VIEW artist_summary AS
+SELECT a.artist_id, a.artist_name, COUNT(p.play_id) AS plays
+FROM artists a LEFT JOIN plays p USING (artist_id)
+GROUP BY a.artist_id;
+
+SELECT artist_name FROM artist_summary WHERE plays = 0;   -- 2 rows
+DROP VIEW artist_summary;</pre>
+<p><code>COALESCE(x, 0)</code> is "x, or 0 if x is NULL". A view stores the query, not the data, so it is always current.</p>
+</div>
+</div>
+
+<footer>
+  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
+</footer>
+
+</div>
+<script>
+(function () {
+  var KEY = "pycourse-theme";
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved) root.dataset.theme = saved;
+  } catch (e) { /* private browsing */ }
+
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var next = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = next;
+    try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
+  });
+})();
+</script>
+</body>
+</html>
