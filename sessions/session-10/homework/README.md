@@ -44,6 +44,60 @@ it run in its own virtual environment, following `project/README.md`:
 3. run `git status` and check that neither `.venv/` nor `output/` appears. If either does,
    stop and ask.
 
+Then the real test, twice. Both are run from inside `project/`.
+
+**Delete `output/` and run it again.** Keep a copy of the summary first, so you can compare:
+
+```powershell
+# Windows (PowerShell)
+Copy-Item output\summary.csv summary-before.csv
+Remove-Item -Recurse -Force output
+python pipeline.py
+git diff --no-index summary-before.csv output\summary.csv
+Remove-Item summary-before.csv
+```
+
+```bash
+# macOS
+cp output/summary.csv summary-before.csv
+rm -rf output
+python pipeline.py
+git diff --no-index summary-before.csv output/summary.csv
+rm summary-before.csv
+```
+
+Both files should come back, and `git diff` should print nothing: the new summary is
+identical to the old one. If something does not come back, the project depends on a file
+it cannot make again, usually one a notebook wrote and the script reads. Much better to
+find that out now than in session 12.
+
+**Delete `.venv/` and build it again from `requirements.txt`.**
+
+```powershell
+# Windows (PowerShell)
+deactivate
+Remove-Item -Recurse -Force .venv
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python pipeline.py
+```
+
+```bash
+# macOS
+deactivate
+rm -rf .venv
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python pipeline.py
+```
+
+If that works, the project runs on a machine that is not yours: the list in
+`requirements.txt` is enough to rebuild everything it needs. That is the whole point of the
+file. **If either rebuild fails, do not fix it quietly.** Write down what broke and send it
+to me; it is worth ten minutes at the start of session 11.
+
 Then bring one real file of your own. In session 1 you named a repetitive spreadsheet task
 from your own week. Export that spreadsheet as a CSV, put it in `project/data/`, and point
 `INPUT` in `pipeline.py` at it. Files in `project/data/` are not committed (git ignores

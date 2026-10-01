@@ -3,7 +3,7 @@
 **Goal:** turn a deliberately messy file into a chart that answers a question, and a learner
 who can say how much each cleaning decision moved the answer.
 
-**Slides:** [`slides/session-09.html`](../../slides/session-09.html) (24 slides)
+**Slides:** [`slides/session-09.html`](../../slides/session-09.html) (25 slides)
 
 The session has two halves that feel different. The first is slow and forensic: one kind of
 damage at a time, with a number checked after every fix. The second is quick and visual. If
@@ -20,14 +20,14 @@ you run short, shorten the chart half, never the ledger.
 | 0:20–0:50 | Names, text, numbers, dates, and `NA` | Slides 6–10 |
 | 0:50–1:00 | Break | |
 | 1:00–1:20 | Duplicates, missing values, **the ledger**, the zero count, the comparison | Slides 11–15 |
-| 1:20–1:40 | One question, one chart: titles, bar or line, honest axes, saving | Slides 17–20 |
-| 1:40–1:57 | Thirty cells become two functions; live exercise | Slides 21–22 |
-| 1:57–2:00 | Homework briefing | Slides 23–24 |
+| 1:20–1:40 | One question, one chart: titles, bar or line, honest axes, histogram and scatter, saving | Slides 17–21 |
+| 1:40–1:57 | Thirty cells become two functions; live exercise | Slides 22–23 |
+| 1:57–2:00 | Homework briefing | Slides 24–25 |
 
 The live exercise is short on purpose: it is mostly moving tested code from notebook 01 into
 two functions. If it finishes early, the stretch notebook is ready.
 
-## The four slides that carry the session
+## The slides that carry the session
 
 **Slide 7, numbers as text.** `pd.to_numeric(errors="coerce")` straight away makes 190
 missing values from a column with 94 empty cells, and the total drops from 8,769.9 to
@@ -49,6 +49,12 @@ row. The two that do not are exactly the information destroyed before we got the
 minutes and 69 devices. The 372.4-minute gap in the total is precisely those 94 plays.
 "Cleaning recovers what the file still knows, labels what it does not, and never makes
 things up."
+
+**Slide 20, a histogram and a scatter.** The stacked histogram of skipped and kept plays
+carries the one statistics lesson of the session: the same 190 plays give 73.6% or 84.4%
+depending on what you divide by. Notebook 02 also draws plays against minutes per artist as a
+scatter, and ends each new chart with a "what this does not show" sentence, which homework
+task 2 now asks for.
 
 ## Promises this session keeps
 
@@ -93,8 +99,8 @@ as float with `NaN` for the 94 unknown lengths, `device` with `"unknown"` for th
 
 | Notebook | What it is |
 |---|---|
-| `notebooks/01-cleaning.ipynb` | Every kind of damage found and fixed, the ledger, the zero count, and the comparison with the clean file |
-| `notebooks/02-charts.ipynb` | One question, one chart: answer titles, `:.1f` labels, bar or line, the misleading axis, saving a PNG |
+| `notebooks/01-cleaning.ipynb` | Every kind of damage found and fixed (`repr` to see the trailing space, `duplicated(keep=False)` to look before deleting), the ledger, the zero count, and the comparison with the clean file |
+| `notebooks/02-charts.ipynb` | One question, one chart: answer titles, `:.1f` labels, bar or line, the misleading axis, a histogram and a stacked histogram, a scatter, a "which chart when" table, saving a PNG |
 | `notebooks/03-cleaning-functions-exercise.ipynb` | The live exercise |
 | `notebooks/03-cleaning-functions-solved.ipynb` | Worked version, with the usual wrong numbers and what causes each |
 | `notebooks/04-decisions-homework.ipynb` | The homework: decision diary and one chart |
@@ -157,6 +163,11 @@ what they would write next to it.
 - **The dtypes check failing on `played_at`.** The clean file stores dates as text; parsed
   dates need `.dt.strftime("%Y-%m-%d")` before the comparison.
 - **`plt.savefig` after `plt.show()`.** Blank PNG in a script. Save first.
+- **A percentage without its "out of what".** Slide 20. 190 plays are under a minute and
+  skipped: 73.6% of the 258 skips, but 84.4% of the 225 short plays. Move the line for
+  "short" to two minutes and it is 98.4% against 65.0%, the other way round. "Most skips are
+  short" and "most short plays are skips" are different claims; ask which one the title
+  makes.
 - **Not knowing the clean file is a cheat.** Say it more than once: real work has no answer
   key, which is why every step has its own check.
 

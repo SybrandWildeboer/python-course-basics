@@ -109,7 +109,9 @@ All from running the code, and pinned with `assert` in the solved notebooks.
 - [ ] Run `python sessions/session-10/demos/genre_pipeline.py` from the repo root and from
       `sessions/session-10`, so you have seen both work
 - [ ] Check what Python he has on his laptop: `python --version` on Windows, `python3
-      --version` on a Mac. Anything from 3.10 up is fine
+      --version` on a Mac. It needs to be 3.10 to 3.12: `project/requirements.txt` pins
+      `matplotlib==3.9.0`, which has no ready-made installer for 3.13 or newer, so pip would
+      try to build it from source and fail (`slides/install.html` recommends 3.12)
 - [ ] Check he can install from PyPI on his network: `pip install` needs internet, and some
       work laptops block it. Better to find out before the venv block than during it
 - [ ] Look at the `project/` folder, so the tree on slide 17 is familiar
@@ -171,3 +173,6 @@ The device pipeline runs from two different folders with the same output, only `
 prints, and `project/pipeline.py` runs inside its own activated `.venv` on his machine. He
 can say in his own words why `.venv/` is not committed and what the two lines at the bottom
 of the script are for.
+
+By session 11, the homework's two rebuilds have worked on his machine: `output/` deleted and
+the same summary back, and `.venv/` deleted and rebuilt from `requirements.txt`.

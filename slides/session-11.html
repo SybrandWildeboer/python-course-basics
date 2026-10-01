@@ -63,6 +63,9 @@
     <p>The fresh-terminal run matters more than it looks. A pipeline that only works in the
     terminal where it was written has a hidden dependency, usually an un-activated venv or a
     working directory. Ten minutes here saves thirty later.</p>
+    <p>Ask about the two rebuilds from the homework: output/ deleted and the same summary back,
+    and .venv deleted and rebuilt from requirements.txt. If either broke, that is the first
+    thing to fix today.</p>
   </aside>
 </section>
 
@@ -190,6 +193,52 @@
   <aside class="notes">
     <p>Say plainly that this is the rule you would apply to your own work. Experienced people
     scope small too; they are just better at noticing when they have stopped.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Scoping down">
+  <div class="eyebrow">Be honest</div>
+  <h2>First ideas are three projects wearing a coat</h2>
+  <div class="cols">
+    <div class="stack">
+      <div class="card card--rose card--compact">
+        <h4>"A dashboard of my spending, with predictions"</h4>
+        <p class="nomargin">That is a data pipeline, a web app and a forecasting model. Any
+          one of them is a fortnight on its own.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>Scoped: "Which three spending categories grew most from 2024 to 2025, and by
+          how much?"</h4>
+        <p class="nomargin">One question, one chart, one conclusion. Finishable, and it is
+          the first brick of the ambitious version anyway.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card card--rose card--compact">
+        <h4>"Analyse the football data and find interesting patterns"</h4>
+        <p class="nomargin">No question, so there is no "done". You would still be poking at
+          it in March.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>Scoped: "Do teams that play more home games early in the season finish
+          higher?"</h4>
+        <p class="nomargin">Specific, has an answer, and you learn more from it precisely
+          because it can turn out to be wrong.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin"><strong>The test:</strong> can you say what "done" means in one
+        sentence? If not, it is not a project yet. It is an area of interest.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Be annoying about scope, and warm about it. Take his first idea and, out loud, count
+    the projects inside it. Then pick the one that answers the session 1 task and put the
+    others on the could and won't list on the next slide, where he can see they are kept,
+    not thrown away.</p>
   </aside>
 </section>
 
@@ -670,6 +719,49 @@ streams["ts"] = pd.to_datetime(
     <p>If their data is not usable today (Spotify not arrived, file at work), do the first run
     on the music data with their question's shape, and swap the file in this week. Leaving
     without a run is the only outcome to avoid.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="What to expect">
+  <div class="eyebrow">Fair warning</div>
+  <h2>Three things that will happen in the next fortnight</h2>
+  <div class="cols-3">
+    <div class="card card--compact">
+      <div class="card-title"><span class="dot"></span>The data surprises you</div>
+      <p class="nomargin">A column means something other than you assumed, or the gaps are
+        not where you expected. This is normal. It is the actual work.</p>
+      <p class="nomargin mt-s"><strong>Do:</strong> write it under <em>decisions</em> in the
+        worksheet and carry on. Change the question only if you have to.</p>
+    </div>
+    <div class="card card--compact">
+      <div class="card-title"><span class="dot"></span>You will want to add something</div>
+      <p class="nomargin">Halfway through, a much more interesting question occurs to you.
+        It always does.</p>
+      <p class="nomargin mt-s"><strong>Do:</strong> put it on the could list and finish the
+        must. A modest finished project beats an interesting unfinished one.</p>
+    </div>
+    <div class="card card--compact">
+      <div class="card-title"><span class="dot"></span>You lose an evening to something
+        stupid</div>
+      <p class="nomargin">A path, a type, an environment. Everybody does, forever. It is not
+        a sign you are bad at this.</p>
+      <p class="nomargin mt-s"><strong>Do:</strong> after twenty minutes stuck, send me the
+        error and the command you ran. That is what the questions channel is for.</p>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">And one thing that will not happen: you will not run out of things
+        you know how to do. Everything the must list needs is something you have already
+        done in this course.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Say these before they happen, so that when they do they feel expected rather than
+    like failure. The third one matters most: the cost of a stuck evening is not the
+    evening, it is the week of avoiding the project afterwards. Twenty minutes, then a
+    message.</p>
   </aside>
 </section>
 

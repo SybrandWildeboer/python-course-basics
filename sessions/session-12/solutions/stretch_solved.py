@@ -5,6 +5,7 @@
 """
 
 import csv
+from pathlib import Path
 
 import pandas as pd
 
@@ -108,7 +109,9 @@ if __name__ == "__main__":
     print("  celsius_to_fahrenheit(36.6) =", celsius_to_fahrenheit(36.6))
 
     print("\n6. pandas and the empty selection")
-    plays = pd.read_csv("data/clean/plays.csv")
+    # Built from this file's location (session 10), so it runs from any folder.
+    root = Path(__file__).resolve().parents[3]
+    plays = pd.read_csv(root / "data" / "clean" / "plays.csv")
     print(f"  car:   {skip_rate(plays, 'car'):.1f}% skipped")
     print(f"  radio: {skip_rate(plays, 'radio')}")
     print("  without the check:", plays[plays["device"] == "radio"]["skipped"].mean())

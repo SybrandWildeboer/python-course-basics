@@ -123,6 +123,9 @@ pd.DataFrame(rows)     # the same shape, as a table</code></pre>
     the conversion pain from session 4 was real, and read_csv makes it go away.</p>
     <p><code>import pandas as pd</code> is a convention, not a rule. Every example on the
     internet uses <code>pd</code>, so use it too.</p>
+    <p>If the import fails, pandas is not installed in the kernel's Python. One sentence on
+    PyPI and pip, then point at step 8 of <code>slides/install.html</code> for the exact
+    command. Do not go into environments: session 10 does that properly.</p>
   </aside>
 </section>
 
@@ -365,9 +368,10 @@ for row in rows:
     counts[g] = counts.get(g, 0) + 1</code></pre>
     </figure>
     <figure class="code" style="margin-bottom:0">
-      <figcaption>session 6: SQL</figcaption>
+      <figcaption>sessions 6 and 7: SQL</figcaption>
       <pre class="xs"><code data-lang="sql">SELECT genre, COUNT(*) AS plays
 FROM plays
+JOIN artists USING (artist_id)
 GROUP BY genre
 ORDER BY plays DESC;</code></pre>
     </figure>
@@ -768,6 +772,50 @@ summary["awards"] = summary["awards"].fillna(0)
     <p>Resist turning this into a contest. The real-world answer is nearly always both, with
     the line between them drawn at "how much data has to leave the database". Pulling a
     hundred million rows into pandas just to count them is the classic mistake.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Five irritations">
+  <div class="eyebrow">Reference · keep this one</div>
+  <h2>Five things that trip everybody up</h2>
+  <table class="sm">
+    <tr><th>You wrote</th><th>You get</th><th>Write instead</th></tr>
+    <tr><td><code>plays[a &gt; 1 and b &lt; 2]</code></td>
+      <td><code>ValueError</code>: the truth value of a Series is ambiguous</td>
+      <td><code>plays[(a &gt; 1) &amp; (b &lt; 2)]</code></td></tr>
+    <tr><td><code>plays[mask]["device"] = "x"</code></td>
+      <td><code>SettingWithCopyWarning</code>, and <code>plays</code> is not changed</td>
+      <td><code>plays.loc[mask, "device"] = "x"</code></td></tr>
+    <tr><td><code>per_genre["genre"]</code> after a <code>groupby</code></td>
+      <td><code>KeyError: 'genre'</code>: it is the index now</td>
+      <td><code>.reset_index()</code> first</td></tr>
+    <tr><td><code>plays.sort_values("x", inplace=True)</code></td>
+      <td>Works, returns <code>None</code>, so nothing can follow it</td>
+      <td><code>plays = plays.sort_values("x")</code></td></tr>
+    <tr><td><code>plays["skipped"] + plays["genre"]</code></td>
+      <td><code>TypeError</code>; two text columns join instead, <code>"4" + "5"</code> is
+        <code>"45"</code></td>
+      <td>Check <code>plays.dtypes</code> first</td></tr>
+  </table>
+  <div class="cols mt">
+    <div class="card card--compact card--rose">
+      <p class="nomargin"><strong>The warning</strong> means "you may have changed a copy, and I
+        cannot tell". It is not an error, so the code carries on: in notebook 01 the chained
+        line changes 0 rows and the <code>.loc</code> line changes all 32.</p>
+    </div>
+    <div class="card card--compact card--amber">
+      <p class="nomargin"><strong><code>inplace=True</code>:</strong> do not. It returns
+        <code>None</code>, so nothing chains after it, and the line changes a table with no
+        <code>=</code> to show it. Assign the result.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Every row was checked on pandas 2.3.1, the course version. Explain the warning once,
+    calmly, and give the <code>.loc</code> habit rather than a lecture on views and copies.
+    The habit prevents it. The same warning appears when they filter, keep the result, and
+    then add a column to it; <code>.copy()</code> after the filter is the fix there.</p>
+    <p>Only the second row runs without stopping, which is why it is the one demonstrated in
+    the notebook. The other four at least fail loudly.</p>
   </aside>
 </section>
 

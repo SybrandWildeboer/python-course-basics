@@ -15,6 +15,7 @@ It writes four files into output/ at the repository root:
 
 from pathlib import Path
 
+import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -240,29 +241,40 @@ def check_months(path, plays):
 
 
 def main():
-    """Run the whole pipeline: the outer layer, and the only part that prints."""
+    """Run the whole pipeline: the outer layer, and the only part that prints.
+
+    The stages are silent and main() is chatty: it prints a line after each
+    stage, so a run shows how far it got and how many rows each stage left.
+    """
+    matplotlib.use("Agg")      # draw charts straight into files, never open a window
     raw = load_messy(MESSY)
+    print(f"loaded  {len(raw):>5} rows from {MESSY.name}")
     plays = clean_plays(raw)
+    print(f"cleaned {len(plays):>5} rows")
     summary = summarise_by_genre(plays)
+    print(f"analysed{len(summary):>5} genres")
 
     csv_path = OUTPUT / "genre_summary.csv"
     png_path = OUTPUT / "genre_minutes.png"
     save_csv(summary, csv_path)
+    print(f"wrote   {csv_path.relative_to(ROOT).as_posix()}")
     save_chart(summary, png_path)
+    print(f"wrote   {png_path.relative_to(ROOT).as_posix()}")
     check_summary(csv_path, plays)
+    print("checked  the file agrees with the cleaned plays")
 
-    # The new question: three lines, and nothing above them changed.
+    # The new question: a few lines, and nothing above them changed.
     months = minutes_by_month(plays)
+    print(f"analysed{len(months):>5} months")
     month_csv = OUTPUT / "minutes_by_month.csv"
     month_png = OUTPUT / "minutes_by_month.png"
     save_csv(months, month_csv)
+    print(f"wrote   {month_csv.relative_to(ROOT).as_posix()}")
     save_month_chart(months, month_png)
+    print(f"wrote   {month_png.relative_to(ROOT).as_posix()}")
     check_months(month_csv, plays)
+    print("checked  the monthly file agrees with the cleaned plays")
 
-    print(f"loaded  {len(raw):>5} rows from {MESSY.name}")
-    print(f"cleaned {len(plays):>5} rows")
-    for path in [csv_path, png_path, month_csv, month_png]:
-        print(f"wrote   {path.relative_to(ROOT).as_posix()}")
     print(f"top genre: {summary.iloc[0]['genre']}, {summary.iloc[0]['minutes']:,.1f} minutes")
     busiest = months.loc[months["minutes"].idxmax()]
     print(f"busiest month: {busiest['month']}, {busiest['minutes']:,.1f} minutes")
@@ -277,10 +289,14 @@ if __name__ == "__main__":
 #
 #   loaded   2223 rows from plays_messy.csv
 #   cleaned  2183 rows
+#   analysed    8 genres
 #   wrote   output/genre_summary.csv
 #   wrote   output/genre_minutes.png
+#   checked  the file agrees with the cleaned plays
+#   analysed   24 months
 #   wrote   output/minutes_by_month.csv
 #   wrote   output/minutes_by_month.png
+#   checked  the monthly file agrees with the cleaned plays
 #   top genre: Electronic, 2,753.2 minutes
 #   busiest month: 2024-10, 531.2 minutes
 #

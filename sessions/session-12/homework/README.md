@@ -39,7 +39,9 @@ Everything here happens in `project/`, in your own repository.
 
 3. **The README.** `project/README.md` should answer four things for a stranger: the
    question, the data (where it came from, and how to get it if it is not in the repo), how
-   to run it, and what you found. Two or three sentences each.
+   to run it, and what you found. Then fill in its last two headings, **What this does not
+   show** and **Cleaning decisions**: the limits of the answer, and what you dropped, filled
+   or labelled. Two or three sentences each.
 
 4. **Review your own diff.** Before the last commit, run `git diff` and go through
    `worksheets/review-checklist.md` as if somebody else had written the change. Fix what you

@@ -286,7 +286,9 @@ save_csv(summary, OUTPUT / "genre_summary.csv")</code></pre>
       <pre class="sm"><code data-lang="python">def main():
     """Run the pipeline. The only part that prints."""
     raw = load_messy(MESSY)
+    print(f"loaded  {len(raw)} rows")
     plays = clean_plays(raw)
+    print(f"cleaned {len(plays)} rows")
     summary = summarise_by_genre(plays)
 
     csv_path = OUTPUT / "genre_summary.csv"
@@ -294,9 +296,7 @@ save_csv(summary, OUTPUT / "genre_summary.csv")</code></pre>
     save_csv(summary, csv_path)
     save_chart(summary, png_path)
     check_summary(csv_path, plays)
-
-    print(f"cleaned {len(plays)} rows")
-    print(f"wrote   {csv_path.name}")
+    print("checked  the file adds up")
 
 
 if __name__ == "__main__":
@@ -312,18 +312,27 @@ if __name__ == "__main__":
       <div class="card card--compact card--teal">
         <h4>The check reads the file back</h4>
         <p class="nomargin">The session 4 stretch habit, now a stage: the plays in the CSV must
-          add up to the cleaned plays. A pipeline that silently writes a wrong file is worse
-          than one that crashes.</p>
+          add up to the cleaned plays. A wrong file written in silence is worse than a
+          crash.</p>
       </div>
-      <div class="card card--compact card--plain">
-        <p class="nomargin">The last two lines say: call <code>main()</code>, but only when
-          this file is the one being run. Next slide.</p>
+      <div class="card card--compact card--amber">
+        <h4>Silent stages, a chatty <code>main()</code></h4>
+        <p class="nomargin">The stages print nothing, so a notebook can call them quietly.
+          <code>main()</code> prints after each one: the last line says how far a run got,
+          and <code>cleaned 218 rows</code> shows a bug before the chart hides it.</p>
       </div>
     </div>
   </div>
   <aside class="notes">
-    <p>The prints are shortened on the slide; the demo file prints the row counts, both file
-    names and the top genre. The structure is what matters here.</p>
+    <p>The prints are shortened on the slide; the demo file prints a line after every stage
+    (loaded, cleaned, analysed, each file written, checked) and then the top genre.</p>
+    <p>Silent versus chatty: the session 3 rule says only the outer layer prints, and this is
+    what that buys. The stages stay quiet and reusable; main() narrates the run, so a crash
+    or a suspicious row count points at the stage that caused it.</p>
+    <p>Its first line in the file is matplotlib.use("Agg"): a script only saves charts, so it
+    draws into files and never tries to open a window. Not in notebooks, which show charts.</p>
+    <p>The last two lines say: call main(), but only when this file is the one being run.
+    Next slide.</p>
   </aside>
 </section>
 
@@ -435,16 +444,20 @@ OUTPUT = ROOT / "output"</code></pre>
       <pre class="sm"><code data-lang="text">$ python sessions/session-10/demos/genre_pipeline.py
 loaded   2223 rows from plays_messy.csv
 cleaned  2183 rows
+analysed    8 genres
 wrote   output/genre_summary.csv
 wrote   output/genre_minutes.png
+checked  the file agrees with the cleaned plays
 top genre: Electronic, 2,753.2 minutes
 
 $ cd sessions/session-10
 $ python demos/genre_pipeline.py
 loaded   2223 rows from plays_messy.csv
 cleaned  2183 rows
+analysed    8 genres
 wrote   output/genre_summary.csv
 wrote   output/genre_minutes.png
+checked  the file agrees with the cleaned plays
 top genre: Electronic, 2,753.2 minutes</code></pre>
     </figure>
     <div class="stack">
@@ -563,6 +576,8 @@ python pipeline.py</code></pre>
     </div>
   </div>
   <aside class="notes">
+    <p>First, python --version: it has to say 3.10 to 3.12. The pinned matplotlib 3.9.0 has
+    no installer for 3.13 or newer, and pip install -r then fails trying to build it.</p>
     <p>Do this on his laptop, now. The execution policy error is the usual Windows snag, and
     meeting it alone at home is miserable. Command Prompt uses .venv\Scripts\activate.bat;
     Git Bash uses source .venv/Scripts/activate.</p>
@@ -642,8 +657,8 @@ pip freeze                        # ...and see exact versions</code></pre>
     </figure>
     <table class="sm">
       <tr><th style="width:170px">Where</th><th>What it is for</th></tr>
-      <tr><td><code>README.md</code></td><td>The question, where the data came from, how to
-        run it, what the data could not tell you</td></tr>
+      <tr><td><code>README.md</code></td><td>The question, how to run it, and three
+        headings to fill in: what I found, what it does not show, cleaning decisions</td></tr>
       <tr><td><code>requirements.txt</code></td><td>The exact packages, so anyone can rebuild
         the environment</td></tr>
       <tr><td><code>pipeline.py</code></td><td>Today's pipeline, runnable as it is, with
@@ -796,9 +811,10 @@ data = pipeline.clean(raw)</code></pre>
     <div class="card card--amber">
       <div class="card-title"><span class="dot"></span>Task 2 · get this far</div>
       <h4>Your project, running</h4>
-      <p class="nomargin">Make <code>project/</code> run in its own <code>.venv</code>. Then
-        put your session 1 spreadsheet, as a CSV, in <code>project/data/</code> and get
-        <code>explore.ipynb</code> to load it.</p>
+      <p class="nomargin">Make <code>project/</code> run in its own <code>.venv</code>. Delete
+        <code>output/</code> and rerun: the same files come back. Rebuild <code>.venv</code>
+        from <code>requirements.txt</code>. Then put your session 1 spreadsheet, as a CSV, in
+        <code>project/data/</code> and get <code>explore.ipynb</code> to load it.</p>
     </div>
     <div class="card card--accent">
       <div class="card-title"><span class="dot"></span>Task 3 · today, 5 minutes</div>
@@ -816,6 +832,10 @@ data = pipeline.clean(raw)</code></pre>
     </div>
   </div>
   <aside class="notes">
+    <p>Task 2's two rebuilds are the real test of today: delete output/ and rerun (the
+    summary comes back identical), then delete .venv and rebuild it from requirements.txt. If
+    either fails, he sends the error rather than fixing it quietly; it is ten minutes of
+    session 11.</p>
     <p>Task 3 matters because of the wait. Session 11 offers his Spotify history as an
     optional project dataset, and it only works if it has arrived. Ask him to do it before he
     leaves today.</p>

@@ -3,7 +3,7 @@
 **Goal:** the questions from sessions 6 and 7, answered in Python. They leave able to read a
 SQL query and write its pandas twin, and to say when they would reach for which.
 
-**Slides:** [`slides/session-08.html`](../../slides/session-08.html) (23 slides)
+**Slides:** [`slides/session-08.html`](../../slides/session-08.html) (24 slides)
 
 Nothing in this session is a new idea, and that is the way to teach it. Every question has
 already been answered with a loop in session 4 and with SQL in sessions 6 and 7. Keep saying
@@ -22,9 +22,9 @@ methods feel small.
 | 0:40–0:55 | `value_counts`, `groupby` and `agg`, `sort_values`, `merge` | Slides 11–13 |
 | 0:55–1:05 | Break | |
 | 1:05–1:30 | **Four queries side by side**, ending with fan-out and `validate` | Slides 15–19 |
-| 1:30–1:35 | When SQL, when pandas | Slide 20 |
-| 1:35–1:55 | Live exercise: session 7's exercise, in pandas | Slide 21 |
-| 1:55–2:00 | Homework, commit and push | Slides 22–23 |
+| 1:30–1:35 | When SQL, when pandas; the five irritations as a reference | Slides 20–21 |
+| 1:35–1:55 | Live exercise: session 7's exercise, in pandas | Slide 22 |
+| 1:55–2:00 | Homework, commit and push | Slides 23–24 |
 
 Part one is fast for anyone who did the session 4 homework, and that is fine: if it runs
 early, spend the time in part three rather than the stretch. The side-by-side block is the
@@ -84,7 +84,7 @@ from a notebook is worth a sentence: in a notebook the last line of a cell displ
 
 | Notebook | What it is |
 |---|---|
-| `notebooks/01-dataframes.ipynb` | From a list of dicts to a DataFrame, the first looks, columns, masks and the brackets trap, sorting, `value_counts`, `groupby`, `read_sql`, `merge`. Ends with a SQL-to-pandas table |
+| `notebooks/01-dataframes.ipynb` | From a list of dicts to a DataFrame, where pandas comes from (pip and PyPI), the first looks, columns, `.loc` and its inclusive slice, masks and the brackets trap, sorting, `value_counts` with and without `normalize=True`, `groupby`, `read_sql`, `merge`, the five irritations. Ends with a SQL-to-pandas table |
 | `notebooks/02-sql-and-pandas.ipynb` | The four queries side by side with `assert`s, the fan-out diagnosis, the fake fixes, the real fix, `validate`, and when SQL versus pandas |
 | `notebooks/03-joins-in-pandas-exercise.ipynb` | The live exercise |
 | `notebooks/03-joins-in-pandas-solved.ipynb` | Worked answers, including the second bug: 25 countries become 14 |
@@ -143,11 +143,19 @@ not there is one. By plays, Rock is 64 against 63.
 - **`size` versus `count`.** `COUNT(*)` versus `COUNT(column)` with new names. Slide 17.
 - **Decimals where they expected whole numbers.** `formed_year` is `2014.0` because a column
   with a `NaN` in it is stored as decimals. Not a bug; a sign there are missing values.
-- **`SettingWithCopyWarning`.** If they filter a DataFrame and then add a column to the
-  result, pandas may warn. None of today's material triggers it, but their own experiments
-  might. The short explanation: pandas cannot tell whether you meant to change the filtered
-  table or the original. Adding `.copy()` after the filter says "a new table", and the warning
-  goes away for the right reason.
+- **`SettingWithCopyWarning`.** Notebook 01 triggers it on purpose, on a copy: the chained
+  `demo[long_ones]["device"] = "LONG"` warns and changes 0 rows, and the `.loc` line changes
+  all 32. Their own experiments will also meet it when they filter, keep the result, and then
+  add a column to it. The short explanation: pandas cannot tell whether you meant to change
+  the filtered table or the original. `.loc` for changing the original, and `.copy()` after
+  the filter for "a new table", make the warning go away for the right reason. Slide 21.
+- **`inplace=True`.** Many tutorials use it. Tell them not to: it returns `None`, so nothing
+  chains after it, and it changes a table on a line with no `=` to show it.
+- **`.loc[0:2]` gives three rows.** The one inclusive slice in Python; `.iloc[0:2]` gives
+  two.
+- **`No module named 'pandas'`.** The kernel's Python is not the one pandas went into. Step 8
+  of `slides/install.html` has the commands; session 10 fixes the underlying problem with a
+  virtual environment.
 
 ## Definition of done
 

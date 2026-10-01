@@ -68,6 +68,13 @@ assert list(unknown) == [6, 2]
 #   minutes each, and the gap between them is smaller than the minutes we
 #   failed to record."
 #
+# What this chart does not show:
+#
+#   Who actually won. DJ Kompas has 6 plays in 2025 with no minutes and Glass
+#   Tram has 2, and any one of them could be longer than the 3.5-minute gap.
+#   It also says nothing about 2024, or about how often each artist was
+#   played: this is minutes, not plays.
+#
 # The choices:
 #   * horizontal bars, because artist names are long; still bars, because
 #     artists are categories

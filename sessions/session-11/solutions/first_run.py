@@ -9,7 +9,10 @@ from pathlib import Path
 
 import pandas as pd
 
-DATA_PATH = Path("data/clean/plays.csv")
+# Paths start from this file, as in session 10, so it runs from any folder.
+# parents[0] is solutions, [1] session-11, [2] sessions, [3] the repository root.
+ROOT = Path(__file__).resolve().parents[3]
+DATA_PATH = ROOT / "data" / "clean" / "plays.csv"
 
 
 def first_look(df, date_column=None):
@@ -40,7 +43,7 @@ def rough_answer(df):
 
 def main():
     if not DATA_PATH.exists():
-        print(f"{DATA_PATH} does not exist. Run this from the repository root.")
+        print(f"{DATA_PATH} does not exist. Is the course data in data/clean/?")
         return
 
     raw = load(DATA_PATH)

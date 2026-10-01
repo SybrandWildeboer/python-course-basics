@@ -131,6 +131,15 @@ out one last time.
 **First two hours:** a page that shows your project chart, with one dropdown that filters
 the data before `analyse()` runs.
 
+### What about machine learning?
+
+Not on the map, on purpose. Machine learning is mostly data work with a model at the end:
+finding the data, cleaning it, checking it, and being honest about what it cannot show. That
+is the pandas and SQL you already have, and it is most of the job. For a first project after
+this course it is usually the wrong next step. If a question of yours one day really needs a
+prediction, start with scikit-learn's Getting Started page,
+<https://scikit-learn.org/stable/getting_started.html>, with the data work already done.
+
 ---
 
 ## Honest notes on learning resources

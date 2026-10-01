@@ -291,6 +291,51 @@ git diff</code></pre>
   </aside>
 </section>
 
+<section class="slide" data-title="If the data changes">
+  <div class="eyebrow">The question that finds real fragility</div>
+  <h2>What happens if the data changes slightly?</h2>
+  <div class="cols cols-wide-left">
+    <div class="stack">
+      <table class="sm">
+        <tr><th style="width:170px">Next month's file has</th><th>Look for</th></tr>
+        <tr><td><strong>An extra column</strong>, or one renamed</td>
+          <td>A hardcoded column list, a rename that only knows one spelling. Does it fail
+            loudly, or carry on with the wrong column?</td></tr>
+        <tr><td><strong>A new category</strong></td>
+          <td>A genre or device the code has never seen: a fixed list in a chart, a colour per
+            name, a check that expects exactly eight rows</td></tr>
+        <tr><td><strong>A missing month</strong></td>
+          <td>Assumed date ranges, "24 rows" asserted, a chart whose line quietly joins across
+            the gap</td></tr>
+      </table>
+      <p class="nomargin">Walk through your own <code>pipeline.py</code> with each one. Twice
+        the rows is the fourth: does anything get slow, or assume a size?</p>
+    </div>
+    <div class="stack">
+      <div class="exercise">
+        <div class="tag">◆ Fix it live</div>
+        <ol class="tight nomargin">
+          <li>From the review, <strong>pick two or three things</strong>, not ten</li>
+          <li>Fix them now, one at a time</li>
+          <li>Commit each, with a message that says why</li>
+          <li>Rerun: delete <code>project/output/</code>, run the pipeline and the tests</li>
+        </ol>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">A list of improvements you take home is a list you will not do.
+          Two fixes made in the room, committed and rerun, are worth more.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This question finds more real problems than any other: hardcoded column lists,
+    assumed date ranges, a groupby or a chart that silently drops a new category. Ask it with
+    their file open, and let them find the line.</p>
+    <p>Then fix two or three things live, in their repo, with them typing. Commit, push, and
+    run the delete-and-rerun test once more, so the last run of the course is a clean one.</p>
+  </aside>
+</section>
+
 <section class="slide slide--section" data-title="Section: Two promises">
   <div>
     <div class="marker">Part three · 40 minutes</div>
@@ -468,7 +513,7 @@ print(result)</code></pre>
         rows = load_rows(PLAYS)
     except FileNotFoundError:
         raise SystemExit(f"No file at {PLAYS}. "
-                         "Run from the repository root.")
+                         "Check the name and the folder.")
     ...</code></pre>
       </figure>
     </div>
@@ -683,8 +728,9 @@ def test_parse_minutes_leaves_empty_text_missing():
     <span class="ico">◆</span>
     <div>
       <p class="nomargin">Each direction has a "first two hours" task on your own project, and
-        the links, in <code>sessions/session-12/worksheets/where-next.md</code>. Everything on
-        it is free.</p>
+        the links, in <code>sessions/session-12/worksheets/where-next.md</code>. Not on it:
+        machine learning. It is mostly data work with a model at the end, and usually the
+        wrong next step.</p>
     </div>
   </div>
   <aside class="notes">
@@ -692,6 +738,10 @@ def test_parse_minutes_leaves_empty_text_missing():
     Spotify project wants APIs or automation, a work spreadsheet wants automation or SQL.</p>
     <p>The DuckDB example in the worksheet runs as written and gives the same genre totals as
     session 6.</p>
+    <p>Be honest about machine learning if it comes up. It is mostly data work with a model
+    at the end: the pandas and SQL from this course are most of the job, and for a first
+    project after a course it is usually the wrong next step. Somebody who lit up during the
+    joins session should not be pointed at it because it sounds impressive.</p>
   </aside>
 </section>
 
@@ -771,6 +821,10 @@ def test_parse_minutes_leaves_empty_text_missing():
     <p>Go through the list slowly and let them notice how far it goes. Twelve sessions ago
     the first item was "print a line".</p>
     <p>Ask for the link to the pushed project when homework step 1 is done.</p>
+    <p>To close: put his session 1 file on screen next to the project. Twelve sessions, a
+    few hundred lines of his own code, real commits, and a project he chose, scoped, built
+    and presented. Then say that the questions channel stays open after the course; the
+    month after is when he will need it most. End on time.</p>
   </aside>
 </section>
 

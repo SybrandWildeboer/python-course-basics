@@ -1,7 +1,7 @@
 """Session 11 live exercise, part 2: your data, your first number.
 
 The script version of notebooks/02-first-run-exercise.ipynb. Fill in the TODOs, then run it
-from the repository root:
+from any folder:
 
     python sessions/session-11/exercises/first_run.py
 
@@ -13,7 +13,10 @@ from pathlib import Path
 
 import pandas as pd
 
-DATA_PATH = Path("project/data/YOUR-FILE-NAME.csv")      # TODO: your file
+# Paths start from this file, as in session 10, so it runs from any folder.
+# parents[0] is exercises, [1] session-11, [2] sessions, [3] the repository root.
+ROOT = Path(__file__).resolve().parents[3]
+DATA_PATH = ROOT / "project" / "data" / "YOUR-FILE-NAME.csv"      # TODO: your file
 
 
 def first_look(df, date_column=None):
@@ -43,7 +46,7 @@ def rough_answer(df):
 def main():
     if not DATA_PATH.exists():
         print(f"{DATA_PATH} does not exist. Is the name right, extension and all?")
-        print("What is in project/data:", [p.name for p in Path("project/data").glob("*")])
+        print("What is in project/data:", [p.name for p in DATA_PATH.parent.glob("*")])
         return
 
     raw = load(DATA_PATH)

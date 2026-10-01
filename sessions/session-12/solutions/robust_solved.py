@@ -99,11 +99,18 @@ def summary_line(path, device):
 
 
 if __name__ == "__main__":
+    from pathlib import Path
+
+    # Run directly, the examples find the data from this file's location
+    # (session 10), so they work from any folder. The tests pass paths from
+    # the repository root instead, which is where pytest runs.
+    CLEAN = Path(__file__).resolve().parents[3] / "data" / "clean"
+
     print(safe_highest([3, 10, 7]), safe_highest([]))
     print(to_minutes("4.65"), to_minutes("4.2 min"), to_minutes(""))
-    print(summary_line("data/clean/plays.csv", "phone"))
-    print(summary_line("data/clean/plays.csv", "radio"))
-    print(summary_line("data/clean/play.csv", "phone"))
+    print(summary_line(CLEAN / "plays.csv", "phone"))
+    print(summary_line(CLEAN / "plays.csv", "radio"))
+    print(summary_line(CLEAN / "play.csv", "phone"))
 
 
 # ---------------------------------------------------------------------------

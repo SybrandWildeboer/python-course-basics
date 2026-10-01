@@ -99,7 +99,7 @@ print("wrote output/device_skip_rate.csv and output/device_skip_rate.png")
 # def save_csv(table, path):
 # def save_chart(rates, path):
 # def check_rates(path, plays):
-# def main():
+# def main():      # prints a line after each stage; first line: matplotlib.use("Agg")
 #
 # if __name__ == "__main__":
 #     main()

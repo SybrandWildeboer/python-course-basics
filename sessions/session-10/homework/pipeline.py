@@ -27,6 +27,7 @@ Hints:
 
 from pathlib import Path
 
+import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -218,23 +219,31 @@ def check_summary(path, plays):
 
 
 def main():
-    """Run the whole pipeline: the outer layer, and the only part that prints."""
+    """Run the whole pipeline: the outer layer, and the only part that prints.
+
+    The stages are silent and main() is chatty: it prints a line after each
+    stage, so a run shows how far it got and how many rows each stage left.
+    """
+    matplotlib.use("Agg")      # draw charts straight into files, never open a window
     raw = load_messy(MESSY)
+    print(f"loaded  {len(raw):>5} rows from {MESSY.name}")
     plays = clean_plays(raw)
+    print(f"cleaned {len(plays):>5} rows")
     summary = summarise_by_genre(plays)
+    print(f"analysed{len(summary):>5} genres")
 
     csv_path = OUTPUT / "genre_summary.csv"
     png_path = OUTPUT / "genre_minutes.png"
     save_csv(summary, csv_path)
-    save_chart(summary, png_path)
-    check_summary(csv_path, plays)
-
-    # TODO: the monthly question goes here: analyse, save, save, check
-
-    print(f"loaded  {len(raw):>5} rows from {MESSY.name}")
-    print(f"cleaned {len(plays):>5} rows")
     print(f"wrote   {csv_path.relative_to(ROOT).as_posix()}")
+    save_chart(summary, png_path)
     print(f"wrote   {png_path.relative_to(ROOT).as_posix()}")
+    check_summary(csv_path, plays)
+    print("checked  the file agrees with the cleaned plays")
+
+    # TODO: the monthly question goes here: analyse, save, save, check,
+    # each with a print after it, like the stages above
+
     print(f"top genre: {summary.iloc[0]['genre']}, {summary.iloc[0]['minutes']:,.1f} minutes")
 
 

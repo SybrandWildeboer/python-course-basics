@@ -21,6 +21,7 @@ each change. A pipeline that ran five minutes ago is easy to fix.
 
 from pathlib import Path
 
+import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -94,7 +95,9 @@ def clean(df):
     df["minutes_played"] = parse_minutes(df["minutes_played"])
 
     for column in ["genre", "country"]:
-        df[column] = df.groupby("artist_name")[column].transform("first")
+        # Fill only the gaps: a value that is already there is never replaced.
+        known = df.groupby("artist_name")[column].transform("first")
+        df[column] = df[column].fillna(known)
     df["device"] = df["device"].fillna("unknown")
 
     return df.sort_values("play_id").reset_index(drop=True)
@@ -170,22 +173,30 @@ def check(path, data):
 
 
 def main():
-    """Run every stage in order. The outer layer, and the only part that prints."""
+    """Run every stage in order. The outer layer, and the only part that prints.
+
+    It prints a line after each stage, so you can see how far a run got and
+    how many rows each stage left. If cleaning suddenly drops half the rows,
+    you see it here, before the chart quietly shows the wrong thing.
+    """
+    matplotlib.use("Agg")      # draw charts straight into files, never open a window
+    print(QUESTION)
+
     raw = load(INPUT)
+    print(f"  loaded   {len(raw):>5} rows from {INPUT.name}")
     data = clean(raw)
+    print(f"  cleaned  {len(data):>5} rows")
     summary = analyse(data)
+    print(f"  analysed {len(summary):>5} rows in the summary")
 
     csv_path = OUTPUT / "summary.csv"
     png_path = OUTPUT / "chart.png"
     save_csv(summary, csv_path)
+    print(f"  wrote    {csv_path.relative_to(PROJECT).as_posix()}")
     save_chart(summary, png_path)
+    print(f"  wrote    {png_path.relative_to(PROJECT).as_posix()}")
     check(csv_path, data)
-
-    print(QUESTION)
-    print(f"  loaded  {len(raw):>6} rows from {INPUT.name}")
-    print(f"  cleaned {len(data):>6} rows")
-    print(f"  wrote   {csv_path.relative_to(PROJECT).as_posix()}")
-    print(f"  wrote   {png_path.relative_to(PROJECT).as_posix()}")
+    print("  checked  the summary adds up to the cleaned rows")
 
 
 if __name__ == "__main__":

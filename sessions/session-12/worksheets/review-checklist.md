@@ -29,6 +29,11 @@ The mistakes that cost most produce no error at all.
       pandas quietly gives `NaN`.
 - [ ] **One headline number is confirmed a second way**: the parts add up to the whole, or
       one cell recomputed with a filter instead of a `groupby` (session 11).
+- [ ] **It survives the data changing slightly.** Imagine next month's file: an extra or
+      renamed column, a new category, a missing month, twice the rows. Look for hardcoded
+      column lists, assumed date ranges, a check that expects an exact number of rows, and a
+      `groupby` or chart that silently drops a category it has not seen. Either it copes, or
+      it stops with a clear message; it never carries on quietly wrong.
 
 ## 3. Errors
 

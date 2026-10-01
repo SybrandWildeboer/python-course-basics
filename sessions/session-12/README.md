@@ -4,7 +4,7 @@
 handle the errors they can predict without hiding the ones they cannot, turn their `assert`
 lines into tests, and leave with two first steps that have dates on them.
 
-**Slides:** [`slides/session-12.html`](../../slides/session-12.html) (21 slides)
+**Slides:** [`slides/session-12.html`](../../slides/session-12.html) (22 slides)
 
 The first hour belongs to them. Protect it. If you run short of time, shorten the map, not
 the presentation or the review.
@@ -17,11 +17,11 @@ the presentation or the review.
 |---|---|---|
 | 0:00–0:05 | The plan, and a check that the pipeline runs | Slide 2 |
 | 0:05–0:30 | **They present**, ten minutes, then the four questions | Slides 4–5 |
-| 0:30–0:55 | Code review: the practice diff, then their own history | Slides 7–9 |
+| 0:30–0:55 | Code review: the practice diff, their own history, "what if the data changes?", then two or three fixes live | Slides 7–10 |
 | 0:55–1:05 | Break | |
-| 1:05–1:25 | `try` / `except`, then live exercise part 1 | Slides 11–14 |
-| 1:25–1:45 | `pytest`, then live exercise part 2 | Slides 15–17 |
-| 1:45–2:00 | The map, honest advice, two first steps written down | Slides 19–21 |
+| 1:05–1:25 | `try` / `except`, then live exercise part 1 | Slides 12–15 |
+| 1:25–1:45 | `pytest`, then live exercise part 2 | Slides 16–18 |
+| 1:45–2:00 | The map, honest advice, two first steps written down, the close | Slides 20–22 |
 
 ## The blocks that matter
 
@@ -41,15 +41,34 @@ was produced by running both versions: 2,183 rows become 3,391, total minutes go
 as `KeyError: 'artist_name'`. Let them find problems with the checklist before you say
 anything. If they spot the fan-out unaided, session 7 worked.
 
-**Where to catch (slide 14).** The idea that holds both halves of the session together: a
+**What if the data changes slightly? (slide 10).** Then their own code, with one question:
+an extra or renamed column, a new category, a missing month, twice the rows. It finds more
+real fragility than any other question: hardcoded column lists, assumed date ranges, a
+check that expects exactly 24 months, a chart or a `groupby` that silently drops a category
+it has not seen. Then **pick two or three things and fix them live**: one at a time, a commit
+each, and a rerun with `project/output/` deleted first. A list of improvements they take
+home is a list they will not do.
+
+**Where to catch (slide 15).** The idea that holds both halves of the session together: a
 missing file must not become empty data. It is the practice diff's bug, and it extends the
 session 3 rule: functions that calculate return and let errors travel; the outer layer
 prints and decides what to do about errors.
 
-**The second failure (slide 16).** With `highest` starting at `best = 0`, two tests fail.
+**The second failure (slide 17).** With `highest` starting at `best = 0`, two tests fail.
 The negatives test is the one they expect. The empty-list test failing too, because
 `highest([])` now quietly answers `0` instead of crashing, is the case for testing the
 awkward cases on purpose. Let them say why before you do.
+
+**The map (slide 20).** Six directions, each with a first task on their own project. Be
+honest about machine learning if it comes up, because it will: it is mostly data work with a
+model at the end, the pandas and SQL from this course are most of the job, and it is usually
+the wrong next step. Point them at what they visibly enjoyed over the twelve weeks, not at
+what sounds impressive.
+
+**The close (slide 22).** Show their session 1 file, if you still have it, next to the
+project: twelve weeks, a few hundred lines of their own code, a repo of real commits, and a
+project they chose, scoped, built and presented. Then tell them the questions channel stays
+open. It costs little, and the month after a course is when it matters most. End on time.
 
 ## What they use
 
@@ -123,7 +142,7 @@ integer division in session 6.
   `pipeline.py` top to bottom with the checklist instead, and say once that small commits are
   what make review possible.
 - **Reaching for a bare `except:` to make an error go away.** The single most likely habit to
-  form after today. The typo demo on slide 13 is there to inoculate against it.
+  form after today. The typo demo on slide 14 is there to inoculate against it.
 - **Wrapping everything in `try`.** A `try` around `clean()` or `analyse()` hides bugs. Only
   the load in `main()`, and text that may not be a number, need one in most projects.
 - **`ModuleNotFoundError` when running pytest.** Either pytest is not installed in the active

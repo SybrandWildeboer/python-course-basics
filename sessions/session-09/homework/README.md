@@ -49,6 +49,9 @@ Requirements, from the checklist in notebook 02:
 - axis labels with units
 - saved to `output/` with `fig.savefig(...)`, **before** `plt.show()`
 - one sentence underneath: what you would say about it in a meeting
+- one more sentence: **what this chart does not show**. Every chart answers one question,
+  and readers happily take it as the answer to a nearby one. Notebook 02 has an example under
+  the histogram and under the scatter. Name the nearby question yours does not answer
 
 **Watch out for:** a title you cannot back up. If the top two are close, check how many of
 their plays have missing minutes before you name a winner.

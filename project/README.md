@@ -33,7 +33,11 @@ output.*
 
 A virtual environment is a private set of packages for this project only, so what you
 install here cannot break anything else, and the versions in `requirements.txt` are the
-ones you actually run. You make it once. Open a terminal in the repository root, then:
+ones you actually run. You make it once.
+
+It needs Python 3.10 to 3.12 (`python --version` tells you). The `matplotlib==3.9.0` in
+`requirements.txt` has no ready-made installer for 3.13 or newer, so pip tries to build it
+from source there and fails. Open a terminal in the repository root, then:
 
 **Windows (PowerShell)**
 
@@ -77,9 +81,16 @@ You should see:
 Which genre do I spend most of my listening time on?
   loaded    2223 rows from plays_messy.csv
   cleaned   2183 rows
-  wrote   output/summary.csv
-  wrote   output/chart.png
+  analysed     8 rows in the summary
+  wrote    output/summary.csv
+  wrote    output/chart.png
+  checked  the summary adds up to the cleaned rows
 ```
+
+One line per stage, printed as each one finishes. The stages themselves print nothing;
+only `main()` talks. So if a run stops halfway, the last line tells you which stage it
+reached, and if `cleaned` suddenly says 218 instead of 2183, you see it before the chart
+hides it.
 
 `deactivate` switches the environment off again. Closing the terminal does the same.
 
@@ -120,10 +131,30 @@ ran five minutes ago is easy to fix; one that has not run since this morning is 
    answer.
 7. **Check.** Keep at least one check that compares a total in the written file with the
    same total worked out from the cleaned data.
-8. **This README.** Your question, where the data came from, how to run it, and what the
-   data could not tell you.
+8. **This README.** Your question, where the data came from, how to run it, and the three
+   sections below.
 
-## What the data could not tell you
+Before you call it done, delete `output/` and run the pipeline again: everything should come
+back the same. Then delete `.venv/` and rebuild it from `requirements.txt`. If both work, the
+project runs on a machine that is not yours.
 
-*Every dataset has gaps. Say what yours are, and how big. For the music data: 94 plays lost
-their minutes in the messy export, which is 372.4 minutes, about 4% of the total.*
+## What I found
+
+*Two or three sentences: the answer to the question at the top, with the number. For the
+music data: Electronic, with 2,753.2 of 8,608.0 minutes, 32.0% of my listening time.*
+
+## What this does not show
+
+*The most valuable paragraph in the file. What can this analysis not tell you? What would
+somebody be wrong to conclude from it? How much data is each claim resting on? Every dataset
+has gaps: say what yours are, and how big. For the music data: 94 plays lost their minutes in
+the messy export, 372.4 minutes, about 4% of the total, so every genre's minutes are a little
+low. And it is two years of one person's listening: it says nothing about anyone else.*
+
+## Cleaning decisions
+
+*What you dropped, filled or labelled, how many rows each decision touched, and what it did
+to the answer. Copy them from the docstring of `clean`. For the music data: 40 exact
+duplicate rows dropped (2,223 to 2,183); 34 missing genres and 48 missing
+countries filled in from the same artist's other plays; 69 blank devices labelled
+`unknown`; 94 blank minutes left missing rather than guessed.*

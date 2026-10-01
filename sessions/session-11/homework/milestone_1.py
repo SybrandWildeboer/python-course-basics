@@ -1,7 +1,7 @@
 """Session 11 homework: milestone 1 of your project. It loads, it cleans, and you can prove it.
 
 The script version of notebooks/03-milestone-1-homework.ipynb. Work it out here (or in the
-notebook), then move the functions into project/pipeline.py. Run from the repository root:
+notebook), then move the functions into project/pipeline.py. Run it from any folder:
 
     python sessions/session-11/homework/milestone_1.py
 """
@@ -10,7 +10,10 @@ from pathlib import Path
 
 import pandas as pd
 
-DATA_PATH = Path("project/data/YOUR-FILE-NAME.csv")      # TODO: your file
+# Paths start from this file, as in session 10, so it runs from any folder.
+# parents[0] is homework, [1] session-11, [2] sessions, [3] the repository root.
+ROOT = Path(__file__).resolve().parents[3]
+DATA_PATH = ROOT / "project" / "data" / "YOUR-FILE-NAME.csv"      # TODO: your file
 NEEDED = ["TODO", "your", "columns"]
 
 

@@ -3,7 +3,7 @@
 The script version of notebooks/01-scoping-a-question.ipynb, on the worked example:
 "Which genres did I listen to more in 2025 than in 2024, and which less?"
 
-Run it from the repository root:
+Run it from any folder; the paths are built from __file__, as in session 10:
 
     python sessions/session-11/demos/one_number_test.py
 
@@ -19,8 +19,11 @@ matplotlib.use("Agg")             # a script saves its chart; it does not open a
 import matplotlib.pyplot as plt   # noqa: E402
 import pandas as pd               # noqa: E402
 
-PLAYS = Path("data/clean/plays.csv")
-OUT = Path("output") / "session-11"
+# Paths start from this file, as in session 10, so it runs from any folder.
+# parents[0] is demos, [1] session-11, [2] sessions, [3] the repository root.
+ROOT = Path(__file__).resolve().parents[3]
+PLAYS = ROOT / "data" / "clean" / "plays.csv"
+OUT = ROOT / "output" / "session-11"
 
 
 # --- step 1: the five-minute first look --------------------------------------
@@ -121,7 +124,8 @@ def main():
     result.to_csv(OUT / "genre_change.csv")
     chart(result, OUT / "genre_change.png")
     print()
-    print(f"wrote {OUT / 'genre_change.csv'} and {OUT / 'genre_change.png'}")
+    folder = OUT.relative_to(ROOT).as_posix()
+    print(f"wrote {folder}/genre_change.csv and {folder}/genre_change.png")
 
 
 if __name__ == "__main__":

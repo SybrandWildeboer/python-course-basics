@@ -10,8 +10,11 @@ from pathlib import Path
 
 import pandas as pd
 
-DATA_PATH = Path("data/clean/plays.csv")
-OUT = Path("output") / "session-11"
+# Paths start from this file, as in session 10, so it runs from any folder.
+# parents[0] is solutions, [1] homework, [2] session-11, [3] sessions, [4] the root.
+ROOT = Path(__file__).resolve().parents[4]
+DATA_PATH = ROOT / "data" / "clean" / "plays.csv"
+OUT = ROOT / "output" / "session-11"
 NEEDED = ["play_id", "played_at", "genre", "minutes_played"]
 
 
@@ -122,7 +125,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     result.to_csv(OUT / "genre_change.csv")
     print()
-    print(f"both routes agree; wrote {OUT / 'genre_change.csv'}")
+    print(f"both routes agree; wrote {OUT.relative_to(ROOT).as_posix()}/genre_change.csv")
 
 
 if __name__ == "__main__":

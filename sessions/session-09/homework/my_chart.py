@@ -16,6 +16,7 @@ The checklist from the walkthrough:
     * axis labels with units
     * fig.savefig("output/...png", dpi=150, bbox_inches="tight")
     * one sentence: what you would say about it in a meeting
+    * one more sentence: what this chart does NOT show
 
 A script saves its chart instead of showing it: plt.show() would open a
 window and wait for you to close it.
@@ -42,4 +43,7 @@ os.makedirs("output", exist_ok=True)
 
 
 # What I would say about it in a meeting:
+#
+
+# What this chart does not show:
 #

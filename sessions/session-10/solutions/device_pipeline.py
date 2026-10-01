@@ -15,6 +15,7 @@ repository root, whichever folder you ran it from.
 
 from pathlib import Path
 
+import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -181,21 +182,27 @@ def check_rates(path, plays):
 
 
 def main():
-    """Run the pipeline. The outer layer: the only function that prints."""
+    """Run the pipeline. The outer layer: the only function that prints.
+
+    It prints a line after each stage, so a run shows how far it got.
+    """
+    matplotlib.use("Agg")      # draw charts straight into files, never open a window
     raw = load_messy(MESSY)
+    print(f"loaded  {len(raw):>5} rows from {MESSY.name}")
     plays = clean_plays(raw)
+    print(f"cleaned {len(plays):>5} rows")
     rates = skip_rate_by_device(plays)
+    print(f"analysed{len(rates):>5} devices")
+    print(rates.to_string(index=False))
 
     csv_path = OUTPUT / "device_skip_rate.csv"
     png_path = OUTPUT / "device_skip_rate.png"
     save_csv(rates, csv_path)
+    print(f"wrote   {csv_path.relative_to(ROOT).as_posix()}")
     save_chart(rates, png_path)
+    print(f"wrote   {png_path.relative_to(ROOT).as_posix()}")
     check_rates(csv_path, plays)
-
-    print(f"{len(raw)} rows in, {len(plays)} after cleaning")
-    print(rates.to_string(index=False))
-    print(f"wrote {csv_path.relative_to(ROOT).as_posix()} "
-          f"and {png_path.relative_to(ROOT).as_posix()}")
+    print("checked  the file agrees with the cleaned plays")
 
 
 if __name__ == "__main__":
@@ -205,7 +212,9 @@ if __name__ == "__main__":
 # ---------------------------------------------------------------------------
 # Expected output:
 #
-#   2223 rows in, 2183 after cleaning
+#   loaded   2223 rows from plays_messy.csv
+#   cleaned  2183 rows
+#   analysed    6 devices
 #    device  plays  skipped  skip_rate
 #   unknown     69       11       15.9
 #   speaker    326       46       14.1
@@ -213,7 +222,9 @@ if __name__ == "__main__":
 #    laptop    510       58       11.4
 #     phone   1004      111       11.1
 #       car    173       18       10.4
-#   wrote output/device_skip_rate.csv and output/device_skip_rate.png
+#   wrote   output/device_skip_rate.csv
+#   wrote   output/device_skip_rate.png
+#   checked  the file agrees with the cleaned plays
 #
 # Look at the top row. The device with the highest skip rate is "unknown":
 # 69 plays whose device was blank in the messy file, which clean_plays

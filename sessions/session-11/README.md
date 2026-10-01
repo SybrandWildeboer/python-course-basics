@@ -4,7 +4,7 @@
 and their own data running through `project/pipeline.py` before they leave. Rough is fine.
 Running is not optional.
 
-**Slides:** [`slides/session-11.html`](../../slides/session-11.html) (20 slides)
+**Slides:** [`slides/session-11.html`](../../slides/session-11.html) (22 slides)
 
 > **Tell him about Spotify in session 10, not in this one.** If there is any chance the
 > project will use his own Spotify listening history, the *Extended streaming history* has to
@@ -21,14 +21,14 @@ Running is not optional.
 |---|---|---|
 | 0:00–0:10 | Homework review: the month question, and the fresh-terminal run | Slide 2 |
 | 0:10–0:20 | From the session 1 task to a question, and what a good one looks like | Slides 4–5 |
-| 0:20–0:45 | One, one, one; must / should / could / won't; the worked example; **the one-number test and the decision it finds** | Slides 6–10 |
-| 0:45–1:05 | Live exercise part 1: the worksheet, sections 1 to 5 | Slide 11 |
+| 0:20–0:45 | One, one, one; three projects wearing a coat; must / should / could / won't; the worked example; **the one-number test and the decision it finds** | Slides 6–11 |
+| 0:45–1:05 | Live exercise part 1: the worksheet, sections 1 to 5 | Slide 12 |
 | 1:05–1:15 | Break | |
-| 1:15–1:30 | Milestones, the first run, the Spotify route, private data | Slides 13–17 |
-| 1:30–1:55 | **Live exercise part 2: the first run.** Protect this | Slide 18 |
-| 1:55–2:00 | Homework (milestone 1), agree the date of session 12 | Slides 19–20 |
+| 1:15–1:30 | Milestones, the first run, the Spotify route, private data | Slides 14–18 |
+| 1:30–1:55 | **Live exercise part 2: the first run.** Protect this | Slide 19 |
+| 1:55–2:00 | What to expect in the gap, homework (milestone 1), agree the date of session 12 | Slides 20–22 |
 
-If anything runs long, cut the Spotify slides (16 is in the stretch notebook anyway) and keep
+If anything runs long, cut the Spotify slides (17 is in the stretch notebook anyway) and keep
 the first run. A learner who leaves with a plan but no run has to start the hardest part
 alone; a learner who leaves with a rough run only has to improve it.
 
@@ -39,21 +39,35 @@ the task is after, not its steps. Describing steps produces a script that copies
 describing the answer produces a question with a natural "done". You wrote his task down in
 session 1. Read it back to him.
 
-**Slide 9, the one-number test.** Can he get a rough version of the must answer in about
+**Slide 7, three projects wearing a coat.** First ideas almost always hold several
+projects: "a dashboard of my spending, with predictions" is a pipeline, a web app and a
+forecasting model. Do the same to his idea out loud: count the projects inside it, keep the
+one that answers the session 1 task, and move the rest to the could and won't columns on the
+next slide. The test on the slide is the one to repeat: can he say what "done" means in one
+sentence?
+
+**Slide 10, the one-number test.** Can he get a rough version of the must answer in about
 fifteen lines, today? It decides whether the plan is real. On the worked example it is five
 lines of `groupby` and `unstack`.
 
-**Slide 10, the hidden decision.** The one-number test found that total listening *fell*
+**Slide 11, the hidden decision.** The one-number test found that total listening *fell*
 (4,596.6 to 4,383.8 minutes), so "which genre shrank most" depends on whether you mean
 minutes (Electronic, −106.1) or share of the year (Folk, −1.5 points). Neither is wrong. It
 goes in the worksheet under *decisions*. Slow down here: nobody would have found it from the
 plan alone, and that is the whole argument for looking at the data before the plan is final.
 It is session 9's lesson ("every cleaning decision changes the answer") applied to scoping.
 
-**Slide 17, private data.** Everything in `project/data/` except its README is gitignored, so
+**Slide 18, private data.** Everything in `project/data/` except its README is gitignored, so
 his data stays off GitHub as long as it lives there. Check it together with
 `git check-ignore -v` and `git status` before the first commit of the day. A Spotify export
 contains IP addresses.
+
+**Slide 20, what to expect.** Three things will happen in the gap: the data surprises
+him, he wants to add something, and he loses an evening to something stupid. Say them now,
+so they feel expected rather than like failure, and give each its move: write the surprise
+down under *decisions*, put the new idea on the could list, and after twenty minutes stuck,
+send the error. The third one matters most; a stuck evening costs a week of avoiding the
+project afterwards.
 
 ## What they use
 
@@ -114,7 +128,7 @@ The ambitious option, and a good one for him: it is his own data, it is large (y
 listening), and the questions are ones he will care about. The cost is the wait, a JSON format
 he has not met, and some decisions the course data never needed.
 
-**Requesting it** (slide 15): on a computer, spotify.com, **Account privacy**, **Download your
+**Requesting it** (slide 16): on a computer, spotify.com, **Account privacy**, **Download your
 data**, tick **Extended streaming history** only (the "Account data" option gives one year,
 with fewer fields), confirm from the email, wait for a second email with a ZIP.
 
@@ -214,7 +228,7 @@ in a stretch is much cheaper than finding it in week two.
   Rename the columns or comment the calls out with a `TODO`; milestone 1 and 2 bring them back.
 - **Changing everything at once.** Six steps, a run after each. When it breaks, the last step
   is the culprit.
-- **`git add .` with private data in `project/data/`.** Slide 17, before the first commit.
+- **`git add .` with private data in `project/data/`.** Slide 18, before the first commit.
 - **Underestimating.** His estimates will be optimistic; everybody's are. If must plus should
   comes to six hours on paper, it is probably nine. That is why the limit is six.
 

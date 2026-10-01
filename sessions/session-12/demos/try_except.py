@@ -1,6 +1,6 @@
 """The session 12 walkthrough, part one: errors you expect, and try / except.
 
-Run it from the repository root:
+Run it from any folder; the paths are built from __file__, as in session 10:
 
     python sessions/session-12/demos/try_except.py
 
@@ -12,6 +12,11 @@ import csv
 from pathlib import Path
 
 from statistics_functions import average
+
+# parents[0] is demos, [1] session-12, [2] sessions, [3] the repository root.
+ROOT = Path(__file__).resolve().parents[3]
+PLAYS = ROOT / "data" / "clean" / "plays.csv"
+MESSY = ROOT / "data" / "messy" / "plays_messy.csv"
 
 
 def load_rows(path):
@@ -25,7 +30,7 @@ def minutes_on(rows, device):
     return [float(row["minutes_played"]) for row in rows if row["device"] == device]
 
 
-rows = load_rows("data/clean/plays.csv")
+rows = load_rows(PLAYS)
 phone = minutes_on(rows, "phone")
 radio = minutes_on(rows, "radio")           # a device that is not in the data
 print(len(phone), "plays on the phone,", len(radio), "on the radio")   # 1039, 0
@@ -103,7 +108,7 @@ def ask_number(prompt):
         print("That does not look like a number. Have another go.")
 
 
-with open("data/messy/plays_messy.csv", encoding="utf-8") as f:
+with open(MESSY, encoding="utf-8") as f:
     raw = [row["minutes played "] for row in csv.DictReader(f)]
 
 numbers = [to_number(text) for text in raw]
@@ -115,8 +120,8 @@ print("recoverable like '4.2 min':", sum(t.endswith(" min") for t in bad),   # 9
 
 
 # ------------------------------------------------ a file that is not there
-# load_rows("data/clean/play.csv")
-# FileNotFoundError: [Errno 2] No such file or directory: 'data/clean/play.csv'
+# load_rows(ROOT / "data" / "clean" / "play.csv")
+# FileNotFoundError: [Errno 2] No such file or directory: '.../data/clean/play.csv'
 #
 # Do NOT catch it inside load_rows and return []. That turns "the file is
 # missing" into "the file has no plays", and every number after it lies.
@@ -127,13 +132,13 @@ def report(path):
     try:
         rows = load_rows(path)
     except FileNotFoundError:
-        return (f"No file at {path}. Python is looking in {Path.cwd()}. "
-                f"Check the spelling, and run from the repository root.")
-    return f"{len(rows)} plays in {path}"
+        return (f"No file called {path.name} in {path.parent}. "
+                f"Check the spelling of the name.")
+    return f"{len(rows)} plays in {path.name}"
 
 
-print(report("data/clean/plays.csv"))     # 2183 plays in data/clean/plays.csv
-print(report("data/clean/play.csv"))      # No file at data/clean/play.csv. ...
+print(report(PLAYS))                           # 2183 plays in plays.csv
+print(report(PLAYS.with_name("play.csv")))     # No file called play.csv in ...
 
 
 # ---------------------------------------------------------------------------
@@ -148,4 +153,4 @@ print(report("data/clean/play.csv"))      # No file at data/clean/play.csv. ...
 #       try:
 #           rows = load_rows(PLAYS)
 #       except FileNotFoundError:
-#           raise SystemExit(f"No file at {PLAYS}. Run from the repository root.")
+#           raise SystemExit(f"No file at {PLAYS}. Check the name and the folder.")

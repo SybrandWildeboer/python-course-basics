@@ -202,6 +202,10 @@ NaN          70</code></pre>
     <p>Session 6 promised this moment. Point back to it: "phone and PHONE is what
     session 9 is about." (In this file it is phone, PHONE and "phone " with a trailing
     space.)</p>
+    <p>The trailing space in <code>"minutes played "</code> is invisible to
+    <code>print</code>. <code>print(repr(df.columns[-1]))</code> shows the quotes, and the space
+    before the closing one. It is the tool for any value that "is obviously right" and still
+    does not match.</p>
     <p>The bug of the day is forgetting <code>df = </code> or <code>df["device"] = </code>.
     Nearly every pandas method returns a new object. When "my fix did nothing", that is
     why.</p>
@@ -424,6 +428,9 @@ len(df)                                # 2183</code></pre>
     </div>
   </div>
   <aside class="notes">
+    <p>Before the <code>drop_duplicates</code>, the notebook looks:
+    <code>df[df.duplicated(keep=False)]</code> marks every row that has a twin, 80 here, so the
+    pairs show side by side. Look before you delete.</p>
     <p>Here both checks say 40, so these are plain copies. In real exports they often are
     not: the same order exported twice with a different timestamp. That is why checking the
     id matters more than checking the whole row.</p>
@@ -815,6 +822,85 @@ ax.set_ylim(bottom=0)</code></pre>
   </aside>
 </section>
 
+<section class="slide" data-title="Histogram and scatter">
+  <div class="eyebrow">Choosing the chart, continued</div>
+  <h2>A histogram for a spread, a scatter for two numbers</h2>
+  <div class="cols">
+    <div class="diagram" style="margin:0">
+<svg viewBox="0 0 540 250" width="540" height="250" role="img" aria-label="Stacked histogram of play length in one-minute bins, skipped plays on top of played-through plays; nearly all skips are in the first two bins">
+  <text class="d-label" x="40" y="20">74% of skips last under a minute</text>
+  <text class="d-sub" x="32" y="220.0" text-anchor="end">0</text>
+  <text class="d-sub" x="32" y="141.8" text-anchor="end">200</text>
+  <line x1="40" y1="137.8" x2="530" y2="137.8" style="stroke:var(--line-soft);stroke-width:1"></line>
+  <text class="d-sub" x="32" y="63.6" text-anchor="end">400</text>
+  <line x1="40" y1="59.6" x2="530" y2="59.6" style="stroke:var(--line-soft);stroke-width:1"></line>
+  <rect class="d-box-accent" x="41.0" y="202.3" width="38.8" height="13.7"></rect>
+  <rect class="d-box-rose" x="41.0" y="128.0" width="38.8" height="74.3"></rect>
+  <rect class="d-box-accent" x="81.8" y="176.1" width="38.8" height="39.9"></rect>
+  <rect class="d-box-rose" x="81.8" y="151.1" width="38.8" height="25.0"></rect>
+  <rect class="d-box-accent" x="122.7" y="119.4" width="38.8" height="96.6"></rect>
+  <rect class="d-box-rose" x="122.7" y="117.8" width="38.8" height="1.6"></rect>
+  <rect class="d-box-accent" x="163.5" y="56.0" width="38.8" height="160.0"></rect>
+  <rect class="d-box-accent" x="204.3" y="61.5" width="38.8" height="154.5"></rect>
+  <rect class="d-box-accent" x="245.2" y="87.7" width="38.8" height="128.3"></rect>
+  <rect class="d-box-accent" x="286.0" y="131.5" width="38.8" height="84.5"></rect>
+  <rect class="d-box-accent" x="326.8" y="173.4" width="38.8" height="42.6"></rect>
+  <rect class="d-box-accent" x="367.7" y="195.7" width="38.8" height="20.3"></rect>
+  <rect class="d-box-accent" x="408.5" y="205.4" width="38.8" height="10.6"></rect>
+  <rect class="d-box-accent" x="449.3" y="214.4" width="38.8" height="1.6"></rect>
+  <rect class="d-box-accent" x="490.2" y="215.6" width="38.8" height="0.4"></rect>
+  <text class="d-sub" x="40.0" y="234" text-anchor="middle">0</text>
+  <text class="d-sub" x="121.7" y="234" text-anchor="middle">2</text>
+  <text class="d-sub" x="203.3" y="234" text-anchor="middle">4</text>
+  <text class="d-sub" x="285.0" y="234" text-anchor="middle">6</text>
+  <text class="d-sub" x="366.7" y="234" text-anchor="middle">8</text>
+  <text class="d-sub" x="448.3" y="234" text-anchor="middle">10</text>
+  <line x1="40" y1="216" x2="530" y2="216" style="stroke:var(--line);stroke-width:1.5"></line>
+  <text class="d-sub" x="530" y="234" text-anchor="end">minutes</text>
+  <rect class="d-box-rose" x="380" y="44" width="12" height="12"></rect>
+  <text class="d-sub" x="398" y="55">skipped</text>
+  <rect class="d-box-accent" x="380" y="64" width="12" height="12"></rect>
+  <text class="d-sub" x="398" y="75">played through</text>
+  <text class="d-mono" x="60.4" y="122.0" text-anchor="middle" style="font-size:12px">225</text>
+</svg>
+    </div>
+    <div class="stack">
+      <table class="sm">
+        <tr><th>The question is about</th><th>Chart</th></tr>
+        <tr><td>comparing categories</td><td>bar, <code>ax.bar</code></td></tr>
+        <tr><td>change over time</td><td>line, <code>ax.plot</code></td></tr>
+        <tr><td>how one number is spread out</td><td>histogram, <code>ax.hist</code></td></tr>
+        <tr><td>whether two numbers move together</td><td>scatter, <code>ax.scatter</code></td></tr>
+      </table>
+      <figure class="code" style="margin-bottom:0">
+        <pre class="xs"><code data-lang="python">ax.hist([kept, skips], bins=range(0, 13), stacked=True,
+        label=["played through", "skipped"])
+ax.legend()</code></pre>
+      </figure>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin"><strong>Out of what?</strong> 190 plays are under a minute and
+        skipped. That is 73.6% of the 258 skips, and 84.4% of the 225 short plays: two
+        questions, two answers. Draw the line at two minutes instead and it is 98.4% of skips,
+        but only 65.0% of short plays.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>"Short" is under one minute, the line the session 6 stretch drew with
+    <code>CASE WHEN minutes_played &lt; 1</code>. Read the two sentences aloud, "most skips are
+    short" and "most short plays are skips", and ask which the chart supports. Then move the
+    line to two minutes: the first becomes 98.4% and the second drops to 65.0%. A percentage in
+    a title needs its "out of what".</p>
+    <p>The scatter in notebook 02 is plays against minutes per artist: Sara Lindqvist has the
+    most plays (242), Glass Tram the most minutes (1,175.1), because a Glass Tram play averages
+    5.1 minutes against 3.2. Each new chart in the notebook ends with a "what this does not
+    show" sentence, which the homework now asks for too.</p>
+  </aside>
+</section>
+
 <section class="slide" data-title="Saving">
   <div class="eyebrow">For someone else</div>
   <h2>Save it, then check it against the list</h2>
@@ -966,8 +1052,9 @@ plays = clean_plays(raw)</code></pre>
       <h4>One chart, one answer</h4>
       <p>Your own question about the log, answered with one chart saved to
         <code>output/</code>.</p>
-      <p class="nomargin">The checklist is the marking scheme, and the last line is one
-        sentence you would say about it in a meeting.</p>
+      <p class="nomargin">The checklist is the marking scheme. Underneath, one sentence you
+        would say about it in a meeting, and one on what it does <strong>not</strong>
+        show.</p>
     </div>
   </div>
   <div class="callout callout--tip mt" style="margin-bottom:0">
