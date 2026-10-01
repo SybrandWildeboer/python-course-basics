@@ -57,15 +57,43 @@ mystery.
 
 ## Notebooks
 
-Almost all of this session is terminal work, so there is one notebook, and it covers the
-thing that genuinely bites:
+Almost all of this session is terminal work, so there is one teaching notebook, and it covers
+the thing that genuinely bites:
 
 | Notebook | What it is |
 |---|---|
 | `notebooks/01-notebooks-and-git.ipynb` | Why notebooks and git get along badly: JSON diffs, committed outputs, churning execution counts. Shows a real cell's JSON, and introduces `tools/nbtool.py check` and `strip` |
+| `notebooks/02-stretch-exercise.ipynb` | Optional stretch exercises, for when the repo is pushed early. Instructions only; the work happens in the terminal |
+| `notebooks/02-stretch-solved.ipynb` | Worked versions, with the real output of each command and the reasoning written out |
 
 Worth doing properly. Committing notebooks full of saved output is the single most common way
 a beginner's repo becomes unpleasant to work with.
+
+## If there is time left
+
+The stretch notebook has seven tasks that get harder as you go. Use as many as the time
+allows; you don't need to finish it. Stretches 2 to 6 happen in a throwaway `git-playground`
+repo next to the course folder (never inside it), so mistakes cost nothing. Only 1 and 7 touch
+the real repo, and 1 only reads it.
+
+| # | Stretch | What it adds |
+|---|---|---|
+| 1 | Read the history like a detective | `git log` with `--author`, `-- file`, `--stat`, `--grep` and `--graph --all` |
+| 2 | Fix the last commit | `git commit --amend`, the hash changing, and why never after a push |
+| 3 | `.gitignore`, and the trap in it | `git check-ignore -v`, and `git rm --cached` for a file committed by mistake |
+| 4 | Put work aside | `git stash`, met through git refusing to switch branches |
+| 5 | Undo a commit | `git revert` on a commit that is not the latest one |
+| 6 | A merge conflict, on purpose | Reading the markers, `git merge --abort`, resolving and finishing the merge |
+| 7 | A pull request on their own repo | Push a branch, open, review and merge on GitHub, then `git pull` and tidy up |
+
+Number 5 is the one to talk through rather than just check. Why an opposite commit is safer
+than `git reset --hard` (which they do not run) matters more than the command, and it ties
+together the amend answer from 2 and the "committed work is hard to lose" message from the
+session. Number 6 also turns the "merge conflicts are out of scope" line below into a
+planned lesson instead of an unplanned one.
+
+Every command that would otherwise open an editor is given with `--no-edit` or `-m`, but the
+notebook tells them `:wq` gets them out of `vim` just in case.
 
 ## Watch out for
 

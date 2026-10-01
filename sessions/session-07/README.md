@@ -49,6 +49,7 @@ calculation rather than by looking plausible.
 | `demos/walkthrough.sql` | Every query from the slides, with the real answers in comments |
 | `exercises/joins.sql` | The live exercise, as comments to fill in |
 | `solutions/joins.sql` | Worked answers, with the fan-out explanation written out in full |
+| `solutions/stretch.sql` | The stretch queries, with row counts pinned so the stretch notebook's numbers stay true |
 | `homework/README.md` | The five questions, plus the join-type task |
 | `homework/answers.sql` | Where they write their answers |
 | `homework/solutions/answers.sql` | Worked answers |
@@ -63,9 +64,33 @@ pinned in `-- expect: N rows` comments.
 | `notebooks/01-joins-from-python.ipynb` | Joins, then the full fan-out demonstration: the wrong total, the row count that reveals it, the `SUM(DISTINCT)` that makes it worse, and the CTE that fixes it |
 | `notebooks/02-joins-exercise.ipynb` | The live exercise, including the written explanation |
 | `notebooks/02-joins-solved.ipynb` | Worked answers, and the second bug in the broken query: eleven countries silently disappear |
+| `notebooks/03-stretch-exercise.ipynb` | Optional stretch questions, for when the live exercise finishes early |
+| `notebooks/03-stretch-solved.ipynb` | Worked versions, with the reasoning written out |
 
 The notebook is the better tool for the fan-out block, because having the wrong number and
 the right number on screen together is most of the lesson.
+
+## If there is time left
+
+The stretch notebook has six questions about the listening data that get harder as you go.
+Use as many as the time allows; you don't need to finish it. Each one adds one idea:
+
+| # | Question | What it adds |
+|---|---|---|
+| 1 | Who did I not play in 2025? | A `WHERE` that silently turns a left join into an inner one, the fix in the `ON`, and `IS NULL` to find rows with no match |
+| 2 | Artists from the same country | A self-join, and why `>` gives 22 pairs where `<>` gives 44 |
+| 3 | 2024 against 2025 | Three chained CTEs, starting from the right table so the artists who dropped to zero stay in |
+| 4 | Spot the bug | A fan-out where both counts multiply each other, and why `COUNT(DISTINCT key)` is a safe repair when `SUM(DISTINCT value)` was not |
+| 5 | The top artist in every genre | A first window function: `RANK() OVER (PARTITION BY ...)` |
+| 6 | When was I halfway? | A running total with `SUM() OVER`, and why you round at the end |
+
+Number 4 is the one to talk through rather than just check. It is fan-out again, from the
+other side: the difference between a key and a value is what decides whether `DISTINCT` can
+help, and that is the understanding the session is really after.
+
+Numbers 5 and 6 introduce window functions in a few lines each. They are not needed for the
+rest of the course. If he gets that far, the point to land is why the rank needs its own CTE
+before it can be filtered, which ties straight back to the execution order from session 6.
 
 ## Watch out for
 
