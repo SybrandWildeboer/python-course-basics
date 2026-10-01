@@ -60,7 +60,7 @@
       <tr><td><a href="../project/pipeline.py"><code>pipeline.py</code></a></td>
         <td>The session 10 genre pipeline, with a shorter <code>clean</code> that is easier to rewrite. One function per stage: <code>load</code>, <code>clean</code>, <code>analyse</code>, <code>save_csv</code>, <code>save_chart</code>, <code>check</code>, and <code>main</code> to run them in order. Only <code>main</code> prints. The seven places you are meant to change are marked <code>MAKE IT YOURS</code>.</td></tr>
       <tr><td><a href="../project/README.md"><code>README.md</code></a></td>
-        <td>The question, how to run it on Windows and macOS, the eight steps to make it yours, and what the data could not tell you. By session 12 it describes your project instead.</td></tr>
+        <td>The question, how to run it on Windows and macOS, the eight steps to make it yours, and three headings to fill in: what I found, what this does not show, and the cleaning decisions. By session 12 it describes your project instead.</td></tr>
       <tr><td><a href="../project/requirements.txt"><code>requirements.txt</code></a></td>
         <td>The packages, with exact versions, so anyone can rebuild the same environment.</td></tr>
       <tr><td><code>notebooks/explore.ipynb</code></td>
@@ -103,8 +103,10 @@ python pipeline.py</pre>
   <pre>Which genre do I spend most of my listening time on?
   loaded    2223 rows from plays_messy.csv
   cleaned   2183 rows
-  wrote   output/summary.csv
-  wrote   output/chart.png</pre>
+  analysed     8 rows in the summary
+  wrote    output/summary.csv
+  wrote    output/chart.png
+  checked  the summary adds up to the cleaned rows</pre>
   <p>Every path in <code>pipeline.py</code> is built from the location of the file itself, so
     <code>python project/pipeline.py</code> from the repository folder works too.
     <code>deactivate</code> switches the environment off again; closing the terminal does the
@@ -156,7 +158,7 @@ python pipeline.py</pre>
     <li><strong>Check.</strong> Keep at least one check that compares a total in the written
       file with the same total worked out from the cleaned data.</li>
     <li><strong>README.</strong> Your question, where the data came from, how to run it, and
-      what the data could not tell you.</li>
+      the three headings: what I found, what this does not show, and the cleaning decisions.</li>
   </ol>
   <p>If you add a package, install it with the environment active and add it to
     <code>requirements.txt</code> with its version. <code>pip freeze</code> lists what is

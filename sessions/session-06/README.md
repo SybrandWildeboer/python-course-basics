@@ -88,7 +88,8 @@ and per day it is 3.19 against 3.23.
 
 ## Watch out for
 
-- **`=` not `==`.** A Python habit, and the error message is not always obvious.
+- **`=` not `==`.** A Python habit. SQLite quietly accepts `==` as well, so nothing breaks,
+  but most other databases reject it. Steer them to `=` now.
 - **Double quotes around text.** SQL wants `'phone'`. Double quotes mean an identifier, and
   the resulting error is confusing.
 - **`= NULL`.** Runs, returns nothing, warns nobody. Slide 13.

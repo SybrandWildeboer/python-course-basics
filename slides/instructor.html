@@ -28,8 +28,8 @@
   <a class="back" href="index.html">← Course index</a>
   <div class="kicker">Instructor notes · for whoever is teaching</div>
   <h1>Teaching the course</h1>
-  <p class="tagline">How a session runs, what to check before each one, the tools that keep the
-    materials honest, and how to pace it for a learner who goes fast. Each session's own
+  <p class="tagline">How a session runs, what to check before each one, what to watch out for, the
+    tools that keep the materials honest, and how to pace it for a learner who goes fast. Each session's own
     run sheet has the detail; this page is the part that is the same every week.</p>
   <div class="facts">
     <span class="pill pill--accent">12 sessions of 2 hours</span>
@@ -62,6 +62,19 @@
     in the deck: press <code>n</code>. Press <code>o</code> for a grid of every slide.</p>
 </div>
 
+<div class="note">
+  <h4>Tone</h4>
+  <p>The decks are deliberately warm and deliberately direct. Two rules are worth keeping if
+    you edit anything:</p>
+  <ul>
+    <li><strong>No em dashes, anywhere.</strong> A house style choice. None of the slides,
+      pages or run sheets use one.</li>
+    <li><strong>Encouragement is specific.</strong> "Your <code>clean()</code> docstring records
+      the decisions, which most professionals do not bother with" is worth ten times "good
+      job".</li>
+  </ul>
+</div>
+
 <h2>Before every session</h2>
 <div class="note">
   <h4>Twenty minutes, the day before</h4>
@@ -88,11 +101,15 @@
     <thead><tr><th>Before</th><th>Check</th></tr></thead>
     <tbody>
       <tr><td>Session 1</td><td>Send install links, with a note <strong>not to install anything yet</strong>. Make sure the repo is pushed and public and the clone URL on slide 12 is right. Ask for a machine with a terminal and admin rights.</td></tr>
+      <tr><td>Session 2</td><td>Open with their session 1 homework, especially task 2, the three-question summary: where they got stuck is what the session starts with. Protect the ten minutes of breaking things on purpose, and have them write an infinite <code>while</code> loop and stop it with <code>Ctrl+C</code>.</td></tr>
+      <tr><td>Session 3</td><td>Have their session 2 <code>statistics.py</code> open: the live exercise rebuilds it as four functions. Have the surprise second list ready, <code>[4, 8, 15, 16, 23, 42]</code>, for once the four functions work.</td></tr>
       <tr><td>Session 4</td><td>Check the dataset is there, and open <code>data/clean/plays.csv</code> in VS Code to show the raw text.</td></tr>
       <tr><td>Session 5</td><td>They have a GitHub account (reminded at the end of session 4). Budget twenty minutes for authentication, in the session, never as homework.</td></tr>
       <tr><td>Session 6</td><td>DB Browser for SQLite is installed (reminded at the end of session 5). It is the main tool of the session.</td></tr>
+      <tr><td>Session 7</td><td>Know the fan-out numbers before the session: the true total is 8,980.4 minutes, and with <code>awards</code> joined on it is 9,732.1, as 2,183 plays become 2,371 rows. Fjord &amp; Flint has 237 plays, 3 awards and 711 joined rows, 846.2 minutes truly, 2,538.5 joined, and 680.6 with <code>SUM(DISTINCT)</code>. If the early blocks run fast, spend the time on fan-out, not views.</td></tr>
+      <tr><td>Session 8</td><td>pandas and matplotlib are installed, at the pinned versions in <a href="install.html">step 8 of the install guide</a>, in the Python their notebook kernel uses. Have their session 6 and 7 query files to hand: the live exercise is session 7's exercise in pandas, and the definition of done is translating one of their own queries.</td></tr>
       <tr><td>Session 9</td><td>Open <code>data/messy/plays_messy.csv</code> in VS Code to show the damage. Run <code>notebooks/02-charts.ipynb</code> once so matplotlib has built its font cache before the learner watches it do so.</td></tr>
-      <tr><td>Session 10</td><td>Run <code>sessions/session-10/demos/genre_pipeline.py</code> from the repo root and from <code>sessions/session-10</code>. Check their Python version (3.10 or newer) and that <code>pip install</code> works on their network: some work laptops block it.</td></tr>
+      <tr><td>Session 10</td><td>Run <code>sessions/session-10/demos/genre_pipeline.py</code> from the repo root and from <code>sessions/session-10</code>. Check their Python version: 3.10 to 3.12, because <code>project/requirements.txt</code> pins <code>matplotlib==3.9.0</code>, which has no ready-made installer for 3.13 or newer and that <code>pip install</code> works on their network: some work laptops block it.</td></tr>
       <tr><td>Session 11</td><td><code>python project/pipeline.py</code> runs with <code>.venv</code> active. Have the repetitive task they named in session 1 ready for slide 4. Ask them to bring their data. Ask whether the Spotify export has arrived.</td></tr>
       <tr><td>Session 12</td><td>Ask them to run the pipeline fresh before presenting, so the chart is not last week's.</td></tr>
     </tbody>
@@ -194,6 +211,264 @@ python -m playwright install chromium</pre>
       of anything in the course.</li>
     <li><strong>Do not compress sessions 10 to 12.</strong> The virtual environment has to work
       on their machine before session 11, and the project needs its two weeks before session 12.</li>
+  </ul>
+</div>
+
+<h2>Same idea, three notations</h2>
+<div class="note">
+  <h4>The through-line worth saying out loud</h4>
+  <p>Plays per genre, counted three times in the course. Said in session 4, kept in sessions
+    6 and 8, it turns SQL and pandas into translations rather than new subjects. All three
+    give the same table: Electronic 547, Folk 438, Pop 302, down to Rock 130.</p>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Session</th><th>How it counts plays per genre</th><th>Where</th></tr></thead>
+    <tbody>
+      <tr><td>4 · Python</td><td>A dictionary and <code>counts.get(genre, 0) + 1</code> in a loop over <code>csv.DictReader</code> rows</td><td>Session 4, the counting pattern slide</td></tr>
+      <tr><td>6 · SQL</td><td><code>GROUP BY genre</code>, one query. Genre lives in <code>artists</code>, so it needs <code>JOIN artists USING (artist_id)</code>, which is session 7's topic; the session 6 slide says so. The first <code>GROUP BY</code> of the session counts per device, which needs no join</td><td>Session 6, "The same question, twice"</td></tr>
+      <tr><td>8 · pandas</td><td><code>plays["genre"].value_counts()</code>, or the general <code>plays.groupby("genre").size()</code>, on <code>data/clean/plays.csv</code>, which has a genre column</td><td>Session 8, "Plays per genre: same idea, three notations"</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>What not to teach</h2>
+<div class="note">
+  <h4>Deliberately left out, because they cost more than they give at this stage</h4>
+  <ul>
+    <li><strong><code>git reset --hard</code>.</strong> It really destroys work, and
+      <code>git restore</code> and <code>git revert</code> cover what they need. If they find
+      it online, say so.</li>
+    <li><strong><code>global</code>.</strong> If they find it, say it exists, that it is almost
+      always the wrong tool, and steer back to parameters and return values.</li>
+    <li><strong>Mutable default arguments.</strong> A real Python trap, and completely wrong for
+      session 3. The session 3 notes say not to mention them.</li>
+    <li><strong><code>inplace=True</code> in pandas.</strong> Tell them not to, and why: it
+      returns <code>None</code>, so nothing chains after it. Session 8 has a slide on it.</li>
+    <li><strong>Classes.</strong> Nothing in the course needs one, and they are a session of
+      their own.</li>
+    <li><strong>Views and copies in pandas.</strong> Teach the habits instead:
+      <code>.loc</code> to change the original, <code>.copy()</code> after a filter for a new
+      table. Session 8's first notebook sets the warning off once, on purpose.</li>
+  </ul>
+</div>
+
+<h2>If they want to use their own data</h2>
+<div class="note">
+  <h4>Better, if they care about it, and real work for you</h4>
+  <p>The whole course runs on the listening log, and the exercises, slides and checks quote
+    its exact numbers. Swapping it for the learner's own data means translating every
+    exercise yourself, so weigh that against how much the motivation is worth.</p>
+  <ul>
+    <li><strong>What it needs:</strong> a few thousand rows at most, at least one date column,
+      one numeric column, a few categorical columns, and something that can become a second,
+      related table for the joins in session 7.</li>
+    <li><strong>When to decide:</strong> before session 6, when the database appears.</li>
+    <li><strong>The cheap route:</strong> keep the course data for sessions 1 to 10, and let
+      their own data in at session 11, where the project is built for it. It goes in
+      <code>project/data/</code>, which git ignores apart from its README.</li>
+  </ul>
+</div>
+
+<h2>Watch out for, all in one place</h2>
+<div class="note">
+  <h4>For when a question arrives mid-week</h4>
+  <p>Every session's run sheet ends with a <em>Watch out for</em> list, with more context. This
+    is all of them, grouped by topic, so you can find the likely cause fast. The session is
+    in brackets.</p>
+</div>
+<div class="note">
+  <h4>Setup and environment</h4>
+  <ul>
+    <li><strong>Windows PATH.</strong> "Add python.exe to PATH" is unticked by default. Close
+      every terminal and open a new one; if it still fails, re-run the installer, Modify,
+      tick the box. (1)</li>
+    <li><strong><code>python</code> versus <code>python3</code>.</strong> On Windows it is
+      <code>python</code>, and <code>python3</code> may open the Microsoft Store. On a Mac it is
+      <code>python3</code> until a venv is active. Agree it in session 1. (1, 10)</li>
+    <li><strong>Not saving before running.</strong> Python runs the file on disk. VS Code puts a
+      dot on the tab of an unsaved file. (1)</li>
+    <li><strong>Smart quotes</strong> pasted from a chat app. When a <code>SyntaxError</code>
+      looks impossible, retype the quotes. (1)</li>
+    <li><strong>Opening a file instead of the folder</strong> in VS Code, so the terminal starts
+      in the wrong place. (1)</li>
+    <li><strong>The install running long.</strong> Normal. Drop material rather than rushing the
+      second half. (1)</li>
+    <li><strong>The notebook kernel is a different Python.</strong> <code>No module named
+      'pandas'</code> in a notebook. (8, 10)</li>
+    <li><strong>PowerShell refusing to activate.</strong>
+      <code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code>, once. (10)</li>
+    <li><strong>Forgetting to activate.</strong> No <code>(.venv)</code> at the start of the
+      prompt means the venv is not active, not that pandas is missing. (10)</li>
+    <li><strong>Committing <code>.venv/</code>.</strong> The root <code>.gitignore</code> covers
+      it; <code>git status</code> after creating it is the proof. (10)</li>
+  </ul>
+</div>
+<div class="note">
+  <h4>Python</h4>
+  <ul>
+    <li><strong><code>=</code> versus <code>==</code></strong>, <strong>missing colons</strong>,
+      and <strong>indentation</strong>, where mixed tabs and spaces is the nasty version. (2)</li>
+    <li><strong><code>range(1, 10)</code> not including 10.</strong> Say it, show it, let them
+      be annoyed. (2)</li>
+    <li><strong><code>total = 0</code> inside the loop.</strong> Let them hit it, then ask what
+      is resetting. (2)</li>
+    <li><strong>Deep nesting</strong> in the guessing game. Let them finish, then flatten it
+      together. (2)</li>
+    <li><strong>Printing instead of returning.</strong> Ask for one summary line with all four
+      numbers and let the requirement force the change. (3, and again in 10)</li>
+    <li><strong>Defining a function and never calling it</strong>, or calling it without
+      brackets. (3)</li>
+    <li><strong>A variable from inside a function, used outside it.</strong> The
+      <code>NameError</code> is the lesson. (3)</li>
+    <li><strong>A <code>return</code> inside an <code>if</code></strong> with no other path:
+      <code>None</code> for some inputs. (3)</li>
+    <li><strong><code>x = x.sort()</code></strong> throwing the list away. (4)</li>
+  </ul>
+</div>
+<div class="note">
+  <h4>Files</h4>
+  <ul>
+    <li><strong><code>FileNotFoundError</code> from a relative path.</strong> First move, every
+      time: print <code>os.getcwd()</code>. Run from the repo root. (4)</li>
+    <li><strong>No <code>list()</code> around <code>DictReader</code>.</strong> The second loop
+      silently does nothing. (4)</li>
+    <li><strong>Everything from a CSV is text.</strong> <code>float()</code> before arithmetic.
+      (4)</li>
+    <li><strong>A mistyped column name.</strong> <code>rows[0].keys()</code>. (4)</li>
+    <li><strong>No <code>encoding="utf-8"</code>.</strong> On Windows, Salon Mécanique comes out
+      as Salon MÃ©canique, with no error. (4)</li>
+    <li><strong>Writing to <code>output/</code> before it exists.</strong>
+      <code>os.makedirs("output", exist_ok=True)</code>. (4)</li>
+  </ul>
+</div>
+<div class="note">
+  <h4>Notebooks</h4>
+  <ul>
+    <li><strong>The run-order trap.</strong> Cells remember what ran, not what is on screen.
+      Restart and Run All is the fix and the standard. (1, 10)</li>
+    <li><strong>Notebooks committed with saved output.</strong>
+      <code>python tools/nbtool.py check</code>, then <code>strip</code>. (5)</li>
+    <li><strong><code>__file__</code> in a notebook.</strong> A <code>NameError</code>, which is
+      why every notebook starts with the walk-up cell. (10)</li>
+    <li><strong>Anything interactive is a script.</strong> The guessing game and the menu use
+      <code>input()</code>, and have no notebook. (2, 3)</li>
+  </ul>
+</div>
+<div class="note">
+  <h4>Git</h4>
+  <ul>
+    <li><strong><code>user.name</code> and <code>user.email</code> not set.</strong> The most
+      common first-commit failure. Do it first. (5)</li>
+    <li><strong>Committing junk.</strong> Read <code>.gitignore</code> together:
+      <code>output/</code> is why the session 4 CSVs never showed up. (5)</li>
+    <li><strong>Messages like "stuff".</strong> Do not lecture; the homework has them read
+      their own messages back. (5)</li>
+    <li><strong>Fear of breaking things.</strong> Say more than once that committed work is
+      very hard to lose. (5)</li>
+    <li><strong>Merge conflicts.</strong> Out of scope in session 5. If one happens, resolve it
+      together, calmly. (5)</li>
+    <li><strong><code>git add .</code> with private data in <code>project/data/</code>.</strong>
+      Before the first project commit. (11)</li>
+  </ul>
+</div>
+<div class="note">
+  <h4>SQL</h4>
+  <ul>
+    <li><strong><code>==</code> instead of <code>=</code>.</strong> A Python habit. SQLite
+      quietly accepts <code>==</code>, so there is no error to learn from; most other
+      databases reject it. Correct it anyway. (6)</li>
+    <li><strong>Double quotes around text.</strong> They mean a column name. SQLite treats
+      <code>"phone"</code> as text only because no column has that name;
+      <code>WHERE device = "device"</code> matches all 2183 rows. Inside a Python string the
+      double quotes end the string, a <code>SyntaxError</code>. (6)</li>
+    <li><strong><code>= NULL</code>.</strong> Runs, returns nothing, warns nobody. (6)</li>
+    <li><strong>Ungrouped columns in the <code>SELECT</code>.</strong> SQLite permits it:
+      <code>SELECT artist_name, COUNT(*) FROM artists</code> returns one arbitrary name next to
+      40. (6)</li>
+    <li><strong>A count in the <code>WHERE</code>.</strong>
+      <code>misuse of aggregate: COUNT()</code>. The execution-order slide explains why
+      <code>HAVING</code>. (6)</li>
+    <li><strong>Integer division.</strong> <code>19 / 179</code> is <code>0</code>;
+      <code>100.0 *</code> first. Homework question 9. (6)</li>
+    <li><strong><code>LIMIT</code> without <code>ORDER BY</code>.</strong> Arbitrary rows that
+      happen to look stable in SQLite. (6)</li>
+    <li><strong>Ambiguous column names</strong> after a join. Alias and qualify. (7)</li>
+    <li><strong><code>COUNT(*)</code> after a <code>LEFT JOIN</code></strong> says 1 for a row
+      with no match, so "never played" becomes "played once". (7)</li>
+    <li><strong>Fan-out.</strong> After any join, compare the row count with the count before.
+      (7, and 8 in pandas)</li>
+    <li><strong>Reaching for <code>DISTINCT</code>.</strong> <code>SUM(DISTINCT)</code> gives
+      Fjord &amp; Flint 680.6 minutes, not 846.2: a second wrong answer. (7)</li>
+    <li><strong>Assuming the keys match.</strong> True here, rarely in real data. (7)</li>
+  </ul>
+  <p>The real error messages, with fixes, are on <a href="troubleshooting.html#sql-aggregate">the
+    troubleshooting page</a>.</p>
+</div>
+<div class="note">
+  <h4>pandas</h4>
+  <ul>
+    <li><strong><code>and</code> and <code>or</code> in a filter.</strong> "The truth value of
+      a Series is ambiguous". And brackets missing around an <code>|</code> inside an
+      <code>&amp;</code>: no error, wrong number. (8)</li>
+    <li><strong><code>=</code> instead of <code>==</code> in a mask</strong>, a
+      <code>SyntaxError</code>, and <strong><code>plays.shape()</code></strong>, a
+      <code>TypeError</code>. (8)</li>
+    <li><strong>Single versus double brackets.</strong> A column or a one-column table. (8)</li>
+    <li><strong>Not assigning the result.</strong> <code>sort_values</code> and
+      <code>.str.lower()</code> return something new and leave the original alone. (8, 9)</li>
+    <li><strong><code>merge</code> is an inner join by default.</strong> Why eleven countries
+      vanish in part 2 of the exercise. (8)</li>
+    <li><strong><code>size</code> versus <code>count</code></strong>, which is
+      <code>COUNT(*)</code> versus <code>COUNT(column)</code> again. (8)</li>
+    <li><strong><code>formed_year</code> as <code>2014.0</code>.</strong> A column with a
+      <code>NaN</code> in it is stored as decimals. (8)</li>
+    <li><strong><code>SettingWithCopyWarning</code></strong>, <strong><code>inplace=True</code></strong>
+      and <strong><code>.loc[0:2]</code> giving three rows.</strong> (8)</li>
+    <li><strong><code>errors="coerce"</code> first, and trusting
+      <code>format="mixed"</code>.</strong> Both hide failures. Count the missing values
+      before and after. (9)</li>
+    <li><strong><code>value_counts()</code> hiding missing values.</strong> Without
+      <code>dropna=False</code>, 70 blank devices vanish. (9)</li>
+    <li><strong>A bare <code>dropna()</code></strong>, which drops a row for a gap in any
+      column, and <strong><code>fillna(0)</code></strong>, which drags the average from 4.121
+      to 3.943. (9)</li>
+  </ul>
+</div>
+<div class="note">
+  <h4>Charts</h4>
+  <ul>
+    <li><strong><code>plt.savefig</code> after <code>plt.show()</code></strong> saves a blank
+      PNG in a script. Save first. (9)</li>
+    <li><strong>A title that claims more than the data shows</strong>, and an axis that
+      exaggerates a small difference. Session 9's chart notebook has both. (9)</li>
+    <li><strong>A stale chart</strong> in the presentation. Run the pipeline first. (12)</li>
+  </ul>
+</div>
+<div class="note">
+  <h4>The pipeline and the project</h4>
+  <ul>
+    <li><strong><code>parents[3]</code> off by one.</strong> <code>parents[0]</code> is the
+      folder the file is in. Print <code>ROOT</code> first. (10)</li>
+    <li><strong>"My data file is not in <code>git status</code>."</strong> On purpose:
+      <code>project/data/</code> is ignored apart from its README. (10)</li>
+    <li><strong>The project that will not stop growing</strong>, and <strong>data they do not
+      have yet</strong>. Every "and also" goes on the could list; the first run uses data
+      that is on the laptop today. (11)</li>
+    <li><strong>A file that reads without an error, but wrongly.</strong> Dutch Excel saves CSVs
+      with <code>;</code> and decimal commas. Excel files need <code>openpyxl</code>, which is
+      not in <code>requirements.txt</code>. (11)</li>
+    <li><strong><code>save_csv</code> dropping the labels.</strong> It writes with
+      <code>index=False</code>; end <code>analyse</code> with <code>.reset_index()</code>.
+      (11)</li>
+    <li><strong>Changing everything at once</strong>, and <strong>underestimating</strong>.
+      One step, one run. (11)</li>
+    <li><strong>One giant commit</strong>, so there is no history to review. (12)</li>
+    <li><strong>A bare <code>except:</code></strong>, or a <code>try</code> around
+      everything. In most projects only the load in <code>main()</code> and text that may not be a
+      number need one. (12)</li>
+    <li><strong>pytest trouble.</strong> <code>python -m pytest</code>, with a folder named.
+      Never a file called <code>statistics.py</code>. (12)</li>
   </ul>
 </div>
 

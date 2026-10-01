@@ -63,7 +63,7 @@
 </table>
 </div>
 
-<h2>1 · Python</h2>
+<h2 id="python">1 · Python</h2>
 <div class="note">
   <h4>Pick Python 3.12</h4>
   <p>Anything from 3.10 up runs the course code. The one catch is the project in session 10:
@@ -213,9 +213,13 @@ cd python-course-basics</pre>
 <div class="note">
   <h4>The two packages sessions 8 and 9 use</h4>
   <span class="os">Windows</span>
-  <pre>python -m pip install pandas matplotlib</pre>
+  <pre>python -m pip install pandas==2.3.1 matplotlib==3.9.0</pre>
   <span class="os">macOS</span>
-  <pre>python3 -m pip install pandas matplotlib</pre>
+  <pre>python3 -m pip install pandas==2.3.1 matplotlib==3.9.0</pre>
+  <p>These are the exact versions <code>project/requirements.txt</code> pins, so what you
+    learn on in sessions 8 and 9 is what the project runs on from session 10. It is also why
+    the Python has to be 3.12 or older: on 3.13, pip has no ready-made matplotlib 3.9.0 and
+    tries to build it, which fails (see <a href="#python">step 1</a>).</p>
   <p>Notebooks run in the Python their kernel points at, so pick that same Python 3.12 as the
     kernel. If a notebook says <code>No module named 'pandas'</code>, the kernel is a
     different Python from the one you installed into.</p>

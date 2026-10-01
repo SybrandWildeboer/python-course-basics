@@ -70,6 +70,14 @@
   <li><a href="#key-error">KeyError on a column</a></li>
   <li><a href="#encoding">Salon MÃ©canique</a></li>
   <li><a href="#series-truth">The truth value of a Series is ambiguous</a></li>
+  <li><a href="#sql-aggregate">misuse of aggregate: COUNT()</a></li>
+  <li><a href="#sql-no-column">no such column, no such table</a></li>
+  <li><a href="#sql-ambiguous">ambiguous column name</a></li>
+  <li><a href="#sql-syntax">near "FROM": syntax error</a></li>
+  <li><a href="#sql-one-statement">one statement at a time</a></li>
+  <li><a href="#sql-no-rows">A query with no rows, and no error</a></li>
+  <li><a href="#sql-zero">A percentage that comes out as 0</a></li>
+  <li><a href="#sql-fan-out">A total that grew after a join</a></li>
   <li><a href="#identity">Author identity unknown</a></li>
   <li><a href="#auth">git push asks for a password</a></li>
   <li><a href="#permission">Permission denied to the course repo</a></li>
@@ -168,8 +176,9 @@ ModuleNotFoundError: No module named 'pandas'</pre>
   <p>pandas is not installed <strong>in the Python that ran this</strong>. It may well be
     installed in a different one. Three usual causes:</p>
   <ul>
-    <li><strong>Never installed.</strong> <code>python -m pip install pandas matplotlib</code>
-      (Windows) or <code>python3 -m pip install pandas matplotlib</code> (macOS).</li>
+    <li><strong>Never installed.</strong> <code>python -m pip install pandas==2.3.1 matplotlib==3.9.0</code>
+      (Windows) or <code>python3 -m pip install pandas==2.3.1 matplotlib==3.9.0</code> (macOS),
+      the versions the <a href="install.html">install guide</a> uses.</li>
     <li><strong>The notebook kernel is a different Python.</strong> See
       <a href="#kernel">the kernel</a> above.</li>
     <li><strong>From session 10: the virtual environment is not active</strong> in this
@@ -347,6 +356,165 @@ python3 sessions/session-04/demos/files_and_csv.py     # macOS</pre>
   <pre>plays[(plays["minutes_played"] &gt; 4) &amp; (plays["device"] == "phone")]</pre>
   <p>Leaving out the brackets around an <code>|</code> inside an <code>&amp;</code> gives no
     error and a wrong number. Name each condition on its own line first if in doubt.</p>
+</div>
+
+<h2>SQL</h2>
+
+<div class="note">
+  <h4>Where SQL errors show up</h4>
+  <p>Run from Python, as in the session 6 and 7 notebooks, a broken query ends in a line like
+    the ones below, starting <code>sqlite3.OperationalError</code>. DB Browser for SQLite
+    shows the same SQLite message in the pane under the query. Every message here is the real
+    text, from running the mistake against <code>data/music.db</code>.</p>
+</div>
+
+<div class="note" id="sql-aggregate">
+  <span class="tag">Session 6</span>
+  <h4>misuse of aggregate: COUNT()</h4>
+  <pre>SELECT device, COUNT(*) AS n
+FROM plays
+WHERE COUNT(*) &gt; 400
+GROUP BY device;</pre>
+  <pre>sqlite3.OperationalError: misuse of aggregate: COUNT()</pre>
+  <p>A count in the <code>WHERE</code>. <code>WHERE</code> runs on single rows, before any
+    grouping, so at that point there is nothing to count yet. Filtering on a count is the job
+    of <code>HAVING</code>, which runs after <code>GROUP BY</code>:</p>
+  <pre>SELECT device, COUNT(*) AS n
+FROM plays
+GROUP BY device
+HAVING COUNT(*) &gt; 400;        -- laptop 524, phone 1039</pre>
+  <p>Writing <code>WHERE n &gt; 400</code> with the alias gives the same message, for the
+    same reason. The same goes for <code>SUM</code>, <code>AVG</code> and the rest.</p>
+</div>
+
+<div class="note" id="sql-no-column">
+  <span class="tag">Sessions 6 and 7</span>
+  <h4>no such column: genre</h4>
+  <pre>sqlite3.OperationalError: no such column: genre</pre>
+  <p>SQLite cannot find that name in the tables after <code>FROM</code>. Four usual causes,
+    each with the message it really gives:</p>
+  <ul>
+    <li><strong>The column is in another table.</strong> <code>SELECT genre FROM plays</code>:
+      genre lives in <code>artists</code>, so it needs a join. <code>no such column:
+      genre</code>.</li>
+    <li><strong>A typo.</strong> <code>SELECT artist_nme FROM artists</code> gives
+      <code>no such column: artist_nme</code>.</li>
+    <li><strong>Text without quotes.</strong> <code>WHERE device = phone</code> reads
+      <code>phone</code> as a column name: <code>no such column: phone</code>. Write
+      <code>'phone'</code>.</li>
+    <li><strong>The full table name after giving it an alias.</strong> After
+      <code>FROM plays p</code>, the table is called <code>p</code>, so
+      <code>plays.artist_id</code> gives <code>no such column: plays.artist_id</code>. Use
+      <code>p.artist_id</code>.</li>
+  </ul>
+  <p>Look at the real names instead of guessing. <code>SELECT * FROM plays LIMIT 1</code> shows
+    them, and so does the Database Structure tab in DB Browser. A misspelt table name has its
+    own message: <code>SELECT * FROM play</code> gives <code>no such table: play</code>.</p>
+</div>
+
+<div class="note" id="sql-ambiguous">
+  <span class="tag">Session 7</span>
+  <h4>ambiguous column name: artist_id</h4>
+  <pre>SELECT artist_id, artist_name
+FROM plays
+JOIN artists ON plays.artist_id = artists.artist_id;</pre>
+  <pre>sqlite3.OperationalError: ambiguous column name: artist_id</pre>
+  <p>Both tables have an <code>artist_id</code>, and SQLite will not pick one for you. Give
+    each table a short alias and put it in front of every column:</p>
+  <pre>SELECT p.artist_id, a.artist_name
+FROM plays p
+JOIN artists a ON p.artist_id = a.artist_id;</pre>
+  <p>Or join with <code>USING (artist_id)</code>, which merges the two into one column, so a
+    plain <code>artist_id</code> works again.</p>
+</div>
+
+<div class="note" id="sql-syntax">
+  <span class="tag">Session 6 onward</span>
+  <h4>near "FROM": syntax error</h4>
+  <p>SQLite could not read the query, and the word it names is where it gave up. The mistake
+    is usually just before it:</p>
+  <ul>
+    <li><code>SELECT device, COUNT(*), FROM plays</code>: a comma after the last column.
+      <code>near "FROM": syntax error</code>.</li>
+    <li><code>SELECT device COUNT(*) FROM plays</code>: a missing comma.
+      <code>near "(": syntax error</code>.</li>
+    <li><code>SELECT COUNT(* FROM plays</code>: a missing bracket.
+      <code>near "FROM": syntax error</code>.</li>
+    <li><code>WHERE device = 'phone</code>: a missing closing quote.
+      <code>unrecognized token: "'phone"</code>.</li>
+  </ul>
+</div>
+
+<div class="note" id="sql-one-statement">
+  <span class="tag">Sessions 6 and 7, notebooks</span>
+  <h4>You can only execute one statement at a time</h4>
+  <pre>sqlite3.ProgrammingError: You can only execute one statement at a time.</pre>
+  <p>Two queries in one <code>run("...")</code> call, usually pasted in from a
+    <code>.sql</code> file with a <code>;</code> between them. Python's
+    <code>sqlite3</code> runs one query per call. Put each one in its own cell. DB Browser is
+    different: its Execute all button runs every query in the editor.</p>
+</div>
+
+<div class="note" id="sql-no-rows">
+  <span class="tag">Session 6</span>
+  <h4>A query that returns nothing, or everything, with no error</h4>
+  <p>The worst kind, because nothing complains. Check these in order:</p>
+  <ul>
+    <li><strong><code>= NULL</code> never matches.</strong>
+      <code>WHERE formed_year = NULL</code> on <code>artists</code> gives 0 rows;
+      <code>WHERE formed_year IS NULL</code> gives the 2 that are really missing.</li>
+    <li><strong>Text comparisons are exact.</strong> <code>device = 'Phone'</code> finds 0
+      plays; <code>device = 'phone'</code> finds 1039.</li>
+    <li><strong>Double quotes mean a column name.</strong> SQLite lets
+      <code>"phone"</code> pass as text only because no column is called that.
+      <code>WHERE device = "device"</code> compares the column with itself and returns all
+      2183 rows. Use single quotes for text, always. Inside Python it fails louder:
+      <code>run("SELECT * FROM plays WHERE device = "phone"")</code> is a Python
+      <code>SyntaxError: invalid syntax. Perhaps you forgot a comma?</code>, because the
+      double quotes end the Python string.</li>
+    <li><strong>After a join, the keys may not match.</strong> Not in this dataset, but in
+      real data a join that returns nothing usually means the two sides spell the key
+      differently. Look at a few values from each side.</li>
+  </ul>
+</div>
+
+<div class="note" id="sql-zero">
+  <span class="tag">Session 6</span>
+  <h4>A percentage that comes out as 0</h4>
+  <pre>SELECT 19 / 179, 100.0 * 19 / 179;     -- 0 | 10.6145...</pre>
+  <p>In SQLite a whole number divided by a whole number is a whole number, with the decimals dropped.
+    <code>SUM(skipped) / COUNT(*)</code> on <code>plays</code> is <code>0</code>; put
+    <code>100.0 *</code> in front and it is the real skip rate, 11.8 after
+    <code>ROUND(..., 1)</code>. The <code>100.0</code> has to come first, before the
+    division happens.</p>
+</div>
+
+<div class="note" id="sql-fan-out">
+  <span class="tag">Session 7</span>
+  <h4>A total that got bigger after a join</h4>
+  <p>Fan-out. The total minutes are 8,980.4. Join <code>awards</code> on and the same
+    <code>SUM(minutes_played)</code> says 9,732.1, with no warning, because 2,183 plays became
+    2,371 rows: an artist with three awards has every play counted three times. After any
+    join, compare the row count with the count before.</p>
+  <p>The fix is to aggregate first and join after, so there are no play rows left to
+    duplicate. The session 7 walkthrough has it as a CTE:</p>
+  <pre>WITH per_artist AS (
+    SELECT artist_id, COUNT(*) AS plays,
+           ROUND(SUM(minutes_played), 1) AS minutes
+    FROM plays
+    GROUP BY artist_id
+)
+SELECT a.artist_name, s.plays, s.minutes, COUNT(w.award_id) AS awards
+FROM per_artist s
+JOIN artists a USING (artist_id)
+LEFT JOIN awards w USING (artist_id)
+GROUP BY a.artist_id
+ORDER BY s.minutes DESC
+LIMIT 3;     -- Glass Tram 229 1175.1 2 | DJ Kompas 215 1169.2 1 | Fjord &amp; Flint 237 846.2 3</pre>
+  <p><code>SUM(DISTINCT minutes_played)</code> is not the fix. It adds each different value
+    once, so two real plays of the same length count as one: for Fjord &amp; Flint it gives
+    680.6 instead of the true 846.2. A second wrong answer, on the other side of the right
+    one.</p>
 </div>
 
 <h2>Git and GitHub</h2>

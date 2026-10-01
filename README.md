@@ -86,7 +86,18 @@ python3 data/scripts/build_dataset.py
 
 ## Checking the materials
 
-If you change anything, these three will tell you whether it still holds together.
+If you change anything, one command tells you whether it still holds together. On Windows
+type `python`, on macOS `python3`.
+
+```bash
+python tools/check_all.py         # everything, a few minutes
+python tools/check_all.py --fast  # skip running the notebooks and scripts
+```
+
+It runs the checks below, then runs every script under `sessions/` and `project/`, the
+session 12 tests with pytest, and makes sure nothing was written outside the gitignored
+`output/` folders. Scripts that ask for input are skipped, and it says so. You can also run
+any one check on its own:
 
 ```bash
 python3 tools/check_slides.py     # every slide fits, no overflow, notes present
@@ -95,10 +106,11 @@ python3 tools/nbtool.py check     # notebooks are valid and carry no saved outpu
 python3 tools/nbtool.py run       # every notebook still runs top to bottom
 ```
 
-`check_slides.py` and `nbtool.py run` need a couple of extras:
+`check_slides.py`, `nbtool.py run` and the tests need a couple of extras. Without them,
+`check_all.py` reports those checks as skipped rather than failed:
 
 ```bash
-pip install playwright nbformat nbclient ipykernel
+pip install playwright nbformat nbclient ipykernel pytest
 playwright install chromium
 ```
 

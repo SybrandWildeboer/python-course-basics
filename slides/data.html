@@ -149,6 +149,15 @@
 </div>
 
 <div class="note">
+  <h4><code>object</code> or <code>str</code>: the same thing, two pandas versions</h4>
+  <p>The table shows what <code>plays.dtypes</code> prints on pandas 2, the version
+    <code>project/requirements.txt</code> pins (<code>pandas==2.3.1</code>): every text column
+    is <code>object</code>. pandas 3 gives text its own type, so the same six columns print as
+    <code>str</code>. Read either word as "text". Either one on a column you expected to be
+    numbers means it needs converting.</p>
+</div>
+
+<div class="note">
   <h4>The other two clean files match the database</h4>
   <p><code>artists.csv</code> and <code>awards.csv</code> have the same columns and rows as
     their tables. One difference shows up in pandas: the gaps in <code>formed_year</code> and
