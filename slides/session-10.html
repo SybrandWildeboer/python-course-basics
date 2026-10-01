@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 10: Putting it together</title>
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body data-deck="Session 10 · Putting it together">
+<div id="viewport">
+<div class="deck">
+
+<section class="slide slide--title" data-title="Title">
+  <div>
+    <div class="session-no">Session 10 of 12</div>
+    <h1>Putting it together</h1>
+    <p class="goal">One script from raw file to finished output, that runs from one command,
+      from any folder, in its own environment. And the scaffold for your project.</p>
+    <div class="meta">
+      <span class="pill pill--accent">2 hours</span>
+      <span class="pill">load, clean, analyse, save</span>
+      <span class="pill pill--teal">virtual environments</span>
+      <span class="pill pill--amber">project layout</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Nothing new about data today. Everything is structure: where code lives, how it runs,
+    and what it needs installed. Sell it with the session 1 task: today is the difference
+    between doing it once in a notebook and running it every Monday.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework review">
+  <div class="eyebrow">First ten minutes</div>
+  <h2>Homework review</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Your cleaning functions</div>
+      <p>Does your <code>clean_plays</code> take the raw DataFrame and <strong>return</strong>
+        a cleaned one, without printing anything?</p>
+      <p class="nomargin">If so, it is already a stage of a pipeline. Today it gets three
+        neighbours and a <code>main()</code>.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>Your chart</div>
+      <p>Does the title state the answer, or only the topic?</p>
+      <p class="nomargin">"Electronic gets 32.0% of my listening time" tells the reader
+        something. "Minutes per genre" makes them work it out.</p>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Which of your cleaning decisions changed the headline number most?
+        Keep the answer in mind. In a pipeline, every one of those decisions gets written down
+        in a docstring, so nobody has to rediscover it.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>If his clean_plays prints along the way, do not fix it now. The exercise makes the
+    case for returning better than a comment can.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Notebook to script">
+  <div>
+    <div class="marker">Part one</div>
+    <h2>From notebook to script</h2>
+    <p>The same code, in a shape you can run again next month with one command.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Why a script">
+  <div class="eyebrow">The reason</div>
+  <h2>A notebook is for exploring. A script is for running.</h2>
+  <div class="cols">
+    <div class="card card--rose">
+      <h4>What a notebook does to you, eventually</h4>
+      <ul class="tight nomargin">
+        <li><strong>Order:</strong> every cell leans on the one before. Run them out of order
+          and you get a different answer, or a baffling error</li>
+        <li><strong>Hidden state:</strong> delete <code>threshold = 5</code> and the cell
+          using it still runs, until tomorrow's restart</li>
+        <li><strong>Repetition:</strong> next month's file means running twelve cells by
+          hand, in the right order, again</li>
+      </ul>
+    </div>
+    <div class="card card--teal">
+      <h4>What a script gives you</h4>
+      <ul class="tight nomargin">
+        <li>It always runs <strong>top to bottom</strong>, in a fresh Python</li>
+        <li>It runs from <strong>one command</strong>, so next month costs nothing</li>
+        <li>Same input, same output, every time, on any machine</li>
+        <li>Another file, or a notebook, can import its functions</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin"><strong>The saved notebook is not the notebook you ran.</strong>
+        Restart and Run All is the only honest test of one. Remember the repetitive task from
+        your own week in session 1? A script is how it stops being repetitive.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Notebook 01 has the hidden-state demo: two cells, delete the first, the second still
+    works. Show it if the idea does not land from the slide.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="The pipeline">
+  <div class="eyebrow">The shape</div>
+  <h2>Four questions, four stages</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 1100 230" width="1100" height="230" role="img"
+         aria-label="load returns the raw DataFrame to clean, clean returns plays to analyse, analyse returns a summary to save, save writes a CSV and a PNG">
+      <defs>
+        <marker id="arrowhead" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--accent)"></polygon>
+        </marker>
+      </defs>
+
+      <rect class="d-box" x="10" y="20" width="220" height="110" rx="10"></rect>
+      <text class="d-label" x="30" y="50">load</text>
+      <text class="d-sub" x="30" y="76">Where does the data</text>
+      <text class="d-sub" x="30" y="94">come from?</text>
+      <text class="d-mono" x="30" y="118">load_messy(path)</text>
+
+      <rect class="d-box-amber" x="296" y="20" width="220" height="110" rx="10"></rect>
+      <text class="d-label" x="316" y="50">clean</text>
+      <text class="d-sub" x="316" y="76">What must be fixed</text>
+      <text class="d-sub" x="316" y="94">before I trust it?</text>
+      <text class="d-mono" x="316" y="118">clean_plays(df)</text>
+
+      <rect class="d-box-accent" x="582" y="20" width="220" height="110" rx="10"></rect>
+      <text class="d-label" x="602" y="50">analyse</text>
+      <text class="d-sub" x="602" y="76">What is the</text>
+      <text class="d-sub" x="602" y="94">answer?</text>
+      <text class="d-mono" x="602" y="118">summarise_by_genre(plays)</text>
+
+      <rect class="d-box-teal" x="868" y="20" width="220" height="110" rx="10"></rect>
+      <text class="d-label" x="888" y="50">save</text>
+      <text class="d-sub" x="888" y="76">Where does the</text>
+      <text class="d-sub" x="888" y="94">answer go?</text>
+      <text class="d-mono" x="888" y="118">save_csv, save_chart</text>
+
+      <path class="d-arrow" d="M234 75 L 290 75"></path>
+      <path class="d-arrow" d="M520 75 L 576 75"></path>
+      <path class="d-arrow" d="M806 75 L 862 75"></path>
+
+      <text class="d-mono" x="30" y="170">raw: 2,223 rows</text>
+      <text class="d-mono" x="316" y="170">plays: 2,183 rows</text>
+      <text class="d-mono" x="602" y="170">summary: 8 rows</text>
+      <text class="d-mono" x="888" y="170">a CSV and a PNG</text>
+      <text class="d-sub" x="30" y="212">Each stage takes what the one before it returned. Nothing reaches back.</text>
+    </svg>
+  </div>
+  <div class="cols">
+    <div class="card card--compact card--accent">
+      <p class="nomargin">Because each stage only takes and returns, you can test one on its
+        own in a notebook, and <strong>replace one without touching the others</strong>: a
+        new data source is a new <code>load</code>, a new question a new analyse.</p>
+    </div>
+    <div class="card card--compact card--teal">
+      <p class="nomargin">The session 3 naming habit pays off here. Name each function after
+        what it returns, and <code>main()</code> ends up reading like the boxes above.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The row counts under the boxes are real: 2,223 messy rows, 2,183 after the duplicates
+    go, 8 genres. Ask what each number should be before you reveal it; he knows the first two
+    from session 9.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Stages as functions">
+  <div class="eyebrow">In code</div>
+  <h2>Each stage is a small function</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>demos/genre_pipeline.py, the outline</figcaption>
+      <pre class="sm"><code data-lang="python">def load_messy(path):
+    """Return the messy CSV, with nothing guessed."""
+    return pd.read_csv(path, keep_default_na=False)
+
+def clean_plays(df):
+    """Return a cleaned copy, shaped like plays.csv.
+
+    The decisions, each one changes the answer:
+      * the 40 exact duplicate rows go
+      * a missing device becomes "unknown"
+      * missing minutes stay missing
+    """
+    ...
+
+def summarise_by_genre(plays):
+    """Return one row per genre: plays, minutes, ..."""
+    ...
+
+def save_csv(summary, path):
+    """Write the table to path, making the folder."""
+    ...</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>Check each one as you write it</h4>
+        <p class="nomargin">In the notebook, every function is followed by one
+          <code>assert</code> with a number you know: <code>raw.shape == (2223, 9)</code>,
+          <code>len(plays) == 2183</code>. Then build the next one on top.</p>
+      </div>
+      <div class="card card--compact card--amber">
+        <h4>Decisions live in the docstring</h4>
+        <p class="nomargin">Session 9 showed every cleaning choice changes the answer. Written
+          in the docstring, the choice is visible to anyone reading the script, including you
+          in March.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin"><code>load_messy</code> is one line and still a function. When
+          your own data needs <code>sep=";"</code>, it is the only place that changes.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The bodies are elided here; notebook 01 builds each one in full with its check. The
+    point of the slide is the outline: four names, four docstrings, nothing printing.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="The session 3 shape">
+  <div class="eyebrow">A promise from session 3</div>
+  <h2>The same shape, seven sessions later</h2>
+  <div class="compare">
+    <div>
+      <span class="label">session 3</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="python">def total(numbers):
+    """Return the sum of a list."""
+    running = 0
+    for number in numbers:
+        running += number
+    return running
+
+
+# the outer layer prints
+print(summarise(NUMBERS))</code></pre>
+      </figure>
+    </div>
+    <div>
+      <span class="label">session 10</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="python">def summarise_by_genre(plays):
+    """Return one row per genre."""
+    return (plays.groupby("genre")
+            .agg(minutes=("minutes_played", "sum"))
+            .reset_index())
+
+
+# the outer layer WRITES
+save_csv(summary, OUTPUT / "genre_summary.csv")</code></pre>
+      </figure>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <h4>Functions that calculate return; only the outer layer prints</h4>
+      <p class="nomargin">In session 3 the outer layer printed. Today it writes a CSV and a
+        chart. The calculating function did not have to change at all, and that is the whole
+        reason for the rule.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Session 3 said: "in session 10 these exact shapes get called by a pipeline that writes
+    a CSV instead of printing". Say it out loud. A rule he took on trust has just paid off,
+    and that is worth a moment.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="main()">
+  <div class="eyebrow">The outer layer</div>
+  <h2><code>main()</code>, and the two lines at the bottom</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>demos/genre_pipeline.py</figcaption>
+      <pre class="sm"><code data-lang="python">def main():
+    """Run the pipeline. The only part that prints."""
+    raw = load_messy(MESSY)
+    plays = clean_plays(raw)
+    summary = summarise_by_genre(plays)
+
+    csv_path = OUTPUT / "genre_summary.csv"
+    png_path = OUTPUT / "genre_minutes.png"
+    save_csv(summary, csv_path)
+    save_chart(summary, png_path)
+    check_summary(csv_path, plays)
+
+    print(f"cleaned {len(plays)} rows")
+    print(f"wrote   {csv_path.name}")
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>Read it out loud</h4>
+        <p class="nomargin">Load, clean, summarise, save, save, check, report. It is the
+          diagram from two slides back, in Python. If <code>main()</code> is hard to read,
+          the names are wrong.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4>The check reads the file back</h4>
+        <p class="nomargin">The session 4 stretch habit, now a stage: the plays in the CSV must
+          add up to the cleaned plays. A pipeline that silently writes a wrong file is worse
+          than one that crashes.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">The last two lines say: call <code>main()</code>, but only when
+          this file is the one being run. Next slide.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The prints are shortened on the slide; the demo file prints the row counts, both file
+    names and the top genre. The structure is what matters here.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="__name__">
+  <div class="eyebrow">What the if is for</div>
+  <h2>A program when you run it, a toolbox when you import it</h2>
+  <div class="compare">
+    <div>
+      <span class="label">demos/name_main.py</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="python">def shout(text):
+    return text.upper() + "!"
+
+print("__name__ is", repr(__name__))
+
+def main():
+    print(shout("run as a script"))
+
+if __name__ == "__main__":
+    main()</code></pre>
+      </figure>
+      <figure class="code out">
+        <figcaption>python demos/name_main.py</figcaption>
+        <pre class="xs"><code data-lang="text">__name__ is '__main__'
+RUN AS A SCRIPT!</code></pre>
+      </figure>
+    </div>
+    <div>
+      <span class="label">demos/import_name_main.py</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="python">import name_main
+
+print(name_main.shout("imported"))</code></pre>
+      </figure>
+      <figure class="code out">
+        <figcaption>python demos/import_name_main.py</figcaption>
+        <pre class="xs"><code data-lang="text">__name__ is 'name_main'
+IMPORTED!</code></pre>
+      </figure>
+      <div class="card card--compact card--accent">
+        <p class="nomargin">Importing a file <strong>runs</strong> it. The top-level print ran
+          both times. Only the <code>if</code> stopped <code>main()</code> running on
+          import.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Run both demos live. The surprise is that the top-level print runs on import; that is
+    the evidence that importing executes the file, and why the if is needed.</p>
+    <p>This is what lets the project notebook import pipeline.py and call its functions
+    without setting off the whole pipeline. Notebook 01 does it with the genre pipeline.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Paths from __file__">
+  <div class="eyebrow">A promise from session 4</div>
+  <h2>Paths that work from any folder</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>top of the script</figcaption>
+        <pre class="sm"><code data-lang="python">from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[3]
+MESSY = ROOT / "data" / "messy" / "plays_messy.csv"
+OUTPUT = ROOT / "output"</code></pre>
+      </figure>
+      <table class="sm mono">
+        <tr><th>Path(__file__).resolve()</th><th>is</th></tr>
+        <tr><td>.parents[0]</td><td>demos, the folder the file is in</td></tr>
+        <tr><td>.parents[1]</td><td>session-10</td></tr>
+        <tr><td>.parents[2]</td><td>sessions</td></tr>
+        <tr><td>.parents[3]</td><td>the repository root</td></tr>
+      </table>
+    </div>
+    <div class="stack">
+      <div class="card card--compact card--rose">
+        <h4>A relative path counts from the terminal</h4>
+        <p class="nomargin"><code>"data/messy/plays_messy.csv"</code> only works when the
+          terminal is in the repo root. From anywhere else: <code>FileNotFoundError</code>,
+          though the file is fine.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4><code>__file__</code> counts from the script</h4>
+        <p class="nomargin">It is where this file lives, which never changes. Build every
+          other path from it and the folder you run from stops mattering.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">The <code>/</code> joins pieces with the right separator for your
+          computer. You never type a backslash. <code>.resolve()</code> makes the path full,
+          so <code>parents</code> has something to count.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do it live with the exercise starter: run it from the repo root (works), cd
+    sessions/session-10, run it again (FileNotFoundError). Then run the demo pipeline from
+    the same folder. demos/where_am_i.py prints both meanings of "here" side by side.</p>
+    <p>Counting from zero trips everyone once. parents[0] is the file's own folder.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Running it">
+  <div class="eyebrow">Proof</div>
+  <h2>Same answer, from any folder</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code out">
+      <figcaption>terminal</figcaption>
+      <pre class="sm"><code data-lang="text">$ python sessions/session-10/demos/genre_pipeline.py
+loaded   2223 rows from plays_messy.csv
+cleaned  2183 rows
+wrote   output/genre_summary.csv
+wrote   output/genre_minutes.png
+top genre: Electronic, 2,753.2 minutes
+
+$ cd sessions/session-10
+$ python demos/genre_pipeline.py
+loaded   2223 rows from plays_messy.csv
+cleaned  2183 rows
+wrote   output/genre_summary.csv
+wrote   output/genre_minutes.png
+top genre: Electronic, 2,753.2 minutes</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>Both runs write to the same place</h4>
+        <p class="nomargin"><code>output/</code> at the repository root, which git ignores.
+          Outputs can always be made again, so they never go in git.</p>
+      </div>
+      <div class="card card--compact card--amber">
+        <h4>Is 2,753.2 right?</h4>
+        <p class="nomargin">The database says 2,874.5 for Electronic, and 8,980.4 in total
+          against our 8,608.0. The gap, 372.4 minutes, is exactly the 94 plays whose minutes
+          were blank in the messy file.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">So the pipeline is not wrong. It is honest about what the data
+          lost, and now you can say how much.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Notebook 01 runs it from three folders with subprocess and then does the database
+    comparison with an assert. Two independent routes to the same number: session 4 with a
+    CSV, session 7 with fan-out, now with a whole pipeline.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Virtual environments">
+  <div>
+    <div class="marker">Part two</div>
+    <h2>Virtual environments</h2>
+    <p>One private set of packages per project, so nothing you install can break anything
+      else.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Why a venv">
+  <div class="eyebrow">The problem</div>
+  <h2>One Python for everything stops working</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 1100 200" width="1100" height="200" role="img"
+         aria-label="Without a venv, every project shares one set of packages. With a venv, each project has its own .venv folder with its own versions.">
+      <text class="d-label" x="10" y="22">without: one shared set</text>
+      <rect class="d-box-rose" x="10" y="36" width="500" height="70" rx="10"></rect>
+      <text class="d-mono" x="30" y="64">your Python: pandas 2.3, matplotlib 3.9, ...</text>
+      <text class="d-sub" x="30" y="90">a tool that needs pandas 1.5 breaks everything else</text>
+      <text class="d-sub" x="10" y="140">Update a package for one project, and another one</text>
+      <text class="d-sub" x="10" y="160">quietly stops working. Nobody can tell which versions</text>
+      <text class="d-sub" x="10" y="180">your code actually needs. "It works on my machine."</text>
+
+      <text class="d-label" x="580" y="22">with: a folder per project</text>
+      <rect class="d-box-teal" x="580" y="36" width="250" height="70" rx="10"></rect>
+      <text class="d-mono" x="596" y="64">project/.venv</text>
+      <text class="d-sub" x="596" y="90">pandas 2.3.1, matplotlib 3.9.0</text>
+      <rect class="d-box" x="846" y="36" width="244" height="70" rx="10"></rect>
+      <text class="d-mono" x="862" y="64">other-thing/.venv</text>
+      <text class="d-sub" x="862" y="90">pandas 1.5, whatever it needs</text>
+      <text class="d-sub" x="580" y="140">A venv is just a folder: its own copy of Python and its</text>
+      <text class="d-sub" x="580" y="160">own packages. Activate it, and python and pip mean the</text>
+      <text class="d-sub" x="580" y="180">ones inside. Delete the folder, and it is gone, cleanly.</text>
+    </svg>
+  </div>
+  <div class="callout callout--tip" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">So far this course has used the Python you installed in session 1,
+        with everything in it. That is fine for learning. A project you want to run again
+        next year gets its own environment, and a list of exactly what is in it.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Keep the why short. The point lands properly the first time a pip install for one
+    thing breaks another, and he has not had that yet. The concrete benefit today: the
+    project's versions are written down and can be rebuilt anywhere.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Make one">
+  <div class="eyebrow">Do it now · in project/</div>
+  <h2>Create it once, activate it every time</h2>
+  <div class="compare">
+    <div>
+      <span class="label">Windows · PowerShell</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="bash">cd project
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python pipeline.py</code></pre>
+      </figure>
+    </div>
+    <div>
+      <span class="label">macOS · Terminal</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="bash">cd project
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python pipeline.py</code></pre>
+      </figure>
+    </div>
+  </div>
+  <div class="cols mt">
+    <div class="card card--compact card--teal">
+      <p class="nomargin"><strong>Active means <code>(.venv)</code> at the start of the
+        prompt.</strong> Then <code>python</code> and <code>pip</code> are the project's own,
+        on both systems. <code>deactivate</code>, or closing the terminal, switches it
+        off.</p>
+    </div>
+    <div class="callout callout--warn" style="margin-bottom:0">
+      <span class="ico">▲</span>
+      <div>
+        <p class="nomargin">"Running scripts is disabled" on Windows? Once:
+          <code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code></p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do this on his laptop, now. The execution policy error is the usual Windows snag, and
+    meeting it alone at home is miserable. Command Prompt uses .venv\Scripts\activate.bat;
+    Git Bash uses source .venv/Scripts/activate.</p>
+    <p>The classic follow-up: a new terminal, no (.venv), and ModuleNotFoundError for pandas.
+    The fix is activating, not installing.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="requirements.txt">
+  <div class="eyebrow">What goes in git</div>
+  <h2><code>requirements.txt</code> in, <code>.venv/</code> out</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>project/requirements.txt</figcaption>
+        <pre><code data-lang="text">pandas==2.3.1
+matplotlib==3.9.0</code></pre>
+      </figure>
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>terminal, with the venv active</figcaption>
+        <pre class="sm"><code data-lang="bash">pip install -r requirements.txt   # build it from the list
+pip install openpyxl              # add a package...
+pip freeze                        # ...and see exact versions</code></pre>
+      </figure>
+    </div>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>Why pin the versions</h4>
+        <p class="nomargin"><code>==2.3.1</code> means this exact version. Next year, pandas
+          will have changed; your project will still install what it was written for.</p>
+      </div>
+      <div class="card card--compact card--rose">
+        <h4>Why <code>.venv/</code> never goes in git</h4>
+        <p class="nomargin">Hundreds of megabytes, built for your computer and your Python.
+          Useless anywhere else. The <code>.gitignore</code> from session 5 already has
+          it.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <p class="nomargin"><strong>The list goes in git, the folder never does.</strong>
+          Anyone can rebuild the folder from the list with one command, including you on a
+          new laptop.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Have him run git status after creating the venv and see that .venv does not appear.
+    That is the proof the gitignore works, and it closes the loop on session 5.</p>
+    <p>pip freeze lists everything, including the packages pandas pulled in. For a small
+    project, listing only the packages you import, pinned, is easier to read.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Project layout">
+  <div>
+    <div class="marker">Part three</div>
+    <h2>Project layout</h2>
+    <p>The scaffold for sessions 11 and 12, built from today's pipeline.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="The project folder">
+  <div class="eyebrow">Your final project starts here</div>
+  <h2>The <code>project/</code> folder</h2>
+  <div class="cols cols-wide-right">
+    <figure class="code plain">
+      <figcaption>project/</figcaption>
+      <pre class="sm"><code data-lang="text">project/
+    README.md
+    requirements.txt
+    pipeline.py
+    notebooks/
+        explore.ipynb
+    data/
+        README.md
+    output/
+    .venv/</code></pre>
+    </figure>
+    <table class="sm">
+      <tr><th style="width:170px">Where</th><th>What it is for</th></tr>
+      <tr><td><code>README.md</code></td><td>The question, where the data came from, how to
+        run it, what the data could not tell you</td></tr>
+      <tr><td><code>requirements.txt</code></td><td>The exact packages, so anyone can rebuild
+        the environment</td></tr>
+      <tr><td><code>pipeline.py</code></td><td>Today's pipeline, runnable as it is, with
+        every place to change marked <code>MAKE IT YOURS</code></td></tr>
+      <tr><td><code>explore.ipynb</code></td><td>Where you look at data before code moves into
+        the pipeline</td></tr>
+      <tr><td><code>data/</code></td><td>Your input files. Git ignores them: they are often
+        personal</td></tr>
+      <tr><td><code>output/</code>, <code>.venv/</code></td><td>Made by running things, so
+        git ignores both</td></tr>
+    </table>
+  </div>
+  <div class="callout callout--key" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">It already runs, on the music data. You will start session 11 by
+        changing something that works, which is far easier than starting from an empty
+        file.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Open the folder in VS Code and walk the tree. Show the MAKE IT YOURS markers in
+    pipeline.py: INPUT, QUESTION, and the four stages. Session 11 refers to exactly these
+    names.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Notebook and pipeline">
+  <div class="eyebrow">How the two work together</div>
+  <h2>Explore in the notebook, keep it in the pipeline</h2>
+  <div class="cols">
+    <ol class="steps">
+      <li><strong>Look</strong> in <code>explore.ipynb</code>. It imports
+        <code>pipeline.py</code>, so it sees exactly what the script sees.</li>
+      <li><strong>Try</strong> a fix or a calculation in a scratch cell until it works.</li>
+      <li><strong>Move it</strong> into the right stage of <code>pipeline.py</code>, with
+        its decision in the docstring.</li>
+      <li><strong>Run</strong> <code>python pipeline.py</code>. If it breaks, you changed
+        one thing, so you know where.</li>
+      <li><strong>Commit</strong> when it runs.</li>
+    </ol>
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>explore.ipynb, the setup cell</figcaption>
+        <pre class="sm"><code data-lang="python">sys.path.insert(0, str(PROJECT))
+import pipeline
+
+raw = pipeline.load(pipeline.INPUT)
+data = pipeline.clean(raw)</code></pre>
+      </figure>
+      <div class="card card--compact card--teal">
+        <p class="nomargin"><strong>The notebook imports the pipeline; it never copies
+          it.</strong> Two copies of the cleaning drift apart within a week, and then the
+          chart and the notebook disagree.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This is the working rhythm for the next two sessions. The README for the course said
+    session 10 is about turning a notebook into a script; this slide is the habit that keeps
+    them as one thing afterwards.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="When it breaks">
+  <div class="eyebrow">Reference · keep this one</div>
+  <h2>When it does not run</h2>
+  <table class="sm">
+    <tr><th style="width:330px">Symptom</th><th>Likely cause</th><th style="width:300px">Fix</th></tr>
+    <tr><td><code>FileNotFoundError</code> from another folder</td><td>A relative path,
+      counted from the terminal</td><td>Build it from <code>__file__</code></td></tr>
+    <tr><td><code>No module named 'pandas'</code></td><td>The venv is not active in this
+      terminal</td><td>Activate it; look for <code>(.venv)</code></td></tr>
+    <tr><td>"Running scripts is disabled"</td><td>PowerShell's execution policy</td>
+      <td><code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code></td></tr>
+    <tr><td>Importing the file runs everything</td><td>No <code>if __name__</code> at the
+      bottom</td><td>Put the calls inside <code>main()</code></td></tr>
+    <tr><td>Cannot find <code>data/</code> at all</td><td><code>parents[n]</code> off by
+      one</td><td><code>print(ROOT)</code>, then count again</td></tr>
+    <tr><td><code>.venv/</code> shows in <code>git status</code></td><td>No
+      <code>.gitignore</code> entry</td><td>Add <code>.venv/</code> before committing
+      anything</td></tr>
+    <tr><td><code>NameError: __file__</code></td><td>Running it in a notebook</td>
+      <td>Notebooks walk up from the working folder</td></tr>
+  </table>
+  <aside class="notes">
+    <p>Reference, not a teaching block. Point at it when one of these happens. The first two
+    are the ones he will actually meet this week.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Live exercise">
+  <div class="eyebrow">Your turn · 30 minutes</div>
+  <h2>Turn notebook code into a pipeline</h2>
+  <div class="exercise">
+    <div class="tag">◆ Live exercise</div>
+    <div class="cols">
+      <div>
+        <h4>The question: which device do I skip most on?</h4>
+        <p>The starter answers it correctly, the notebook way: top to bottom, no functions,
+          relative paths.</p>
+        <ol class="tight nomargin">
+          <li>Run it from the repo root. Then from <code>sessions/session-10</code>. Read the
+            error</li>
+          <li>Split it into <code>load_messy</code>, <code>clean_plays</code>,
+            <code>skip_rate_by_device</code>, <code>save_csv</code>,
+            <code>save_chart</code></li>
+        </ol>
+      </div>
+      <div>
+        <h4>&nbsp;</h4>
+        <ol class="tight nomargin" start="3">
+          <li>Add <code>main()</code>, the only function that prints, and the two lines at the
+            bottom</li>
+          <li>Build the paths from <code>__file__</code></li>
+          <li>Add <code>check_rates</code>: read the CSV back, and check the plays and skips
+            add up</li>
+          <li>Run it from two folders: same output</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">File: <code>sessions/session-10/exercises/device_pipeline.py</code>,
+        or the notebook <code>02-device-pipeline-exercise.ipynb</code> to build each function
+        with its check first. Look hard at the top row of your table.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The top row is "unknown", 15.9% from 11 of 69 plays: a category made by our own
+    cleaning, ranked first. Let him find it. The solution keeps it in the CSV, so the totals
+    add up, and leaves it out of the chart, which is about devices. Speaker 14.1% is the real
+    answer.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework">
+  <div class="eyebrow">Between now and next time · 2–4 hours</div>
+  <h2>Homework</h2>
+  <div class="cols-3">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Task 1 · finish this</div>
+      <h4>A second question</h4>
+      <p class="nomargin">Add "how did my listening change month by month?" to the genre
+        pipeline, as a line chart, <strong>without touching</strong> <code>load_messy</code>
+        or <code>clean_plays</code>. File: <code>homework/pipeline.py</code>.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>Task 2 · get this far</div>
+      <h4>Your project, running</h4>
+      <p class="nomargin">Make <code>project/</code> run in its own <code>.venv</code>. Then
+        put your session 1 spreadsheet, as a CSV, in <code>project/data/</code> and get
+        <code>explore.ipynb</code> to load it.</p>
+    </div>
+    <div class="card card--accent">
+      <div class="card-title"><span class="dot"></span>Task 3 · today, 5 minutes</div>
+      <h4>Request your Spotify data</h4>
+      <p class="nomargin">Account, Privacy settings, Download your data: tick
+        <strong>Extended streaming history</strong> only. It can take up to 30 days.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Task 1 is a test of today's structure more than of pandas: one new
+        analyse function, one new save function, a check, and a few lines in
+        <code>main()</code>. Everything is in <code>homework/README.md</code>.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Task 3 matters because of the wait. Session 11 offers his Spotify history as an
+    optional project dataset, and it only works if it has arrived. Ask him to do it before he
+    leaves today.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Recap">
+  <div class="eyebrow">Wrap up</div>
+  <h2>What you can do now</h2>
+  <div class="cols">
+    <ul class="checklist">
+      <li>Say why notebooks are for exploring and scripts for running</li>
+      <li>Split work into load, clean, analyse and save</li>
+      <li>Keep calculating functions returning, and print only in <code>main()</code></li>
+      <li>Explain the two lines at the bottom of a script</li>
+      <li>Build paths from <code>__file__</code> that work from any folder</li>
+    </ul>
+    <ul class="checklist">
+      <li>Check a run by reading its output back</li>
+      <li>Create and activate a virtual environment</li>
+      <li>Install from <code>requirements.txt</code>, and say why it is pinned</li>
+      <li>Explain why <code>.venv/</code> is never committed</li>
+      <li>Find your way around <code>project/</code></li>
+    </ul>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>Next session: your question</h4>
+      <p class="nomargin">We choose what your project answers, scope it down honestly, and get
+        <code>project/pipeline.py</code> running on your own data before you leave. Bring the
+        session 1 task, and request your Spotify extended streaming history today: it can take
+        up to 30 days, and it is one of the datasets on offer.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Before he goes: is the venv working on his laptop, and has the Spotify request been
+    sent? Both save a lot of session 11 time.</p>
+  </aside>
+</section>
+
+</div>
+</div>
+<script src="assets/deck.js"></script>
+</body>
+</html>

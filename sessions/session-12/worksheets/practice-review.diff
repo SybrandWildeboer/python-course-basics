@@ -1,0 +1,65 @@
+Practice code review: one commit to somebody else's project/pipeline.py
+
+The commit message was:
+
+    Add awards per genre, and stop crashing on missing files
+
+Review it with worksheets/review-checklist.md before you look at
+worksheets/practice-review-answers.md. Lines starting with - were removed,
+lines starting with + were added, the rest is context.
+
+diff --git a/project/pipeline.py b/project/pipeline.py
+index bb00a3f..479ae91 100644
+--- a/project/pipeline.py
++++ b/project/pipeline.py
+@@ -5,29 +5,44 @@ from pathlib import Path
+ import pandas as pd
+ 
+ HERE = Path(__file__).resolve().parent
+-PLAYS = HERE / "data" / "plays.csv"
++PLAYS = Path("C:/Users/sam/Desktop/plays.csv")
++AWARDS = HERE / "data" / "awards.csv"
++ARTISTS = HERE / "data" / "artists.csv"
+ OUTPUT = HERE / "output"
+ 
+ 
+ def load(path):
+-    """Return the plays CSV as a DataFrame."""
+-    return pd.read_csv(path)
++    """Return a CSV as a DataFrame."""
++    try:
++        return pd.read_csv(path)
++    except:
++        return pd.DataFrame()
++
++
++def add_awards(plays, awards, artists):
++    """Return the plays with each artist's awards attached."""
++    awards = awards.merge(artists[["artist_id", "artist_name"]], on="artist_id")
++    return plays.merge(awards, on="artist_name", how="left")
+ 
+ 
+ def analyse(plays):
+-    """Return total minutes per genre, biggest first."""
++    """Return total minutes and awards per genre, biggest first."""
+     summary = (plays.groupby("genre", as_index=False)
+-               .agg(minutes=("minutes_played", "sum")))
++               .agg(minutes=("minutes_played", "sum"),
++                    awards=("award_id", "count")))
++    print(summary)
+     return summary.sort_values("minutes", ascending=False)
+ 
+ 
+ def save(summary, folder):
+-    folder.mkdir(exist_ok=True)
++    """Write the summary to minutes_per_genre.csv in folder."""
++    folder.mkdir(parents=True, exist_ok=True)
+     summary.to_csv(folder / "minutes_per_genre.csv", index=False)
+ 
+ 
+ def main():
+     plays = load(PLAYS)
++    plays = add_awards(plays, load(AWARDS), load(ARTISTS))
+     summary = analyse(plays)
+     save(summary, OUTPUT)
+     print(f"wrote {len(summary)} genres to {OUTPUT}")

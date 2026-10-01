@@ -23,6 +23,9 @@ Thumbs.db
 output/
 sessions/**/output/
 project-template/output/
+project/output/
+project/data/*
+!project/data/README.md
 tools/.shots/
 
 # Jupyter

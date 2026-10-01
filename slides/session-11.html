@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 11: Project scoping and setup</title>
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body data-deck="Session 11 · Project scoping and setup">
+<div id="viewport">
+<div class="deck">
+
+<section class="slide slide--title" data-title="Title">
+  <div>
+    <div class="session-no">Session 11 of 12</div>
+    <h1>Project scoping and setup</h1>
+    <p class="goal">Choose a question, cut it down honestly until it fits, and leave with
+      your own data running through your own pipeline. Rough is fine. Running is not
+      optional.</p>
+    <div class="meta">
+      <span class="pill pill--accent">2 hours</span>
+      <span class="pill">one question, one dataset, one output</span>
+      <span class="pill pill--amber">must, should, could</span>
+      <span class="pill pill--teal">a first end-to-end run</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Less code than any session since the first, and more thinking. The one thing that must
+    happen before they leave is a run of project/pipeline.py on their own data. Protect the
+    last half hour for it.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework review">
+  <div class="eyebrow">First ten minutes</div>
+  <h2>Homework review</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>The second question</div>
+      <p>Month by month, added to the pipeline without touching <code>load_messy</code> or
+        <code>clean_plays</code>.</p>
+      <p class="nomargin">Did it really need no change to either? If it did, which line, and
+        why? That is the whole point of stages: <strong>a new question should only cost you a
+        new <code>analyse</code></strong>.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>The virtual environment</div>
+      <p>Open a fresh terminal, activate <code>.venv</code>, run
+        <code>python project/pipeline.py</code>.</p>
+      <p class="nomargin">If that does not work first time, today's first run will not
+        either. Fix it now, while it is the only problem.</p>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">And one question to ask before anything else today: <strong>did you
+        request your Spotify data?</strong> If the project might use it, it needs to be on its
+        way now. It takes days to arrive.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The fresh-terminal run matters more than it looks. A pipeline that only works in the
+    terminal where it was written has a hidden dependency, usually an un-activated venv or a
+    working directory. Ten minutes here saves thirty later.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Scoping">
+  <div>
+    <div class="marker">Part one</div>
+    <h2>A question you can finish</h2>
+    <p>Projects rarely fail because the code was too hard. They fail because the question
+      never stopped growing.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="From task to question">
+  <div class="eyebrow">Where it starts</div>
+  <h2>Start from the task you named in session 1</h2>
+  <p class="subtitle">"One repetitive thing you do in a spreadsheet every week." It is the best
+    starting point there is, because you already know what the answer is for.</p>
+  <div class="cols-4 mt">
+    <div class="card card--compact">
+      <h4>The task</h4>
+      <p class="nomargin">Every January I paste two years of listening side by side and build
+        a pivot table per genre, by hand.</p>
+    </div>
+    <div class="card card--compact card--accent">
+      <h4>The answer you are after</h4>
+      <p class="nomargin">Which genres I listen to more, and which less, than last year.</p>
+    </div>
+    <div class="card card--compact card--teal">
+      <h4>The question</h4>
+      <p class="nomargin">Which genres did I listen to more in 2025 than in 2024, and which
+        less?</p>
+    </div>
+    <div class="card card--compact card--amber">
+      <h4>The output</h4>
+      <p class="nomargin">One CSV: minutes per genre in each year, and the change.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">The second card is the step people skip. Describing the
+        <em>steps</em> of a task gives you a script that copies cells around. Describing the
+        <em>answer</em> gives you a question, and a question tells you when you are done.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>You wrote their task down in session 1. Read it back to them now. If it no longer fits
+    (job changed, task disappeared), any question they genuinely care about will do, but push
+    for one that repeats: it has a natural "done", and the script keeps paying off.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="A good question">
+  <div class="eyebrow">The test</div>
+  <h2>What a project question looks like</h2>
+  <table class="sm">
+    <tr><th style="width:400px">Question</th><th style="width:190px">Verdict</th><th>Why</th></tr>
+    <tr><td>"Analyse my listening habits"</td><td>Not a question</td>
+      <td>No question mark, no answer, no point at which it is finished</td></tr>
+    <tr><td>"What makes a song popular?"</td><td>Too big</td>
+      <td>Needs data you do not have, and researchers disagree about it</td></tr>
+    <tr><td>"Which genres grew, which shrank, by device, by month, by artist, and why?"</td>
+      <td>Five questions</td><td>Each "and" is another project. Keep one.</td></tr>
+    <tr><td>"How many rows are in my file?"</td><td>Too small</td>
+      <td>One line of code. Nothing to decide, nothing to present</td></tr>
+    <tr><td><strong>"Which genres did I listen to more in 2025 than in 2024, and which
+      less?"</strong></td><td><strong>Good</strong></td>
+      <td>One table answers it, the data exists, and you can say the answer in a sentence</td></tr>
+  </table>
+  <div class="cols">
+    <ul class="checklist">
+      <li>Ends in a question mark</li>
+      <li>Answered by a number, a small table, or one chart</li>
+    </ul>
+    <ul class="checklist">
+      <li>Answerable with data you have <strong>today</strong></li>
+      <li>You care what the answer is</li>
+    </ul>
+  </div>
+  <aside class="notes">
+    <p>"You care" is not decoration. They will spend four or five evenings with this question;
+    if the answer does not matter to them, the project will stall in week two.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="One, one, one">
+  <div class="eyebrow">The rule</div>
+  <h2>One question. One dataset. One output.</h2>
+  <div class="cols cols-wide-left">
+    <div class="stack">
+      <p class="lead nomargin">That is the whole scope of a first project. Not a minimum to
+        get past: the target.</p>
+      <div class="card card--compact card--teal">
+        <h4>Why so small</h4>
+        <p class="nomargin">You have about two weeks of evenings before session 12. Real data
+          takes longer than you think: the file reads wrong, a column means something other
+          than its name, the dates are in two formats. A small project absorbs that. A big
+          one collapses under it.</p>
+      </div>
+      <div class="card card--compact card--accent">
+        <h4>Small is not trivial</h4>
+        <p class="nomargin">One question answered properly, with the cleaning decisions written
+          down and the numbers checked, is more impressive than five answered roughly. It is
+          also the only kind you can defend in ten minutes.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card card--compact card--rose">
+        <h4>The words that make a project grow</h4>
+        <ul class="tight nomargin">
+          <li>"and also…"</li>
+          <li>"it would be nice if…"</li>
+          <li>"a dashboard"</li>
+          <li>"predict"</li>
+          <li>"from the API"</li>
+          <li>"once I get the data"</li>
+        </ul>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">None of these are bad ideas. They are next projects. The next slide
+          is where they go.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Say plainly that this is the rule you would apply to your own work. Experienced people
+    scope small too; they are just better at noticing when they have stopped.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Must, should, could">
+  <div class="eyebrow">Sorting the ideas</div>
+  <h2>Must, should, could, and won't</h2>
+  <div class="cols-4">
+    <div class="card card--compact card--teal">
+      <div class="card-title"><span class="dot"></span>Must</div>
+      <p class="nomargin">The smallest thing that answers the question. If only this is done
+        in session 12, <strong>the project succeeded</strong>.</p>
+    </div>
+    <div class="card card--compact card--accent">
+      <div class="card-title"><span class="dot"></span>Should</div>
+      <p class="nomargin">What makes it good. Usually the chart. Expected, but the project
+        survives without it.</p>
+    </div>
+    <div class="card card--compact card--amber">
+      <div class="card-title"><span class="dot"></span>Could</div>
+      <p class="nomargin">If things go unexpectedly well. Nobody plans their week around a
+        could.</p>
+    </div>
+    <div class="card card--compact card--rose">
+      <div class="card-title"><span class="dot"></span>Won't, this time</div>
+      <p class="nomargin">Good ideas you are deliberately not doing, written down so they stop
+        nagging.</p>
+    </div>
+  </div>
+  <div class="cols mt">
+    <div class="callout callout--key" style="margin-bottom:0">
+      <span class="ico">◆</span>
+      <div>
+        <h4>Estimate each one, honestly</h4>
+        <p class="nomargin">Must plus should should come to about six hours. If it is more,
+          move something down a row. The plan has to survive a bad week.</p>
+      </div>
+    </div>
+    <div class="callout callout--tip" style="margin-bottom:0">
+      <span class="ico">◆</span>
+      <div>
+        <h4>The won't list is the useful one</h4>
+        <p class="nomargin">It is where scope creep goes to wait. A new idea mid-week goes on
+          it, and the must carries on.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The won't list surprises people. Writing an idea down is what lets them stop thinking
+    about it. Encourage a long one.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Worked example">
+  <div class="eyebrow">sessions/session-11/solutions/worked-example-scope.md</div>
+  <h2>The worked example, scoped</h2>
+  <div class="cols cols-wide-right">
+    <div class="stack">
+      <div class="card card--compact card--rose">
+        <h4>First draft</h4>
+        <p class="nomargin">"Analyse my listening: artists and genres, how it changes, skips by
+          device, time of day, and maybe predict what I will like next. With a dashboard."</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4>After scoping</h4>
+        <p class="nomargin"><strong>Which genres did I listen to more in 2025 than in 2024,
+          and which less?</strong> <code>data/clean/plays.csv</code>, and one CSV out.</p>
+      </div>
+    </div>
+    <table class="sm">
+      <tr><th style="width:96px"></th><th>What</th><th style="width:96px">Estimate</th></tr>
+      <tr><td><strong>Must</strong></td><td>The genre change table from
+        <code>project/pipeline.py</code>, cleaning logged, numbers checked</td><td>2 hours</td></tr>
+      <tr><td><strong>Should</strong></td><td>A bar chart of the change, answer in the title</td>
+        <td>1 hour</td></tr>
+      <tr><td>Could</td><td>The same as share of each year's listening</td><td>30 min</td></tr>
+      <tr><td>Could</td><td>Month by month, as a line chart</td><td>2 hours</td></tr>
+      <tr><td>Won't</td><td>Skips by device, time of day, predictions, a dashboard</td><td></td></tr>
+    </table>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Every idea in the first draft is still there. Most of them moved
+        down to could or won't. That is what scoping is: <strong>not deleting ideas, but deciding
+        their order</strong>.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Show the file itself after this slide. The decisions section is the part to point at:
+    it is where the work in this course has been heading since session 9.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="The one-number test">
+  <div class="eyebrow">notebooks/01-scoping-a-question.ipynb</div>
+  <h2>The one-number test: is the plan real?</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>the must answer, roughly</figcaption>
+        <pre class="sm"><code data-lang="python">plays["year"] = plays["played_at"].str[:4]
+
+table = (plays.groupby(["genre", "year"])
+         ["minutes_played"].sum()
+         .unstack("year").round(1))
+table["change"] = (table["2025"]
+                   - table["2024"]).round(1)
+table.sort_values("change")</code></pre>
+      </figure>
+      <div class="card card--compact card--teal">
+        <p class="nomargin">Can you get a rough version of the must answer in about
+          <strong>fifteen lines</strong>, today? Yes: the project is the right size. If you
+          cannot even say what the number would be, the question is not ready yet.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <figure class="code out" style="margin-bottom:0">
+        <figcaption>output</figcaption>
+        <pre class="sm"><code data-lang="text">year          2024    2025  change
+genre
+Electronic  1490.3  1384.2  -106.1
+Folk         832.3   729.9  -102.4
+Latin        332.4   279.3   -53.1
+Pop          502.1   452.9   -49.2
+Rock         277.8   245.4   -32.4
+Indie        407.2   437.5    30.3
+Afrobeat     275.3   321.5    46.2
+Jazz         479.2   533.2    54.0</code></pre>
+      </figure>
+      <div class="card card--compact card--plain">
+        <p class="nomargin"><code>unstack("year")</code> turns the year label into columns:
+          the table you would have built in the spreadsheet. And it adds up to 8,980.4
+          minutes, the raw total, so nothing was lost on the way.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The table rounds sixteen cells, so its total is 8,980.5 against 8,980.4 raw. If they
+    spot that, good: a tenth is rounding, two hundred would be a bug. Knowing which is which is
+    the skill.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="The hidden decision">
+  <div class="eyebrow">What the first number is really for</div>
+  <h2>It shows the decisions your question was making</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code out" style="margin-bottom:0">
+        <figcaption>total minutes per year</figcaption>
+        <pre class="sm"><code data-lang="text">2024    4596.6
+2025    4383.8      change: -212.8</code></pre>
+      </figure>
+      <p class="nomargin">I listened less overall. So part of every genre's "loss" is just
+        that. Measure each genre as a <strong>share of the year</strong> instead, and:</p>
+      <table class="sm">
+        <tr><th>Biggest change</th><th>By minutes</th><th>By share of the year</th></tr>
+        <tr><td>Grew most</td><td>Jazz, +54.0</td><td>Jazz, +1.8 points</td></tr>
+        <tr><td>Shrank most</td><td><strong>Electronic</strong>, −106.1</td>
+          <td><strong>Folk</strong>, −1.5 points</td></tr>
+      </table>
+    </div>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>Neither is wrong</h4>
+        <p class="nomargin">They answer two slightly different questions. "Listened to more"
+          means minutes, so the must uses minutes, and the share version goes on the could
+          list.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4>So it goes in the worksheet</h4>
+        <p class="nomargin">Under <em>decisions</em>: what you chose, and why. In session 12
+          someone will ask "but what about…?", and the answer is already written down.</p>
+      </div>
+      <div class="callout callout--key" style="margin-bottom:0">
+        <span class="ico">◆</span>
+        <div>
+          <p class="nomargin">Session 9: every cleaning decision changes the answer. So does
+            every scoping decision. Better to find them today than the night before.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This is the slide to slow down on. Nobody would have found the falling total from the
+    plan alone; it took the first number. That is the argument for doing the one-number test
+    before the plan is final.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Live exercise, part 1">
+  <div class="eyebrow">Your turn · 20 minutes</div>
+  <h2>Part 1: scope your project</h2>
+  <div class="exercise">
+    <div class="tag">◆ Live exercise</div>
+    <div class="cols">
+      <div>
+        <h4>Fill in the worksheet, sections 1 to 5</h4>
+        <ol class="tight">
+          <li>Your task from session 1, and the <strong>answer</strong> it is after</li>
+          <li>The question, in one sentence, and a made-up example answer</li>
+          <li>The data: what, where, and do you have it <strong>today</strong>?</li>
+          <li>The one output file</li>
+          <li>Must, should, could, won't, with honest estimates</li>
+        </ol>
+      </div>
+      <div>
+        <h4>Then check it against the rule</h4>
+        <ul class="checklist">
+          <li>One question, one dataset, one output</li>
+          <li>The data is on your laptop now</li>
+          <li>Must plus should is about six hours</li>
+          <li>Every "and also" is on the could or won't list</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">File: <code>sessions/session-11/exercises/scoping-worksheet.md</code>.
+        Short answers. If a section needs more than a few lines, the project is still too
+        big.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Let them write first and challenge second. Then ask the two questions that do most of
+    the work: "what is the answer going to look like?" and "do you have that file right now?"</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Setup">
+  <div>
+    <div class="marker">Part two</div>
+    <h2>From a plan to a running pipeline</h2>
+    <p>Milestones until session 12, the Spotify route, and the first run before you go.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Milestones">
+  <div class="eyebrow">Until session 12</div>
+  <h2>Four milestones, each one a working pipeline</h2>
+  <ol class="steps">
+    <li><strong>First run, today.</strong> <code>python project/pipeline.py</code> writes a
+      rough version of the must output from your data. Ugly, but end to end.</li>
+    <li><strong>It loads, it cleans, you can prove it.</strong> Logged cleaning steps, a
+      <code>find_problems</code> check that finds nothing, the must output checked two ways.
+      This week's homework.</li>
+    <li><strong>The should item.</strong> Usually the chart: one question, the answer in the
+      title, saved by the pipeline.</li>
+    <li><strong>Ready to present.</strong> <code>project/README.md</code> says what it is and
+      how to run it, a clean run from a fresh terminal, and the ten-minute story said out loud
+      once.</li>
+  </ol>
+  <div class="callout callout--key" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin"><strong>Every milestone ends with something that runs.</strong> Not
+        "cleaning half done": a pipeline that goes from file to output, slightly better than
+        last time. If week two goes badly, you still have last week's working version to
+        present. Commit at the end of each one.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Agree the date of session 12 now, and fill in the milestone dates backwards from it. Two
+    weeks is the comfortable gap: milestone 1 in week one, 2 and 3 in week two. If it has to be
+    one week, cut the could list entirely.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="The first run">
+  <div class="eyebrow">project/pipeline.py</div>
+  <h2>The first run: one stage at a time</h2>
+  <div class="cols cols-wide-left">
+    <ol class="steps">
+      <li><strong>Run it unchanged.</strong> A known-good starting point.</li>
+      <li><strong>Point it at your file.</strong> Copy the data into
+        <code>project/data/</code>, set <code>INPUT</code> and <code>QUESTION</code>, add
+        <code>sep</code> or <code>decimal</code> to <code>load</code> if needed.</li>
+      <li><strong>Cut <code>clean</code> down</strong> to the columns you need and the one fix
+        that stops it crashing. Real cleaning is milestone 1.</li>
+      <li><strong>Replace <code>analyse</code></strong> with your rough answer, ending in
+        <code>.reset_index()</code>.</li>
+      <li><strong>Chart and check:</strong> rename their columns, or comment the calls out with
+        a <code>TODO</code>.</li>
+      <li><strong>Run it</strong>, and open <code>project/output/summary.csv</code>.</li>
+    </ol>
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>the lines marked MAKE IT YOURS</figcaption>
+        <pre class="sm"><code data-lang="python">INPUT = PROJECT / "data" / "my_export.csv"
+QUESTION = "Which ... ?"
+
+def load(path):
+    return pd.read_csv(path, sep=";",
+                       decimal=",")</code></pre>
+      </figure>
+      <div class="card card--compact card--teal">
+        <h4>Run it after every step</h4>
+        <p class="nomargin">When something breaks, you then know exactly which change broke
+          it. Six small steps beat one big edit every time.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The two traps here are reset_index (save_csv writes without the index, so labels in the
+    index silently vanish) and check() expecting a plays column that their table no longer
+    has. Both are in the notebook; mention them before they hit them.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Spotify: requesting it">
+  <div class="eyebrow">The ambitious route</div>
+  <h2>Your own Spotify history as the dataset</h2>
+  <div class="cols">
+    <div class="stack">
+      <ol class="steps">
+        <li>On a computer, log in at <strong>spotify.com</strong> and open <strong>Account
+          privacy</strong>, then <strong>Download your data</strong>.</li>
+        <li>Tick <strong>Extended streaming history</strong> only. "Account data" gives just
+          the last year, with fewer fields.</li>
+        <li>Confirm the request from the email Spotify sends you.</li>
+        <li>Wait for a second email with a link to a ZIP file.</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="card card--compact card--amber">
+        <h4>It takes days</h4>
+        <p class="nomargin">Spotify allows itself up to 30 days. People report anything from a
+          few hours to two weeks. <strong>Request it today</strong> even if you are not sure,
+          and start on other data if it has not arrived.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4>What you get</h4>
+        <p class="nomargin">Your <strong>whole</strong> history since the account began, as
+          JSON files named like <code>Streaming_History_Audio_2024_0.json</code>, plus a file
+          called <em>Read Me First</em> that explains every field.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--warn" style="margin-bottom:0">
+    <span class="ico">▲</span>
+    <div>
+      <p class="nomargin">Menu names on websites change. If the page does not match these steps
+        exactly, look for "privacy" and "download your data" in your account settings.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Verified October 2026 against Spotify's support pages and several published guides; the
+    exact page layout could not be checked without logging in. If they did not request it after
+    session 10, they request it now, in the session, and the first run uses other data.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Spotify: loading it">
+  <div class="eyebrow">notebooks/04-stretch-exercise.ipynb</div>
+  <h2>A list of dictionaries, again</h2>
+  <div class="cols">
+    <figure class="code" style="margin-bottom:0">
+      <figcaption>load every audio file into one table</figcaption>
+      <pre class="sm"><code data-lang="python">folder = Path("project/data/spotify")
+paths = sorted(folder.glob(
+    "Streaming_History_Audio_*.json"))
+
+streams = pd.concat(
+    [pd.read_json(p) for p in paths],
+    ignore_index=True)
+
+streams["ts"] = pd.to_datetime(
+    streams["ts"], utc=True)</code></pre>
+    </figure>
+    <table class="sm">
+      <tr><th>Field</th><th>What it holds</th></tr>
+      <tr><td><code>ts</code></td><td>when the stream <strong>ended</strong>, in UTC</td></tr>
+      <tr><td><code>ms_played</code></td><td>milliseconds played</td></tr>
+      <tr><td><code>master_metadata_track_name</code></td><td>track, empty for podcasts</td></tr>
+      <tr><td><code>master_metadata_album_artist_name</code></td><td>artist</td></tr>
+      <tr><td><code>platform</code></td><td>the device or app</td></tr>
+      <tr><td><code>skipped</code></td><td>skipped to the next song; can be empty</td></tr>
+      <tr><td><code>episode_name</code></td><td>set for podcasts instead</td></tr>
+    </table>
+  </div>
+  <div class="cols mt">
+    <div class="card card--compact card--rose">
+      <p class="nomargin"><strong>No genre.</strong> Nothing in the export says what genre a
+        track is. A Spotify project asks about artists, tracks, time and devices.</p>
+    </div>
+    <div class="card card--compact card--plain">
+      <p class="nomargin">Field names from real exports. <strong>Check them against your
+        <em>Read Me First</em> file and <code>df.columns</code></strong> before trusting
+        them.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The stretch notebook builds a practice export with these field names and made-up values,
+    so this route can be rehearsed before the real data arrives. It also covers the two
+    decisions that change answers: podcasts versus music, and what counts as a play.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Private data">
+  <div class="eyebrow">Before your next git add</div>
+  <h2>Your data is not the course's data</h2>
+  <div class="cols">
+    <div class="stack">
+      <div class="card card--compact card--rose">
+        <h4><code>project/data/</code> is ignored, on purpose</h4>
+        <p class="nomargin">Anything you put there stays off GitHub by default. Keep your
+          data in that folder: a file anywhere else would appear in <code>git status</code>,
+          and <code>git add .</code> would send it. If your repository is public, everyone
+          can read it, for ever.</p>
+      </div>
+      <div class="card card--compact card--amber">
+        <h4>What counts as private</h4>
+        <p class="nomargin">Money, anything about other people, and exports like Spotify's,
+          which include the IP addresses you streamed from.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <figure class="code plain" style="margin-bottom:0">
+        <figcaption>check it really is ignored</figcaption>
+        <pre class="sm"><code data-lang="text">git check-ignore -v project/data/my_export.csv</code></pre>
+      </figure>
+      <figure class="code plain" style="margin-bottom:0">
+        <pre class="sm"><code data-lang="bash">git status       # your data file is not in the list</code></pre>
+      </figure>
+      <div class="callout callout--key" style="margin-bottom:0">
+        <span class="ico">◆</span>
+        <div>
+          <p class="nomargin">When in doubt, leave it out. Adding a file later is easy.
+            Removing one from history once it is pushed is not.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do this together, now, before the first commit of the day. Session 5's .gitignore lesson
+    finally has real stakes. Small, non-private data can be committed, and then the project
+    runs for anyone who clones it.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Live exercise, part 2">
+  <div class="eyebrow">Your turn · 25 minutes</div>
+  <h2>Part 2: the first run</h2>
+  <div class="exercise">
+    <div class="tag">◆ Live exercise</div>
+    <div class="cols">
+      <div>
+        <h4>In the notebook</h4>
+        <ol class="tight">
+          <li>Copy your file into <code>project/data/</code></li>
+          <li>Read it, and give it the <strong>five-minute first look</strong></li>
+          <li>The one-number test: a rough must answer</li>
+          <li>One <code>assert</code> you can believe</li>
+        </ol>
+      </div>
+      <div>
+        <h4>In the pipeline</h4>
+        <ol class="tight" start="5">
+          <li>The six steps, running after each one</li>
+          <li><code>project/output/summary.csv</code> holds your number</li>
+          <li><code>.gitignore</code> if the data is private</li>
+          <li>Commit <code>project/pipeline.py</code> and the worksheet</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">File: <code>sessions/session-11/notebooks/02-first-run-exercise.ipynb</code>.
+        <strong>Ugly is the goal.</strong> One rough number from your own data, through your
+        own pipeline, is what today is for.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>If their data is not usable today (Spotify not arrived, file at work), do the first run
+    on the music data with their question's shape, and swap the file in this week. Leaving
+    without a run is the only outcome to avoid.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework">
+  <div class="eyebrow">Between now and next time · 2–4 hours</div>
+  <h2>Homework: milestone 1</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>It loads, it cleans, you can prove it</div>
+      <ul class="tight nomargin">
+        <li>Each cleaning step its own function, and a <strong>log</strong> of rows before and
+          after each</li>
+        <li><code>find_problems</code>: a list of everything wrong, empty when clean, and the
+          pipeline stops if it is not</li>
+        <li>The must output, with one number <strong>checked two ways</strong></li>
+        <li>Decisions written in the worksheet; committed and pushed</li>
+      </ul>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>If there is time left</div>
+      <p>Start milestone 2: the should item, usually the chart.</p>
+      <p class="nomargin">On the Spotify route with the export arrived? Do the stretch notebook
+        first: it turns the export into the shape the pipeline already understands.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Work it out in <code>notebooks/03-milestone-1-homework.ipynb</code>,
+        then move it into <code>project/pipeline.py</code>. Details in
+        <code>homework/README.md</code>. <strong>Saturday:</strong> <code>Milestone 1 done</code>
+        or <code>Milestone 1 not done</code>, and what stopped you.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The find_problems idea is the one to sell: a check that returns a list shows every
+    problem at once, and two lines in main() make the pipeline refuse untrustworthy data. It is
+    the step from "a script" to "a script I can rely on".</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Recap">
+  <div class="eyebrow">Wrap up</div>
+  <h2>What you have now</h2>
+  <div class="cols">
+    <ul class="checklist">
+      <li>A question with a question mark, from a task you really do</li>
+      <li>One question, one dataset, one output</li>
+      <li>Must, should, could and won't, estimated</li>
+      <li>Your decisions, written down as you make them</li>
+    </ul>
+    <ul class="checklist">
+      <li>The five-minute first look, for any new file</li>
+      <li>The one-number test, passed</li>
+      <li><strong>Your own data, through your own pipeline</strong></li>
+      <li>Milestones with dates, ending in session 12</li>
+    </ul>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>Next session: you present</h4>
+      <p class="nomargin">Ten minutes: the question, the data, one chart, what surprised you,
+        and what you would do next. Then we review the code together using diffs, as promised
+        in session 5, and you leave with a map of where to go after this course.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Before they leave: the worksheet and pipeline committed and pushed, the session 12 date
+    agreed, and, if relevant, the Spotify request confirmed by email.</p>
+  </aside>
+</section>
+
+</div>
+</div>
+<script src="assets/deck.js"></script>
+</body>
+</html>
