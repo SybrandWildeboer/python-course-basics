@@ -55,6 +55,25 @@ version it would have been forty. That single moment does more than any explanat
 | `notebooks/02-statistics-functions-solved.ipynb` | Worked version |
 | `notebooks/03-small-functions-homework.ipynb` | Homework 1 |
 | `notebooks/03-small-functions-solved.ipynb` | Worked version, with `split` and `join` demonstrated |
+| `notebooks/04-stretch-exercise.ipynb` | Optional stretch exercises, for when the live exercise finishes early |
+| `notebooks/04-stretch-solved.ipynb` | Worked versions, with the reasoning written out |
+
+## If there is time left
+
+The stretch notebook has six functions that get harder as you go. Use as many as the time
+allows; you don't need to finish it. Each one adds one idea:
+
+| # | Function | What it adds |
+|---|---|---|
+| 1 | `spread` | Composing: one line, no loop, built from `highest` and `lowest` |
+| 2 | `count_above` | Two parameters, and one call used as another call's argument |
+| 3 | `median` | `sorted()` and list positions, an early look at session 4 |
+| 4 | `format_duration` | `//`, `%` and `:02d` on track lengths, plus an hours version |
+| 5 | `safe_average` | A design question: what *should* an average of nothing be? |
+| 6 | `describe_track` | Four layers of functions, ready for the real dataset next week |
+
+Number 5 is the one to talk through rather than just check. Why returning `0` is a lie
+matters more than the code.
 
 The menu program stays a script, and it is the first time they see one file importing
 functions from another.

@@ -3,7 +3,7 @@
 **Goal:** a working environment, and a script the learner wrote themselves that does
 something real.
 
-**Slides:** [`slides/session-01.html`](../../slides/session-01.html) (25 slides)
+**Slides:** [`slides/session-01.html`](../../slides/session-01.html) (29 slides)
 
 ---
 
