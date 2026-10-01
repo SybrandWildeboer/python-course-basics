@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Git cheatsheet · Python, SQL & Git</title>
+<link rel="stylesheet" href="assets/home.css">
+<style>
+.back { margin: 22px 0 0; font-size: 14.5px; }
+.back a, .note h4 a { color: var(--accent); text-decoration: none; }
+.tagline a, .note p a, .note li a { color: var(--accent); }
+.back a:hover { text-decoration: underline; }
+.sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 470px), 1fr)); gap: 16px; align-items: start; }
+.sheet > .note { margin: 0; min-width: 0; }
+.note h4 { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; }
+.note h4 .pill { font-size: 12px; padding: 2px 10px; font-weight: 600; }
+.note pre { font-size: 13.5px; line-height: 1.5; }
+.note ul { margin: 0 0 10px; padding-left: 20px; color: var(--ink-soft); font-size: 15px; }
+.ref-wrap { overflow-x: auto; margin: 4px 0 10px; }
+table.ref { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.ref th, table.ref td { text-align: left; vertical-align: top; padding: 6px 9px; border-bottom: 1px solid var(--line-soft); color: var(--ink-soft); }
+table.ref th { color: var(--ink-dim); font-weight: 650; font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+table.ref td code { white-space: nowrap; }
+@media print {
+  :root, :root[data-theme] {
+    --bg: #fff; --bg-deep: #fff; --surface: #fff; --surface-2: #fff; --surface-3: #eef1f5;
+    --line: #c4ccd8; --line-soft: #d9dee6; --ink: #000; --ink-soft: #1d2430; --ink-dim: #4b5566;
+    --accent: #2a49b0; --teal: #0d7a5d; --teal-soft: transparent;
+  }
+  body { background: #fff; padding: 0; }
+  #theme-toggle, .back { display: none; }
+  header { padding: 0 0 10px; }
+  h1 { background: none; color: #000; font-size: 28px; }
+  .tagline { font-size: 14px; }
+  h2 { margin: 18px 0 10px; }
+  .sheet { grid-template-columns: 1fr; gap: 8px; }
+  .note { break-inside: avoid; background: #fff; padding: 10px 12px; }
+  .note pre { font-size: 10.5px; white-space: pre-wrap; padding: 8px 10px; }
+  .note p, .note ul, table.ref { font-size: 12px; }
+  footer { margin-top: 20px; }
+}
+</style>
+</head>
+<body>
+<button id="theme-toggle" type="button">light / dark</button>
+<div class="wrap">
+
+<p class="back"><a href="index.html">← Course index</a> · <a href="cheatsheets.html">All cheatsheets</a></p>
+
+<header>
+  <div class="kicker">Cheatsheet · session 5</div>
+  <h1>Git</h1>
+  <p class="tagline">The git commands the course uses, in the order you need them. The full session 5 reference with every command explained is <a href="../sessions/session-05/demos/git_commands.md">git_commands.md</a>.</p>
+  <div class="facts">
+    <span class="pill pill--accent">status, add, commit, push</span>
+    <span class="pill">Your own GitHub repo</span>
+    <span class="pill">Branches</span>
+    <span class="pill">Getting out of trouble</span>
+  </div>
+</header>
+
+<h2>Every day</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>The three places</span><span><a class="pill" href="session-05.html">Session 5</a></span></h4>
+<div class="ref-wrap"><table class="ref">
+<tr><th>Place</th><th>What is there</th><th>Moves on with</th></tr>
+<tr><td>Working folder</td><td>The files as you are editing them</td><td><code>git add</code></td></tr>
+<tr><td>Staging area</td><td>What will go into the next commit</td><td><code>git commit</code></td></tr>
+<tr><td>History</td><td>Commits: saved snapshots with a message</td><td><code>git push</code></td></tr>
+<tr><td>GitHub</td><td>A copy of your history, somewhere else</td><td><code>git pull</code> brings it back</td></tr>
+</table></div>
+<p><code>git status</code> tells you which place your work is in, and usually suggests the command you want next. Run it constantly.</p>
+</div>
+<div class="note">
+<h4><span>The loop you will run a thousand times</span><span><a class="pill" href="session-05.html">Session 5</a></span></h4>
+<pre>git status                     # where is everything?
+git add path/to/file.py        # stage one file
+git add .                      # stage everything that changed
+git commit -m &quot;Answer the session 4 questions&quot;
+git push                       # send it to your repo on GitHub
+git log --oneline              # the history, one line per commit
+git log -3                     # just the last three</pre>
+<p>A good message says what the commit does, in a few words. Small commits, often: they are what makes history and review possible.</p>
+</div>
+<div class="note">
+<h4><span>Seeing what changed</span><span><a class="pill" href="session-05.html">Session 5</a></span></h4>
+<pre>git diff                  # changes you have NOT staged yet
+git diff --staged         # changes you HAVE staged
+git diff HEAD~1           # what changed since the previous commit
+git show HEAD             # the most recent commit in full
+git show HEAD~3:file.py   # how a file looked three commits ago</pre>
+<p><code>-</code> lines were removed, <code>+</code> lines added; a changed line shows as both. VS Code's Source Control panel shows the same thing side by side.</p>
+</div>
+</div>
+<h2>Setting up</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Once per machine</span><span><a class="pill" href="session-05.html">Session 5</a></span></h4>
+<pre>git config --global user.name &quot;Your Name&quot;
+git config --global user.email &quot;you@example.com&quot;
+git config --global init.defaultBranch main
+git config --global pull.rebase false
+git config --list                  # check it took</pre>
+<p>Without a name and email, git refuses to commit.</p>
+</div>
+<div class="note">
+<h4><span>Your own repo on GitHub</span><span><a class="pill" href="session-05.html">Session 5</a></span></h4>
+<pre>git remote -v                          # where does this copy point?
+git remote rename origin course        # keep the course repo, as &quot;course&quot;
+git remote add origin https://github.com/YOUR-NAME/python-course.git
+git push -u origin main                # the first push, once
+
+git pull                               # your own work, from another machine
+git pull course main                   # updates to the course</pre>
+<p>A remote is a nickname for a URL. You cannot push to the course repo, so you add your own as <code>origin</code>.</p>
+</div>
+<div class="note">
+<h4><span>Signing in to GitHub</span><span><a class="pill" href="session-05.html">Session 5</a></span></h4>
+<pre>gh auth login        # GitHub CLI: answer four questions, approve in the browser</pre>
+<p>GitHub does not accept your password for git. Without <code>gh</code>, make a personal access token on github.com (Settings, Developer settings, Personal access tokens) and paste it when git asks for a password. Save it in a password manager: you cannot view it again.</p>
+</div>
+<div class="note">
+<h4><span>Getting a copy</span><span><a class="pill" href="session-01.html">Session 1</a></span></h4>
+<pre>git clone https://github.com/SybrandWildeboer/python-course-basics.git
+cd python-course-basics</pre>
+</div>
+</div>
+<h2>Branches and trouble</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Branches</span><span><a class="pill" href="session-05.html">Session 5</a></span></h4>
+<pre>git switch -c add-readme     # create a branch and move onto it
+git branch                   # list branches, * marks where you are
+# ... edit, add, commit as normal ...
+git switch main              # back to main
+git merge add-readme         # bring the branch&#x27;s work into main
+git branch -d add-readme     # delete the label; the commits stay
+git push</pre>
+<p>A branch is a label on a line of commits. Work on one branch is invisible on the other until you merge.</p>
+</div>
+<div class="note">
+<h4><span>Getting out of trouble</span><span><a class="pill" href="session-05.html">Session 5</a></span></h4>
+<div class="ref-wrap"><table class="ref">
+<tr><th>You want to</th><th>Type</th></tr>
+<tr><td>Throw away changes to one file</td><td><code>git restore path/to/file.py</code></td></tr>
+<tr><td>Unstage something added by mistake</td><td><code>git restore --staged file.py</code></td></tr>
+<tr><td>Undo a commit by adding an opposite one</td><td><code>git revert &lt;commit&gt;</code></td></tr>
+<tr><td>See how a file looked earlier</td><td><code>git show HEAD~3:file.py</code></td></tr>
+<tr><td>Work out what is going on</td><td><code>git status</code>, then <code>git log --oneline</code></td></tr>
+</table></div>
+<p>Once something is committed it is very hard to lose. If you are in a mess: stop, run <code>git status</code>, and read it out. Do not delete the folder and start again. <code>git reset --hard</code> is left out on purpose: it really does throw work away.</p>
+</div>
+<div class="note">
+<h4><span>A merge conflict</span><span><a class="pill" href="session-05.html">Session 5</a></span></h4>
+<pre>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+the line as it is on your branch
+=======
+the line as it is on the branch you are merging
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; add-readme</pre>
+<p>Git stops and marks the file. Edit it to the version you want, delete the three marker lines, then <code>git add</code> the file and <code>git commit</code>. <code>git status</code> lists the files still in conflict.</p>
+</div>
+<div class="note">
+<h4><span>What not to commit</span><span><a class="pill" href="session-05.html">Session 5</a> <a class="pill" href="session-10.html">Session 10</a></span></h4>
+<p>Commit what a human wrote. Ignore what a machine generated, anything enormous, and anything secret. The repo's <a href="../.gitignore">.gitignore</a> already covers <code>output/</code>, <code>.venv/</code>, <code>__pycache__/</code> and <code>.ipynb_checkpoints/</code>.</p>
+<pre>python tools/nbtool.py strip     # remove saved notebook output before committing
+python tools/nbtool.py check     # are the notebooks valid and output-free?</pre>
+<p><code>python3</code> on macOS. A password pushed once is public forever, even if the next commit deletes it: the history keeps it.</p>
+</div>
+</div>
+
+<footer>
+  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
+</footer>
+
+</div>
+<script>
+(function () {
+  var KEY = "pycourse-theme";
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved) root.dataset.theme = saved;
+  } catch (e) { /* private browsing */ }
+
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var next = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = next;
+    try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
+  });
+})();
+</script>
+</body>
+</html>

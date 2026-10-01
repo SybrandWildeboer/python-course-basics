@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cheatsheets · Python, SQL & Git</title>
+<link rel="stylesheet" href="assets/home.css">
+<style>
+.back { margin: 22px 0 0; font-size: 14.5px; }
+.back a, .note h4 a { color: var(--accent); text-decoration: none; }
+.tagline a, .note p a, .note li a { color: var(--accent); }
+.back a:hover { text-decoration: underline; }
+.sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 470px), 1fr)); gap: 16px; align-items: start; }
+.sheet > .note { margin: 0; min-width: 0; }
+.note h4 { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; }
+.note h4 .pill { font-size: 12px; padding: 2px 10px; font-weight: 600; }
+.note pre { font-size: 13.5px; line-height: 1.5; }
+.note ul { margin: 0 0 10px; padding-left: 20px; color: var(--ink-soft); font-size: 15px; }
+.ref-wrap { overflow-x: auto; margin: 4px 0 10px; }
+table.ref { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.ref th, table.ref td { text-align: left; vertical-align: top; padding: 6px 9px; border-bottom: 1px solid var(--line-soft); color: var(--ink-soft); }
+table.ref th { color: var(--ink-dim); font-weight: 650; font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+table.ref td code { white-space: nowrap; }
+@media print {
+  :root, :root[data-theme] {
+    --bg: #fff; --bg-deep: #fff; --surface: #fff; --surface-2: #fff; --surface-3: #eef1f5;
+    --line: #c4ccd8; --line-soft: #d9dee6; --ink: #000; --ink-soft: #1d2430; --ink-dim: #4b5566;
+    --accent: #2a49b0; --teal: #0d7a5d; --teal-soft: transparent;
+  }
+  body { background: #fff; padding: 0; }
+  #theme-toggle, .back { display: none; }
+  header { padding: 0 0 10px; }
+  h1 { background: none; color: #000; font-size: 28px; }
+  .tagline { font-size: 14px; }
+  h2 { margin: 18px 0 10px; }
+  .sheet { grid-template-columns: 1fr; gap: 8px; }
+  .note { break-inside: avoid; background: #fff; padding: 10px 12px; }
+  .note pre { font-size: 10.5px; white-space: pre-wrap; padding: 8px 10px; }
+  .note p, .note ul, table.ref { font-size: 12px; }
+  footer { margin-top: 20px; }
+}
+</style>
+</head>
+<body>
+<button id="theme-toggle" type="button">light / dark</button>
+<div class="wrap">
+
+<p class="back"><a href="index.html">← Course index</a></p>
+
+<header>
+  <div class="kicker">Materials · cheatsheets</div>
+  <h1>Cheatsheets</h1>
+  <p class="tagline">One page each for Python, SQL, git, pandas and matplotlib, using exactly what the course teaches. Dense on purpose, and meant to be printed.</p>
+  <div class="facts">
+    <span class="pill pill--accent">Python</span>
+    <span class="pill pill--teal">SQL</span>
+    <span class="pill">Git</span>
+    <span class="pill">pandas</span>
+    <span class="pill">matplotlib</span>
+  </div>
+</header>
+
+<h2>The five sheets</h2>
+<div class="links">
+  <a class="link" href="cheatsheet-python.html"><span class="ico">◆</span>
+    <span><strong>Python</strong><span class="sub">Values, f-strings, if and loops, functions, lists and dicts, CSV files, try / except, pytest. Sessions 1 to 4, 10 and 12</span></span></a>
+  <a class="link" href="cheatsheet-sql.html"><span class="ico">◆</span>
+    <span><strong>SQL</strong><span class="sub">SELECT to HAVING, NULL, the order a query runs in, joins, fan-out, CTEs. Sessions 6 and 7</span></span></a>
+  <a class="link" href="cheatsheet-git.html"><span class="ico">◆</span>
+    <span><strong>Git</strong><span class="sub">The daily loop, your own GitHub repo, branches, and getting out of trouble. Session 5</span></span></a>
+  <a class="link" href="cheatsheet-pandas.html"><span class="ico">◆</span>
+    <span><strong>pandas</strong><span class="sub">Loading, masks, groupby, merge and validate, cleaning the messy file, SQL to pandas. Sessions 8 to 10</span></span></a>
+  <a class="link" href="cheatsheet-matplotlib.html"><span class="ico">◆</span>
+    <span><strong>matplotlib</strong><span class="sub">Bar, horizontal bar and line charts, titles that answer, saving. Session 9</span></span></a>
+</div>
+
+<h2>Using them</h2>
+<div class="note">
+  <h4>A reminder, not a lesson</h4>
+  <p>Each sheet is the course on one page: only what the sessions teach, in the words they use,
+    with examples on the listening log. Each box names the session it comes from, so when a
+    line does not make sense, go back to that session's notebook rather than searching the web.</p>
+  <p>Every Python, pandas and SQL snippet was run against this repository's data, and the
+    numbers in the comments are what it printed. Run them yourself from the repository root
+    and you should get the same.</p>
+</div>
+<div class="note">
+  <h4>Printing</h4>
+  <p>Print from the browser with <code>Ctrl</code> <code>P</code> (<code>Cmd</code> <code>P</code>
+    on a Mac). The sheets switch to black on white, one box after another, and the toggle and
+    navigation are left off the paper.</p>
+</div>
+<div class="note">
+  <h4>Longer references</h4>
+  <p>The session walkthroughs have every example from the slides, with comments:
+    <a href="../sessions/session-04/demos/files_and_csv.py">files_and_csv.py</a>,
+    <a href="../sessions/session-05/demos/git_commands.md">git_commands.md</a>,
+    <a href="../sessions/session-06/demos/walkthrough.sql">session 6 SQL</a>,
+    <a href="../sessions/session-07/demos/walkthrough.sql">session 7 SQL</a>,
+    <a href="../sessions/session-08/demos/dataframes.py">dataframes.py</a>,
+    <a href="../sessions/session-09/demos/cleaning.py">cleaning.py</a> and
+    <a href="../sessions/session-09/demos/charts.py">charts.py</a>.</p>
+</div>
+
+
+<footer>
+  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
+</footer>
+
+</div>
+<script>
+(function () {
+  var KEY = "pycourse-theme";
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved) root.dataset.theme = saved;
+  } catch (e) { /* private browsing */ }
+
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var next = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = next;
+    try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
+  });
+})();
+</script>
+</body>
+</html>

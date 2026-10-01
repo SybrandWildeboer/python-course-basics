@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start here · Python, SQL &amp; Git</title>
+<link rel="stylesheet" href="assets/home.css">
+<style>
+  .back { margin: 0 0 20px; font-size: 14px; }
+  .back a { color: var(--ink-dim); text-decoration: none; }
+  .back a:hover { color: var(--accent); }
+  .note a { color: var(--accent); }
+  .note ul, .note ol { margin: 0 0 10px; padding-left: 22px; font-size: 15.5px; color: var(--ink-soft); }
+  .note li { margin-bottom: 4px; }
+  .note li:last-child { margin-bottom: 0; }
+  .table-scroll { overflow-x: auto; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; background: var(--surface); border: 1px solid var(--line-soft); border-radius: 12px; overflow: hidden; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--line-soft); }
+  th { font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-dim); background: var(--surface-2); }
+  td { color: var(--ink-soft); }
+  tr:last-child td { border-bottom: 0; }
+  @media (max-width: 620px) { th, td { padding: 8px 10px; font-size: 14px; } }
+  td code { white-space: nowrap; }
+</style>
+</head>
+<body>
+<button id="theme-toggle" type="button">light / dark</button>
+<div class="wrap">
+
+<header>
+  <p class="back"><a href="index.html">← Course index</a></p>
+  <div class="kicker">Start here</div>
+  <h1>How this course works</h1>
+  <p class="tagline">What is in the repo, how to get it running, where your work goes, and
+    what a normal week looks like. Read it once at the start. Come back when something feels
+    out of place.</p>
+  <div class="facts">
+    <span class="pill pill--accent">12 sessions</span>
+    <span class="pill">2 hours each, one to one</span>
+    <span class="pill">2 to 4 hours homework a week</span>
+    <span class="pill pill--teal">One dataset all the way through</span>
+  </div>
+</header>
+
+<h2>Get it running</h2>
+<div class="note">
+  <h4>Three commands, once you have Python and Git</h4>
+  <p>If you do not have Python, VS Code and Git yet, do the
+    <a href="install.html">install guide</a> first. Session 1 does it with you, so there is
+    no need to do it alone beforehand.</p>
+  <p>Then, in a terminal, in a folder you will find again (no spaces or accents in the
+    path):</p>
+  <pre>git clone https://github.com/SybrandWildeboer/python-course-basics.git
+cd python-course-basics
+python serve.py        # Windows
+python3 serve.py       # macOS</pre>
+  <p><code>serve.py</code> starts a small local web server and opens this site in your
+    browser. It uses only the standard library, so there is nothing to install for it. Stop
+    it with <code>Ctrl C</code>. If port 8000 is taken, it picks the next free one and says
+    so.</p>
+  <p>Then open the folder in VS Code: <strong>File → Open Folder</strong> and choose
+    <code>python-course-basics</code>. The folder, not a single file. That is what makes the
+    terminal start in the right place.</p>
+</div>
+
+<h2>What is in the repo</h2>
+<pre>python-course-basics/
+    serve.py              serves this site on your machine
+    slides/               one deck per session, and these pages
+    sessions/session-NN/  everything for one session
+        README.md         the run sheet and notes for whoever is teaching
+        notebooks/        where you work
+        demos/            the walkthrough, as scripts
+        exercises/        script versions of the live exercise
+        solutions/        worked answers to the exercise
+        homework/         homework starters, a README with the tasks,
+                          and answers in homework/solutions/
+    data/                 the dataset: clean CSVs, a messy CSV, music.db
+    my-work/              your scratch space, never checked
+    project/              your final project: set up in session 10, yours from 11
+    tools/                scripts that check the course materials
+    output/               what the scripts write (git ignores it)</pre>
+<div class="note">
+  <h4>Not every session has every folder</h4>
+  <p>Session 5 is git, so it is mostly terminal work and has no <code>solutions/</code>.
+    Sessions 6 and 7 are SQL, so their demos and exercises are <code>.sql</code> files.
+    Session 12 adds <code>worksheets/</code> for the presentation and review. The session's
+    <code>README.md</code> lists exactly what is there.</p>
+  <p>The dataset is one personal music listening log: 2,183 plays across 40 artists, from
+    January 2024 to December 2025. You meet it properly in session 4, and it stays for the
+    rest of the course. See <a href="data.html">the dataset page</a> for every table and
+    column.</p>
+</div>
+
+<h2>How the work is organised</h2>
+<div class="note">
+  <h4>Notebooks are where the work happens</h4>
+  <p>Each session has a <code>notebooks/</code> folder. Open the notebooks in VS Code, or
+    run <code>jupyter lab</code> from the repo folder. The file name tells you what a notebook
+    is for.</p>
+</div>
+<div class="table-scroll">
+<table>
+  <tr><th>Name ends in</th><th>What it is</th><th>Example</th></tr>
+  <tr><td>no suffix</td><td>A walkthrough. You run it and change it during the session</td>
+    <td><code>01-first-steps.ipynb</code></td></tr>
+  <tr><td><code>-exercise</code></td><td>The live exercise. Yours to fill in</td>
+    <td><code>02-about-me-exercise.ipynb</code></td></tr>
+  <tr><td><code>-homework</code></td><td>Homework. Yours to fill in</td>
+    <td><code>03-statistics-homework.ipynb</code></td></tr>
+  <tr><td><code>-solved</code></td><td>The answers, for after you have tried</td>
+    <td><code>02-about-me-solved.ipynb</code></td></tr>
+  <tr><td><code>-stretch-exercise</code>, <code>-stretch-solved</code></td><td>Optional
+    extras, for when a session runs fast or you want more</td>
+    <td><code>04-stretch-exercise.ipynb</code></td></tr>
+</table>
+</div>
+<div class="note">
+  <h4>Everything also exists as a plain script</h4>
+  <p>The same material lives in <code>demos/</code>, <code>exercises/</code> and
+    <code>homework/</code> as <code>.py</code> files. That is on purpose. A notebook is for
+    exploring; a script is for running. Seeing both is how the difference makes sense, and
+    session 10 is about turning one into the other.</p>
+  <p>Anything that asks questions with <code>input()</code>, like the session 2 guessing
+    game, is a script only, because <code>input()</code> is awkward in a notebook.</p>
+</div>
+<div class="note">
+  <h4>Run scripts from the repo root</h4>
+  <p>Scripts find the data with paths like <code>data/clean/plays.csv</code>, which are
+    counted from the folder your terminal is in. So run them from the top of the repo:</p>
+  <pre>python sessions/session-04/demos/files_and_csv.py      # Windows
+python3 sessions/session-04/demos/files_and_csv.py     # macOS</pre>
+  <p>Run from anywhere else and you get a <code>FileNotFoundError</code>, even though the
+    file is right there. Session 10 fixes this properly by building paths from the script's
+    own location. Notebooks do not have the problem: each one starts with a cell that finds
+    the repo root by itself.</p>
+</div>
+<div class="note">
+  <h4>Try it before you read the answer</h4>
+  <p>The solutions are in the repo because you will want them later. Reading one feels like
+    learning but is not, so have a real go first. Getting stuck for ten minutes is the part
+    that sticks.</p>
+  <p><code>my-work/</code> is yours to make a mess in. Nothing in there is ever graded or
+    checked.</p>
+</div>
+
+<h2>A normal week</h2>
+<div class="note">
+  <h4>The session</h4>
+  <p>Two hours, one to one. You share your screen and do the typing. Most sessions open with
+    your homework, because where you got stuck is the best place to start.</p>
+</div>
+<div class="note">
+  <h4>The homework</h4>
+  <p>Two to four hours, usually two tasks. One you can definitely finish, one you probably
+    cannot. The second one is where the learning is. Each session's
+    <code>homework/README.md</code> has the tasks.</p>
+  <p>If you get stuck, send the code and the exact error text, any time. Spend ten minutes
+    reading the message first, because that is the skill. Do not spend an hour.</p>
+</div>
+<div class="note">
+  <h4>The Saturday line</h4>
+  <p>One message, every Saturday, exactly one of these:</p>
+  <pre>Homework done
+Homework not done</pre>
+  <p>No explanation needed. "Not done" is a perfectly good answer. It exists so the next
+    session can be adjusted, not to check up on you, and it only works if it is cheap to
+    send.</p>
+</div>
+<div class="note">
+  <h4>From session 5: commit and push</h4>
+  <p>In session 5 your copy of the repo gets your own GitHub repo as <code>origin</code>, and
+    the course repo becomes a second remote called <code>course</code>. From then on every
+    session ends with a commit and a push.</p>
+  <pre>git push                 # your work, to your repo
+git pull course main     # updates to the course</pre>
+  <p>Before session 5, if the course changes, you will be walked through a plain
+    <code>git pull</code> at the time.</p>
+</div>
+
+<h2>The shape of the twelve sessions</h2>
+<div class="note">
+  <h4>Python, then git, then SQL, then data, then your own project</h4>
+  <ul>
+    <li><strong>1 to 4, Python.</strong> Variables, control flow, functions, lists,
+      dictionaries and files. Session 4 is where the dataset arrives.</li>
+    <li><strong>5, Git.</strong> Your own repo on GitHub, and enough understanding that git
+      stops being frightening.</li>
+    <li><strong>6 and 7, SQL.</strong> Questions asked of <code>data/music.db</code>, first in
+      DB Browser for SQLite, then from Python.</li>
+    <li><strong>8 and 9, pandas and matplotlib.</strong> The same questions in Python, then a
+      deliberately messy file cleaned and turned into a chart.</li>
+    <li><strong>10 to 12, your project.</strong> A pipeline script in its own environment,
+      a question of your own, and a presentation with a code review.</li>
+  </ul>
+</div>
+
+<h2>Where to go next</h2>
+<div class="links">
+  <a class="link" href="install.html"><span class="ico">◆</span>
+    <span><strong>Install guide</strong><span class="sub">Python, VS Code, Git, DB Browser, Windows and macOS</span></span></a>
+  <a class="link" href="session-01.html"><span class="ico">◆</span>
+    <span><strong>Session 1 slides</strong><span class="sub">Setup and first contact</span></span></a>
+  <a class="link" href="troubleshooting.html"><span class="ico">◆</span>
+    <span><strong>When something breaks</strong><span class="sub">The errors you will actually hit, and the fixes</span></span></a>
+  <a class="link" href="sessions.html"><span class="ico">◆</span>
+    <span><strong>All sessions</strong><span class="sub">Every folder, run sheet and notebook</span></span></a>
+  <a class="link" href="data.html"><span class="ico">◆</span>
+    <span><strong>The dataset</strong><span class="sub">Tables, columns, and the messy file</span></span></a>
+  <a class="link" href="cheatsheets.html"><span class="ico">◆</span>
+    <span><strong>Cheatsheets</strong><span class="sub">Python, SQL, git, pandas, matplotlib</span></span></a>
+  <a class="link" href="project.html"><span class="ico">◆</span>
+    <span><strong>Project template</strong><span class="sub">What is in project/ and how to make it yours</span></span></a>
+  <a class="link" href="../README.md"><span class="ico">◆</span>
+    <span><strong>The repo README</strong><span class="sub">The same overview, as plain text</span></span></a>
+</div>
+
+<footer>
+  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
+</footer>
+
+</div>
+<script>
+(function () {
+  var KEY = "pycourse-theme";
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved) root.dataset.theme = saved;
+  } catch (e) { /* private browsing */ }
+
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var next = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = next;
+    try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
+  });
+})();
+</script>
+</body>
+</html>

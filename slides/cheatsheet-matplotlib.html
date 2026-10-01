@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>matplotlib cheatsheet · Python, SQL & Git</title>
+<link rel="stylesheet" href="assets/home.css">
+<style>
+.back { margin: 22px 0 0; font-size: 14.5px; }
+.back a, .note h4 a { color: var(--accent); text-decoration: none; }
+.tagline a, .note p a, .note li a { color: var(--accent); }
+.back a:hover { text-decoration: underline; }
+.sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 470px), 1fr)); gap: 16px; align-items: start; }
+.sheet > .note { margin: 0; min-width: 0; }
+.note h4 { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; }
+.note h4 .pill { font-size: 12px; padding: 2px 10px; font-weight: 600; }
+.note pre { font-size: 13.5px; line-height: 1.5; }
+.note ul { margin: 0 0 10px; padding-left: 20px; color: var(--ink-soft); font-size: 15px; }
+.ref-wrap { overflow-x: auto; margin: 4px 0 10px; }
+table.ref { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.ref th, table.ref td { text-align: left; vertical-align: top; padding: 6px 9px; border-bottom: 1px solid var(--line-soft); color: var(--ink-soft); }
+table.ref th { color: var(--ink-dim); font-weight: 650; font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+table.ref td code { white-space: nowrap; }
+@media print {
+  :root, :root[data-theme] {
+    --bg: #fff; --bg-deep: #fff; --surface: #fff; --surface-2: #fff; --surface-3: #eef1f5;
+    --line: #c4ccd8; --line-soft: #d9dee6; --ink: #000; --ink-soft: #1d2430; --ink-dim: #4b5566;
+    --accent: #2a49b0; --teal: #0d7a5d; --teal-soft: transparent;
+  }
+  body { background: #fff; padding: 0; }
+  #theme-toggle, .back { display: none; }
+  header { padding: 0 0 10px; }
+  h1 { background: none; color: #000; font-size: 28px; }
+  .tagline { font-size: 14px; }
+  h2 { margin: 18px 0 10px; }
+  .sheet { grid-template-columns: 1fr; gap: 8px; }
+  .note { break-inside: avoid; background: #fff; padding: 10px 12px; }
+  .note pre { font-size: 10.5px; white-space: pre-wrap; padding: 8px 10px; }
+  .note p, .note ul, table.ref { font-size: 12px; }
+  footer { margin-top: 20px; }
+}
+</style>
+</head>
+<body>
+<button id="theme-toggle" type="button">light / dark</button>
+<div class="wrap">
+
+<p class="back"><a href="index.html">← Course index</a> · <a href="cheatsheets.html">All cheatsheets</a></p>
+
+<header>
+  <div class="kicker">Cheatsheet · session 9</div>
+  <h1>matplotlib</h1>
+  <p class="tagline">One question, one chart. Bars, lines, labels and saving, the way session 9 draws them. Every snippet here was run against the repository's data and saved its PNG.</p>
+  <div class="facts">
+    <span class="pill pill--accent">import matplotlib.pyplot as plt</span>
+    <span class="pill">bar, barh, plot</span>
+    <span class="pill">Titles that answer</span>
+    <span class="pill">Save before show</span>
+  </div>
+</header>
+
+<h2>The pattern</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Every chart starts the same way</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<pre>import os
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+plays = pd.read_csv(&quot;data/clean/plays.csv&quot;)
+os.makedirs(&quot;output&quot;, exist_ok=True)
+
+fig, ax = plt.subplots(figsize=(8, 4.5))   # fig: the picture, ax: the chart in it
+ax.bar([&quot;phone&quot;, &quot;laptop&quot;], [1039, 524])
+plt.show()                                 # in a notebook: draw it here</pre>
+<p>Call methods on <code>ax</code> to draw and label. <code>figsize</code> is width and height in inches.</p>
+</div>
+<div class="note">
+<h4><span>The question first</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<p>A chart is an answer to a question. Get the numbers with pandas, sorted, before drawing anything:</p>
+<pre>by_genre = (plays.groupby(&quot;genre&quot;)[&quot;minutes_played&quot;]
+            .mean()
+            .sort_values(ascending=False))
+print(by_genre.round(1).head(3))     # Jazz 6.6, Electronic 5.3, ...
+top_genre, top_minutes = by_genre.index[0], by_genre.iloc[0]</pre>
+<p>Sorted bars make the ranking the first thing a reader sees.</p>
+</div>
+</div>
+<h2>Chart types</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Bar: categories</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<pre>fig, ax = plt.subplots(figsize=(8, 4.5))
+bars = ax.bar(by_genre.index, by_genre.values, color=&quot;#4f6ddb&quot;)
+
+ax.set_title(f&quot;{top_genre} plays last longest: {top_minutes:.1f} minutes on average&quot;)
+ax.set_ylabel(&quot;average minutes per play&quot;)         # units on the axis
+ax.bar_label(bars, fmt=&quot;{:.1f}&quot;)                  # the value on each bar
+ax.spines[[&quot;top&quot;, &quot;right&quot;]].set_visible(False)    # borders that say nothing
+
+fig.savefig(&quot;output/minutes_by_genre.png&quot;, dpi=150, bbox_inches=&quot;tight&quot;)
+plt.close(fig)</pre>
+<p>The title states the answer: "Jazz plays last longest: 6.6 minutes on average", not "Minutes per genre".</p>
+</div>
+<div class="note">
+<h4><span>Horizontal bar: long names</span><span><a class="pill" href="session-09.html">Session 9</a> <a class="pill" href="session-10.html">Session 10</a></span></h4>
+<pre>minutes = plays.groupby(&quot;artist_name&quot;)[&quot;minutes_played&quot;].sum()
+top = minutes.sort_values(ascending=False).head(8)
+ranked = top.sort_values()                # barh draws from the bottom up
+
+fig, ax = plt.subplots(figsize=(8, 4.5))
+bars = ax.barh(ranked.index, ranked.values, color=&quot;#4f6ddb&quot;)
+ax.set_title(f&quot;{ranked.index[-1]} and {ranked.index[-2]} are far ahead of the rest&quot;)
+ax.set_xlabel(&quot;minutes played, 2024 to 2025&quot;)
+ax.bar_label(bars, fmt=&quot;{:,.1f}&quot;, padding=3)      # padding: a gap after the bar
+ax.spines[[&quot;top&quot;, &quot;right&quot;]].set_visible(False)
+fig.savefig(&quot;output/top_artists.png&quot;, dpi=150, bbox_inches=&quot;tight&quot;)
+plt.close(fig)
+print(top.index[0])                       # Glass Tram, at the top of the chart</pre>
+<p>Or keep the biggest-first order and call <code>ax.invert_yaxis()</code>, as session 10's pipeline does.</p>
+</div>
+<div class="note">
+<h4><span>Line: time</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<pre>per_month = plays.groupby(plays[&quot;played_at&quot;].str[:7]).size()
+
+fig, ax = plt.subplots(figsize=(10, 4.5))
+ax.plot(per_month.index, per_month.values, marker=&quot;o&quot;, color=&quot;#4f6ddb&quot;)
+ax.set_title(&quot;Listening dips every summer, in both years&quot;)
+ax.set_ylabel(&quot;plays per month&quot;)
+ax.set_ylim(bottom=0)                       # so a dip is not a cliff
+ax.tick_params(axis=&quot;x&quot;, labelrotation=90)  # 24 month labels, turned
+ax.spines[[&quot;top&quot;, &quot;right&quot;]].set_visible(False)
+fig.savefig(&quot;output/plays_per_month.png&quot;, dpi=150, bbox_inches=&quot;tight&quot;)
+plt.close(fig)
+print(per_month.idxmin(), per_month.min())  # 2025-08 57</pre>
+<p>A line says "this follows from that", which is only true when the x-axis has an order. Months, days, years: a line. Genres, devices, artists: bars.</p>
+</div>
+<div class="note">
+<h4><span>Two charts side by side</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<pre>skip_rate = plays.groupby(&quot;device&quot;)[&quot;skipped&quot;].mean().sort_values(ascending=False) * 100
+
+fig, (left, right) = plt.subplots(1, 2, figsize=(11, 4))   # 1 row, 2 charts
+left.bar(skip_rate.index, skip_rate.values, color=&quot;#c0392b&quot;)
+left.set_ylim(10, 14.5)
+left.set_title(&quot;Zoomed in: speaker looks terrible&quot;)
+right.bar(skip_rate.index, skip_rate.values, color=&quot;#4f6ddb&quot;)
+right.set_ylim(0, 15)
+right.set_title(&quot;From zero: they are all much the same&quot;)
+right.bar_label(right.containers[0], fmt=&quot;{:.1f}%&quot;)
+fig.savefig(&quot;output/skip_rate_two_ways.png&quot;, dpi=150, bbox_inches=&quot;tight&quot;)
+plt.close(fig)
+print(skip_rate.round(1).iloc[[0, -1]].to_dict())   # {&#x27;speaker&#x27;: 14.0, &#x27;car&#x27;: 10.6}</pre>
+<p>Same numbers, two stories. Bars always start at zero: the length of a bar is the number.</p>
+</div>
+</div>
+<h2>Finishing</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Saving</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<pre>fig, ax = plt.subplots(figsize=(8, 4.5))
+ax.bar(by_genre.index, by_genre.values)
+fig.savefig(&quot;output/chart.png&quot;, dpi=150, bbox_inches=&quot;tight&quot;)   # save FIRST
+plt.close(fig)                                                  # then let it go
+print(os.path.exists(&quot;output/chart.png&quot;))                       # True</pre>
+<p><code>dpi=150</code> is sharp enough for a slide. <code>bbox_inches="tight"</code> stops long labels being cut off. In a script, <code>plt.savefig()</code> after <code>plt.show()</code> writes a blank picture. <code>output/</code> is gitignored.</p>
+</div>
+<div class="note">
+<h4><span>Labels and tidying</span><span><a class="pill" href="session-09.html">Session 9</a> <a class="pill" href="session-10.html">Session 10</a></span></h4>
+<div class="ref-wrap"><table class="ref">
+<tr><th>Call</th><th>Does</th></tr>
+<tr><td><code>ax.set_title("…")</code></td><td>The answer, in words</td></tr>
+<tr><td><code>ax.set_xlabel</code> / <code>set_ylabel</code></td><td>What the axis measures, with units</td></tr>
+<tr><td><code>ax.set_ylim(bottom=0)</code></td><td>Start the axis at zero</td></tr>
+<tr><td><code>ax.bar_label(bars, fmt="{:.1f}")</code></td><td>Numbers on the bars; <code>fmt</code> is an f-string format without the f</td></tr>
+<tr><td><code>ax.tick_params(axis="x", labelrotation=90)</code></td><td>Turn crowded labels</td></tr>
+<tr><td><code>ax.spines[["top", "right"]].set_visible(False)</code></td><td>Remove the empty borders</td></tr>
+<tr><td><code>ax.invert_yaxis()</code></td><td>Biggest at the top of a <code>barh</code></td></tr>
+<tr><td><code>fig.tight_layout()</code></td><td>Stop labels overlapping</td></tr>
+</table></div>
+</div>
+<div class="note">
+<h4><span>Checklist for every chart</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<ul>
+<li>Can I say the question in one sentence?</li>
+<li>Does the title give the answer, not the topic?</li>
+<li>Bars for categories, a line for time?</li>
+<li>Do the bars start at zero?</li>
+<li>Units on the axis, numbers rounded to what a person would say?</li>
+<li>Would it make sense to someone who was not in the room?</li>
+</ul>
+</div>
+</div>
+
+<footer>
+  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
+</footer>
+
+</div>
+<script>
+(function () {
+  var KEY = "pycourse-theme";
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved) root.dataset.theme = saved;
+  } catch (e) { /* private browsing */ }
+
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var next = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = next;
+    try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
+  });
+})();
+</script>
+</body>
+</html>

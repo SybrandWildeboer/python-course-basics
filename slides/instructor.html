@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instructor notes: Python, SQL &amp; Git</title>
+<link rel="stylesheet" href="assets/home.css">
+<style>
+  .back { display: inline-block; margin-bottom: 22px; font-size: 14px; color: var(--ink-soft); text-decoration: none; }
+  .back:hover { color: var(--accent); }
+  .note a, td a { color: var(--accent); }
+  .table-wrap { overflow-x: auto; margin: 0 0 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; background: var(--surface); border: 1px solid var(--line-soft); border-radius: 12px; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line-soft); }
+  tr:last-child td { border-bottom: 0; }
+  th { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-dim); background: var(--surface-2); }
+  td { color: var(--ink-soft); }
+  td:first-child { white-space: nowrap; }
+  .note ul, .note ol { margin: 0 0 10px; padding-left: 22px; color: var(--ink-soft); font-size: 15.5px; }
+  .note li { margin-bottom: 5px; }
+</style>
+</head>
+<body>
+<button id="theme-toggle" type="button">light / dark</button>
+<div class="wrap">
+
+<header>
+  <a class="back" href="index.html">← Course index</a>
+  <div class="kicker">Instructor notes · for whoever is teaching</div>
+  <h1>Teaching the course</h1>
+  <p class="tagline">How a session runs, what to check before each one, the tools that keep the
+    materials honest, and how to pace it for a learner who goes fast. Each session's own
+    run sheet has the detail; this page is the part that is the same every week.</p>
+  <div class="facts">
+    <span class="pill pill--accent">12 sessions of 2 hours</span>
+    <span class="pill">one to one</span>
+    <span class="pill">2 to 4 hours homework a week</span>
+    <span class="pill pill--teal">a run sheet per session</span>
+  </div>
+</header>
+
+<h2>How a session runs</h2>
+<div class="note">
+  <h4>The same shape every week</h4>
+  <ul>
+    <li><strong>0:00, homework review, 10 to 15 minutes.</strong> They run their homework, not
+      you, and you start with what broke. It is also the retention check: you see straight
+      away what stuck from last week.</li>
+    <li><strong>Teaching, in two blocks</strong> around a ten-minute break near the hour. The
+      run sheet says which slides go in which block, and which block to protect.</li>
+    <li><strong>The live exercise, with them driving.</strong> Their keyboard, their screen.
+      You ask questions; you do not type.</li>
+    <li><strong>The last 5 to 10 minutes: homework briefing.</strong> From session 6, also
+      commit and push.</li>
+  </ul>
+  <p>Homework is 2 to 4 hours and meant to be a bit too hard. On <strong>Saturday</strong>
+    they send one line, <code>Homework done</code> or <code>Homework not done</code>. A "not
+    done" is information, not failure: it tells you what to start the next session with.
+    Answers are in <code>homework/solutions/</code>, for after the Saturday line.</p>
+  <p>Each session's <code>README.md</code> is its run sheet: timings, the slides that carry
+    the session, the files, what to watch out for, and a definition of done. Speaker notes are
+    in the deck: press <code>n</code>. Press <code>o</code> for a grid of every slide.</p>
+</div>
+
+<h2>Before every session</h2>
+<div class="note">
+  <h4>Twenty minutes, the day before</h4>
+  <ol>
+    <li>Read the session's run sheet, especially <em>The slides that matter</em> and
+      <em>Watch out for</em>. Note which block you will protect if time runs short.</li>
+    <li>Click through the deck with the speaker notes open.</li>
+    <li>Run the session's notebooks, so nothing surprises you live (Windows; on macOS type
+      <code>python3</code>):
+      <pre>python tools/nbtool.py run sessions/session-07</pre></li>
+    <li>For a SQL session, run its queries too:
+      <pre>python tools/check_sql.py sessions/session-07</pre></li>
+    <li>Look at their Saturday line, and their pushed homework once they have a repo (from
+      session 5), so the review starts with what they actually did.</li>
+    <li>Do the session's own checklist, in the table below.</li>
+  </ol>
+  <p>If you change the materials after session 5, the learner gets the change with
+    <code>git pull course main</code>: in session 5 the course remote is renamed to
+    <code>course</code>, and <code>origin</code> becomes their own repo.</p>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Before</th><th>Check</th></tr></thead>
+    <tbody>
+      <tr><td>Session 1</td><td>Send install links, with a note <strong>not to install anything yet</strong>. Make sure the repo is pushed and public and the clone URL on slide 12 is right. Ask for a machine with a terminal and admin rights.</td></tr>
+      <tr><td>Session 4</td><td>Check the dataset is there, and open <code>data/clean/plays.csv</code> in VS Code to show the raw text.</td></tr>
+      <tr><td>Session 5</td><td>They have a GitHub account (reminded at the end of session 4). Budget twenty minutes for authentication, in the session, never as homework.</td></tr>
+      <tr><td>Session 6</td><td>DB Browser for SQLite is installed (reminded at the end of session 5). It is the main tool of the session.</td></tr>
+      <tr><td>Session 9</td><td>Open <code>data/messy/plays_messy.csv</code> in VS Code to show the damage. Run <code>notebooks/02-charts.ipynb</code> once so matplotlib has built its font cache before the learner watches it do so.</td></tr>
+      <tr><td>Session 10</td><td>Run <code>sessions/session-10/demos/genre_pipeline.py</code> from the repo root and from <code>sessions/session-10</code>. Check their Python version (3.10 or newer) and that <code>pip install</code> works on their network: some work laptops block it.</td></tr>
+      <tr><td>Session 11</td><td><code>python project/pipeline.py</code> runs with <code>.venv</code> active. Have the repetitive task they named in session 1 ready for slide 4. Ask them to bring their data. Ask whether the Spotify export has arrived.</td></tr>
+      <tr><td>Session 12</td><td>Ask them to run the pipeline fresh before presenting, so the chart is not last week's.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Dates to plan</h2>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>When</th><th>What, and why then</th></tr></thead>
+    <tbody>
+      <tr><td>Before session 1</td><td>Install links, but no installing: the install is done together, in the session.</td></tr>
+      <tr><td>End of session 4</td><td>Remind them to make a GitHub account before session 5.</td></tr>
+      <tr><td>End of session 5</td><td>Remind them to install DB Browser for SQLite before session 6.</td></tr>
+      <tr><td><strong>End of session 10</strong></td><td><strong>The Spotify export.</strong> If the project might use their own listening history, they request the <em>Extended streaming history</em> now. Spotify allows itself up to 30 days; reports range from a few hours to two weeks. It is task 3 of the session 10 homework, to be done first. Asked for in session 11, it arrives too late for the first run.</td></tr>
+      <tr><td>Session 11</td><td>Agree the date of session 12. The plan assumes <strong>two weeks</strong>: milestone 1 in week one, milestones 2 and 3 in week two. With only one week, the homework becomes milestones 1 and 2 and the could list goes.</td></tr>
+      <tr><td>Between 11 and 12</td><td>One short message after milestone 1: "send me the output of <code>python project/pipeline.py</code>". It catches a stalled project while there is still time.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>The checks in tools/</h2>
+<div class="note">
+  <h4>Run these after you change anything</h4>
+  <p>They are how the course stays true: a query on a slide that does not run, or a number
+    that no longer matches, is worse than no query at all. From the repository folder
+    (<code>python3</code> on macOS):</p>
+  <pre>python tools/nbtool.py check      # notebooks are valid JSON, compile, carry no saved output
+python tools/nbtool.py run        # every solved and walkthrough notebook runs top to bottom
+python tools/check_sql.py         # every .sql file runs, with the row counts it claims
+python tools/check_slides.py      # every slide fits at 1280x720 and has speaker notes</pre>
+  <p>Each takes a folder or session to narrow it down, as in
+    <code>python tools/nbtool.py run sessions/session-10</code> or
+    <code>python tools/check_slides.py 10</code>.</p>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><a href="../tools/nbtool.py"><code>nbtool.py</code></a></td><td><code>check</code> is fast and needs nothing installed. <code>run</code> executes every notebook from the repository folder and skips the <code>-exercise</code> and <code>-homework</code> starters, which are meant to be full of TODOs. <code>strip</code> removes saved output before a commit. <code>convert</code> turns a percent-format <code>.py</code> into a notebook.</td></tr>
+      <tr><td><a href="../tools/check_sql.py"><code>check_sql.py</code></a></td><td>Runs every statement in every <code>.sql</code> file against a throwaway copy of <code>data/music.db</code>, so the real database is never touched. A <code>-- expect: N rows</code> comment pins the row count of the statement after it.</td></tr>
+      <tr><td><a href="../tools/check_slides.py"><code>check_slides.py</code></a></td><td>Opens each deck in a headless browser and reports content cut off, code blocks that scroll sideways, slides with no notes, and JavaScript errors. <code>--shots</code> saves a PNG per slide to <code>tools/.shots/</code>, which git ignores.</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="note">
+  <h4>The extras they need</h4>
+  <p><code>check</code> and <code>check_sql.py</code> use only the standard library.
+    <code>nbtool.py run</code> and <code>check_slides.py</code> need:</p>
+  <pre>python -m pip install playwright nbformat nbclient ipykernel
+python -m playwright install chromium</pre>
+  <p>The session 12 tests run with pytest, one folder at a time:
+    <code>python -m pytest sessions/session-12/solutions</code> (35 tests). Never run it with no
+    folder from the repository root: it collects the exercise starter, which fails on purpose.</p>
+</div>
+
+<h2>The stretch notebooks</h2>
+<div class="note">
+  <h4>For when a session runs early, sessions 3 to 12</h4>
+  <p>Every session from 3 on has a <code>-stretch-exercise.ipynb</code> and a
+    <code>-stretch-solved.ipynb</code>. Six or seven exercises that get harder as they go, each
+    adding one idea the main session did not have time for. Use as many as the time allows;
+    nobody needs to finish one. Each run sheet's <em>If there is time left</em> section lists
+    them and says which one to talk through rather than just check.</p>
+  <ul>
+    <li>Session 5's stretch is instructions only: the work happens in the terminal, in a
+      throwaway <code>git-playground</code> repo.</li>
+    <li>Session 6 and 7 stretches have their queries in <code>solutions/stretch.sql</code>, with
+      row counts pinned, so <code>check_sql.py</code> keeps the notebook's numbers true.</li>
+    <li>Session 8: if part one runs early, spend the time on the side-by-side block, not the
+      stretch. That block is the session.</li>
+    <li>Session 11's stretch is the Spotify route on a practice export. It is the head start
+      for anyone whose project will use the real one.</li>
+    <li>Session 12 rarely has time left. Its stretch is written to work alone in the week after.</li>
+  </ul>
+  <p>The full list of stretch notebooks is on <a href="sessions.html">the sessions page</a>.</p>
+</div>
+
+<h2>Pacing a fast learner</h2>
+<div class="note">
+  <h4>Go deeper before you go faster</h4>
+  <ul>
+    <li><strong>Keep the two-hour slots.</strong> Finishing early is not a reason to end
+      early, or to start the next session. The time between sessions, with the homework, is
+      where it sets.</li>
+    <li><strong>Check retention, not speed.</strong> Fast in the session can still mean gone by
+      next week. The homework review is the test: they run it and explain it. Ask for one
+      thing from two sessions back without notes, such as <code>return</code> versus
+      <code>print</code>, or why a join made a total bigger. If it is not there, that is the
+      next ten minutes.</li>
+    <li><strong>Stretch first.</strong> When a session runs early, reach for its stretch
+      notebook before pulling material forward. It stays on the same idea and goes further,
+      which is what builds confidence that lasts.</li>
+    <li><strong>If you must save a week, two merges are possible: 3 with 4, and 6 with
+      7.</strong> In each pair the second session builds directly on the first with no new
+      setup. The cost is a homework week, so only merge when the retention checks say the
+      first session has stuck. When merging 6 and 7, follow session 7's own advice: cut views
+      and the subquery variations, and never the fan-out block, which needs the most practice
+      of anything in the course.</li>
+    <li><strong>Do not compress sessions 10 to 12.</strong> The virtual environment has to work
+      on their machine before session 11, and the project needs its two weeks before session 12.</li>
+  </ul>
+</div>
+
+<h2>Every session's run sheet</h2>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Session</th><th>Run sheet</th><th>Slides</th><th>The block to protect</th></tr></thead>
+    <tbody>
+      <tr><td>01 · Python</td><td><a href="../sessions/session-01/README.md">Setup and first contact</a></td><td><a href="session-01.html">deck</a></td><td>The install. If it runs long, cut the intro next time, never the install.</td></tr>
+      <tr><td>02 · Python</td><td><a href="../sessions/session-02/README.md">Control flow</a></td><td><a href="session-02.html">deck</a></td><td>Ten minutes of breaking things on purpose: the most valuable part of the course.</td></tr>
+      <tr><td>03 · Python</td><td><a href="../sessions/session-03/README.md">Functions</a></td><td><a href="session-03.html">deck</a></td><td><code>return</code> versus <code>print</code>. Do not rush it.</td></tr>
+      <tr><td>04 · Python</td><td><a href="../sessions/session-04/README.md">Lists, dictionaries and files</a></td><td><a href="session-04.html">deck</a></td><td>"A list of dictionaries is a table", the hinge of the whole course.</td></tr>
+      <tr><td>05 · Git</td><td><a href="../sessions/session-05/README.md">Git and GitHub</a></td><td><a href="session-05.html">deck</a></td><td>Authentication, all twenty minutes, in the session.</td></tr>
+      <tr><td>06 · SQL</td><td><a href="../sessions/session-06/README.md">SQL foundations</a></td><td><a href="session-06.html">deck</a></td><td><code>NULL</code>, the <code>GROUP BY</code> trap, and SQL next to their own session 4 Python.</td></tr>
+      <tr><td>07 · SQL</td><td><a href="../sessions/session-07/README.md">Joins and shaping</a></td><td><a href="session-07.html">deck</a></td><td>Fan-out. Cut views and subqueries before it.</td></tr>
+      <tr><td>08 · Data</td><td><a href="../sessions/session-08/README.md">pandas</a></td><td><a href="session-08.html">deck</a></td><td>The four queries side by side, ending with fan-out and <code>validate</code>.</td></tr>
+      <tr><td>09 · Data</td><td><a href="../sessions/session-09/README.md">Cleaning and visualization</a></td><td><a href="session-09.html">deck</a></td><td>The ledger. Shorten the chart half, never the ledger.</td></tr>
+      <tr><td>10 · Build</td><td><a href="../sessions/session-10/README.md">Putting it together</a></td><td><a href="session-10.html">deck</a></td><td>The virtual environment on their own machine. Shorten the exercise instead.</td></tr>
+      <tr><td>11 · Build</td><td><a href="../sessions/session-11/README.md">Project scoping and setup</a></td><td><a href="session-11.html">deck</a></td><td>The first run on their own data. Cut the Spotify slides first.</td></tr>
+      <tr><td>12 · Build</td><td><a href="../sessions/session-12/README.md">Presentation, review and what is next</a></td><td><a href="session-12.html">deck</a></td><td>The first hour belongs to them: the presentation and the review. Shorten the map instead.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
+</footer>
+
+</div>
+<script>
+(function () {
+  var KEY = "pycourse-theme";
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved) root.dataset.theme = saved;
+  } catch (e) { /* private browsing */ }
+
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var next = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = next;
+    try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install guide · Python, SQL &amp; Git</title>
+<link rel="stylesheet" href="assets/home.css">
+<style>
+  .back { margin: 0 0 20px; font-size: 14px; }
+  .back a { color: var(--ink-dim); text-decoration: none; }
+  .back a:hover { color: var(--accent); }
+  .note a { color: var(--accent); }
+  .note ul, .note ol { margin: 0 0 10px; padding-left: 22px; font-size: 15.5px; color: var(--ink-soft); }
+  .note li { margin-bottom: 4px; }
+  .note li:last-child { margin-bottom: 0; }
+  .note .os { display: block; margin: 14px 0 -4px; font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  .table-scroll { overflow-x: auto; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; background: var(--surface); border: 1px solid var(--line-soft); border-radius: 12px; overflow: hidden; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--line-soft); }
+  th { font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-dim); background: var(--surface-2); }
+  td { color: var(--ink-soft); }
+  tr:last-child td { border-bottom: 0; }
+  @media (max-width: 620px) { th, td { padding: 8px 10px; font-size: 14px; } }
+</style>
+</head>
+<body>
+<button id="theme-toggle" type="button">light / dark</button>
+<div class="wrap">
+
+<header>
+  <p class="back"><a href="index.html">← Course index</a></p>
+  <div class="kicker">Install guide · Windows and macOS</div>
+  <h1>Install everything</h1>
+  <p class="tagline">Four tools and a handful of Python packages, in the order the course needs
+    them. Session 1 does the first part with you, on your machine. Do not install anything
+    before then unless you are asked to.</p>
+  <div class="facts">
+    <span class="pill pill--accent">Python 3.12</span>
+    <span class="pill">VS Code</span>
+    <span class="pill">Git</span>
+    <span class="pill">DB Browser for SQLite</span>
+    <span class="pill pill--teal">Admin rights on the machine</span>
+  </div>
+</header>
+
+<h2>What you install, and when</h2>
+<div class="table-scroll">
+<table>
+  <tr><th>What</th><th>What it is for</th><th>When</th></tr>
+  <tr><td>Python</td><td>The interpreter, the program that runs your code</td><td>Session 1</td></tr>
+  <tr><td>VS Code, with the Python and Jupyter extensions</td><td>The editor you write in, a
+    built-in terminal, and notebooks</td><td>Session 1</td></tr>
+  <tr><td>Git</td><td>Version control. Needed in session 1 only to copy the course down;
+    explained in session 5</td><td>Session 1</td></tr>
+  <tr><td>JupyterLab</td><td>The notebook machinery, and <code>jupyter lab</code> if you
+    prefer notebooks in the browser</td><td>Session 1</td></tr>
+  <tr><td>DB Browser for SQLite</td><td>A window into the database, so SQL is not
+    invisible</td><td>Before session 6</td></tr>
+  <tr><td>pandas and matplotlib</td><td>Tables and charts in Python</td><td>Before session 8</td></tr>
+  <tr><td>A virtual environment for <code>project/</code></td><td>The project's own packages,
+    at fixed versions</td><td>Session 10, together</td></tr>
+  <tr><td>pytest</td><td>Running tests</td><td>Session 12, into the project's environment</td></tr>
+</table>
+</div>
+
+<h2>1 · Python</h2>
+<div class="note">
+  <h4>Pick Python 3.12</h4>
+  <p>Anything from 3.10 up runs the course code. The one catch is the project in session 10:
+    <code>project/requirements.txt</code> pins <code>matplotlib==3.9.0</code>, and that
+    version only has ready-made installers up to Python 3.12. On 3.13 or newer, pip tries to
+    build it from source in session 10 and fails. So take 3.12 now and avoid the problem.</p>
+  <p>On <strong>python.org</strong>, go to Downloads, choose your system, and pick the newest
+    3.12 release that offers an installer (3.12.10).</p>
+  <span class="os">Windows</span>
+  <ol>
+    <li>Download the Windows installer (64-bit) and run it.</li>
+    <li><strong>On the first screen, tick "Add python.exe to PATH".</strong> It is unticked by
+      default. Miss it and the terminal will claim Python is not installed.</li>
+    <li>Click <strong>Install Now</strong>.</li>
+  </ol>
+  <span class="os">macOS</span>
+  <ol>
+    <li>Download the macOS installer (the <code>.pkg</code>) and run it with the defaults.</li>
+    <li>From now on, type <code>python3</code> and <code>pip3</code>, not <code>python</code>
+      and <code>pip</code>. That is the rule on a Mac for the whole course, until a virtual
+      environment is active in session 10.</li>
+  </ol>
+</div>
+
+<h2>2 · VS Code</h2>
+<div class="note">
+  <h4>The editor, and two extensions</h4>
+  <ol>
+    <li>Download VS Code from <strong>code.visualstudio.com</strong> and install it with the
+      defaults.</li>
+    <li>Open the Extensions panel (the four squares on the left) and install
+      <strong>Python</strong> and <strong>Jupyter</strong>, both published by Microsoft. Python
+      gives you the play button and error highlighting; Jupyter lets VS Code open
+      notebooks.</li>
+  </ol>
+  <p>The terminal inside VS Code opens with <code>Ctrl `</code> on Windows and
+    <code>Cmd `</code> on a Mac. On Windows it is PowerShell. Use it for everything on this
+    page.</p>
+  <span class="os">macOS</span>
+  <p>To be able to type <code>code .</code> in a terminal: in VS Code, press
+    <code>Cmd Shift P</code> and run <strong>Shell Command: Install 'code' command in
+    PATH</strong>. Optional; <strong>File → Open Folder</strong> does the same job.</p>
+</div>
+
+<h2>3 · Git</h2>
+<div class="note">
+  <h4>Install it now, even though it is explained in session 5</h4>
+  <p>You need it today to copy the course to your machine, and the download is slow on some
+    connections.</p>
+  <span class="os">Windows</span>
+  <p>Download Git for Windows from <strong>git-scm.com</strong> and click through the
+    installer with the defaults.</p>
+  <span class="os">macOS</span>
+  <p>Type <code>git --version</code> in Terminal. If Git is missing, macOS offers to install
+    the command line developer tools, which include it. Say yes, wait, and run
+    <code>git --version</code> again.</p>
+</div>
+
+<h2>4 · Prove each one is there</h2>
+<div class="note">
+  <h4>Close every terminal first, then open a new one</h4>
+  <p>A terminal reads PATH only when it starts, so one that was open during the install
+    cannot see what you just installed.</p>
+  <span class="os">Windows</span>
+  <pre>python --version
+python -m pip --version
+git --version</pre>
+  <span class="os">macOS</span>
+  <pre>python3 --version
+python3 -m pip --version
+git --version</pre>
+  <p>Good looks like <code>Python 3.12.10</code>, a pip line that ends in
+    <code>(python 3.12)</code>, and <code>git version 2.something</code>. The pip line names
+    the Python it belongs to. If that is not the Python from the first line, see
+    <a href="troubleshooting.html#two-pythons">two Pythons on one machine</a>.</p>
+  <p>"Not recognized" or "command not found" means the tool is installed but the terminal
+    cannot find it. On Windows that is almost always the PATH box: re-run the Python
+    installer, choose <strong>Modify</strong>, and tick the option to add Python to the
+    environment variables.</p>
+</div>
+
+<h2>5 · Get the course onto your machine</h2>
+<div class="note">
+  <h4>Clone it, open the folder, start the site</h4>
+  <p>In the terminal, go to a folder you will find again. <code>cd Documents</code> is fine.
+    Avoid spaces and accented characters in the path; it saves pain later.</p>
+  <pre>git clone https://github.com/SybrandWildeboer/python-course-basics.git
+cd python-course-basics</pre>
+  <p>Open it in VS Code with <strong>File → Open Folder</strong> and pick
+    <code>python-course-basics</code>, or type <code>code .</code>. Open the
+    <strong>folder</strong>, not a single file, so the terminal starts in the right
+    place.</p>
+  <p>Then start the course site:</p>
+  <span class="os">Windows</span>
+  <pre>python serve.py</pre>
+  <span class="os">macOS</span>
+  <pre>python3 serve.py</pre>
+  <p>Your browser opens on the course index. Stop the server with <code>Ctrl C</code>.
+    <code>python serve.py --no-browser</code> starts it without opening a window, and
+    <code>--port 9001</code> picks a different port.</p>
+  <p>If <code>git clone</code> asks for a username and password, it should not for a public
+    repo. Do not debug it now: download the ZIP from the GitHub page instead, and it gets
+    fixed properly in session 5.</p>
+</div>
+
+<h2>6 · Notebooks</h2>
+<div class="note">
+  <h4>Install JupyterLab</h4>
+  <span class="os">Windows</span>
+  <pre>python -m pip install jupyterlab</pre>
+  <span class="os">macOS</span>
+  <pre>python3 -m pip install jupyterlab</pre>
+  <p>The session 1 slides write this as <code>pip install jupyterlab</code>. Putting
+    <code>python -m</code> in front does the same thing, with one guarantee: the package goes
+    into the Python that <code>python</code> runs, not some other Python that happens to own
+    the <code>pip</code> command.</p>
+</div>
+<div class="note">
+  <h4>Open your first notebook</h4>
+  <ol>
+    <li>In VS Code, open <code>sessions/session-01/notebooks/01-first-steps.ipynb</code>.</li>
+    <li>Top right, click <strong>Select Kernel</strong>, then <strong>Python
+      Environments</strong>, and pick the Python 3.12 you installed. If VS Code offers to
+      install <code>ipykernel</code>, say yes.</li>
+    <li>Click the first cell and press <code>Shift Enter</code>. The answer appears under the
+      cell.</li>
+  </ol>
+  <p>Prefer the browser? Run <code>jupyter lab</code> in the terminal, from the repo folder.
+    Same notebooks, same everything.</p>
+</div>
+
+<h2>7 · DB Browser for SQLite, before session 6</h2>
+<div class="note">
+  <h4>A window into the database</h4>
+  <span class="os">Windows</span>
+  <p>Download the Windows installer from <strong>sqlitebrowser.org</strong> and run it.</p>
+  <span class="os">macOS</span>
+  <p>Download the <code>.dmg</code> from <strong>sqlitebrowser.org</strong> and drag DB
+    Browser for SQLite into Applications. With Homebrew,
+    <code>brew install --cask db-browser-for-sqlite</code> does the same.</p>
+  <p>To check it: <strong>Open Database</strong>, choose <code>data/music.db</code> from the
+    repo, and look for three tables: <code>plays</code>, <code>artists</code> and
+    <code>awards</code>.</p>
+</div>
+
+<h2>8 · pandas and matplotlib, before session 8</h2>
+<div class="note">
+  <h4>The two packages sessions 8 and 9 use</h4>
+  <span class="os">Windows</span>
+  <pre>python -m pip install pandas matplotlib</pre>
+  <span class="os">macOS</span>
+  <pre>python3 -m pip install pandas matplotlib</pre>
+  <p>Notebooks run in the Python their kernel points at, so pick that same Python 3.12 as the
+    kernel. If a notebook says <code>No module named 'pandas'</code>, the kernel is a
+    different Python from the one you installed into.</p>
+</div>
+
+<h2>9 · The project environment, in session 10</h2>
+<div class="note">
+  <h4>A private set of packages for project/</h4>
+  <p>You do this together in session 10. It is here so you can redo it on another machine.
+    Open a terminal in the repo root.</p>
+  <span class="os">Windows · PowerShell</span>
+  <pre>cd project
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt</pre>
+  <span class="os">macOS</span>
+  <pre>cd project
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt</pre>
+  <p>When it is active, the prompt starts with <code>(.venv)</code>. Inside it,
+    <code>python</code> and <code>pip</code> mean the project's own copies on both systems.
+    You activate it again in every new terminal; <code>deactivate</code> switches it
+    off.</p>
+  <p>If PowerShell says running scripts is disabled, run this once and try again:</p>
+  <pre>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</pre>
+  <p>For <code>project/notebooks/explore.ipynb</code>, pick the <code>.venv</code> Python as
+    the kernel. It does not have <code>ipykernel</code> yet, so VS Code offers to install it.
+    Say yes.</p>
+</div>
+
+<h2>10 · pytest, in session 12</h2>
+<div class="note">
+  <h4>Into the project's environment, with it active</h4>
+  <pre>python -m pip install pytest
+python -m pytest --version</pre>
+  <p>Then add <code>pytest</code> with its version to <code>project/requirements.txt</code>,
+    so a fresh copy of the project gets it too. <code>python -m pip freeze</code> shows the
+    exact version you got.</p>
+</div>
+
+<h2>Only if you change the course materials</h2>
+<div class="note">
+  <h4>The extras the checking tools need</h4>
+  <p>Nobody taking the course needs these. They are for whoever edits the slides or
+    notebooks, and run the checks in <code>tools/</code>.</p>
+  <span class="os">Windows</span>
+  <pre>python -m pip install playwright nbformat nbclient ipykernel
+python -m playwright install chromium</pre>
+  <span class="os">macOS</span>
+  <pre>python3 -m pip install playwright nbformat nbclient ipykernel
+python3 -m playwright install chromium</pre>
+</div>
+
+<div class="links">
+  <a class="link" href="troubleshooting.html"><span class="ico">◆</span>
+    <span><strong>Something did not work?</strong><span class="sub">The errors you will actually hit, and the fixes</span></span></a>
+  <a class="link" href="start.html"><span class="ico">◆</span>
+    <span><strong>Start here</strong><span class="sub">How the course and the repo work</span></span></a>
+  <a class="link" href="session-01.html"><span class="ico">◆</span>
+    <span><strong>Session 1 slides</strong><span class="sub">The install, as it is done live</span></span></a>
+  <a class="link" href="../project/README.md"><span class="ico">◆</span>
+    <span><strong>The project README</strong><span class="sub">The environment steps, in the project itself</span></span></a>
+</div>
+
+<footer>
+  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
+</footer>
+
+</div>
+<script>
+(function () {
+  var KEY = "pycourse-theme";
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved) root.dataset.theme = saved;
+  } catch (e) { /* private browsing */ }
+
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var next = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = next;
+    try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
+  });
+})();
+</script>
+</body>
+</html>

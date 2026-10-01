@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>When something breaks · Python, SQL &amp; Git</title>
+<link rel="stylesheet" href="assets/home.css">
+<style>
+  .back { margin: 0 0 20px; font-size: 14px; }
+  .back a { color: var(--ink-dim); text-decoration: none; }
+  .back a:hover { color: var(--accent); }
+  .note { scroll-margin-top: 24px; }
+  .note ul, .note ol { margin: 0 0 10px; padding-left: 22px; font-size: 15.5px; color: var(--ink-soft); }
+  .note li { margin-bottom: 4px; }
+  .note li:last-child { margin-bottom: 0; }
+  .note pre { margin-bottom: 10px; }
+  .note .tag { display: block; margin: 0 0 6px; font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-dim); }
+  .note .os { display: block; margin: 12px 0 -4px; font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  .jump { columns: 2 300px; column-gap: 28px; margin: 0; padding-left: 20px; font-size: 15px; }
+  .jump li { margin-bottom: 5px; break-inside: avoid; }
+  .jump a, .note a { color: var(--accent); }
+</style>
+</head>
+<body>
+<button id="theme-toggle" type="button">light / dark</button>
+<div class="wrap">
+
+<header>
+  <p class="back"><a href="index.html">← Course index</a></p>
+  <div class="kicker">When something breaks</div>
+  <h1>The errors you will actually hit</h1>
+  <p class="tagline">And the fixes. The messages on this page are the real text, copied from
+    running the mistake on purpose, with long paths shortened. Find the last line of your error, then find it here.</p>
+  <div class="facts">
+    <span class="pill pill--accent">Read the last line first</span>
+    <span class="pill">Then the line number</span>
+    <span class="pill pill--teal">Then the fix</span>
+  </div>
+</header>
+
+<div class="note">
+  <h4>The habit that solves most of these</h4>
+  <p>Python prints a traceback: a wall of text that ends in one line saying what went wrong.
+    Go straight to that <strong>last line</strong>. It names the kind of problem and gives a
+    short description. Then look at the <strong>line number</strong> just above it, which is
+    where Python gave up and nearly always where the fix goes. The middle is the route your
+    program took to get there.</p>
+  <p>Session 2 practises this in <code>sessions/session-02/notebooks/02-errors-on-purpose.ipynb</code>:
+    open it in VS Code and break each cell yourself.</p>
+  <p>Still stuck after ten minutes? Send the code, the exact error text, and what you
+    tried.</p>
+</div>
+
+<h2>Jump to</h2>
+<ul class="jump">
+  <li><a href="#not-recognized">python is not recognized</a></li>
+  <li><a href="#two-pythons">Two Pythons on one machine</a></li>
+  <li><a href="#pip-wrong-python">pip installed it, Python cannot find it</a></li>
+  <li><a href="#kernel">VS Code cannot find a kernel</a></li>
+  <li><a href="#no-pandas">No module named 'pandas'</a></li>
+  <li><a href="#externally-managed">externally-managed-environment (macOS)</a></li>
+  <li><a href="#unsaved">"But I fixed that"</a></li>
+  <li><a href="#syntax">SyntaxError that looks impossible</a></li>
+  <li><a href="#indentation">IndentationError</a></li>
+  <li><a href="#name">NameError</a></li>
+  <li><a href="#type-str">TypeError: 'int' and 'str'</a></li>
+  <li><a href="#type-none">TypeError: 'NoneType'</a></li>
+  <li><a href="#run-order">A notebook that disagrees with itself</a></li>
+  <li><a href="#file-not-found">FileNotFoundError</a></li>
+  <li><a href="#key-error">KeyError on a column</a></li>
+  <li><a href="#encoding">Salon MÃ©canique</a></li>
+  <li><a href="#series-truth">The truth value of a Series is ambiguous</a></li>
+  <li><a href="#identity">Author identity unknown</a></li>
+  <li><a href="#auth">git push asks for a password</a></li>
+  <li><a href="#permission">Permission denied to the course repo</a></li>
+  <li><a href="#rejected">git push rejected</a></li>
+  <li><a href="#conflict">Merge conflict</a></li>
+  <li><a href="#notebook-output">Notebook output in git</a></li>
+  <li><a href="#execution-policy">Running scripts is disabled</a></li>
+  <li><a href="#venv-inactive">No (.venv) in the prompt</a></li>
+  <li><a href="#requirements">requirements.txt will not install</a></li>
+  <li><a href="#pytest">pytest not found</a></li>
+  <li><a href="#port">serve.py and the port</a></li>
+</ul>
+
+<h2>Setup and Python itself</h2>
+
+<div class="note" id="not-recognized">
+  <span class="tag">Session 1</span>
+  <h4>python is not recognized, or command not found</h4>
+  <span class="os">Windows</span>
+  <pre>The term 'python' is not recognized as the name of a cmdlet, ...</pre>
+  <p>or, if Windows sends you to the Store instead:</p>
+  <pre>Python was not found; run without arguments to install from the Microsoft Store, ...</pre>
+  <p>Python is installed, but the terminal cannot find it. Almost always the
+    "Add python.exe to PATH" box in the installer was left unticked.</p>
+  <ol>
+    <li>Close <strong>every</strong> terminal, including the ones in VS Code, and open a new
+      one. PATH is only read when a terminal starts. This fixes it most of the time.</li>
+    <li>If not, re-run the Python installer, choose <strong>Modify</strong>, and tick the
+      option to add Python to the environment variables.</li>
+  </ol>
+  <span class="os">macOS</span>
+  <pre>zsh: command not found: python</pre>
+  <p>On a Mac it is <code>python3</code> and <code>pip3</code>. Type those. Once a virtual
+    environment is active (session 10), plain <code>python</code> works too.</p>
+</div>
+
+<div class="note" id="two-pythons">
+  <span class="tag">Any session</span>
+  <h4>Two Pythons on one machine</h4>
+  <p>Very common, and the root of the next three problems. Ask Python which one it is, and
+    ask the system which ones it can see:</p>
+  <span class="os">Windows</span>
+  <pre>python -c "import sys; print(sys.executable)"
+where.exe python</pre>
+  <span class="os">macOS</span>
+  <pre>python3 -c "import sys; print(sys.executable)"
+which -a python3</pre>
+  <p>On the machine this course was written on, <code>where.exe python</code> lists four,
+    and the first one (3.11) is the one that runs:</p>
+  <pre>C:\Users\...\Programs\Python\Python311\python.exe
+C:\Users\...\Programs\Python\Python312\python.exe
+C:\Users\...\Microsoft\WindowsApps\python.exe
+C:\Users\...\Python\bin\python.exe</pre>
+  <p>That is not a problem in itself. It only bites when you install a package into one and
+    run your code with another.</p>
+</div>
+
+<div class="note" id="pip-wrong-python">
+  <span class="tag">Any session</span>
+  <h4>pip says it installed it, Python says it is not there</h4>
+  <p><code>pip</code> is a separate command, and it can belong to a different Python from
+    <code>python</code>. Real output, same machine as above:</p>
+  <pre>&gt; python -m pip --version
+pip 26.0.1 from ...\Python311\Lib\site-packages\pip (python 3.11)
+&gt; pip --version
+pip 25.0.1 from ...\Python312\Lib\site-packages\pip (python 3.12)</pre>
+  <p>So <code>pip install pandas</code> installs into 3.12, and <code>python</code> runs
+    3.11, which has never heard of it. The fix is to always install through the Python you
+    run:</p>
+  <pre>python -m pip install pandas       # Windows
+python3 -m pip install pandas      # macOS</pre>
+  <p>Inside an active virtual environment, <code>pip</code> and <code>python</code> are the
+    same Python, so either spelling works there.</p>
+</div>
+
+<div class="note" id="kernel">
+  <span class="tag">Session 1, and every notebook after</span>
+  <h4>VS Code cannot find a kernel, or picks the wrong one</h4>
+  <p>The kernel is the Python that runs the notebook. Top right of the notebook, click
+    <strong>Select Kernel</strong> (or the Python version shown there), then
+    <strong>Python Environments</strong>, and pick the Python you installed packages into.</p>
+  <p>If none are listed, or it says the kernel needs <code>ipykernel</code>, let VS Code
+    install it, or do it yourself:</p>
+  <pre>python -m pip install ipykernel    # Windows
+python3 -m pip install ipykernel   # macOS</pre>
+  <p>In <code>project/</code> from session 10, pick the <code>.venv</code> Python as the
+    kernel. VS Code will offer to install <code>ipykernel</code> into it the first time.</p>
+</div>
+
+<div class="note" id="no-pandas">
+  <span class="tag">Sessions 8 to 12</span>
+  <h4>ModuleNotFoundError: No module named 'pandas'</h4>
+  <pre>Traceback (most recent call last):
+  File "&lt;string&gt;", line 1, in &lt;module&gt;
+ModuleNotFoundError: No module named 'pandas'</pre>
+  <p>pandas is not installed <strong>in the Python that ran this</strong>. It may well be
+    installed in a different one. Three usual causes:</p>
+  <ul>
+    <li><strong>Never installed.</strong> <code>python -m pip install pandas matplotlib</code>
+      (Windows) or <code>python3 -m pip install pandas matplotlib</code> (macOS).</li>
+    <li><strong>The notebook kernel is a different Python.</strong> See
+      <a href="#kernel">the kernel</a> above.</li>
+    <li><strong>From session 10: the virtual environment is not active</strong> in this
+      terminal. The fix is activating, not installing. See
+      <a href="#venv-inactive">no (.venv) in the prompt</a>.</li>
+  </ul>
+</div>
+
+<div class="note" id="externally-managed">
+  <span class="tag">macOS with Homebrew</span>
+  <h4>error: externally-managed-environment</h4>
+  <p>If <code>python3</code> on your Mac came from Homebrew rather than python.org, pip
+    refuses to install into it, to protect Homebrew's own packages. Either install Python from
+    python.org as the <a href="install.html">install guide</a> says, or work inside a virtual
+    environment, where pip always works. Do not reach for
+    <code>--break-system-packages</code>; it does what it says.</p>
+</div>
+
+<h2>Errors in your code</h2>
+
+<div class="note" id="unsaved">
+  <span class="tag">Session 1, and forever</span>
+  <h4>"But I fixed that!"</h4>
+  <p>Python runs the file on disk, not what is on your screen. An unsaved file has a dot next
+    to its name in the VS Code tab. Save with <code>Ctrl S</code> (Windows) or
+    <code>Cmd S</code> (macOS), every time, before you run.</p>
+</div>
+
+<div class="note" id="syntax">
+  <span class="tag">Sessions 1 and 2</span>
+  <h4>SyntaxError that makes no sense</h4>
+  <p>Python cannot even read the line. Look at that line <strong>and the one above
+    it</strong>: the usual causes are a missing colon at the end of an <code>if</code> or
+    <code>for</code>, or a missing quote or bracket on the line before.</p>
+  <p>If it still looks perfect, check the quotes. Code pasted from a chat app or a document
+    can carry “curly quotes” instead of "straight quotes", and Python only accepts the
+    straight ones. Retype them by hand.</p>
+  <p>Also common in sessions 2 and 6: <code>=</code> where you meant <code>==</code>. One
+    stores a value, two compare.</p>
+</div>
+
+<div class="note" id="indentation">
+  <span class="tag">Session 2</span>
+  <h4>IndentationError</h4>
+  <pre>  File "indent_error.py", line 3
+    print("a long one")
+    ^
+IndentationError: expected an indented block after 'if' statement on line 2</pre>
+  <p>In Python, indentation is grammar, not decoration. The body of an <code>if</code>,
+    <code>for</code>, <code>while</code> or <code>def</code> must be indented, by four spaces.
+    The nastiest version is a mix of tabs and spaces, because it looks fine on screen. By default
+    VS Code types four spaces when you press <code>Tab</code> in a <code>.py</code> file, so
+    deleting the indentation and retyping it fixes it.</p>
+</div>
+
+<div class="note" id="name">
+  <span class="tag">Sessions 1 to 3</span>
+  <h4>NameError: name '...' is not defined</h4>
+  <pre>NameError: name 'totl' is not defined. Did you mean: 'total'?</pre>
+  <p>Python has never seen that name. Usually a typo, or capitals (<code>Total</code> and
+    <code>total</code> are two different names), or a variable you meant to create earlier
+    and did not. Python often suggests the name you meant.</p>
+  <p>Two versions that are not typos:</p>
+  <ul>
+    <li><strong>A variable made inside a function, used outside it</strong> (session 3). It
+      only exists inside. Return it instead.</li>
+    <li><strong>In a notebook</strong>, the cell that creates it has not been run yet in this
+      session. Run the cells above, or <a href="#run-order">Restart and Run All</a>.</li>
+  </ul>
+</div>
+
+<div class="note" id="type-str">
+  <span class="tag">Sessions 1 and 4</span>
+  <h4>TypeError: unsupported operand type(s) for -: 'int' and 'str'</h4>
+  <pre>TypeError: unsupported operand type(s) for -: 'int' and 'str'</pre>
+  <p>You did arithmetic with text. <code>input()</code> always hands you text, even when the
+    person types digits, and so does every value read from a CSV with the
+    <code>csv</code> module. Convert first:</p>
+  <pre>year = int(input("Birth year: "))
+minutes = float(row["minutes_played"])</pre>
+</div>
+
+<div class="note" id="type-none">
+  <span class="tag">Session 3</span>
+  <h4>TypeError: ... 'NoneType' and 'int'</h4>
+  <pre>10.0
+Traceback (most recent call last):
+  File "none_error.py", line 9, in &lt;module&gt;
+    print(week + 10)
+          ~~~~~^~~~
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'</pre>
+  <p><code>None</code> is what a function gives back when it does not <code>return</code>
+    anything. The <code>10.0</code> at the top is the clue: the function printed its answer
+    instead of returning it.</p>
+  <pre>def total_minutes(minutes):
+    total = 0
+    for m in minutes:
+        total = total + m
+    print(total)        # shows it, then hands back None
+
+week = total_minutes([3.5, 4.0, 2.5])
+print(week + 10)</pre>
+  <p>Change <code>print(total)</code> to <code>return total</code>. The same error appears
+    when a <code>return</code> sits inside an <code>if</code> and some inputs never reach it,
+    and after <code>x = x.sort()</code>, because <code>sort()</code> sorts in place and
+    returns <code>None</code>.</p>
+</div>
+
+<div class="note" id="run-order">
+  <span class="tag">Every notebook</span>
+  <h4>A notebook that disagrees with itself</h4>
+  <p>A notebook remembers what you ran, not what is on screen. Change a cell further up, and
+    everything below is out of date. Delete the line that created a variable, and later
+    cells still work, until you open the notebook tomorrow. The numbers beside the cells,
+    <code>[1]</code>, <code>[2]</code>, show the order things actually ran in.</p>
+  <p>The fix is the whole fix: <strong>Restart and Run All</strong>, from the toolbar. If a
+    notebook cannot run cleanly from top to bottom, it is not finished. A cell that runs
+    forever is stopped with the square interrupt button.</p>
+</div>
+
+<h2>Files and data</h2>
+
+<div class="note" id="file-not-found">
+  <span class="tag">Session 4 onward</span>
+  <h4>FileNotFoundError, for a file that is right there</h4>
+  <p>Real output, running a session 4 demo from inside <code>sessions/session-04</code>:</p>
+  <pre>  File "...\sessions\session-04\demos\files_and_csv.py", line 22, in &lt;module&gt;
+    with open(PLAYS, encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'data/clean/plays.csv'</pre>
+  <p>The file is fine. A relative path like <code>data/clean/plays.csv</code> is counted
+    from the folder the terminal is in, and Python is looking in the wrong one. First move,
+    every time, is to print where it is looking from:</p>
+  <pre>import os
+print(os.getcwd())</pre>
+  <p>Then run from the repo root:</p>
+  <pre>cd path/to/python-course-basics
+python sessions/session-04/demos/files_and_csv.py      # Windows
+python3 sessions/session-04/demos/files_and_csv.py     # macOS</pre>
+  <p>The other usual cause is opening a single file in VS Code instead of the repo folder,
+    so the terminal starts somewhere else. Notebooks avoid all this: their first cell walks
+    up to the repo root. From session 10, scripts build their paths from
+    <code>__file__</code> instead, and run from any folder.</p>
+  <p>Writing a file can fail the same way when the folder does not exist yet.
+    <code>os.makedirs("output", exist_ok=True)</code> makes it first.</p>
+</div>
+
+<div class="note" id="key-error">
+  <span class="tag">Sessions 4 and 8</span>
+  <h4>KeyError: 'minute_played'</h4>
+  <pre>KeyError: 'minute_played'</pre>
+  <p>That column name does not exist. Here the column is <code>minutes_played</code>. Look
+    at the real names rather than guessing: <code>rows[0].keys()</code> with the
+    <code>csv</code> module, <code>df.columns</code> in pandas. In session 9 the messy file
+    calls that column <code>'minutes played '</code>, with a space in the middle and another
+    at the end, which is the same error in disguise.</p>
+</div>
+
+<div class="note" id="encoding">
+  <span class="tag">Session 4, Windows</span>
+  <h4>Salon Mécanique comes out as Salon MÃ©canique</h4>
+  <p>The data files are UTF-8. Windows opens text files as something else unless told, so
+    without <code>encoding="utf-8"</code> the é in one artist's name turns into
+    <code>Ã©</code>, with no error at all. Other files fail louder, with a
+    <code>UnicodeDecodeError</code>. Always pass it:</p>
+  <pre>with open("data/clean/plays.csv", encoding="utf-8") as f:</pre>
+</div>
+
+<div class="note" id="series-truth">
+  <span class="tag">Session 8</span>
+  <h4>ValueError: The truth value of a Series is ambiguous</h4>
+  <pre>ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().</pre>
+  <p>You used <code>and</code> or <code>or</code> to combine two pandas conditions. Use
+    <code>&amp;</code> and <code>|</code>, with brackets around each condition:</p>
+  <pre>plays[(plays["minutes_played"] &gt; 4) &amp; (plays["device"] == "phone")]</pre>
+  <p>Leaving out the brackets around an <code>|</code> inside an <code>&amp;</code> gives no
+    error and a wrong number. Name each condition on its own line first if in doubt.</p>
+</div>
+
+<h2>Git and GitHub</h2>
+
+<div class="note" id="identity">
+  <span class="tag">Session 5</span>
+  <h4>Author identity unknown</h4>
+  <pre>Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"</pre>
+  <p>Git will not commit until it knows who you are. Run those two lines with your own name
+    and email, once per machine, then commit again.</p>
+</div>
+
+<div class="note" id="auth">
+  <span class="tag">Session 5</span>
+  <h4>git push asks for a password, then fails</h4>
+  <p>GitHub stopped accepting account passwords for git years ago, so typing yours ends in
+    <code>Authentication failed</code>. In order of preference:</p>
+  <ol>
+    <li><code>gh auth login</code>, with the GitHub CLI. Four questions, approve in the
+      browser, done. It sets up git's credentials too.</li>
+    <li>A <strong>personal access token</strong>, made on github.com under Settings, Developer
+      settings, Personal access tokens. Paste it when git asks for a password. You cannot view
+      it again, so save it in a password manager.</li>
+    <li>An SSH key. The grown-up answer, and the fiddliest to set up.</li>
+  </ol>
+</div>
+
+<div class="note" id="permission">
+  <span class="tag">Session 5</span>
+  <h4>Permission denied, or 403, when pushing</h4>
+  <p>You cloned the course repo in session 1, so <code>origin</code> still points at the
+    course, and you cannot push to it. Keep it under another name and add your own:</p>
+  <pre>git remote -v
+git remote rename origin course
+git remote add origin https://github.com/YOUR-NAME/python-course.git
+git push -u origin main</pre>
+  <p>After that, <code>git push</code> goes to your repo and <code>git pull course
+    main</code> collects course updates.</p>
+</div>
+
+<div class="note" id="rejected">
+  <span class="tag">Session 5 onward</span>
+  <h4>! [rejected] main -&gt; main (fetch first)</h4>
+  <pre> ! [rejected]        main -&gt; main (fetch first)
+error: failed to push some refs to '...'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.</pre>
+  <p>GitHub has commits you do not, usually from another machine or an edit on the website.
+    Pull them in, then push:</p>
+  <pre>git pull
+git push</pre>
+  <p>If it says <code>(non-fast-forward)</code> instead, after you amended a commit you had
+    already pushed, the usual advice online is <code>git push --force</code>, which
+    overwrites GitHub's history with yours. Do not. Amend freely until you push, never after;
+    fix a pushed mistake with a new commit.</p>
+</div>
+
+<div class="note" id="conflict">
+  <span class="tag">Session 5 stretch, or any pull</span>
+  <h4>CONFLICT (content): Merge conflict in ...</h4>
+  <pre>Auto-merging songs.txt
+CONFLICT (content): Merge conflict in songs.txt
+Automatic merge failed; fix conflicts and then commit the result.</pre>
+  <p>Both sides changed the same line, and git will not guess which one you want. It is not
+    an error; it is git leaving a decision to you. <code>git status</code> lists the files.
+    In each one, the disputed part is marked:</p>
+  <pre>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+My favourite songs
+=======
+Songs I love
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; new-title</pre>
+  <p>Above <code>=======</code> is your version, below it the incoming one. Edit the file so
+    it says what you want, delete the three marker lines, then:</p>
+  <pre>git add songs.txt
+git commit --no-edit</pre>
+  <p>Not sure? <code>git merge --abort</code> puts everything back exactly as it was before
+    the merge.</p>
+</div>
+
+<div class="note" id="notebook-output">
+  <span class="tag">Session 5 onward</span>
+  <h4>A notebook full of saved output in git</h4>
+  <p>A <code>.ipynb</code> file stores the output of every cell you ran. Commit it like that
+    and a small notebook becomes a large one, and every run makes a new diff even when the
+    code is the same. Before committing, check and strip:</p>
+  <pre>python tools/nbtool.py check     # Windows; python3 on macOS
+python tools/nbtool.py strip</pre>
+  <p><code>check</code> flags a notebook with a line like
+    <code>! path: 3 cells have saved output (run: nbtool.py strip)</code>.
+    <code>strip</code> removes the outputs and the run numbers from every notebook, or only
+    the folders you name after it. Your code is untouched.</p>
+</div>
+
+<h2>Environments and tools</h2>
+
+<div class="note" id="execution-policy">
+  <span class="tag">Session 10, Windows</span>
+  <h4>Activate.ps1 cannot be loaded because running scripts is disabled on this system</h4>
+  <p>PowerShell blocks scripts by default, and activating a virtual environment is a script.
+    Run this once, then activate again:</p>
+  <pre>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</pre>
+  <p>It only changes the setting for your own user. Command Prompt activates with
+    <code>.venv\Scripts\activate.bat</code> instead, and Git Bash with
+    <code>source .venv/Scripts/activate</code>.</p>
+</div>
+
+<div class="note" id="venv-inactive">
+  <span class="tag">Session 10 onward</span>
+  <h4>No (.venv) at the start of the prompt</h4>
+  <p>A new terminal starts without the environment. That is when <code>No module named
+    'pandas'</code> appears for a project that worked yesterday. Activate it again, from
+    <code>project/</code>:</p>
+  <pre>.venv\Scripts\Activate.ps1         # Windows
+source .venv/bin/activate          # macOS</pre>
+  <p>VS Code can also pick a different Python for the terminal and for the notebook kernel.
+    The Python version in the bottom right of the window, and the kernel at the top right of
+    a notebook, should both point at the <code>.venv</code> one for <code>project/</code>.</p>
+  <p>If <code>.venv/</code> ever shows up in <code>git status</code>, do not commit it. The
+    repo's <code>.gitignore</code> already lists it; check that the line is there.</p>
+</div>
+
+<div class="note" id="requirements">
+  <span class="tag">Session 10</span>
+  <h4>pip install -r requirements.txt fails while building matplotlib</h4>
+  <p><code>project/requirements.txt</code> pins <code>matplotlib==3.9.0</code> and
+    <code>pandas==2.3.1</code>. Ready-made installers for that matplotlib exist up to Python
+    3.12, and for that pandas up to 3.13. On a newer Python, pip falls back to building from
+    source code, which needs a compiler, and fails with a long error.</p>
+  <p>The simplest fix is to make the environment with Python 3.12, if it is installed:</p>
+  <pre>py -3.12 -m venv .venv          # Windows
+python3.12 -m venv .venv        # macOS</pre>
+  <p>Delete the broken <code>.venv</code> folder first. The other fix is to change the pins
+    to versions that support your Python, and say so in the project README.</p>
+</div>
+
+<div class="note" id="pytest">
+  <span class="tag">Session 12</span>
+  <h4>pytest: command not found, or ModuleNotFoundError in a test</h4>
+  <p>Either pytest is not installed in the active environment, or the test file is not next
+    to the module it imports. Run it through Python, which settles the first, and name the
+    folder:</p>
+  <pre>python -m pip install pytest
+python -m pytest sessions/session-12/solutions</pre>
+  <p>Running <code>python -m pytest</code> from the repo root with no folder collects every
+    test in the course, including the exercise starter that fails on purpose. And never call
+    a file of your own <code>statistics.py</code>: it hides Python's own
+    <code>statistics</code> module.</p>
+</div>
+
+<div class="note" id="port">
+  <span class="tag">Any time</span>
+  <h4>serve.py and the port</h4>
+  <p>If port 8000 is busy, usually because the server is already running in another
+    terminal, <code>serve.py</code> takes the next free one and tells you:</p>
+  <pre>      http://localhost:8001/slides/index.html
+
+  (port 8000 was busy, using 8001)</pre>
+  <p>Use the address it prints. To stop the old one, find its terminal and press
+    <code>Ctrl C</code>. If you want a particular port, pass it:
+    <code>python serve.py --port 9001</code>. Only if twelve ports in a row are busy does it
+    give up and ask you to pick one.</p>
+  <p>An edit that does not show up after a reload is almost always an unsaved file. The
+    server tells the browser not to cache anything.</p>
+</div>
+
+<div class="links">
+  <a class="link" href="install.html"><span class="ico">◆</span>
+    <span><strong>Install guide</strong><span class="sub">Doing the setup again, step by step</span></span></a>
+  <a class="link" href="start.html"><span class="ico">◆</span>
+    <span><strong>Start here</strong><span class="sub">How the course and the repo work</span></span></a>
+  <a class="link" href="../sessions/session-05/demos/git_commands.md"><span class="ico">◆</span>
+    <span><strong>Session 5 git commands</strong><span class="sub">Every command, with what it is for</span></span></a>
+  <a class="link" href="session-10.html"><span class="ico">◆</span>
+    <span><strong>Session 10 slides</strong><span class="sub">Virtual environments, paths, the pipeline</span></span></a>
+</div>
+
+<footer>
+  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
+</footer>
+
+</div>
+<script>
+(function () {
+  var KEY = "pycourse-theme";
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved) root.dataset.theme = saved;
+  } catch (e) { /* private browsing */ }
+
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var next = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = next;
+    try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
+  });
+})();
+</script>
+</body>
+</html>

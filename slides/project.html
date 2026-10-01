@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The project template: Python, SQL &amp; Git</title>
+<link rel="stylesheet" href="assets/home.css">
+<style>
+  .back { display: inline-block; margin-bottom: 22px; font-size: 14px; color: var(--ink-soft); text-decoration: none; }
+  .back:hover { color: var(--accent); }
+  .note a, td a { color: var(--accent); }
+  .table-wrap { overflow-x: auto; margin: 0 0 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; background: var(--surface); border: 1px solid var(--line-soft); border-radius: 12px; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line-soft); }
+  tr:last-child td { border-bottom: 0; }
+  th { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-dim); background: var(--surface-2); }
+  td { color: var(--ink-soft); }
+  td:first-child code { white-space: nowrap; }
+  .note ol { margin: 0 0 10px; padding-left: 22px; color: var(--ink-soft); font-size: 15.5px; }
+  .note ol li { margin-bottom: 5px; }
+</style>
+</head>
+<body>
+<button id="theme-toggle" type="button">light / dark</button>
+<div class="wrap">
+
+<header>
+  <a class="back" href="index.html">← Course index</a>
+  <div class="kicker">Project template · sessions 10 to 12</div>
+  <h1>Your project</h1>
+  <p class="tagline">The <code>project/</code> folder is where the final project lives. It
+    already runs: out of the box it answers one question about the course's music data. You
+    start by changing something that works, not by staring at an empty file.</p>
+  <div class="facts">
+    <span class="pill pill--accent">load → clean → analyse → save</span>
+    <span class="pill">pandas and matplotlib</span>
+    <span class="pill pill--teal">its own virtual environment</span>
+  </div>
+</header>
+
+<h2>What is in it</h2>
+<div class="note">
+  <h4>Five files, and two folders that appear when you use it</h4>
+  <pre>project/
+    README.md            what it is, how to run it, how to make it yours
+    requirements.txt     pandas==2.3.1 and matplotlib==3.9.0
+    pipeline.py          load -> clean -> analyse -> save, and main()
+    notebooks/
+        explore.ipynb    where you look at the data first
+    data/
+        README.md        your input data goes in this folder
+    output/              made by the pipeline: summary.csv and chart.png
+    .venv/               made by you, once: the project's own packages</pre>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>File</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><a href="../project/pipeline.py"><code>pipeline.py</code></a></td>
+        <td>The session 10 genre pipeline, with a shorter <code>clean</code> that is easier to rewrite. One function per stage: <code>load</code>, <code>clean</code>, <code>analyse</code>, <code>save_csv</code>, <code>save_chart</code>, <code>check</code>, and <code>main</code> to run them in order. Only <code>main</code> prints. The seven places you are meant to change are marked <code>MAKE IT YOURS</code>.</td></tr>
+      <tr><td><a href="../project/README.md"><code>README.md</code></a></td>
+        <td>The question, how to run it on Windows and macOS, the eight steps to make it yours, and what the data could not tell you. By session 12 it describes your project instead.</td></tr>
+      <tr><td><a href="../project/requirements.txt"><code>requirements.txt</code></a></td>
+        <td>The packages, with exact versions, so anyone can rebuild the same environment.</td></tr>
+      <tr><td><code>notebooks/explore.ipynb</code></td>
+        <td>Imports <code>pipeline.py</code> and runs its own <code>load</code>, <code>clean</code> and <code>analyse</code>, so you look at exactly what the script sees. It finds <code>project/</code> wherever you opened it from. Open it in VS Code.</td></tr>
+      <tr><td><a href="../project/data/README.md"><code>data/README.md</code></a></td>
+        <td>Where your input file goes, and three rules: never edit the raw file by hand, keep its original name and date, and it is not committed.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Run it</h2>
+<div class="note">
+  <h4>The first time: make the virtual environment</h4>
+  <p>A virtual environment is a private set of packages for this project only. Nothing you
+    install in it can break anything else, and the versions are the ones in
+    <code>requirements.txt</code>. You make it once. Open a terminal in the repository folder.</p>
+  <p><strong>Windows (PowerShell)</strong></p>
+  <pre>cd project
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt</pre>
+  <p><strong>macOS</strong></p>
+  <pre>cd project
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt</pre>
+  <p>When it is active, the prompt starts with <code>(.venv)</code>, and <code>python</code> and
+    <code>pip</code> mean the project's own copies on both systems.</p>
+  <p>If PowerShell says running scripts is disabled, run this once, then activate again:</p>
+  <pre>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</pre>
+</div>
+
+<div class="note">
+  <h4>Every time after that</h4>
+  <p>Activate the environment, then run the pipeline. From inside <code>project/</code>:</p>
+  <pre>.venv\Scripts\Activate.ps1        # Windows
+source .venv/bin/activate         # macOS
+python pipeline.py</pre>
+  <p>You should see:</p>
+  <pre>Which genre do I spend most of my listening time on?
+  loaded    2223 rows from plays_messy.csv
+  cleaned   2183 rows
+  wrote   output/summary.csv
+  wrote   output/chart.png</pre>
+  <p>Every path in <code>pipeline.py</code> is built from the location of the file itself, so
+    <code>python project/pipeline.py</code> from the repository folder works too.
+    <code>deactivate</code> switches the environment off again; closing the terminal does the
+    same.</p>
+  <p>The answer, in <code>output/summary.csv</code>: Electronic, with 2,753.2 of 8,608.0
+    minutes, 32.0%. The chart's title states that answer. The total is lower than the
+    database's 8,980.4 because 94 plays in the messy file lost their minutes, and the pipeline
+    leaves them missing rather than guessing.</p>
+</div>
+
+<h2>How sessions 10 to 12 use it</h2>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Session</th><th>What happens to <code>project/</code></th></tr></thead>
+    <tbody>
+      <tr><td><a href="../sessions/session-10/README.md">10 · Putting it together</a></td>
+        <td>The genre pipeline is built in the session, then shown as <code>project/</code>. The virtual environment is made on the learner's own laptop during the session, because Windows activation is where it goes wrong, and that is miserable to fix alone.</td></tr>
+      <tr><td><a href="../sessions/session-11/README.md">11 · Project scoping and setup</a></td>
+        <td>A question is scoped on the worksheet. Then the learner's own file goes into <code>project/data/</code> and the pipeline is changed one step at a time, running after each, until it writes a rough answer to <code>project/output/</code>. The homework is milestone 1: real cleaning, with each decision logged.</td></tr>
+      <tr><td><a href="../sessions/session-12/README.md">12 · Presentation and review</a></td>
+        <td>The learner runs the pipeline fresh and presents its chart. The homework, the week after, puts it in shape: tests in <code>project/test_pipeline.py</code>, one <code>except FileNotFoundError</code> around the load in <code>main</code>, and a README a stranger can follow.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Make it yours</h2>
+<div class="note">
+  <h4>One stage at a time, and run the whole pipeline after each change</h4>
+  <p>A pipeline that ran five minutes ago is easy to fix. One that has not run since this
+    morning is not. The steps, in the order <code>project/README.md</code> gives them:</p>
+  <ol>
+    <li><strong>Data.</strong> Put your file in <code>project/data/</code> and point
+      <code>INPUT</code> at the top of <code>pipeline.py</code> at it, for example
+      <code>INPUT = PROJECT / "data" / "my_export.csv"</code>. Change <code>QUESTION</code> to
+      your question.</li>
+    <li><strong>Look.</strong> Run <code>notebooks/explore.ipynb</code> and write down every
+      problem you find.</li>
+    <li><strong>Load.</strong> Fix <code>load</code> first if it fails: a semicolon needs
+      <code>sep=";"</code>, JSON needs <code>pd.read_json</code>. Excel needs
+      <code>pd.read_excel</code> and the <code>openpyxl</code> package, which is not in
+      <code>requirements.txt</code>; saving the sheet as CSV avoids it.</li>
+    <li><strong>Clean.</strong> Rewrite <code>clean</code> for your problems, one at a time.
+      Put each decision in its docstring, because each one changes the answer.</li>
+    <li><strong>Analyse.</strong> Rewrite <code>analyse</code> to answer your question. It
+      returns a table, prints nothing, and ends with <code>.reset_index()</code>, because
+      <code>save_csv</code> writes without the index.</li>
+    <li><strong>Save.</strong> Change the two column names and the title in
+      <code>save_chart</code>. The title states the answer.</li>
+    <li><strong>Check.</strong> Keep at least one check that compares a total in the written
+      file with the same total worked out from the cleaned data.</li>
+    <li><strong>README.</strong> Your question, where the data came from, how to run it, and
+      what the data could not tell you.</li>
+  </ol>
+  <p>If you add a package, install it with the environment active and add it to
+    <code>requirements.txt</code> with its version. <code>pip freeze</code> lists what is
+    installed. For tests in session 12 that means <code>python -m pip install pytest</code>,
+    then <code>pytest</code> in <code>requirements.txt</code>.</p>
+</div>
+
+<h2>What git ignores</h2>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Path</th><th>Ignored?</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td><code>project/.venv/</code></td><td>Yes</td><td>A few hundred megabytes of packages built for your computer and your Python. Useless on anyone else's machine. <code>requirements.txt</code> goes in git instead.</td></tr>
+      <tr><td><code>project/output/</code></td><td>Yes</td><td>Anything the pipeline writes can be made again with one command.</td></tr>
+      <tr><td><code>project/data/*</code></td><td>Yes, all but <code>data/README.md</code></td><td>Your own spending, messages or listening history do not belong on GitHub, and a Spotify export contains IP addresses. Write in your project README where the data comes from and how to get it again; that sentence goes in git instead of the file.</td></tr>
+      <tr><td><code>pipeline.py</code>, <code>README.md</code>, <code>requirements.txt</code>, <code>notebooks/</code></td><td>No</td><td>These are the project. Commit them, small and often.</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="note">
+  <h4>Check it, do not trust it</h4>
+  <p>The rules are in the repository's root <a href="../.gitignore"><code>.gitignore</code></a>.
+    Run <code>git status</code> after making the environment and after adding your data file:
+    neither should appear in the list. If your data is small and not private, you can choose
+    to commit it so the project runs for anyone who clones it; <code>git add -f</code> adds an
+    ignored file on purpose.</p>
+  <p>Commit notebooks without their output: <code>python tools/nbtool.py strip project</code>
+    removes it (<code>python3</code> on macOS).</p>
+</div>
+
+<footer>
+  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
+</footer>
+
+</div>
+<script>
+(function () {
+  var KEY = "pycourse-theme";
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved) root.dataset.theme = saved;
+  } catch (e) { /* private browsing */ }
+
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var next = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = next;
+    try { localStorage.setItem(KEY, next); } catch (e) { /* ignore */ }
+  });
+})();
+</script>
+</body>
+</html>

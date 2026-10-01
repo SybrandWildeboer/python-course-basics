@@ -32,7 +32,9 @@ Anything interactive, like the session 2 guessing game, is a script only, becaus
 is awkward in a notebook.
 
 ```
-slides/                 one deck per session, plus the course index
+slides/                 one deck per session, the course index, and the course pages:
+                        start, install, troubleshooting, cheatsheets, dataset,
+                        instructor notes and project template
 sessions/session-NN/
     notebooks/          where you work
     demos/              the same material as scripts
@@ -41,11 +43,8 @@ sessions/session-NN/
     homework/           homework, with answers in homework/solutions/
     README.md           run sheet and notes for whoever is teaching
 data/                   the dataset: CSVs, a messy version, a SQLite database
-cheatsheets/            quick reference per topic
-docs/                   install guide and troubleshooting
-instructor/             prep and course-wide notes
 my-work/                your scratch space
-project/                your final project, from session 11
+project/                the project template from session 10, your project from session 11
 tools/                  scripts that check the course materials
 ```
 
@@ -57,7 +56,7 @@ artists and two years. It appears in four shapes.
 | Shape | Where | Used in |
 |---|---|---|
 | Clean CSVs | `data/clean/` | sessions 4, 8 |
-| SQLite database, three tables | `data/music.db` | sessions 6, 7, 10 |
+| SQLite database, three tables | `data/music.db` | sessions 6, 7, 8, 10 |
 | Deliberately messy CSV | `data/messy/` | session 9 |
 | Everything above | | session 10 onward |
 
