@@ -32,7 +32,7 @@ panic, so you read the message instead of skimming it.
 # print("5" + 5)
 
 # ------------------------------------------------------ ZeroDivisionError
-# Exactly what it says. Watch for this in session 9, when you divide by a
+# Exactly what it says. Watch for this in session 6, when you divide by a
 # count that happens to be zero.
 #
 # people = 0

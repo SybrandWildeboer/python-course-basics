@@ -30,7 +30,7 @@ If the install runs long, cut the intro next time, and never cut the install.
 ## The repo, in session 1
 
 They clone this repo today, in the install block, and work inside it for the rest of the
-course. Git itself is not explained until session 5, and that is fine: today `git clone` is
+course. Git itself is not explained until session 4, and that is fine: today `git clone` is
 just "copy this project to my machine". Say that out loud so it does not feel like a gap.
 
 Two things to check while they clone:
@@ -40,7 +40,7 @@ Two things to check while they clone:
 
 If HTTPS cloning asks for credentials on a public repo, an old credential helper is in the
 way. Do not debug it now. Have them download the ZIP from GitHub, and fix it properly in
-session 5 when you set up authentication anyway.
+session 4 when you set up authentication anyway.
 
 ## What they type
 
@@ -77,7 +77,7 @@ point, and slide 17 makes it explicitly.
   recognised: close every terminal, reopen one, try again. If it still fails, re-run the
   installer → Modify → Add to PATH.
 - **`python` vs `python3`.** On macOS and Linux it is `python3`. Agree on one spelling in
-  session 1 and use it consistently for twelve sessions.
+  session 1 and use it consistently for eight sessions.
 - **Not saving before running.** Point at the unsaved dot in the VS Code tab. This will
   happen at least three times today.
 - **Smart quotes** from pasting out of a chat app. `“like this”` is not `"like this"`.

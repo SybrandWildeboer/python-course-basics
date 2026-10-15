@@ -26,7 +26,7 @@ def ask_number(prompt):
     """Ask until the person types something that is actually a number.
 
     This is the awkward bit of the homework. str.replace and .isdigit() get us
-    there without try/except, which is session 12 material. It is not elegant,
+    there without try/except, which is session 8 material. It is not elegant,
     and knowing that it is not elegant is worth as much as the code.
     """
     while True:

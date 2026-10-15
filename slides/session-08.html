@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 8: The end project, pair programming</title>
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body data-deck="Session 8 · The end project, pair programming">
+<div id="viewport">
+<div class="deck">
+
+<section class="slide slide--title" data-title="Title">
+  <div>
+    <div class="session-no">Session 8 of 08</div>
+    <h1>The end project, pair programming</h1>
+    <p class="goal">Your question, your data, and by the end of today a pipeline that answers
+      it from one command, in its own environment, committed and pushed.</p>
+    <div class="meta">
+      <span class="pill pill--accent">2 hours</span>
+      <span class="pill">your worksheet</span>
+      <span class="pill pill--teal">virtual environment</span>
+      <span class="pill pill--amber">notebook to pipeline</span>
+      <span class="pill">you drive</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Not a lecture. Five slides frame the session; the rest of the deck is a set of
+    "teach it when it comes up" slides to jump to when the moment arrives in his code. Most
+    of the two hours his hands are on the keyboard.</p>
+    <p>The pre-work worksheet is the homework review. Have it open before he arrives.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Today">
+  <div class="eyebrow">The plan</div>
+  <h2>Two hours, one pipeline</h2>
+  <div class="cols cols-wide-left">
+    <table class="sm">
+      <tr><th style="width:120px">Time</th><th>What happens</th></tr>
+      <tr><td>0:00–0:15</td><td>Your worksheet: cut the scope, run the one-number test</td></tr>
+      <tr><td>0:15–0:30</td><td><code>project/</code> on your laptop, in its own virtual environment</td></tr>
+      <tr><td>0:30–1:40</td><td><strong>Pair programming:</strong> notebook to <code>pipeline.py</code>, stage by stage, with a break</td></tr>
+      <tr><td>1:40–1:55</td><td>A fresh terminal, <code>output/</code> deleted, your diff reviewed, pushed</td></tr>
+      <tr><td>1:55–2:00</td><td>Where next, and two first steps with dates</td></tr>
+    </table>
+    <div class="stack">
+      <div class="card card--teal card--compact">
+        <h4>True by the end</h4>
+        <ul class="checklist">
+          <li>One command runs it, from a fresh terminal</li>
+          <li>Inside its own virtual environment</li>
+          <li>Its output made again from nothing</li>
+          <li>Committed and pushed</li>
+        </ul>
+      </div>
+      <div class="card card--plain card--compact">
+        <p class="nomargin">Rough is fine. A rough answer that runs beats a beautiful one that
+          does not.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Say the four end conditions out loud now and come back to them at 1:40. If the
+    session runs slow, cut features, never the last fifteen minutes: the fresh-terminal run
+    and the push are the part he cannot easily do alone.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Scope">
+  <div class="eyebrow">0:00 · your worksheet</div>
+  <h2>Small enough to finish this week</h2>
+  <div class="cols">
+    <div class="stack">
+      <div class="card card--rose card--compact">
+        <h4>Three projects wearing a coat</h4>
+        <p class="nomargin">"A dashboard of my spending, with predictions" is a pipeline, a web
+          app and a forecasting model. Count the projects in your idea. Keep one.</p>
+      </div>
+      <div class="card card--accent card--compact">
+        <h4>One, one, one</h4>
+        <p class="nomargin">One question, one dataset, one output. Can you say what "done"
+          means in one sentence?</p>
+      </div>
+      <table class="sm">
+        <tr><th>Must</th><td>The smallest thing that answers the question</td></tr>
+        <tr><th>Should</th><td>What makes it good, usually the chart</td></tr>
+        <tr><th>Could</th><td>If it goes unexpectedly well</td></tr>
+        <tr><th>Won't</th><td>Good ideas, written down so they stop nagging</td></tr>
+      </table>
+    </div>
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>the one-number test, on the worked example</figcaption>
+        <pre class="sm"><code data-lang="python">plays["year"] = plays["played_at"].str[:4]
+table = (plays.groupby(["genre", "year"])
+         ["minutes_played"].sum()
+         .unstack("year").round(1))
+table["change"] = (table["2025"]
+                   - table["2024"]).round(1)</code></pre>
+      </figure>
+      <div class="card card--teal card--compact">
+        <p class="nomargin">A rough must answer in about <strong>fifteen lines</strong>? The
+          plan is real. Here: Jazz grew most (+54.0 minutes), Electronic shrank most
+          (−106.1), and the table adds up to the 8,980.4 raw minutes.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Read his worksheet with him, not at him. Every "and also" goes on the could or won't
+    line, out loud, while he watches. Then run his one-number test on his laptop. If it does
+    not run, or the number cannot be checked a second way, the README's "if the first 15
+    minutes fail" section applies.</p>
+    <p>The worked example found that total listening fell (4,596.6 to 4,383.8), so "shrank
+    most" depends on minutes or share. Ask what decision his first number found.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Set up">
+  <div class="eyebrow">0:15 · on your laptop</div>
+  <h2><code>project/</code>, in its own environment</h2>
+  <div class="compare">
+    <div>
+      <span class="label">Windows · PowerShell</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="bash">python --version          # 3.10 to 3.12
+cd project
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python pipeline.py</code></pre>
+      </figure>
+    </div>
+    <div>
+      <span class="label">macOS · Terminal</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="bash">python3 --version         # 3.10 to 3.12
+cd project
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python pipeline.py</code></pre>
+      </figure>
+    </div>
+  </div>
+  <div class="cols mt">
+    <div class="callout callout--warn" style="margin-bottom:0">
+      <span class="ico">▲</span>
+      <div>
+        <p class="nomargin">"Running scripts is disabled on this system"? Once:
+          <code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code></p>
+      </div>
+    </div>
+    <div class="card card--compact card--teal">
+      <p class="nomargin">Active means <code>(.venv)</code> at the start of the prompt. Then
+        <code>git status</code>: <code>.venv/</code> and your data must not appear.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Out of the box it answers the music question: 2,223 rows loaded, 2,183 cleaned,
+    Electronic 2,753.2 of 8,608.0 minutes. Seeing that run first proves the environment
+    before any of his code is involved.</p>
+    <p>He types. The execution-policy error is the Windows trap; meeting it here is much
+    better than alone at home. Why a venv and what goes in git: slide "A virtual
+    environment", in the teach-it set.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Pairing">
+  <div class="eyebrow">0:30 · how we work</div>
+  <h2>You drive, I navigate</h2>
+  <div class="cols">
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <div class="card-title"><span class="dot"></span>The driver</div>
+        <p class="nomargin">Has the keyboard. Types, and says out loud what they are about to
+          do and why.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <div class="card-title"><span class="dot"></span>The navigator</div>
+        <p class="nomargin">Watches the bigger picture: is this the must? Did we run it? Asks
+          questions rather than dictating keys.</p>
+      </div>
+      <div class="card card--plain card--compact">
+        <p class="nomargin">Swap about every twenty minutes, so both of us stay awake. You
+          drive most of the time: it is your project.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="exercise">
+        <div class="tag">◆ The rhythm</div>
+        <ol class="steps">
+          <li>Pick the next stage from your notebook</li>
+          <li>Make it a function that <strong>returns</strong></li>
+          <li>Call it from <code>main()</code>, which prints one line</li>
+          <li><code>python pipeline.py</code></li>
+          <li>Commit when it runs</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Set a timer for the swaps. When you drive, drive for a short, clear demonstration
+    (two or three minutes), then hand the keyboard back. Never reach for his keyboard: say
+    the line number and the idea, and let him type it.</p>
+    <p>When a teach-it moment comes up (a path that breaks, a bare except, an import that
+    runs everything), jump to that slide, explain in two minutes, and go back to his code.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="The pipeline">
+  <div class="eyebrow">0:30 to 1:40 · the shape</div>
+  <h2>Your notebook, as stages</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>project/pipeline.py, the outer layer</figcaption>
+      <pre class="sm"><code data-lang="python">def main():
+    """Run every stage in order. The only part that prints."""
+    raw = load(INPUT)
+    print(f"loaded   {len(raw):>5} rows")
+    data = clean(raw)
+    print(f"cleaned  {len(data):>5} rows")
+    summary = analyse(data)
+    save_csv(summary, OUTPUT / "summary.csv")
+    save_chart(summary, OUTPUT / "chart.png")
+    check(OUTPUT / "summary.csv", data)
+    print("checked  the summary adds up")
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+    </figure>
+    <div class="stack">
+      <table class="sm">
+        <tr><th style="width:100px">Stage</th><th>Asks</th></tr>
+        <tr><td><code>load</code></td><td>Where does the data come from?</td></tr>
+        <tr><td><code>clean</code></td><td>What must be fixed before I trust it?</td></tr>
+        <tr><td><code>analyse</code></td><td>What is the answer?</td></tr>
+        <tr><td><code>save</code></td><td>Where does the answer go?</td></tr>
+        <tr><td><code>check</code></td><td>Does the file agree with the data?</td></tr>
+      </table>
+      <div class="card card--compact card--accent">
+        <p class="nomargin"><strong>Silent stages, a chatty <code>main()</code>.</strong>
+          The session 3 rule: functions that calculate return; only the outer layer
+          prints.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Work down the MAKE IT YOURS markers: INPUT and QUESTION, then load, clean, analyse,
+    save_chart, check. One stage at a time, a run after each. When it breaks, the last
+    change is the culprit.</p>
+    <p>The worked version on the music data is notebook 02-notebook-to-script. If his clean
+    needs more than the template has, clean_plays in sessions/session-06/solutions/cleaning.py
+    is the full version.</p>
+    <p>The main() on the slide is shortened: the template's also catches a missing input
+    file and prints a line after every stage.</p>
+    <p>Break at about 1:00, at a moment when the pipeline runs.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Finish line">
+  <div class="eyebrow">1:40 · the proof</div>
+  <h2>A fresh terminal, nothing left over</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>a new terminal, at the repository root</figcaption>
+      <pre class="sm"><code data-lang="bash">cd project
+.venv\Scripts\Activate.ps1     # Windows
+source .venv/bin/activate      # macOS
+Remove-Item -Recurse output    # Windows
+rm -rf output                  # macOS
+python pipeline.py
+cd ..
+git status
+git diff
+git add project
+git commit -m "Pipeline answers the must question"
+git push</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--teal card--compact">
+        <h4>Why delete <code>output/</code>?</h4>
+        <p class="nomargin">If the run depends on a file a notebook wrote once, it fails now,
+          with you here, and not next week.</p>
+      </div>
+      <div class="card card--accent card--compact">
+        <h4>Read the diff before the commit</h4>
+        <p class="nomargin">As if somebody else wrote it: no <code>print</code> in a stage, no
+          <code>C:/Users/...</code>, no data file in <code>git status</code>.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Protect these fifteen minutes. He runs every line himself. If git status shows his
+    data file, stop and move it into project/data/ before anything is committed.</p>
+    <p>Reviewing the diff properly: the "Reviewing a diff" slide in the teach-it set, and
+    worksheets/review-checklist.md.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Where next">
+  <div class="eyebrow">1:55 · before you leave</div>
+  <h2>Where next, and two first steps</h2>
+  <div class="cols cols-wide-left">
+    <table class="sm">
+      <tr><th style="width:190px">Direction</th><th>When you want it</th></tr>
+      <tr><td><strong>More pandas</strong></td><td>Reshaping, time series, long cleaning chains</td></tr>
+      <tr><td><strong>SQL in the real world</strong></td><td>Data in a company database, or too big for pandas</td></tr>
+      <tr><td><strong>APIs and <code>requests</code></strong></td><td>The data is on a website that serves programs</td></tr>
+      <tr><td><strong>Automation</strong></td><td>Your session 1 task should run without you</td></tr>
+      <tr><td><strong>Collaborating with git</strong></td><td>Anybody else touches your code</td></tr>
+      <tr><td><strong>Dashboards</strong></td><td>Others need to look, and change one thing</td></tr>
+    </table>
+    <div class="stack">
+      <div class="card card--teal">
+        <div class="card-title"><span class="dot"></span>Step 1 · this week</div>
+        <p class="nomargin">The homework: the must answer checked two ways, the README, a
+          fresh-clone run, pushed.</p>
+      </div>
+      <div class="card card--amber">
+        <div class="card-title"><span class="dot"></span>Step 2 · within two weeks</div>
+        <p class="nomargin">One direction, the first two hours, on your own project. Write it
+          and a date in <code>worksheets/where-next.md</code> now.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Links and a "first two hours" task for each direction are in where-next.md. Ask which
+    one his could list points at. Machine learning is not on the map on purpose: it is
+    mostly data work with a model at the end, and usually the wrong next step.</p>
+    <p>Make him write both dates in the room. Tell him the questions channel stays open.
+    End on time.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Teach it when it comes up">
+  <div>
+    <div class="marker">Reference · jump here when it happens</div>
+    <h2>Teach it when it comes up</h2>
+    <p>Paths from <code>__file__</code>, <code>__name__</code>, the virtual environment,
+      <code>try</code> / <code>except</code>, tests, and reading a diff. Two minutes each,
+      then back to his code.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Paths from __file__">
+  <div class="eyebrow">When: FileNotFoundError from another folder</div>
+  <h2>Paths that work from any folder</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>top of project/pipeline.py</figcaption>
+        <pre class="sm"><code data-lang="python">from pathlib import Path
+
+PROJECT = Path(__file__).resolve().parent
+OUTPUT = PROJECT / "output"
+INPUT = PROJECT / "data" / "my_export.csv"</code></pre>
+      </figure>
+      <table class="sm mono">
+        <tr><th>Path(__file__).resolve()</th><th>is</th></tr>
+        <tr><td>.parent</td><td>project, the folder the file is in</td></tr>
+        <tr><td>.parent.parent</td><td>the repository root</td></tr>
+      </table>
+    </div>
+    <div class="stack">
+      <div class="card card--compact card--rose">
+        <h4>A relative path counts from the terminal</h4>
+        <p class="nomargin"><code>"data/my_export.csv"</code> works only when the terminal is
+          in the right folder. From anywhere else: <code>FileNotFoundError</code>, though the
+          file is fine.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4><code>__file__</code> counts from the script</h4>
+        <p class="nomargin">Where this file lives, which never changes. Build every path from
+          it, and the folder you run from stops mattering.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">Not in a notebook: there is no file being run, so
+          <code>__file__</code> is a <code>NameError</code>.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Show it breaking first: a relative path, run from the repo root (works) and from
+    project/ (fails). Then the __file__ version from both. demos/where_am_i.py prints both
+    meanings of "here" side by side.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="__name__">
+  <div class="eyebrow">When: importing the pipeline runs everything</div>
+  <h2>A program when you run it, a toolbox when you import it</h2>
+  <div class="compare">
+    <div>
+      <span class="label">demos/name_main.py</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="python">def shout(text):
+    return text.upper() + "!"
+
+print("__name__ is", repr(__name__))
+
+def main():
+    print(shout("run as a script"))
+
+if __name__ == "__main__":
+    main()</code></pre>
+      </figure>
+      <figure class="code out">
+        <figcaption>python demos/name_main.py</figcaption>
+        <pre class="xs"><code data-lang="text">__name__ is '__main__'
+RUN AS A SCRIPT!</code></pre>
+      </figure>
+    </div>
+    <div>
+      <span class="label">demos/import_name_main.py</span>
+      <figure class="code">
+        <pre class="sm"><code data-lang="python">import name_main
+
+print(name_main.shout("imported"))</code></pre>
+      </figure>
+      <figure class="code out">
+        <figcaption>python demos/import_name_main.py</figcaption>
+        <pre class="xs"><code data-lang="text">__name__ is 'name_main'
+IMPORTED!</code></pre>
+      </figure>
+      <div class="card card--compact card--accent">
+        <p class="nomargin">Importing a file <strong>runs</strong> it. Only the
+          <code>if</code> stops <code>main()</code> running on import, which is what lets
+          <code>explore.ipynb</code> import the pipeline.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Run both demos. The surprise is that the top-level print runs on import: that is the
+    evidence that importing executes the file, and why the two lines at the bottom matter.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="A virtual environment">
+  <div class="eyebrow">When: No module named 'pandas', or "why a venv?"</div>
+  <h2><code>requirements.txt</code> in git, <code>.venv/</code> never</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>project/requirements.txt</figcaption>
+        <pre><code data-lang="text">pandas==2.3.1
+matplotlib==3.9.0</code></pre>
+      </figure>
+      <div class="card card--compact card--accent">
+        <p class="nomargin">A venv is a folder with its own Python and its own packages, for
+          this project only. Nothing installed here can break anything else, and the list
+          rebuilds it anywhere.</p>
+      </div>
+    </div>
+    <table class="sm">
+      <tr><th style="width:250px">Symptom</th><th>Fix</th></tr>
+      <tr><td><code>No module named 'pandas'</code></td><td>Not active in this terminal: activate it</td></tr>
+      <tr><td>"Running scripts is disabled"</td><td>The execution policy, once: see the set-up slide</td></tr>
+      <tr><td><code>pip install</code> fails on matplotlib</td><td>Python 3.13 or newer: use 3.12</td></tr>
+      <tr><td>VS Code uses another Python</td><td>Bottom right: pick the <code>.venv</code> one</td></tr>
+      <tr><td><code>.venv/</code> in <code>git status</code></td><td><code>.gitignore</code> is missing it</td></tr>
+      <tr><td>A new package</td><td><code>pip install</code> it, add it with its version</td></tr>
+    </table>
+  </div>
+  <aside class="notes">
+    <p>matplotlib 3.9.0 has no ready-made installer for Python 3.13 or newer, so pip tries to
+    build it from source and fails. Command Prompt activates with
+    .venv\Scripts\activate.bat, Git Bash with source .venv/Scripts/activate.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Where to catch">
+  <div class="eyebrow">When: a bare except, or a missing file</div>
+  <h2>Catch the error you expect, in the outer layer</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>not this: "no file" becomes "no data"</figcaption>
+        <pre class="sm"><code data-lang="python">def load(path):
+    try:
+        return pd.read_csv(path)
+    except:
+        return pd.DataFrame()</code></pre>
+      </figure>
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>this: main() knows a person is waiting</figcaption>
+        <pre class="sm"><code data-lang="python">def main():
+    try:
+        raw = load(INPUT)
+    except FileNotFoundError:
+        raise SystemExit(f"No file at {INPUT}.")</code></pre>
+      </figure>
+    </div>
+    <div class="stack">
+      <div class="card card--rose card--compact">
+        <h4>A bare <code>except:</code> catches typos too</h4>
+        <p class="nomargin">A <code>NameError</code> becomes "the file was empty", and the crash
+          comes three functions later as a <code>KeyError</code> that says nothing about
+          files.</p>
+      </div>
+      <div class="callout callout--key" style="margin-bottom:0">
+        <span class="ico">◆</span>
+        <div>
+          <h4>The session 3 rule, extended</h4>
+          <p class="nomargin">Functions that calculate <strong>return</strong>, and let errors
+            travel. Only the outer layer <strong>prints</strong>, and decides what to do about
+            errors.</p>
+        </div>
+      </div>
+      <div class="card card--plain card--compact">
+        <p class="nomargin">Never wrap <code>clean()</code> or <code>analyse()</code>: a crash
+          there is a bug to fix. The full story: <code>03-try-except.ipynb</code>.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>project/pipeline.py already has this try around the load in main(). Show it, and run
+    it with INPUT pointing at a file that does not exist: one clear sentence instead of a
+    traceback.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="An assert becomes a test">
+  <div class="eyebrow">When: he writes an assert he wants to keep</div>
+  <h2>From an <code>assert</code> line to a test</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>project/test_pipeline.py</figcaption>
+        <pre class="sm"><code data-lang="python">import pandas as pd
+
+from pipeline import parse_minutes
+
+
+def test_parse_minutes_reads_every_messy_form():
+    raw = pd.Series(["4.65", "1 234.50", "4.2 min"])
+    assert parse_minutes(raw).tolist() == [4.65, 1234.5, 4.2]</code></pre>
+      </figure>
+      <figure class="code out" style="margin-bottom:0">
+        <figcaption>inside project/: python -m pytest</figcaption>
+        <pre class="xs"><code data-lang="out">test_pipeline.py .           [100%]
+1 passed</code></pre>
+      </figure>
+    </div>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>The same assert, in a function</h4>
+        <p class="nomargin">Named <code>test_</code> plus a sentence that says what should be
+          true, in a file whose name starts with <code>test_</code>, next to
+          <code>pipeline.py</code>.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>Test on four rows you made up</h4>
+        <p class="nomargin">Clean and analyse, where the decisions live. If you need a
+          calculator to know the answer, the test is too big.</p>
+      </div>
+      <div class="card card--plain card--compact">
+        <p class="nomargin">Not installed? With the venv active:
+          <code>python -m pip install pytest</code>, and add it to
+          <code>requirements.txt</code>. More: <code>04-pytest.ipynb</code>.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Only if it comes up, or if the pipeline is done early. The homework starter is
+    homework/test_pipeline_starter.py; homework/solutions/test_pipeline_example.py has nine
+    tests for the pipeline as it comes out of the box.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Reviewing a diff">
+  <div class="eyebrow">When: before the last commit</div>
+  <h2>Read your diff as if somebody else wrote it</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>terminal, at the repository root</figcaption>
+      <pre class="sm"><code data-lang="bash"># what changed, not yet staged
+git diff
+
+# what is staged, about to be committed
+git diff --staged
+
+# one commit: its message and its diff
+git log --oneline -- project/
+git show 3f2a91c</code></pre>
+    </figure>
+    <table class="sm">
+      <tr><th style="width:170px">Ask</th><th>Look for</th></tr>
+      <tr><td>Does it run?</td><td>A fresh terminal, <code>python project/pipeline.py</code></td></tr>
+      <tr><td>One thing per commit?</td><td>"Add X and fix Y" is two commits</td></tr>
+      <tr><td>Numbers right?</td><td>Row counts after every merge; decisions written down</td></tr>
+      <tr><td>Errors honest?</td><td>No bare <code>except:</code></td></tr>
+      <tr><td>Shape?</td><td>Stages return, only <code>main()</code> prints, no <code>C:/Users/...</code></td></tr>
+      <tr><td>Into git?</td><td>No data, no <code>output/</code>, no <code>.venv/</code></td></tr>
+    </table>
+  </div>
+  <aside class="notes">
+    <p>The hash is a placeholder; use his from git log. Full checklist:
+    worksheets/review-checklist.md. For practice after the course,
+    worksheets/practice-review.diff has five planted problems, with the answers next to it.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework">
+  <div class="eyebrow">This week</div>
+  <h2>Finish the must answer</h2>
+  <div class="cols">
+    <div class="stack">
+      <div class="exercise">
+        <div class="tag">◆ homework/README.md</div>
+        <ol class="tight nomargin">
+          <li>Logged cleaning, <code>find_problems</code> finds nothing, the must answer
+            checked two ways</li>
+          <li>The project README: what you found, and what it does not show</li>
+          <li>Your own diff reviewed, pushed, and run from a fresh clone</li>
+        </ol>
+      </div>
+      <div class="card card--plain card--compact">
+        <p class="nomargin">Done? Send one line: the link to your pushed project.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card card--teal card--compact">
+        <h4>Optional, after the course</h4>
+        <p class="nomargin">The chart, tests, and notebooks 02 to 07: notebook to script,
+          <code>try</code> / <code>except</code>, pytest, and six ways to make a pipeline
+          sturdier.</p>
+      </div>
+      <div class="callout callout--key" style="margin-bottom:0">
+        <span class="ico">◆</span>
+        <div>
+          <p class="nomargin">Know roughly what the answer should be before you run the code,
+            and check it a second way afterwards. That habit outlasts every tool in this
+            course.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Put his session 1 file on screen next to the pipeline before he leaves: eight
+    sessions, a few hundred lines of his own code, real commits, and a project he chose,
+    scoped and built.</p>
+  </aside>
+</section>
+
+</div>
+</div>
+<script src="assets/deck.js"></script>
+</body>
+</html>

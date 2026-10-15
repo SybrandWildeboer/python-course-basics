@@ -1,12 +1,13 @@
 # Your project
 
-This folder is the starting point for your final project, from session 11. It already runs:
+This folder is the starting point for your final project, in session 8. It already runs:
 out of the box it answers one question about the course's music data, so you begin by
 changing something that works rather than by staring at an empty file.
 
-It was built in session 10 from `sessions/session-10/demos/genre_pipeline.py`: the same
-stages and the same answer, with a shorter `clean` that is easier to rewrite, and the places
-you will change marked `MAKE IT YOURS`.
+It is built from `sessions/session-08/demos/genre_pipeline.py`: the same stages and the same
+answer, with a shorter `clean` that is easier to rewrite, and the places you will change
+marked `MAKE IT YOURS`. The full cleaning, with a check on every step, is `clean_plays` in
+`sessions/session-06/solutions/cleaning.py`; borrow from it when your data needs it.
 
 ```
 project/
@@ -24,7 +25,8 @@ project/
 
 > Which genre do I spend most of my listening time on?
 
-*Replace this with your own question in session 11: one question, one dataset, one
+*Replace this with your own question in session 8, from your scoping worksheet
+(`sessions/session-08/prework/scoping-worksheet.md`): one question, one dataset, one
 output.*
 
 ## Run it

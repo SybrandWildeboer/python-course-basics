@@ -13,7 +13,7 @@ Six checks:
                 (and, without --fast, every notebook runs top to bottom)
     scripts     every .py file parses, and every script under sessions/ and
                 project/ runs from the repository root without an error
-    pytest      the session 12 tests pass (demos, solutions and homework)
+    pytest      the session 8 tests pass (demos, solutions and homework)
     git         running the scripts wrote nothing outside the gitignored
                 output folders
 
@@ -66,12 +66,12 @@ SKIP = {
 # Where pytest runs. The exercises folder is left out on purpose: its tests
 # fail until the learner fixes the code, which is the point of the exercise.
 PYTEST_FOLDERS = [
-    "sessions/session-12/demos",
-    "sessions/session-12/solutions",
-    "sessions/session-12/homework",
+    "sessions/session-08/demos",
+    "sessions/session-08/solutions",
+    "sessions/session-08/homework",
 ]
 PYTEST_LEFT_OUT = {
-    "sessions/session-12/exercises": "the tests fail until the learner fixes the code",
+    "sessions/session-08/exercises": "the tests fail until the learner fixes the code",
 }
 
 TIMEOUT = 300  # seconds per script
@@ -201,7 +201,7 @@ def check_scripts(fast: bool) -> bool:
 
 
 def check_pytest() -> tuple[str, bool | None]:
-    """Run the session 12 tests, and notice any test file nobody runs."""
+    """Run the session 8 tests, and notice any test file nobody runs."""
     label = "pytest"
     header(label)
     if installed("pytest"):

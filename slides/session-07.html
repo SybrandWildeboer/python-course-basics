@@ -1,0 +1,1222 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 7: Data visualization</title>
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body data-deck="Session 7 · Data visualization">
+<div id="viewport">
+<div class="deck">
+
+<section class="slide slide--title" data-title="Title">
+  <div>
+    <div class="session-no">Session 07 of 08</div>
+    <h1>Data visualization</h1>
+    <p class="goal">One question, one chart, and a reader who gets the answer without you in
+      the room. Then the same thing for questions about time, about eight groups at once,
+      and for a figure you hand to someone else.</p>
+    <div class="meta">
+      <span class="pill pill--accent">2 hours</span>
+      <span class="pill">matplotlib and pandas</span>
+      <span class="pill pill--rose">honest charts</span>
+      <span class="pill pill--teal">Build: a chart makeover</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The whole session is about one habit: say the question first, then draw the chart that
+    answers it, then check what it does not show. Every technique today serves that. The live
+    exercise, the makeover, is where it comes together; protect its twenty minutes.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework review">
+  <div class="eyebrow">First ten minutes</div>
+  <h2>Homework review</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>The SQL questions, in pandas</div>
+      <p>Did any of your pandas answers disagree with your SQL answers? Which one was wrong,
+        and how did you find out?</p>
+      <p class="nomargin">Pick the one that took longest. Was it pandas that was hard, or the
+        question?</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>The decision diary</div>
+      <p>Which single cleaning decision moved your answer most, and by how much?</p>
+      <p class="nomargin">Read me the sentence you would put under the result, so a reader
+        knows what was decided for them.</p>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Last session ended in tables of numbers. Today those numbers become
+        pictures, and a picture can be wrong in more ways than a table: <strong>every number
+        right, and the reader still walks away with the wrong idea.</strong></p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Keep it to ten minutes. If the decision diary produced a number that moved a lot, keep
+    it in mind: "how would you show that change in one chart?" is a good question to come back
+    to after the makeover.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Building a chart">
+  <div>
+    <div class="marker">Part one</div>
+    <h2>One question, one chart</h2>
+    <p>If you cannot say the question in one sentence, the chart is not ready to draw.</p>
+  </div>
+  <aside class="notes">
+    <p>Notebook 01 from here to the break.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Anatomy">
+  <div class="eyebrow">The anatomy of a figure</div>
+  <h2><code>fig</code> is the picture, <code>ax</code> is a chart in it</h2>
+  <div class="cols cols-wide-right">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>01-charts.ipynb</figcaption>
+        <pre class="sm"><code data-lang="python">fig, ax = plt.subplots(figsize=(7, 3.5))
+
+ax.bar(device_counts.index, device_counts.values)
+ax.set_title("the title of this one chart")
+ax.set_ylabel("plays")
+
+fig.suptitle("a title over the whole figure")
+fig.savefig("output/devices.png")</code></pre>
+      </figure>
+      <div class="card card--compact card--plain">
+        <p class="nomargin"><code>figsize</code> is width and height in inches. Draw and label
+          on <code>ax</code>; title and save the whole thing on <code>fig</code>.</p>
+      </div>
+    </div>
+    <div class="diagram" style="margin:0">
+<svg viewBox="0 0 600 330" width="600" height="330" role="img" aria-label="A figure containing one axes, with the parts labelled">
+  <rect class="d-box" x="10" y="10" width="580" height="310" rx="6"></rect>
+  <text class="d-mono" x="24" y="34" style="fill:var(--teal)">fig</text>
+  <text class="d-label" x="300" y="36" text-anchor="middle">fig.suptitle(...)</text>
+  <rect class="d-box-accent" x="70" y="56" width="340" height="230" rx="4" style="fill-opacity:0.25"></rect>
+  <text class="d-mono" x="80" y="76" style="fill:var(--accent)">ax</text>
+  <text class="d-sub" x="240" y="76" text-anchor="middle">ax.set_title(...)</text>
+  <rect class="d-box-accent" x="120" y="110" width="44" height="140" rx="2"></rect>
+  <rect class="d-box-accent" x="184" y="180" width="44" height="70" rx="2"></rect>
+  <rect class="d-box-accent" x="248" y="210" width="44" height="40" rx="2"></rect>
+  <rect class="d-box-accent" x="312" y="230" width="44" height="20" rx="2"></rect>
+  <line x1="104" y1="250" x2="380" y2="250" style="stroke:var(--ink-soft);stroke-width:1.5"></line>
+  <line x1="104" y1="96" x2="104" y2="250" style="stroke:var(--ink-soft);stroke-width:1.5"></line>
+  <text class="d-sub" x="96" y="180" text-anchor="middle" transform="rotate(-90 90 176)">ax.set_ylabel</text>
+  <text class="d-sub" x="240" y="274" text-anchor="middle">ax.set_xlabel(...)</text>
+  <text class="d-sub" x="430" y="120">ax.bar(...), ax.plot(...)</text>
+  <line x1="426" y1="116" x2="170" y2="116" style="stroke:var(--ink-dim);stroke-width:1;stroke-dasharray:4 3"></line>
+  <text class="d-sub" x="430" y="200">ax.bar_label(...)</text>
+  <text class="d-sub" x="430" y="250">ax.spines</text>
+  <line x1="426" y1="246" x2="384" y2="250" style="stroke:var(--ink-dim);stroke-width:1;stroke-dasharray:4 3"></line>
+  <text class="d-sub" x="430" y="300">fig.savefig(...)</text>
+</svg>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>"Axes" means one chart, not the two lines along its edges. Say that once; the name
+    confuses everybody.</p>
+    <p>Every chart in the course starts with <code>plt.subplots()</code>. In part two it hands
+    back eight charts at once, and that is when this pays off.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Three ways to write it">
+  <div class="eyebrow">plt., ax., and pandas</div>
+  <h2>Three ways to write the same chart</h2>
+  <div class="cols-3">
+    <div class="card card--compact">
+      <h4><code>plt.</code> style</h4>
+      <pre class="xs"><code data-lang="python">plt.bar(x, y)
+plt.title("...")</code></pre>
+      <p class="nomargin">Every call goes to "the current chart". Short, and half the answers
+        online look like this. With two charts, "current" is a guess.</p>
+    </div>
+    <div class="card card--compact card--accent">
+      <h4><code>ax.</code> style: this course</h4>
+      <pre class="xs"><code data-lang="python">fig, ax = plt.subplots()
+ax.bar(x, y)
+ax.set_title("...")</code></pre>
+      <p class="nomargin">Every line says which chart. Nothing changes when a second chart
+        arrives.</p>
+    </div>
+    <div class="card card--compact card--teal">
+      <h4>pandas <code>.plot()</code></h4>
+      <pre class="xs"><code data-lang="python">counts.plot.bar(ax=ax, rot=0)
+ax.bar_label(ax.containers[0])</code></pre>
+      <p class="nomargin">matplotlib underneath. It returns an <code>ax</code>, so you can
+        carry on with <code>ax.</code> calls.</p>
+    </div>
+  </div>
+  <table class="sm mt">
+    <tr><th>Found online</th><th>Write it as</th><th>Found online</th><th>Write it as</th></tr>
+    <tr><td><code>plt.title</code></td><td><code>ax.set_title</code></td>
+        <td><code>plt.ylim(0, 15)</code></td><td><code>ax.set_ylim(0, 15)</code></td></tr>
+    <tr><td><code>plt.xlabel</code></td><td><code>ax.set_xlabel</code></td>
+        <td><code>plt.savefig</code></td><td><code>fig.savefig</code></td></tr>
+  </table>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin"><strong>Explore with <code>.plot()</code>, finish with
+        <code>ax</code>.</strong> A quick look is one line. A chart for someone else needs a
+        title, labels and numbers, and those all live on <code>ax</code>.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Translating an answer from the internet is mostly adding <code>set_</code>. Worth
+    saying, because he will search, and the first answer will be in <code>plt.</code>
+    style.</p>
+    <p>Notebook 01 draws the device counts all three ways. Phone is 1,039 of 2,183 plays,
+    47.6%: "almost half" is the honest title.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="A title that answers">
+  <div class="eyebrow">The question first</div>
+  <h2>A title that gives the answer</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>01-charts.ipynb</figcaption>
+      <pre class="sm"><code data-lang="python">by_genre = (plays.groupby("genre")["minutes_played"]
+                 .mean().sort_values(ascending=False))
+top = by_genre.index[0]
+
+fig, ax = plt.subplots(figsize=(8, 4.5))
+bars = ax.bar(by_genre.index, by_genre.values)
+
+ax.set_title(f"{top} plays last longest: "
+             f"{by_genre.iloc[0]:.1f} minutes on average")
+ax.set_ylabel("average minutes per play")
+ax.bar_label(bars, fmt="{:.1f}")
+plt.show()</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="diagram" style="margin:0">
+<svg viewBox="0 0 560 300" width="560" height="300" role="img" aria-label="Bar chart of average minutes per play by genre, Jazz highest at 6.6">
+  <text class="d-label" x="16" y="20">Jazz plays last longest: 6.6 minutes on average</text>
+  <rect class="d-box-accent" x="27.3" y="67.8" width="44.1" height="198.2" rx="3"></rect>
+  <text class="d-mono" x="49.4" y="60.8" text-anchor="middle" style="font-size:13px">6.6</text>
+  <text class="d-sub" x="49.4" y="286.0" text-anchor="middle">Jazz</text>
+  <rect class="d-box-accent" x="94.1" y="107.5" width="44.1" height="158.5" rx="3"></rect>
+  <text class="d-mono" x="116.1" y="100.5" text-anchor="middle" style="font-size:13px">5.3</text>
+  <text class="d-sub" x="116.1" y="286.0" text-anchor="middle">Electronic</text>
+  <rect class="d-box-accent" x="160.8" y="144.6" width="44.1" height="121.4" rx="3"></rect>
+  <text class="d-mono" x="182.9" y="137.6" text-anchor="middle" style="font-size:13px">4.0</text>
+  <text class="d-sub" x="182.9" y="286.0" text-anchor="middle">Rock</text>
+  <rect class="d-box-accent" x="227.6" y="158.5" width="44.1" height="107.5" rx="3"></rect>
+  <text class="d-mono" x="249.6" y="151.5" text-anchor="middle" style="font-size:13px">3.6</text>
+  <text class="d-sub" x="249.6" y="286.0" text-anchor="middle">Folk</text>
+  <rect class="d-box-accent" x="294.3" y="162.9" width="44.1" height="103.1" rx="3"></rect>
+  <text class="d-mono" x="316.4" y="155.9" text-anchor="middle" style="font-size:13px">3.4</text>
+  <text class="d-sub" x="316.4" y="286.0" text-anchor="middle">Indie</text>
+  <rect class="d-box-accent" x="361.1" y="166.0" width="44.1" height="100.0" rx="3"></rect>
+  <text class="d-mono" x="383.1" y="159.0" text-anchor="middle" style="font-size:13px">3.3</text>
+  <text class="d-sub" x="383.1" y="286.0" text-anchor="middle">Afrobeat</text>
+  <rect class="d-box-accent" x="427.8" y="166.3" width="44.1" height="99.7" rx="3"></rect>
+  <text class="d-mono" x="449.9" y="159.3" text-anchor="middle" style="font-size:13px">3.3</text>
+  <text class="d-sub" x="449.9" y="286.0" text-anchor="middle">Latin</text>
+  <rect class="d-box-accent" x="494.6" y="170.6" width="44.1" height="95.4" rx="3"></rect>
+  <text class="d-mono" x="516.6" y="163.6" text-anchor="middle" style="font-size:13px">3.2</text>
+  <text class="d-sub" x="516.6" y="286.0" text-anchor="middle">Pop</text>
+  <line x1="16" y1="266" x2="550" y2="266" style="stroke:var(--line);stroke-width:1.5"></line>
+</svg>
+      </div>
+      <div class="card card--compact card--accent">
+        <p class="nomargin">"Minutes per genre" names the topic and makes the reader work.
+          "Jazz plays last longest" does the work for them. The <code>:.1f</code> from
+          session 1 turns 6.573571428 into a number a person would say.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Session 1 promised that <code>:.1f</code> comes back for chart labels. Here it is,
+    twice: in the title f-string and in <code>bar_label</code>, where <code>fmt</code> is the
+    format part of an f-string without the f.</p>
+    <p>This is the session 4 homework question, now as a chart. Sorting before plotting
+    makes the ranking the first thing the eye sees.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Choose the chart">
+  <div class="eyebrow">Choosing the chart</div>
+  <h2>Say what kind of question it is, and the chart picks itself</h2>
+  <table>
+    <tr><th>The question is about</th><th>Example from the log</th><th>Chart</th><th>matplotlib</th></tr>
+    <tr><td><strong>comparing</strong> categories</td><td>which genre lasts longest?</td>
+        <td>bar</td><td><code>ax.bar</code>, <code>ax.barh</code> for long names</td></tr>
+    <tr><td><strong>change over time</strong></td><td>does listening change through the year?</td>
+        <td>line</td><td><code>ax.plot</code></td></tr>
+    <tr><td><strong>distribution</strong> of one number</td><td>how long is a play?</td>
+        <td>histogram</td><td><code>ax.hist</code></td></tr>
+    <tr><td><strong>relationship</strong> between two numbers</td><td>do the most-played artists get the most minutes?</td>
+        <td>scatter</td><td><code>ax.scatter</code></td></tr>
+    <tr><td><strong>part of a whole</strong></td><td>what share of plays is each genre?</td>
+        <td>bars of shares</td><td><code>ax.barh</code>, not <code>ax.pie</code></td></tr>
+  </table>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Most charts that fail, fail here: a line through categories, a pie
+        with eight slices, a bar chart of something that changes over time. Name the kind of
+        question before you write <code>plt.subplots</code>.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The next six slides take the rows in order. Ask him to classify a couple of questions
+    out loud first: "is Friday my busiest day?" (comparison), "did I skip more in 2025?"
+    (change over time, or comparison of two years: either is defensible, and saying why is
+    the point).</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Bar or line">
+  <div class="eyebrow">Comparison and change over time</div>
+  <h2>Bars for categories, a line for time</h2>
+  <div class="diagram" style="margin-bottom:12px">
+<svg viewBox="0 0 1080 250" width="1080" height="250" role="img" aria-label="Line chart of plays per month, with dips in June to August of both years">
+  <text class="d-label" x="40" y="20">Listening dips every summer, in both years</text>
+  <text class="d-sub" x="32" y="210.0" text-anchor="end">0</text>
+  <text class="d-sub" x="32" y="148.6" text-anchor="end">50</text>
+  <line x1="40" y1="144.6" x2="1066" y2="144.6" style="stroke:var(--line-soft);stroke-width:1"></line>
+  <text class="d-sub" x="32" y="87.1" text-anchor="end">100</text>
+  <line x1="40" y1="83.1" x2="1066" y2="83.1" style="stroke:var(--line-soft);stroke-width:1"></line>
+  <line x1="40" y1="206" x2="1066" y2="206" style="stroke:var(--line);stroke-width:1.5"></line>
+  <polyline points="40.0,59.8 84.6,106.5 129.2,59.8 173.8,100.3 218.4,81.9 263.0,115.1 307.7,131.1 352.3,124.9 396.9,80.7 441.5,50.0 486.1,84.4 530.7,99.1 575.3,79.5 619.9,118.8 664.5,77.0 709.1,105.3 753.7,80.7 798.3,133.5 843.0,133.5 887.6,136.0 932.2,100.3 976.8,68.4 1021.4,62.3 1066.0,73.3" style="fill:none;stroke:var(--accent);stroke-width:2.5"></polyline>
+  <circle class="d-box-accent" cx="40.0" cy="59.8" r="4"></circle>
+  <text class="d-sub" x="40.0" y="226" text-anchor="middle">Jan 2024</text>
+  <circle class="d-box-accent" cx="84.6" cy="106.5" r="4"></circle>
+  <circle class="d-box-accent" cx="129.2" cy="59.8" r="4"></circle>
+  <circle class="d-box-accent" cx="173.8" cy="100.3" r="4"></circle>
+  <circle class="d-box-accent" cx="218.4" cy="81.9" r="4"></circle>
+  <circle class="d-box-accent" cx="263.0" cy="115.1" r="4"></circle>
+  <circle class="d-box-accent" cx="307.7" cy="131.1" r="4"></circle>
+  <text class="d-sub" x="307.7" y="226" text-anchor="middle">Jul 2024</text>
+  <circle class="d-box-accent" cx="352.3" cy="124.9" r="4"></circle>
+  <circle class="d-box-accent" cx="396.9" cy="80.7" r="4"></circle>
+  <circle class="d-box-accent" cx="441.5" cy="50.0" r="4"></circle>
+  <circle class="d-box-accent" cx="486.1" cy="84.4" r="4"></circle>
+  <circle class="d-box-accent" cx="530.7" cy="99.1" r="4"></circle>
+  <circle class="d-box-accent" cx="575.3" cy="79.5" r="4"></circle>
+  <text class="d-sub" x="575.3" y="226" text-anchor="middle">Jan 2025</text>
+  <circle class="d-box-accent" cx="619.9" cy="118.8" r="4"></circle>
+  <circle class="d-box-accent" cx="664.5" cy="77.0" r="4"></circle>
+  <circle class="d-box-accent" cx="709.1" cy="105.3" r="4"></circle>
+  <circle class="d-box-accent" cx="753.7" cy="80.7" r="4"></circle>
+  <circle class="d-box-accent" cx="798.3" cy="133.5" r="4"></circle>
+  <circle class="d-box-accent" cx="843.0" cy="133.5" r="4"></circle>
+  <text class="d-sub" x="843.0" y="226" text-anchor="middle">Jul 2025</text>
+  <circle class="d-box-accent" cx="887.6" cy="136.0" r="4"></circle>
+  <circle class="d-box-accent" cx="932.2" cy="100.3" r="4"></circle>
+  <circle class="d-box-accent" cx="976.8" cy="68.4" r="4"></circle>
+  <circle class="d-box-accent" cx="1021.4" cy="62.3" r="4"></circle>
+  <circle class="d-box-accent" cx="1066.0" cy="73.3" r="4"></circle>
+  <text class="d-mono" x="441.5" y="40.0" text-anchor="middle">127</text>
+  <text class="d-mono" x="887.6" y="126.0" text-anchor="middle">57</text>
+</svg>
+  </div>
+  <div class="cols">
+    <figure class="code" style="margin-bottom:0">
+      <pre class="sm"><code data-lang="python">per_month = plays.groupby(plays["played_at"].str[:7]).size()
+ax.plot(per_month.index, per_month.values, marker="o")
+ax.set_ylim(bottom=0)</code></pre>
+    </figure>
+    <div class="card card--compact card--teal">
+      <p class="nomargin">A line says "this follows from that", which is only true when the
+        x-axis has an order. Genres have none, so they get bars. Months do, so they get a
+        line, and the two summer valleys jump out of 24 numbers.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The quietest months are June to August 2025: 59, 59 and 57 plays. The busiest is
+    October 2024 with 127. The months here are text; part two redraws this with real dates
+    and the axis gets much tidier.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Honest axes">
+  <div class="eyebrow">Same numbers, two stories</div>
+  <h2>Bars start at zero</h2>
+  <div class="compare">
+    <div>
+      <span class="label">axis from 10%: speaker looks terrible</span>
+      <div class="diagram" style="margin:0">
+<svg viewBox="0 0 500 230" width="500" height="230" role="img" aria-label="Skip rate by device with the axis starting at 10 percent">
+  <rect class="d-box-rose" x="32.1" y="45.3" width="62.6" height="150.7" rx="3"></rect>
+  <text class="d-mono" x="63.4" y="38.3" text-anchor="middle" style="font-size:13px">14.0%</text>
+  <text class="d-sub" x="63.4" y="216.0" text-anchor="middle">speaker</text>
+  <rect class="d-box-accent" x="126.9" y="70.1" width="62.6" height="125.9" rx="3"></rect>
+  <text class="d-mono" x="158.2" y="63.1" text-anchor="middle" style="font-size:13px">13.3%</text>
+  <text class="d-sub" x="158.2" y="216.0" text-anchor="middle">tablet</text>
+  <rect class="d-box-accent" x="221.7" y="141.2" width="62.6" height="54.8" rx="3"></rect>
+  <text class="d-mono" x="253.0" y="134.2" text-anchor="middle" style="font-size:13px">11.5%</text>
+  <text class="d-sub" x="253.0" y="216.0" text-anchor="middle">laptop</text>
+  <rect class="d-box-accent" x="316.5" y="144.7" width="62.6" height="51.3" rx="3"></rect>
+  <text class="d-mono" x="347.8" y="137.7" text-anchor="middle" style="font-size:13px">11.4%</text>
+  <text class="d-sub" x="347.8" y="216.0" text-anchor="middle">phone</text>
+  <rect class="d-box-accent" x="411.3" y="172.8" width="62.6" height="23.2" rx="3"></rect>
+  <text class="d-mono" x="442.6" y="165.8" text-anchor="middle" style="font-size:13px">10.6%</text>
+  <text class="d-sub" x="442.6" y="216.0" text-anchor="middle">car</text>
+  <line x1="16" y1="196" x2="490" y2="196" style="stroke:var(--line);stroke-width:1.5"></line>
+  <text class="d-sub" x="490" y="22" text-anchor="end">axis starts at 10%</text>
+</svg>
+      </div>
+    </div>
+    <div>
+      <span class="label">axis from zero: they are much the same</span>
+      <div class="diagram" style="margin:0">
+<svg viewBox="0 0 500 230" width="500" height="230" role="img" aria-label="Skip rate by device with the axis starting at zero">
+  <rect class="d-box-accent" x="32.1" y="47.4" width="62.6" height="148.6" rx="3"></rect>
+  <text class="d-mono" x="63.4" y="40.4" text-anchor="middle" style="font-size:13px">14.0%</text>
+  <text class="d-sub" x="63.4" y="216.0" text-anchor="middle">speaker</text>
+  <rect class="d-box-accent" x="126.9" y="54.3" width="62.6" height="141.7" rx="3"></rect>
+  <text class="d-mono" x="158.2" y="47.3" text-anchor="middle" style="font-size:13px">13.3%</text>
+  <text class="d-sub" x="158.2" y="216.0" text-anchor="middle">tablet</text>
+  <rect class="d-box-accent" x="221.7" y="74.3" width="62.6" height="121.7" rx="3"></rect>
+  <text class="d-mono" x="253.0" y="67.3" text-anchor="middle" style="font-size:13px">11.5%</text>
+  <text class="d-sub" x="253.0" y="216.0" text-anchor="middle">laptop</text>
+  <rect class="d-box-accent" x="316.5" y="75.3" width="62.6" height="120.7" rx="3"></rect>
+  <text class="d-mono" x="347.8" y="68.3" text-anchor="middle" style="font-size:13px">11.4%</text>
+  <text class="d-sub" x="347.8" y="216.0" text-anchor="middle">phone</text>
+  <rect class="d-box-accent" x="411.3" y="83.2" width="62.6" height="112.8" rx="3"></rect>
+  <text class="d-mono" x="442.6" y="76.2" text-anchor="middle" style="font-size:13px">10.6%</text>
+  <text class="d-sub" x="442.6" y="216.0" text-anchor="middle">car</text>
+  <line x1="16" y1="196" x2="490" y2="196" style="stroke:var(--line);stroke-width:1.5"></line>
+</svg>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--warn mt" style="margin-bottom:0">
+    <span class="ico">▲</span>
+    <div>
+      <p class="nomargin">Skip rate per device, every number correct in both. The length of a
+        bar <strong>is</strong> the number, so cutting the bottom off makes 14.0% look many
+        times bigger than 10.6%. Out of 336 speaker plays, the real difference is about
+        eleven skips.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This is one of the two blocks never to cut. matplotlib starts bar axes at zero by
+    default; the left chart needed <code>set_ylim(10, 14.5)</code> to do the damage. So the
+    lie takes effort, which is worth saying. For lines you can sometimes argue for zooming
+    in. For bars, never.</p>
+    <p><code>plt.subplots(1, 2)</code> gives two charts, <code>left</code> and
+    <code>right</code>: the first time the <code>ax.</code> style earns its keep.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Histogram">
+  <div class="eyebrow">Distribution</div>
+  <h2>A histogram for a spread, and "out of what?"</h2>
+  <div class="cols">
+    <div class="stack">
+      <div class="diagram" style="margin:0">
+<svg viewBox="0 0 540 250" width="540" height="250" role="img" aria-label="Stacked histogram of play length in one-minute bins, skipped plays on top of played-through plays; nearly all skips are in the first two bins">
+  <text class="d-label" x="40" y="20">74% of skips last under a minute</text>
+  <text class="d-sub" x="32" y="220.0" text-anchor="end">0</text>
+  <text class="d-sub" x="32" y="141.8" text-anchor="end">200</text>
+  <line x1="40" y1="137.8" x2="530" y2="137.8" style="stroke:var(--line-soft);stroke-width:1"></line>
+  <text class="d-sub" x="32" y="63.6" text-anchor="end">400</text>
+  <line x1="40" y1="59.6" x2="530" y2="59.6" style="stroke:var(--line-soft);stroke-width:1"></line>
+  <rect class="d-box-accent" x="41.0" y="202.3" width="38.8" height="13.7"></rect>
+  <rect class="d-box-rose" x="41.0" y="128.0" width="38.8" height="74.3"></rect>
+  <rect class="d-box-accent" x="81.8" y="176.1" width="38.8" height="39.9"></rect>
+  <rect class="d-box-rose" x="81.8" y="151.1" width="38.8" height="25.0"></rect>
+  <rect class="d-box-accent" x="122.7" y="119.4" width="38.8" height="96.6"></rect>
+  <rect class="d-box-rose" x="122.7" y="117.8" width="38.8" height="1.6"></rect>
+  <rect class="d-box-accent" x="163.5" y="56.0" width="38.8" height="160.0"></rect>
+  <rect class="d-box-accent" x="204.3" y="61.5" width="38.8" height="154.5"></rect>
+  <rect class="d-box-accent" x="245.2" y="87.7" width="38.8" height="128.3"></rect>
+  <rect class="d-box-accent" x="286.0" y="131.5" width="38.8" height="84.5"></rect>
+  <rect class="d-box-accent" x="326.8" y="173.4" width="38.8" height="42.6"></rect>
+  <rect class="d-box-accent" x="367.7" y="195.7" width="38.8" height="20.3"></rect>
+  <rect class="d-box-accent" x="408.5" y="205.4" width="38.8" height="10.6"></rect>
+  <rect class="d-box-accent" x="449.3" y="214.4" width="38.8" height="1.6"></rect>
+  <rect class="d-box-accent" x="490.2" y="215.6" width="38.8" height="0.4"></rect>
+  <text class="d-sub" x="40.0" y="234" text-anchor="middle">0</text>
+  <text class="d-sub" x="121.7" y="234" text-anchor="middle">2</text>
+  <text class="d-sub" x="203.3" y="234" text-anchor="middle">4</text>
+  <text class="d-sub" x="285.0" y="234" text-anchor="middle">6</text>
+  <text class="d-sub" x="366.7" y="234" text-anchor="middle">8</text>
+  <text class="d-sub" x="448.3" y="234" text-anchor="middle">10</text>
+  <line x1="40" y1="216" x2="530" y2="216" style="stroke:var(--line);stroke-width:1.5"></line>
+  <text class="d-sub" x="530" y="234" text-anchor="end">minutes</text>
+  <rect class="d-box-rose" x="380" y="44" width="12" height="12"></rect>
+  <text class="d-sub" x="398" y="55">skipped</text>
+  <rect class="d-box-accent" x="380" y="64" width="12" height="12"></rect>
+  <text class="d-sub" x="398" y="75">played through</text>
+  <text class="d-mono" x="60.4" y="122.0" text-anchor="middle" style="font-size:12px">225</text>
+</svg>
+      </div>
+      <figure class="code" style="margin-bottom:0">
+        <pre class="xs"><code data-lang="python">ax.hist([kept, skips], bins=range(0, 13), stacked=True,
+        label=["played through", "skipped"])
+ax.legend()</code></pre>
+      </figure>
+    </div>
+    <div class="stack">
+      <div class="card card--compact">
+        <p class="nomargin">Bins of one minute; the bars touch because minutes have no gaps.
+          The first bar is too tall for the shape: 225 plays under a minute. Stacking the
+          skips on top checks the hunch instead of assuming it.</p>
+      </div>
+      <div class="callout callout--key" style="margin-bottom:0">
+        <span class="ico">◆</span>
+        <div>
+          <p><strong>Out of what?</strong> 190 plays are under a minute and skipped.</p>
+          <ul class="tight nomargin">
+            <li>73.6% of the 258 skips are short</li>
+            <li>84.4% of the 225 short plays are skips</li>
+            <li>line at two minutes: 98.4% against 65.0%</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The other never-cut block. Read the two sentences aloud, "most skips are short" and
+    "most short plays are skips", and ask which the chart supports. "Short" is under one
+    minute, <code>minutes_played &lt; 1</code>. Then move the line to two minutes: the first becomes 98.4% and the second drops
+    to 65.0%. A percentage in a title needs its "out of what".</p>
+    <p>What it does not show: why a play was short. 35 plays under a minute were not
+    skips.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Scatter">
+  <div class="eyebrow">Relationship</div>
+  <h2>A scatter for two numbers, and what it does not show</h2>
+  <div class="cols cols-wide-left">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>01-charts.ipynb</figcaption>
+        <pre class="sm"><code data-lang="python">per_artist = plays.groupby("artist_name").agg(
+    plays=("play_id", "count"),
+    minutes=("minutes_played", "sum"),
+)
+ax.scatter(per_artist["plays"], per_artist["minutes"])
+ax.annotate("Glass Tram", (229, 1175.1),
+            textcoords="offset points", xytext=(8, -4))</code></pre>
+      </figure>
+      <div class="card card--compact card--accent">
+        <p class="nomargin">One dot per artist. Sara Lindqvist has the most plays, 13 more
+          than Glass Tram; Glass Tram has the most minutes, over 400 more, because a Glass
+          Tram play lasts 5.1 minutes against 3.2.</p>
+      </div>
+    </div>
+    <div class="card card--rose">
+      <div class="card-title"><span class="dot"></span>What this does not show</div>
+      <p>Every chart answers one question, and a reader happily takes it as the answer to a
+        nearby one.</p>
+      <p>This one shows <strong>that</strong> Glass Tram plays are longer, not
+        <strong>why</strong>. Genre would fit (Electronic against Pop), but genre is not on
+        the chart.</p>
+      <p class="nomargin">From today, every chart ends with that sentence. The homework asks
+        for it too.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The dots climb from bottom left to top right; the interesting part is the spread
+    around the climb. Each dot's height divided by its distance along is that artist's
+    average play: the total-versus-average lesson from the session 4 homework, drawn.</p>
+    <p>Glass Tram: 229 plays, 1,175.1 minutes. Sara Lindqvist: 242 plays, 768.6 minutes.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Why not a pie">
+  <div class="eyebrow">Part of a whole</div>
+  <h2>Is Latin or Afrobeat bigger?</h2>
+  <div class="cols">
+    <div class="diagram" style="margin:0">
+<svg viewBox="0 0 350 280" width="350" height="280" role="img" aria-label="A pie chart of the share of plays per genre">
+  <path d="M175,140 L175.0,35.0 A105,105 0 0 1 280.0,140.4 Z" style="fill:var(--accent);opacity:0.75;stroke:var(--bg);stroke-width:2"></path>
+  <text class="d-sub" x="259.3" y="60.0" text-anchor="start">Electronic</text>
+  <path d="M175,140 L280.0,140.4 A105,105 0 0 1 206.7,240.1 Z" style="fill:var(--teal);opacity:0.75;stroke:var(--bg);stroke-width:2"></path>
+  <text class="d-sub" x="270.9" y="214.5" text-anchor="start">Folk</text>
+  <path d="M175,140 L206.7,240.1 A105,105 0 0 1 119.0,228.8 Z" style="fill:var(--amber);opacity:0.75;stroke:var(--bg);stroke-width:2"></path>
+  <text class="d-sub" x="159.8" y="262.0" text-anchor="end">Pop</text>
+  <path d="M175,140 L119.0,228.8 A105,105 0 0 1 74.6,170.7 Z" style="fill:var(--rose);opacity:0.75;stroke:var(--bg);stroke-width:2"></path>
+  <text class="d-sub" x="80.5" y="216.3" text-anchor="end">Indie</text>
+  <path d="M175,140 L74.6,170.7 A105,105 0 0 1 72.9,115.5 Z" style="fill:var(--accent);opacity:0.75;stroke:var(--bg);stroke-width:2"></path>
+  <text class="d-sub" x="56.1" y="147.7" text-anchor="end">Latin</text>
+  <path d="M175,140 L72.9,115.5 A105,105 0 0 1 98.4,68.2 Z" style="fill:var(--teal);opacity:0.75;stroke:var(--bg);stroke-width:2"></path>
+  <text class="d-sub" x="70.2" y="87.5" text-anchor="end">Afrobeat</text>
+  <path d="M175,140 L98.4,68.2 A105,105 0 0 1 136.6,42.3 Z" style="fill:var(--amber);opacity:0.75;stroke:var(--bg);stroke-width:2"></path>
+  <text class="d-sub" x="108.2" y="45.5" text-anchor="end">Jazz</text>
+  <path d="M175,140 L136.6,42.3 A105,105 0 0 1 175.0,35.0 Z" style="fill:var(--rose);opacity:0.75;stroke:var(--bg);stroke-width:2"></path>
+  <text class="d-sub" x="152.9" y="27.1" text-anchor="end">Rock</text>
+</svg>
+    </div>
+    <div class="diagram" style="margin:0">
+<svg viewBox="0 0 470 248" width="470" height="248" role="img" aria-label="The same shares as horizontal bars, Latin 8.5 percent and Afrobeat 8.2 percent">
+  <text class="d-sub" x="92" y="22" text-anchor="end">Electronic</text>
+  <rect class="d-box-accent" x="100" y="8" width="250.6" height="21" rx="3"></rect>
+  <text class="d-mono" x="356.6" y="22">25.1%</text>
+  <text class="d-sub" x="92" y="52" text-anchor="end">Folk</text>
+  <rect class="d-box-accent" x="100" y="38" width="200.6" height="21" rx="3"></rect>
+  <text class="d-mono" x="306.6" y="52">20.1%</text>
+  <text class="d-sub" x="92" y="82" text-anchor="end">Pop</text>
+  <rect class="d-box-accent" x="100" y="68" width="138.3" height="21" rx="3"></rect>
+  <text class="d-mono" x="244.3" y="82">13.8%</text>
+  <text class="d-sub" x="92" y="112" text-anchor="end">Indie</text>
+  <rect class="d-box-accent" x="100" y="98" width="113.1" height="21" rx="3"></rect>
+  <text class="d-mono" x="219.1" y="112">11.3%</text>
+  <text class="d-sub" x="92" y="142" text-anchor="end">Latin</text>
+  <rect class="d-box-amber" x="100" y="128" width="84.7" height="21" rx="3"></rect>
+  <text class="d-mono" x="190.7" y="142">8.5%</text>
+  <text class="d-sub" x="92" y="172" text-anchor="end">Afrobeat</text>
+  <rect class="d-box-amber" x="100" y="158" width="82.5" height="21" rx="3"></rect>
+  <text class="d-mono" x="188.5" y="172">8.2%</text>
+  <text class="d-sub" x="92" y="202" text-anchor="end">Jazz</text>
+  <rect class="d-box-accent" x="100" y="188" width="70.5" height="21" rx="3"></rect>
+  <text class="d-mono" x="176.5" y="202">7.1%</text>
+  <text class="d-sub" x="92" y="232" text-anchor="end">Rock</text>
+  <rect class="d-box-accent" x="100" y="218" width="59.6" height="21" rx="3"></rect>
+  <text class="d-mono" x="165.6" y="232">6.0%</text>
+  <line x1="100" y1="2" x2="100" y2="246" style="stroke:var(--line);stroke-width:1.5"></line>
+</svg>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">On a pie you compare angles of slices that start in different places.
+        Nobody does that well: Latin and Afrobeat are 185 and 180 plays and their slices look
+        the same. Bars compare lengths from one baseline, which everybody does well. A pie is
+        fine for two or three slices; past that, bars.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Ask him to answer the title from the pie before showing the bars. Then:
+    <code>value_counts(normalize=True)</code> gives the shares directly, 8.5% and 8.2%.</p>
+    <p>Two pies to compare two years is worse still. That is the homework makeover, so do not
+    solve it here.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Saving">
+  <div class="eyebrow">For someone else</div>
+  <h2>Save it, then check it against the list</h2>
+  <div class="cols">
+    <div class="stack">
+      <figure class="code" style="margin-bottom:0">
+        <figcaption>01-charts.ipynb</figcaption>
+        <pre class="sm"><code data-lang="python">os.makedirs("output", exist_ok=True)
+
+fig.savefig("output/minutes_by_genre.png",
+            dpi=150, bbox_inches="tight")
+plt.show()                  # after saving</code></pre>
+      </figure>
+      <div class="card card--compact card--plain">
+        <ul class="tight nomargin">
+          <li><code>output/</code> is in <code>.gitignore</code>: generated files stay out of
+            commits</li>
+          <li><code>dpi=150</code> is sharp enough for a slide</li>
+          <li><code>bbox_inches="tight"</code> keeps long labels from being cut off</li>
+        </ul>
+      </div>
+      <div class="card card--compact card--rose">
+        <p class="nomargin"><strong>Save before you show.</strong> In a script,
+          <code>plt.savefig()</code> after <code>plt.show()</code> writes a blank
+          picture.</p>
+      </div>
+    </div>
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Every chart, every time</div>
+      <ol class="tight nomargin">
+        <li>Can I say the question in one sentence?</li>
+        <li>Is it the right kind of chart for that kind of question?</li>
+        <li>Does the title give the answer?</li>
+        <li>Do the bars start at zero?</li>
+        <li>Units on the axis, numbers rounded to what a person would say?</li>
+        <li>If there is a percentage, out of what?</li>
+        <li>What does it <strong>not</strong> show?</li>
+        <li>Would it make sense to someone who was not in the room?</li>
+      </ol>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Open the PNG from the VS Code explorer. Seeing the file exist is what makes "a chart
+    is for someone else" concrete. This checklist is the marking scheme for the makeover and
+    for the homework.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Time and panels">
+  <div>
+    <div class="marker">Part two</div>
+    <h2>Time, many charts, and the one that matters</h2>
+    <p>Real questions run over time, come in eight groups at once, and need you to tell the
+      reader where to look.</p>
+  </div>
+  <aside class="notes">
+    <p>After the break. Notebook 02.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Real dates">
+  <div class="eyebrow">Change over time</div>
+  <h2>Real dates, and telling the reader where to look</h2>
+  <div class="diagram" style="margin-bottom:12px">
+<svg viewBox="0 0 1080 250" width="1080" height="250" role="img" aria-label="Plays per month with real dates, an average line at 91.0, summers shaded, and the peak and the low annotated">
+  <rect x="245.3" y="14" width="80.5" height="210" style="fill:var(--ink-dim);opacity:0.15"></rect>
+  <rect x="728.4" y="14" width="80.5" height="210" style="fill:var(--ink-dim);opacity:0.15"></rect>
+  <text class="d-sub" x="36" y="228.0" text-anchor="end">0</text>
+  <text class="d-sub" x="36" y="153.0" text-anchor="end">50</text>
+  <line x1="44" y1="149.0" x2="970" y2="149.0" style="stroke:var(--line-soft);stroke-width:1"></line>
+  <text class="d-sub" x="36" y="78.0" text-anchor="end">100</text>
+  <line x1="44" y1="74.0" x2="970" y2="74.0" style="stroke:var(--line-soft);stroke-width:1"></line>
+  <line x1="44" y1="224.0" x2="970" y2="224.0" style="stroke:var(--line);stroke-width:1.5"></line>
+  <line x1="44" y1="87.6" x2="970" y2="87.6" style="stroke:var(--ink-dim);stroke-width:1.5;stroke-dasharray:6 5"></line>
+  <text class="d-sub" x="978" y="91.6">average 91.0</text>
+  <polyline points="44.0,45.5 84.3,102.5 124.5,45.5 164.8,95.0 205.0,72.5 245.3,113.0 285.6,132.5 325.8,125.0 366.1,71.0 406.3,33.5 446.6,75.5 486.9,93.5 527.1,69.5 567.4,117.5 607.7,66.5 647.9,101.0 688.2,71.0 728.4,135.5 768.7,135.5 809.0,138.5 849.2,95.0 889.5,56.0 929.7,48.5 970.0,62.0" style="fill:none;stroke:var(--accent);stroke-width:2.5"></polyline>
+  <circle class="d-box-accent" cx="44.0" cy="45.5" r="3.5"></circle>
+  <circle class="d-box-accent" cx="84.3" cy="102.5" r="3.5"></circle>
+  <circle class="d-box-accent" cx="124.5" cy="45.5" r="3.5"></circle>
+  <circle class="d-box-accent" cx="164.8" cy="95.0" r="3.5"></circle>
+  <circle class="d-box-accent" cx="205.0" cy="72.5" r="3.5"></circle>
+  <circle class="d-box-accent" cx="245.3" cy="113.0" r="3.5"></circle>
+  <circle class="d-box-accent" cx="285.6" cy="132.5" r="3.5"></circle>
+  <circle class="d-box-accent" cx="325.8" cy="125.0" r="3.5"></circle>
+  <circle class="d-box-accent" cx="366.1" cy="71.0" r="3.5"></circle>
+  <circle class="d-box-accent" cx="406.3" cy="33.5" r="3.5"></circle>
+  <circle class="d-box-accent" cx="446.6" cy="75.5" r="3.5"></circle>
+  <circle class="d-box-accent" cx="486.9" cy="93.5" r="3.5"></circle>
+  <circle class="d-box-accent" cx="527.1" cy="69.5" r="3.5"></circle>
+  <circle class="d-box-accent" cx="567.4" cy="117.5" r="3.5"></circle>
+  <circle class="d-box-accent" cx="607.7" cy="66.5" r="3.5"></circle>
+  <circle class="d-box-accent" cx="647.9" cy="101.0" r="3.5"></circle>
+  <circle class="d-box-accent" cx="688.2" cy="71.0" r="3.5"></circle>
+  <circle class="d-box-accent" cx="728.4" cy="135.5" r="3.5"></circle>
+  <circle class="d-box-accent" cx="768.7" cy="135.5" r="3.5"></circle>
+  <circle class="d-box-accent" cx="809.0" cy="138.5" r="3.5"></circle>
+  <circle class="d-box-accent" cx="849.2" cy="95.0" r="3.5"></circle>
+  <circle class="d-box-accent" cx="889.5" cy="56.0" r="3.5"></circle>
+  <circle class="d-box-accent" cx="929.7" cy="48.5" r="3.5"></circle>
+  <circle class="d-box-accent" cx="970.0" cy="62.0" r="3.5"></circle>
+  <text class="d-sub" x="44.0" y="244" text-anchor="middle">Jan 2024</text>
+  <text class="d-sub" x="285.6" y="244" text-anchor="middle">Jul 2024</text>
+  <text class="d-sub" x="527.1" y="244" text-anchor="middle">Jan 2025</text>
+  <text class="d-sub" x="768.7" y="244" text-anchor="middle">Jul 2025</text>
+  <text class="d-sub" x="970.0" y="244" text-anchor="middle">Dec 2025</text>
+  <text class="d-mono" x="420.3" y="37.5">October 2024: 127</text>
+  <text class="d-mono" x="823.0" y="156.5">August 2025: 57</text>
+  <text class="d-sub" x="285.6" y="28" text-anchor="middle">summer</text>
+  <text class="d-sub" x="768.7" y="28" text-anchor="middle">summer</text>
+</svg>
+  </div>
+  <div class="cols">
+    <figure class="code" style="margin-bottom:0">
+      <pre class="xs"><code data-lang="python">monthly = plays.set_index("date").resample("MS").size()
+ax.plot(monthly.index, monthly.values, marker="o")
+ax.axhline(monthly.mean(), linestyle="--")        # a reference line
+ax.axvspan(pd.Timestamp("2024-06-01"),
+           pd.Timestamp("2024-08-01"), alpha=0.25)  # a shaded span
+ax.annotate(f"{peak_date:%B %Y}: {peak}", xy=(peak_date, peak),
+            xytext=(15, 8), textcoords="offset points",
+            arrowprops={"arrowstyle": "->"})</code></pre>
+    </figure>
+    <div class="card card--compact card--teal">
+      <p>Real dates: matplotlib spaces the ticks by time and nothing needs turning sideways.
+        A missing month would show as a gap, not be squeezed out.</p>
+      <p class="nomargin">The title, "Every summer falls below the average of 91.0 plays a
+        month", is checked in the notebook: all six summer months are below it.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><code>resample("MS")</code> is the session 6 tool, MS for month start.
+    <code>f"{peak_date:%B %Y}"</code> is one more f-string format: a date takes date codes
+    after the colon, so the label says "October 2024".</p>
+    <p>Notebook 02 then puts 2024 and 2025 on top of each other by month of the year, 2024 in
+    grey and 2025 in colour, labelled at the line ends instead of with a legend: 2025 had a
+    quieter summer (175 plays against 201) and a busier autumn (337 against 313).</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Small multiples">
+  <div class="eyebrow">Many groups at once</div>
+  <h2>From spaghetti to small multiples</h2>
+  <div class="cols cols-wide-right">
+    <div class="stack">
+      <span class="label">one ax, eight colours: which one is Folk?</span>
+      <div class="diagram" style="margin:0">
+<svg viewBox="0 0 300 190" width="300" height="190" role="img" aria-label="Eight genre lines on one chart, in eight colours, tangled together">
+  <polyline points="16.0,133.9 54.3,146.7 92.6,137.6 130.9,126.6 169.1,123.0 207.4,133.9 245.7,146.7 284.0,115.7" style="fill:none;stroke:var(--accent);stroke-width:2"></polyline>
+  <polyline points="16.0,39.2 54.3,57.4 92.6,68.3 130.9,22.8 169.1,42.8 207.4,51.9 245.7,88.4 284.0,24.6" style="fill:none;stroke:var(--teal);stroke-width:2"></polyline>
+  <polyline points="16.0,53.7 54.3,68.3 92.6,82.9 130.9,61.0 169.1,59.2 207.4,102.9 245.7,102.9 284.0,62.8" style="fill:none;stroke:var(--amber);stroke-width:2"></polyline>
+  <polyline points="16.0,104.8 54.3,126.6 92.6,124.8 130.9,110.2 169.1,124.8 207.4,123.0 245.7,121.2 284.0,106.6" style="fill:none;stroke:var(--rose);stroke-width:2"></polyline>
+  <polyline points="16.0,135.7 54.3,146.7 92.6,143.0 130.9,139.4 169.1,141.2 207.4,146.7 245.7,143.0 284.0,115.7" style="fill:none;stroke:var(--ink);stroke-width:2"></polyline>
+  <polyline points="16.0,126.6 54.3,130.3 92.6,144.8 130.9,115.7 169.1,139.4 207.4,133.9 245.7,150.3 284.0,113.9" style="fill:none;stroke:var(--ink-dim);stroke-width:2"></polyline>
+  <polyline points="16.0,86.5 54.3,104.8 92.6,115.7 130.9,99.3 169.1,110.2 207.4,110.2 245.7,128.4 284.0,86.5" style="fill:none;stroke:#b48cff;stroke-width:2"></polyline>
+  <polyline points="16.0,130.3 54.3,135.7 92.6,157.6 130.9,146.7 169.1,143.0 207.4,146.7 245.7,143.0 284.0,152.1" style="fill:none;stroke:#6fd0ff;stroke-width:2"></polyline>
+  <line x1="16" y1="174" x2="284" y2="174" style="stroke:var(--line);stroke-width:1.5"></line>
+</svg>
+      </div>
+      <figure class="code" style="margin-bottom:0">
+        <pre class="xs"><code data-lang="python">fig, axes = plt.subplots(2, 4, sharex=True,
+                         sharey=True)
+for ax, genre in zip(axes.flat, quarterly.columns):
+    ax.plot(quarterly.index, quarterly[genre])
+    ax.set_title(genre)</code></pre>
+      </figure>
+    </div>
+    <div class="stack">
+      <span class="label">eight charts, one shared axis</span>
+      <div class="diagram" style="margin:0">
+<svg viewBox="0 0 578 222" width="578" height="222" role="img" aria-label="Eight small line charts, one per genre, plays per quarter on a shared axis">
+  <text class="d-sub" x="30" y="14">Afrobeat</text>
+  <line x1="30" y1="104" x2="158" y2="104" style="stroke:var(--line);stroke-width:1.5"></line>
+  <text class="d-sub" x="24" y="108.0" text-anchor="end" style="font-size:11px">0</text>
+  <text class="d-sub" x="24" y="70.7" text-anchor="end" style="font-size:11px">40</text>
+  <text class="d-sub" x="24" y="33.3" text-anchor="end" style="font-size:11px">80</text>
+  <polyline points="30.0,83.5 48.3,90.0 66.6,85.3 84.9,79.7 103.1,77.9 121.4,83.5 139.7,90.0 158.0,74.1" style="fill:none;stroke:var(--accent);stroke-width:2"></polyline>
+  <text class="d-sub" x="170" y="14">Electronic</text>
+  <line x1="170" y1="104" x2="298" y2="104" style="stroke:var(--line);stroke-width:1.5"></line>
+  <polyline points="170.0,34.9 188.3,44.3 206.6,49.9 224.9,26.5 243.1,36.8 261.4,41.5 279.7,60.1 298.0,27.5" style="fill:none;stroke:var(--accent);stroke-width:2"></polyline>
+  <text class="d-sub" x="310" y="14">Folk</text>
+  <line x1="310" y1="104" x2="438" y2="104" style="stroke:var(--line);stroke-width:1.5"></line>
+  <polyline points="310.0,42.4 328.3,49.9 346.6,57.3 364.9,46.1 383.1,45.2 401.4,67.6 419.7,67.6 438.0,47.1" style="fill:none;stroke:var(--accent);stroke-width:2"></polyline>
+  <text class="d-sub" x="450" y="14">Indie</text>
+  <line x1="450" y1="104" x2="578" y2="104" style="stroke:var(--line);stroke-width:1.5"></line>
+  <polyline points="450.0,68.5 468.3,79.7 486.6,78.8 504.9,71.3 523.1,78.8 541.4,77.9 559.7,76.9 578.0,69.5" style="fill:none;stroke:var(--accent);stroke-width:2"></polyline>
+  <text class="d-sub" x="30" y="122">Jazz</text>
+  <line x1="30" y1="212" x2="158" y2="212" style="stroke:var(--line);stroke-width:1.5"></line>
+  <text class="d-sub" x="24" y="216.0" text-anchor="end" style="font-size:11px">0</text>
+  <text class="d-sub" x="24" y="178.7" text-anchor="end" style="font-size:11px">40</text>
+  <text class="d-sub" x="24" y="141.3" text-anchor="end" style="font-size:11px">80</text>
+  <polyline points="30.0,192.4 48.3,198.0 66.6,196.1 84.9,194.3 103.1,195.2 121.4,198.0 139.7,196.1 158.0,182.1" style="fill:none;stroke:var(--accent);stroke-width:2"></polyline>
+  <text class="d-sub" x="170" y="122">Latin</text>
+  <line x1="170" y1="212" x2="298" y2="212" style="stroke:var(--line);stroke-width:1.5"></line>
+  <polyline points="170.0,187.7 188.3,189.6 206.6,197.1 224.9,182.1 243.1,194.3 261.4,191.5 279.7,199.9 298.0,181.2" style="fill:none;stroke:var(--accent);stroke-width:2"></polyline>
+  <text class="d-sub" x="310" y="122">Pop</text>
+  <line x1="310" y1="212" x2="438" y2="212" style="stroke:var(--line);stroke-width:1.5"></line>
+  <polyline points="310.0,167.2 328.3,176.5 346.6,182.1 364.9,173.7 383.1,179.3 401.4,179.3 419.7,188.7 438.0,167.2" style="fill:none;stroke:var(--accent);stroke-width:2"></polyline>
+  <text class="d-sub" x="450" y="122">Rock</text>
+  <line x1="450" y1="212" x2="578" y2="212" style="stroke:var(--line);stroke-width:1.5"></line>
+  <polyline points="450.0,189.6 468.3,192.4 486.6,203.6 504.9,198.0 523.1,196.1 541.4,198.0 559.7,196.1 578.0,200.8" style="fill:none;stroke:var(--accent);stroke-width:2"></polyline>
+</svg>
+      </div>
+      <div class="callout callout--warn" style="margin-bottom:0">
+        <span class="ico">▲</span>
+        <div>
+          <p class="nomargin"><strong><code>sharey=True</code> is what makes it honest.</strong>
+            Without it, Rock (never above 24 a quarter) stretches to look as big as Electronic
+            (never below 47).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Plays per quarter per genre, from <code>pivot_table</code>; monthly counts per genre are
+    too small and jumpy. <code>quarterly.plot(ax=ax)</code> draws the spaghetti in one line,
+    which is exactly why pandas users end up with so many of them.</p>
+    <p>Have him flip <code>sharey</code> to <code>False</code> and run it. The point lands
+    harder when he sees Rock grow.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Highlighting">
+  <div class="eyebrow">The one that matters</div>
+  <h2>Grey everything, colour the one the title is about</h2>
+  <div class="cols cols-wide-left">
+    <div class="diagram" style="margin:0">
+<svg viewBox="0 0 760 270" width="760" height="270" role="img" aria-label="Plays per quarter for eight genres in grey, Folk highlighted in colour">
+  <text class="d-sub" x="32" y="248.0" text-anchor="end">0</text>
+  <text class="d-sub" x="32" y="144.9" text-anchor="end">40</text>
+  <text class="d-sub" x="32" y="41.8" text-anchor="end">80</text>
+  <line x1="40" y1="244" x2="670" y2="244" style="stroke:var(--line);stroke-width:1.5"></line>
+  <polyline points="40.0,187.3 130.0,205.3 220.0,192.4 310.0,177.0 400.0,171.8 490.0,187.3 580.0,205.3 670.0,161.5" style="stroke:var(--ink-dim);stroke-width:1.5;fill:none;opacity:0.6"></polyline>
+  <polyline points="40.0,53.2 130.0,79.0 220.0,94.5 310.0,30.0 400.0,58.4 490.0,71.3 580.0,122.8 670.0,32.6" style="stroke:var(--ink-dim);stroke-width:1.5;fill:none;opacity:0.6"></polyline>
+  <polyline points="40.0,146.0 130.0,177.0 220.0,174.4 310.0,153.8 400.0,174.4 490.0,171.8 580.0,169.2 670.0,148.6" style="stroke:var(--ink-dim);stroke-width:1.5;fill:none;opacity:0.6"></polyline>
+  <polyline points="40.0,189.9 130.0,205.3 220.0,200.2 310.0,195.0 400.0,197.6 490.0,205.3 580.0,200.2 670.0,161.5" style="stroke:var(--ink-dim);stroke-width:1.5;fill:none;opacity:0.6"></polyline>
+  <polyline points="40.0,177.0 130.0,182.1 220.0,202.8 310.0,161.5 400.0,195.0 490.0,187.3 580.0,210.5 670.0,158.9" style="stroke:var(--ink-dim);stroke-width:1.5;fill:none;opacity:0.6"></polyline>
+  <polyline points="40.0,120.3 130.0,146.0 220.0,161.5 310.0,138.3 400.0,153.8 490.0,153.8 580.0,179.6 670.0,120.3" style="stroke:var(--ink-dim);stroke-width:1.5;fill:none;opacity:0.6"></polyline>
+  <polyline points="40.0,182.1 130.0,189.9 220.0,220.8 310.0,205.3 400.0,200.2 490.0,205.3 580.0,200.2 670.0,213.1" style="stroke:var(--ink-dim);stroke-width:1.5;fill:none;opacity:0.6"></polyline>
+  <polyline points="40.0,73.9 130.0,94.5 220.0,115.1 310.0,84.2 400.0,81.6 490.0,143.5 580.0,143.5 670.0,86.8" style="fill:none;stroke:var(--amber);stroke-width:4"></polyline>
+  <text class="d-label" x="680.0" y="91.8" style="fill:var(--amber)">Folk</text>
+  <text class="d-sub" x="680.0" y="37.6">Electronic</text>
+  <text class="d-mono" x="490.0" y="165.5" text-anchor="middle" style="fill:var(--amber)">spring: 39, from 58</text>
+  <text class="d-sub" x="40.0" y="264" text-anchor="middle">2024 Q1</text>
+  <text class="d-sub" x="400.0" y="264" text-anchor="middle">2025 Q1</text>
+  <text class="d-sub" x="670.0" y="264" text-anchor="middle">2025 Q4</text>
+</svg>
+    </div>
+    <div class="stack">
+      <div class="card card--compact card--amber">
+        <p class="nomargin">"Folk lost the most plays: 236 in 2024, 202 in 2025." The same
+          eight lines as the spaghetti, and nothing to decode.</p>
+      </div>
+      <div class="card card--teal">
+        <div class="card-title"><span class="dot"></span>The recipe</div>
+        <ol class="tight nomargin">
+          <li>everything in grey, thin</li>
+          <li>the one the title names last, in colour, thick</li>
+          <li>label it at the line end, not in a legend</li>
+          <li>annotate the moment that makes the point</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The biggest fall is spring 2025: 39 plays against 58 a year before. The annotation in
+    the notebook uses a date and a number for <code>xytext</code> too, to put the text in the
+    one empty part of the chart.</p>
+    <p>Small multiples show every genre; highlighting answers a question about one. Ask which
+    he would use for "how did each genre do?" and which for "which genre fell most?".</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Colour">
+  <div class="eyebrow">Colour for every reader</div>
+  <h2>Colour should mean something, and never work alone</h2>
+  <div class="cols">
+    <div class="card">
+      <ul class="tight nomargin">
+        <li><strong>One job per colour.</strong> One for the data, grey for context, one strong
+          colour for the point. Not a colour per bar to look nice.</li>
+        <li><strong>Never colour alone.</strong> Label lines directly, write numbers on bars.</li>
+        <li><strong>Not red against green.</strong> One man in twelve cannot tell them apart.
+          Blue against orange is safe.</li>
+        <li><strong>Differ in lightness</strong>, so it survives a greyscale printer.</li>
+        <li><strong>Amounts:</strong> light to dark in one colour (<code>"Blues"</code>), never
+          a rainbow.</li>
+      </ul>
+    </div>
+    <div class="stack">
+      <div class="diagram" style="margin:0">
+<svg viewBox="0 0 490 70" width="490" height="70" role="img" aria-label="The Okabe-Ito palette: orange, sky blue, green, blue, vermillion, purple, yellow">
+  <rect x="0" y="0" width="64" height="40" rx="4" style="fill:#e69f00"></rect>
+  <rect x="70" y="0" width="64" height="40" rx="4" style="fill:#56b4e9"></rect>
+  <rect x="140" y="0" width="64" height="40" rx="4" style="fill:#009e73"></rect>
+  <rect x="210" y="0" width="64" height="40" rx="4" style="fill:#0072b2"></rect>
+  <rect x="280" y="0" width="64" height="40" rx="4" style="fill:#d55e00"></rect>
+  <rect x="350" y="0" width="64" height="40" rx="4" style="fill:#cc79a7"></rect>
+  <rect x="420" y="0" width="64" height="40" rx="4" style="fill:#f0e442"></rect>
+  <text class="d-sub" x="0" y="62">Okabe-Ito: built to be told apart by nearly everyone</text>
+</svg>
+      </div>
+      <div class="card card--compact card--accent">
+        <h4>The greyscale test</h4>
+        <p class="nomargin">Save the stacked histogram, read the PNG back with
+          <code>plt.imread</code>, mix it to grey. Part one's blue and red differ in lightness
+          by <strong>0.07</strong>: two near-identical greys. Okabe-Ito blue and orange:
+          <strong>0.29</strong>.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The greyscale test is the one practical check he can always run: you cannot see your
+    chart the way everyone else does, but you can see it without colour. Lightness is
+    0.299 red + 0.587 green + 0.114 blue, because the eye sees green as much brighter.</p>
+    <p>Honest admission worth making: the course's own part-one histogram fails the test. Only
+    the white edges keep the bars apart.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="A figure to share">
+  <div class="eyebrow">Ready for someone else</div>
+  <h2>One figure, four panels, one title over all of it</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code" style="margin-bottom:0">
+      <figcaption>02-time-and-panels.ipynb</figcaption>
+      <pre class="sm"><code data-lang="python">fig, axes = plt.subplots(2, 2, figsize=(13, 8),
+                         layout="constrained")
+(time_ax, genre_ax), (spread_ax, artist_ax) = axes
+
+time_ax.plot(...)          # change over time
+genre_ax.barh(...)         # comparison
+spread_ax.hist(...)        # distribution
+artist_ax.scatter(...)     # relationship
+
+fig.suptitle("Two years of listening: "
+             "2,183 plays, 8,980 minutes")
+fig.savefig("output/listening_overview.png",
+            dpi=200, bbox_inches="tight")</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--teal">
+        <ul class="tight nomargin">
+          <li>each panel title gives its own answer</li>
+          <li>the same blue means "the data" in all four, orange the point</li>
+          <li><code>layout="constrained"</code>: no title overlaps another</li>
+          <li><code>dpi=200</code> for print, 150 for slides, 100 for screens</li>
+        </ul>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">Over 2,000 pixels wide. If anything is cramped, make
+          <code>figsize</code> bigger, not the fonts smaller. <code>.svg</code> instead of
+          <code>.png</code> stays sharp at any size.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Unpacking <code>axes</code> into four names is what makes this readable: every line
+    says which panel it draws on. With four panels, the <code>ax.</code> style is not a
+    preference any more.</p>
+    <p>Open <code>output/listening_overview.png</code> at full size together. This is the
+    shape of the figure his session 8 project will end with.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Live exercise">
+  <div class="eyebrow">Your turn · 20 minutes</div>
+  <h2>The makeover: every number right, and it still fails</h2>
+  <div class="cols cols-wide-right">
+    <div class="diagram" style="margin:0">
+<svg viewBox="0 0 520 250" width="520" height="250" role="img" aria-label="The bad chart: two lines in red and green across genres in alphabetical order, axis from 55">
+  <text class="d-label" x="260.0" y="16" text-anchor="middle">Genre data</text>
+  <line x1="40" y1="191.7" x2="510" y2="191.7" style="stroke:var(--ink-dim);stroke-width:1.5"></line>
+  <text class="d-sub" x="34" y="195.7" text-anchor="end">100</text>
+  <line x1="40" y1="149.1" x2="510" y2="149.1" style="stroke:var(--ink-dim);stroke-width:1.5"></line>
+  <text class="d-sub" x="34" y="153.1" text-anchor="end">150</text>
+  <line x1="40" y1="106.6" x2="510" y2="106.6" style="stroke:var(--ink-dim);stroke-width:1.5"></line>
+  <text class="d-sub" x="34" y="110.6" text-anchor="end">200</text>
+  <line x1="40" y1="64.0" x2="510" y2="64.0" style="stroke:var(--ink-dim);stroke-width:1.5"></line>
+  <text class="d-sub" x="34" y="68.0" text-anchor="end">250</text>
+  <line x1="60.0" y1="30" x2="60.0" y2="230" style="stroke:var(--ink-dim);stroke-width:1.5"></line>
+  <line x1="122.9" y1="30" x2="122.9" y2="230" style="stroke:var(--ink-dim);stroke-width:1.5"></line>
+  <line x1="185.7" y1="30" x2="185.7" y2="230" style="stroke:var(--ink-dim);stroke-width:1.5"></line>
+  <line x1="248.6" y1="30" x2="248.6" y2="230" style="stroke:var(--ink-dim);stroke-width:1.5"></line>
+  <line x1="311.4" y1="30" x2="311.4" y2="230" style="stroke:var(--ink-dim);stroke-width:1.5"></line>
+  <line x1="374.3" y1="30" x2="374.3" y2="230" style="stroke:var(--ink-dim);stroke-width:1.5"></line>
+  <line x1="437.1" y1="30" x2="437.1" y2="230" style="stroke:var(--ink-dim);stroke-width:1.5"></line>
+  <line x1="500.0" y1="30" x2="500.0" y2="230" style="stroke:var(--ink-dim);stroke-width:1.5"></line>
+  <polyline points="60.0,206.2 122.9,39.4 185.7,76.0 248.6,169.6 311.4,215.5 374.3,193.4 437.1,141.5 500.0,218.1" style="fill:none;stroke:#e5484d;stroke-width:3.5"></polyline>
+  <rect x="56.0" y="202.2" width="8" height="8" style="fill:#e5484d"></rect>
+  <rect x="118.9" y="35.4" width="8" height="8" style="fill:#e5484d"></rect>
+  <rect x="181.7" y="72.0" width="8" height="8" style="fill:#e5484d"></rect>
+  <rect x="244.6" y="165.6" width="8" height="8" style="fill:#e5484d"></rect>
+  <rect x="307.4" y="211.5" width="8" height="8" style="fill:#e5484d"></rect>
+  <rect x="370.3" y="189.4" width="8" height="8" style="fill:#e5484d"></rect>
+  <rect x="433.1" y="137.5" width="8" height="8" style="fill:#e5484d"></rect>
+  <rect x="496.0" y="214.1" width="8" height="8" style="fill:#e5484d"></rect>
+  <polyline points="60.0,194.3 122.9,48.7 185.7,104.9 248.6,173.8 311.4,207.0 374.3,202.8 437.1,155.1 500.0,224.9" style="fill:none;stroke:#30a46c;stroke-width:3.5"></polyline>
+  <rect x="56.0" y="190.3" width="8" height="8" style="fill:#30a46c"></rect>
+  <rect x="118.9" y="44.7" width="8" height="8" style="fill:#30a46c"></rect>
+  <rect x="181.7" y="100.9" width="8" height="8" style="fill:#30a46c"></rect>
+  <rect x="244.6" y="169.8" width="8" height="8" style="fill:#30a46c"></rect>
+  <rect x="307.4" y="203.0" width="8" height="8" style="fill:#30a46c"></rect>
+  <rect x="370.3" y="198.8" width="8" height="8" style="fill:#30a46c"></rect>
+  <rect x="433.1" y="151.1" width="8" height="8" style="fill:#30a46c"></rect>
+  <rect x="496.0" y="220.9" width="8" height="8" style="fill:#30a46c"></rect>
+  <text class="d-sub" x="60.0" y="246" text-anchor="middle" style="font-size:11px">Afrobeat</text>
+  <text class="d-sub" x="122.9" y="246" text-anchor="middle" style="font-size:11px">Electronic</text>
+  <text class="d-sub" x="185.7" y="246" text-anchor="middle" style="font-size:11px">Folk</text>
+  <text class="d-sub" x="248.6" y="246" text-anchor="middle" style="font-size:11px">Indie</text>
+  <text class="d-sub" x="311.4" y="246" text-anchor="middle" style="font-size:11px">Jazz</text>
+  <text class="d-sub" x="374.3" y="246" text-anchor="middle" style="font-size:11px">Latin</text>
+  <text class="d-sub" x="437.1" y="246" text-anchor="middle" style="font-size:11px">Pop</text>
+  <text class="d-sub" x="500.0" y="246" text-anchor="middle" style="font-size:11px">Rock</text>
+  <rect x="440" y="34" width="66" height="40" style="fill:var(--surface);stroke:var(--line)"></rect>
+  <text class="d-sub" x="470" y="50" style="fill:#e5484d">2024</text>
+  <text class="d-sub" x="470" y="68" style="fill:#30a46c">2025</text>
+</svg>
+    </div>
+    <div class="exercise" style="margin:0">
+      <div class="tag">◆ Live exercise</div>
+      <ol class="tight nomargin" start="0">
+        <li>What is wrong with it? Five things, before any code</li>
+        <li>The question, in one sentence</li>
+        <li>The number that answers it: plays or percent?</li>
+        <li>The kind of chart</li>
+        <li>The line the reader measures from</li>
+        <li>Colour with one job</li>
+        <li>Labels with <code>:+.1f</code></li>
+        <li>A computed title that answers</li>
+        <li>Take away what says nothing; save</li>
+        <li>What does it not show?</li>
+      </ol>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">File: <code>notebooks/03-makeover-exercise.ipynb</code>. Run each step
+        and look. If you cannot say why a step made it better, it did not.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do step 0 out loud together, then let him drive. The step that unlocks it is 2: the
+    question is about change, so the chart should show the change, not two levels to subtract
+    in your head eight times. If he has not found that by step 3, ask "what would you have to
+    do in your head to answer the question from this chart?"</p>
+    <p>Plays or percent: Electronic and Latin both lost 11 plays, which is 3.9% of one and
+    11.2% of the other.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="After the makeover">
+  <div class="eyebrow">The makeover, done</div>
+  <h2>Only Afrobeat and Jazz grew in 2025; Folk fell most, -14.4%</h2>
+  <div class="cols cols-wide-left">
+    <div class="diagram" style="margin:0">
+<svg viewBox="0 0 620 254" width="620" height="254" role="img" aria-label="The makeover: change in plays per genre as diverging bars, Afrobeat plus 16.9 percent, Folk minus 14.4 percent">
+  <rect class="d-box-accent" x="330.0" y="9" width="160.2" height="20" rx="2"></rect>
+  <text class="d-sub" x="8" y="24">Afrobeat</text>
+  <text class="d-mono" x="496.2" y="24">+16.9% (+14)</text>
+  <rect class="d-box-accent" x="330.0" y="37" width="131.9" height="20" rx="2"></rect>
+  <text class="d-sub" x="8" y="52">Jazz</text>
+  <text class="d-mono" x="467.9" y="52">+13.9% (+10)</text>
+  <rect class="d-box-amber" x="292.5" y="65" width="37.5" height="20" rx="2"></rect>
+  <text class="d-sub" x="8" y="80">Electronic</text>
+  <text class="d-mono" x="286.5" y="80" text-anchor="end">-3.9% (-11)</text>
+  <rect class="d-box-amber" x="292.3" y="93" width="37.7" height="20" rx="2"></rect>
+  <text class="d-sub" x="8" y="108">Indie</text>
+  <text class="d-mono" x="286.3" y="108" text-anchor="end">-4.0% (-5)</text>
+  <rect class="d-box-amber" x="234.4" y="121" width="95.6" height="20" rx="2"></rect>
+  <text class="d-sub" x="8" y="136">Pop</text>
+  <text class="d-mono" x="228.4" y="136" text-anchor="end">-10.1% (-16)</text>
+  <rect class="d-box-amber" x="223.4" y="149" width="106.6" height="20" rx="2"></rect>
+  <text class="d-sub" x="8" y="164">Latin</text>
+  <text class="d-mono" x="217.4" y="164" text-anchor="end">-11.2% (-11)</text>
+  <rect class="d-box-amber" x="219.9" y="177" width="110.1" height="20" rx="2"></rect>
+  <text class="d-sub" x="8" y="192">Rock</text>
+  <text class="d-mono" x="213.9" y="192" text-anchor="end">-11.6% (-8)</text>
+  <rect class="d-box-amber" x="193.1" y="205" width="136.9" height="20" rx="2"></rect>
+  <text class="d-sub" x="8" y="220">Folk</text>
+  <text class="d-mono" x="187.1" y="220" text-anchor="end">-14.4% (-34)</text>
+  <line x1="330" y1="2" x2="330" y2="230" style="stroke:var(--ink);stroke-width:1.5"></line>
+  <line x1="278.4" y1="2" x2="278.4" y2="230" style="stroke:var(--ink-dim);stroke-width:1.5;stroke-dasharray:5 4"></line>
+  <text class="d-sub" x="278.4" y="248" text-anchor="middle">all listening: -5.4%</text>
+</svg>
+    </div>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <p class="nomargin">The change, not the levels. Bars, sorted, from a visible zero. Blue
+          up, orange down, the sign in the label too. A title computed from the data.</p>
+      </div>
+      <div class="card card--compact card--rose">
+        <h4>What it does not show</h4>
+        <p class="nomargin">All listening fell 5.4%, from 1,122 plays to 1,061. Electronic
+          (-3.9%) and Indie (-4.0%) fell <em>less</em>, so their share went up. With the dashed
+          line, the honest title becomes "4 of 8 genres fell less than listening as a
+          whole".</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Step 10 in the notebook adds the dashed reference line. Two true titles for one chart;
+    which is right depends on the question you were asked. That is why the question comes
+    first, and the closing point of the session.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Homework">
+  <div class="eyebrow">Between now and next time · 2–4 hours</div>
+  <h2>Homework</h2>
+  <div class="cols">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>Task 1 · one chart of your own</div>
+      <p>Your own question about the log, answered with one chart saved to
+        <code>output/</code>. The checklist is the marking scheme.</p>
+      <p class="nomargin">Underneath: one sentence you would say about it in a meeting, and
+        one on what it does <strong>not</strong> show.</p>
+    </div>
+    <div class="card card--amber">
+      <div class="card-title"><span class="dot"></span>Task 2 · a makeover</div>
+      <p>Two pie charts of device share, 2024 and 2025, turned a quarter apart, with
+        shadows. "Is the phone losing ground?"</p>
+      <p class="nomargin">Rebuild it the way you rebuilt the genre chart. A pie is not one of
+        the answers.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">File: <code>notebooks/04-my-chart-homework.ipynb</code>, or the two
+        scripts in <code>homework/</code>. Before you write a title, ask how sure it is: is the
+        gap bigger than one or two plays could change?</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>In the worked task 1, DJ Kompas beats Glass Tram in 2025 by 25.4 minutes in the clean
+    file, but by only 3.5 with the minutes the messy file knew. "Edged out" is the honest
+    verb. In task 2, the trap is "every other device gained": true of shares, false of plays
+    for the laptop (263 to 261).</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Before session 8">
+  <div class="eyebrow">Part 3 of the homework · do not skip</div>
+  <h2>Before session 8: your project</h2>
+  <div class="cols-3">
+    <div class="card card--accent card--compact">
+      <div class="card-title"><span class="dot"></span>The scoping worksheet</div>
+      <p class="nomargin">Fill in <code>sessions/session-08/prework/scoping-worksheet.md</code>:
+        the question, the data, what "done" looks like. Session 8 is two hours of building,
+        not of deciding.</p>
+    </div>
+    <div class="card card--teal card--compact">
+      <div class="card-title"><span class="dot"></span>Pick a dataset</div>
+      <p class="nomargin">This listening log, a public dataset you care about, or your own
+        data. Open it once and check it has the columns your question needs.</p>
+    </div>
+    <div class="card card--rose card--compact">
+      <div class="card-title"><span class="dot"></span>Your own Spotify data?</div>
+      <p class="nomargin">Request the <strong>Extended streaming history</strong> in your
+        Spotify privacy settings <strong>today</strong>. It can take up to 30 days to
+        arrive.</p>
+    </div>
+  </div>
+  <div class="callout callout--key mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">If the Spotify export has not arrived by session 8, start on this log
+        with the same question. The pipeline barely changes when the file does.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Check before he leaves that he knows where the request lives in Spotify (Account,
+    Privacy settings, Download your data, Extended streaming history). The default "Account
+    data" export is quicker but only covers the last year, with less detail.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Recap">
+  <div class="eyebrow">Wrap up</div>
+  <h2>What you can do now</h2>
+  <div class="cols">
+    <ul class="checklist">
+      <li>Build a chart from <code>fig</code> and <code>ax</code>, and read <code>plt.</code>
+        code online</li>
+      <li>Pick the chart from the kind of question</li>
+      <li>Write a title that gives the answer, with <code>:.1f</code></li>
+      <li>Keep axes honest, and ask "out of what?"</li>
+      <li>Say what a chart does <strong>not</strong> show</li>
+    </ul>
+    <ul class="checklist">
+      <li>Plot real dates, with reference lines and annotations</li>
+      <li>Draw small multiples on a shared axis</li>
+      <li>Grey everything, colour the one that matters</li>
+      <li>Choose colours that survive greyscale</li>
+      <li><strong>Turn a bad chart into a good one, and say why at every step</strong></li>
+    </ul>
+  </div>
+  <div class="callout callout--key mt">
+    <span class="ico">◆</span>
+    <div>
+      <h4>Next session: your project</h4>
+      <p class="nomargin">One two-hour session, built together: from your question to a script
+        that loads, cleans, analyses and ends in a figure like today's, saved for someone
+        else.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Commit and push the notebooks before he leaves. Remind him, last thing, about the
+    Spotify request.</p>
+  </aside>
+</section>
+
+</div>
+</div>
+<script src="assets/deck.js"></script>
+</body>
+</html>
