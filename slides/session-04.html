@@ -3,29 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Session 4: Lists, dictionaries and files</title>
+<title>Session 4: Lists, dictionaries, files, and git</title>
 <link rel="stylesheet" href="assets/deck.css">
 </head>
-<body data-deck="Session 4 · Lists, dictionaries and files">
+<body data-deck="Session 4 · Lists, dictionaries, files, and git">
 <div id="viewport">
 <div class="deck">
 
 <section class="slide slide--title" data-title="Title">
   <div>
-    <div class="session-no">Session 04 of 12</div>
-    <h1>Lists, dictionaries and files</h1>
-    <p class="goal">Hold a table's worth of data in memory, and get data in and out of files.
-      Today you meet the dataset you will use for the rest of the course.</p>
+    <div class="session-no">Session 04 of 08</div>
+    <h1>Lists, dictionaries, files, and git</h1>
+    <p class="goal">Hold a table's worth of data in memory and read it from a real file. Then
+      put four sessions of work under version control and push it to your own GitHub repo.</p>
     <div class="meta">
       <span class="pill pill--accent">2 hours</span>
       <span class="pill">lists and dicts</span>
       <span class="pill">the csv module</span>
-      <span class="pill pill--teal">Build: count the listening log</span>
+      <span class="pill">commit and push</span>
+      <span class="pill pill--amber">Needs: your GitHub account</span>
     </div>
   </div>
   <aside class="notes">
-    <p>The big idea today is that a list of dictionaries is a table. Everything after this
-    session, in Python and in SQL, is a variation on that shape.</p>
+    <p>Two halves. Before the break: a list of dictionaries is a table, and the listening log
+    arrives. After the break: git, ending with everything from sessions 1 to 4 on GitHub.</p>
+    <p>Check at the start that the GitHub account exists and that they can log in to it. If
+    not, have them create it during the break; the email verification can take a few
+    minutes. Authentication will eat twenty minutes of the second half. Do it in the
+    session, never as homework.</p>
   </aside>
 </section>
 
@@ -61,11 +66,11 @@
   </aside>
 </section>
 
-<section class="slide slide--section" data-title="Section: Lists">
+<section class="slide slide--section" data-title="Section: Lists and dictionaries">
   <div>
     <div class="marker">Part one</div>
-    <h2>Lists</h2>
-    <p>One variable holding many values, in order.</p>
+    <h2>Lists and dictionaries</h2>
+    <p>Many values in order, and values you find by name.</p>
   </div>
 </section>
 
@@ -231,14 +236,6 @@ for n, value in enumerate(minutes, start=1):
     <p>enumerate feels like a nicety now and becomes essential the first time they need to
     report which row of a CSV was malformed.</p>
   </aside>
-</section>
-
-<section class="slide slide--section" data-title="Section: Dictionaries">
-  <div>
-    <div class="marker">Part two</div>
-    <h2>Dictionaries</h2>
-    <p>When position is the wrong way to find something, and a name is the right way.</p>
-  </div>
 </section>
 
 <section class="slide" data-title="Dictionaries">
@@ -419,14 +416,14 @@ for genre, number in sorted(counts.items(),
   </div>
   <aside class="notes">
     <p>This slide is the hinge of the whole course. The CSV reader gives them exactly this
-    shape, SQL returns exactly this shape, and a pandas DataFrame in session 8 is exactly
+    shape, SQL returns exactly this shape, and a pandas DataFrame in session 6 is exactly
     this shape with a faster engine underneath.</p>
   </aside>
 </section>
 
 <section class="slide slide--section" data-title="Section: Files">
   <div>
-    <div class="marker">Part three</div>
+    <div class="marker">Part two</div>
     <h2>Files</h2>
     <p>Until now, every value has been typed into your program. Real data lives on disk.</p>
   </div>
@@ -508,7 +505,7 @@ print(DATA)</code></pre>
       </div>
       <div class="card card--compact card--plain">
         <p class="nomargin">The <code>Path(__file__)</code> trick means "wherever this script
-          lives". We use it properly in session 10. For today,
+          lives". It comes back later in the course. For today,
           <code>cd</code> to the repo root and use relative paths.</p>
       </div>
     </div>
@@ -602,7 +599,7 @@ print(f"{total:,.0f} minutes")       # 8,980 minutes</code></pre>
     </div>
   </div>
   <aside class="notes">
-    <p>Session 8 is largely "pandas does this conversion for you", so make the pain vivid
+    <p>Session 6 is largely "pandas does this conversion for you", so make the pain vivid
     now. It makes read_csv feel like a gift rather than magic.</p>
   </aside>
 </section>
@@ -640,14 +637,14 @@ Rock           130</code></pre>
     <span class="ico">◆</span>
     <div>
       <p class="nomargin">Look at what that is: <strong>the accumulate pattern from session
-        2</strong>, with a dictionary instead of a single total. In session 6 you will write
-        the same question as <code>GROUP BY genre</code>, and in session 8 as
+        2</strong>, with a dictionary instead of a single total. In session 5 you will write
+        the same question as <code>GROUP BY genre</code>, and in session 6 as
         <code>groupby("genre")</code>. Same idea, three notations.</p>
     </div>
   </div>
   <aside class="notes">
-    <p>Say the "same idea, three notations" line out loud. It is the spine of sessions 4, 6
-    and 8, and it makes SQL and pandas feel like translations rather than new subjects.</p>
+    <p>Say the "same idea, three notations" line out loud. It is the spine of sessions 4, 5
+    and 6, and it makes SQL and pandas feel like translations rather than new subjects.</p>
   </aside>
 </section>
 
@@ -721,12 +718,12 @@ with open(out, "w", newline="", encoding="utf-8") as f:
           want to.</p>
       </div>
       <div class="card card--teal card--compact">
-        <h4>You will see it four more times</h4>
+        <h4>You will see it every session from here</h4>
         <ul class="tight nomargin">
-          <li><strong>6 and 7:</strong> as a SQLite database</li>
-          <li><strong>8:</strong> as a pandas DataFrame</li>
-          <li><strong>9:</strong> as a deliberately messy file</li>
-          <li><strong>10:</strong> as the input to a full pipeline</li>
+          <li><strong>5:</strong> as a SQLite database</li>
+          <li><strong>6:</strong> as a pandas DataFrame, and a messy file</li>
+          <li><strong>7:</strong> as charts</li>
+          <li><strong>8:</strong> as the data behind your end project</li>
         </ul>
       </div>
       <div class="card card--compact card--plain">
@@ -740,15 +737,15 @@ with open(out, "w", newline="", encoding="utf-8") as f:
     and all, is worth more than describing it.</p>
     <p>If they have their own dataset they would rather use, this is the moment to talk about
     it. Requirements: a few thousand rows, one date column, one numeric column, a couple of
-    categoricals, and something that can become a second table for session 7.</p>
+    categoricals, and something that can become a second table for session 5.</p>
   </aside>
 </section>
 
 <section class="slide" data-title="Live exercise">
-  <div class="eyebrow">Your turn · 40 minutes</div>
+  <div class="eyebrow">Your turn · 15 minutes</div>
   <h2>Ask the listening log three questions</h2>
   <div class="exercise">
-    <div class="tag">◆ Live exercise</div>
+    <div class="tag">◆ Live exercise, part one</div>
     <h3>Read the CSV, loop over it, and answer these with printed output</h3>
     <div class="cols">
       <div>
@@ -784,45 +781,533 @@ with open(out, "w", newline="", encoding="utf-8") as f:
     column name. Both are the lesson. Let them read the messages.</p>
     <p>Nudge them toward functions without insisting. If they write it as one long script,
     ask how they would answer the same three questions about the messy file later.</p>
+    <p>Stop at the break whether or not question 4 is done. The finished file is the first
+    thing they commit after the break.</p>
+  </aside>
+</section>
+
+<section class="slide slide--section" data-title="Section: Git">
+  <div>
+    <div class="marker">Part three · after the break</div>
+    <h2>Git and GitHub</h2>
+    <p>Four sessions of work, safe and off your laptop. Everything from here is typed by you,
+      in the repo you cloned in session 1.</p>
+  </div>
+</section>
+
+<section class="slide" data-title="Why version control">
+  <div class="eyebrow">The problem</div>
+  <h2>You already have a version control system. It is just bad.</h2>
+  <div class="cols cols-wide-left">
+    <div class="stack">
+      <figure class="code plain" style="margin-bottom:14px">
+        <figcaption>a folder near you</figcaption>
+        <pre class="sm"><code data-lang="text">report.py
+report_v2.py
+report_v2_fixed.py
+report_final.py
+report_final_REAL.py
+report_final_REAL_use_this_one.py</code></pre>
+      </figure>
+      <p class="nomargin">Everyone has done this. It sort of works, and it fails in exactly
+        the ways you would expect: you cannot tell what changed between two files, you cannot
+        remember why, and you certainly cannot undo one change from last Tuesday while
+        keeping everything else.</p>
+    </div>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4>What git gives you instead</h4>
+        <ul class="tight nomargin">
+          <li>One folder, with a full history</li>
+          <li>A message on every change saying why</li>
+          <li>The exact difference between any two points</li>
+          <li>The ability to go back, safely</li>
+          <li>A copy somewhere that is not your laptop</li>
+        </ul>
+      </div>
+      <div class="card card--teal card--compact">
+        <p class="nomargin"><strong>The honest summary:</strong> git is a save button with
+          notes attached, and a time machine you will use about twice a year and be extremely
+          glad of both times.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Ask them if they recognise the file list. They always do, and it makes git feel like a
+    fix for a problem they have rather than professional ceremony.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="The three places">
+  <div class="eyebrow">Mental model</div>
+  <h2>Three places your work can be</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 1100 280" width="1100" height="280" role="img"
+         aria-label="Files move from the working directory to the staging area with git add, then to the repository with git commit, then to GitHub with git push">
+      <defs>
+        <marker id="arrowhead" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--accent)"></polygon>
+        </marker>
+        <marker id="arrowhead-soft" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--ink-dim)"></polygon>
+        </marker>
+      </defs>
+
+      <rect class="d-box" x="8" y="60" width="230" height="120" rx="11"></rect>
+      <text class="d-label" x="26" y="92">1 · Working folder</text>
+      <text class="d-sub" x="26" y="116">the files you edit</text>
+      <text class="d-sub" x="26" y="138">right now, on disk</text>
+      <text class="d-mono" x="26" y="166">what VS Code shows</text>
+
+      <path class="d-arrow" d="M246 120 L 316 120"></path>
+      <text class="d-mono" x="244" y="106">git add</text>
+
+      <rect class="d-box-amber" x="324" y="60" width="230" height="120" rx="11"></rect>
+      <text class="d-label" x="342" y="92">2 · Staging area</text>
+      <text class="d-sub" x="342" y="116">what you have chosen</text>
+      <text class="d-sub" x="342" y="138">to include next</text>
+      <text class="d-mono" x="342" y="166">a draft of a commit</text>
+
+      <path class="d-arrow" d="M562 120 L 632 120"></path>
+      <text class="d-mono" x="556" y="106">git commit</text>
+
+      <rect class="d-box-teal" x="640" y="60" width="230" height="120" rx="11"></rect>
+      <text class="d-label" x="658" y="92">3 · Repository</text>
+      <text class="d-sub" x="658" y="116">the saved history,</text>
+      <text class="d-sub" x="658" y="138">on your machine</text>
+      <text class="d-mono" x="658" y="166">the .git folder</text>
+
+      <path class="d-arrow" d="M878 120 L 948 120"></path>
+      <text class="d-mono" x="874" y="106">git push</text>
+
+      <rect class="d-box-accent" x="956" y="60" width="136" height="120" rx="11"></rect>
+      <text class="d-label" x="974" y="92">GitHub</text>
+      <text class="d-sub" x="974" y="116">not your</text>
+      <text class="d-sub" x="974" y="138">laptop</text>
+
+      <text class="d-sub" x="8" y="228">git status tells you where everything is, at any moment. Run it constantly.</text>
+      <text class="d-sub" x="8" y="256">git diff shows what changed between place 1 and place 2.</text>
+    </svg>
+  </div>
+  <aside class="notes">
+    <p>Come back to this diagram every time they are confused today. Nearly every git
+    question a beginner has is really "which of these three am I looking at".</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Configure git">
+  <div class="eyebrow">Do it now · one time only</div>
+  <h2>Tell git who you are</h2>
+  <figure class="code">
+    <figcaption>terminal</figcaption>
+    <pre><code data-lang="bash">git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+
+git config --global init.defaultBranch main
+git config --global pull.rebase false
+
+git config --list</code></pre>
+  </figure>
+  <div class="cols">
+    <div class="card card--compact card--accent">
+      <p class="nomargin">Every commit carries a name and an email. Without these, git
+        refuses to commit at all, with a message that is friendlier than most.</p>
+    </div>
+    <div class="card card--compact card--plain">
+      <p class="nomargin">The other two set sensible defaults: name the first branch
+        <code>main</code>, and merge rather than rebase when pulling. Both save confusion
+        later.</p>
+    </div>
+  </div>
+  <div class="callout callout--tip" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Use the same email as your GitHub account and your commits will
+        link to your profile. Not important, quite satisfying.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Unconfigured user.name is the most common first-commit failure. Do it before anything
+    else today.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="status add commit">
+  <div class="eyebrow">Do it now</div>
+  <h2>The loop you will run a thousand times</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>terminal</figcaption>
+      <pre class="sm"><code data-lang="bash">git status              # where is everything?
+
+git add sessions/session-04/exercises/explore_plays.py
+git status              # now it is staged
+
+git commit -m "Answer three questions about the plays"
+git status              # clean again
+
+git log --oneline       # the history so far</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--accent card--compact">
+        <h4><code>git status</code> is not a formality</h4>
+        <p class="nomargin">Run it before and after everything, today and for the next month.
+          It tells you which of the three places your work is in, and it usually suggests the
+          command you want next.</p>
+      </div>
+      <div class="card card--teal card--compact">
+        <h4>Useful shorthands</h4>
+        <ul class="tight nomargin">
+          <li><code>git add .</code> stages everything changed</li>
+          <li><code>git log --oneline</code> is the readable history</li>
+          <li><code>git log -3</code> for just the last three</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Have them commit the exercise they finished before the break, for real, right now.
+    A real commit of their own work is worth more than a demo file called test.txt. If they
+    worked in the notebook instead, commit that, after the strip step on the next slides.</p>
+    <p>Staging is what lets one commit be one idea: the exercise in one commit, the session 3
+    homework in another. Be honest that git add . is the common case.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Commit messages">
+  <div class="eyebrow">Craft</div>
+  <h2>Commit messages: write for future you</h2>
+  <div class="compare">
+    <div>
+      <span class="label">unhelpful</span>
+      <figure class="code plain">
+        <pre class="sm"><code data-lang="text">stuff
+fix
+asdf
+update
+work in progress
+changes
+final</code></pre>
+      </figure>
+    </div>
+    <div>
+      <span class="label">useful</span>
+      <figure class="code plain">
+        <pre class="sm"><code data-lang="text">Add device counts to the explore script
+Fix average minutes, was dividing by total rows
+Filter plays to 2025 only
+Add .gitignore for output and venv
+Rename count_by so the column is a parameter</code></pre>
+      </figure>
+    </div>
+  </div>
+  <div class="cols mt">
+    <div class="card card--compact card--teal">
+      <h4>The shape that works</h4>
+      <p class="nomargin">Present tense, start with a verb, say <strong>what changed and
+        why</strong>. Around fifty characters is plenty. If you need more, the commit is
+        probably two commits.</p>
+    </div>
+    <div class="card card--compact card--amber">
+      <p class="nomargin">The test: in six months, reading only the message, would you know
+        whether this is the commit you are looking for? "fix" never passes.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>They will write "stuff" at least once. Rather than lecturing, ask them to find a
+    specific change in their own log in a few weeks' time. The lesson lands by itself.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="gitignore">
+  <div class="eyebrow">Do it now</div>
+  <h2><code>.gitignore</code>: what should never go in</h2>
+  <div class="cols">
+    <figure class="code">
+      <figcaption>.gitignore</figcaption>
+      <pre class="sm"><code data-lang="text"># Python leftovers
+__pycache__/
+*.pyc
+
+# virtual environments (session 8)
+.venv/
+venv/
+
+# generated output: it can always be remade
+output/
+
+# editor and OS noise
+.DS_Store
+.vscode/</code></pre>
+      </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>The rule of thumb</h4>
+        <p class="nomargin">Commit what a human wrote. Ignore what a machine generated,
+          anything enormous, and <strong>anything secret</strong>.</p>
+      </div>
+      <div class="callout callout--stop" style="margin-bottom:0">
+        <span class="ico">■</span>
+        <div>
+          <h4>Never commit passwords or keys</h4>
+          <p class="nomargin">Once it is pushed, treat it as public forever, even if you
+            delete it in the next commit. The history keeps it. This is the one git mistake
+            that is genuinely expensive.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This repo already has a .gitignore, so look at it together rather than writing one
+    from scratch. Point out that output/ is ignored, which is why the CSVs they write there,
+    starting with this week's homework, will never show up in git status.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Commit your work">
+  <div class="eyebrow">Your turn · 15 minutes</div>
+  <h2>Commit four sessions of work</h2>
+  <div class="exercise">
+    <div class="tag">◆ Live exercise, part two</div>
+    <h3>Everything you have written so far, committed properly</h3>
+    <div class="cols">
+      <div>
+        <ol class="tight nomargin">
+          <li><code>git status</code> and see what is uncommitted</li>
+          <li>Strip notebook output first:
+            <code>python tools/nbtool.py strip</code></li>
+          <li>Commit in <strong>three or four separate commits</strong>, grouped by session,
+            each with a real message</li>
+          <li><code>git log --oneline</code> and read it back</li>
+        </ol>
+      </div>
+      <div>
+        <h4>Then, for the feel of it</h4>
+        <ul class="tight nomargin">
+          <li>Change one line, run <code>git diff</code>, and read it: <code>-</code> lines
+            were removed, <code>+</code> lines were added</li>
+          <li><code>git restore</code> that file to undo the change</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="callout callout--tip mt" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Separate commits per session is the part worth doing properly. It is
+        the difference between a history you can read and one long shrug. The steps are in
+        <code>sessions/session-04/exercises/push_your_work.md</code>.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Today's exercise, from before the break, goes into the session 4 commit. That makes the
+    point that git is for the work you just did, not a separate subject.</p>
+    <p>Notebook 04 explains why the strip step matters. Show one notebook's JSON if they ask
+    why; otherwise just do it. Resist typing anything for them.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Authentication">
+  <div class="eyebrow">Do it now · budget 20 minutes</div>
+  <h2>Getting GitHub to trust your machine</h2>
+  <p class="tight">GitHub stopped accepting passwords for git years ago. You need one of
+    these, and the first is much the least painful.</p>
+  <div class="cols-3">
+    <div class="card card--teal">
+      <div class="card-title"><span class="dot"></span>GitHub CLI</div>
+      <figure class="code plain" style="margin:0 0 10px">
+        <pre class="sm"><code data-lang="bash">gh auth login</code></pre>
+      </figure>
+      <p class="nomargin">Answer four questions in the terminal, approve it in the browser,
+        done. It stores the credentials for git as well. <strong>Start here.</strong></p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>Personal access token</div>
+      <p class="nomargin">On github.com: Settings, Developer settings, Tokens. Create one,
+        copy it, and paste it when git asks for a password. It is a long random string and
+        you cannot see it again, so save it somewhere sensible.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>SSH key</div>
+      <p class="nomargin">The grown-up option, and the fiddliest to set up.
+        <code>ssh-keygen</code>, then paste the public half into GitHub. Worth doing
+        eventually, not today.</p>
+    </div>
+  </div>
+  <div class="callout callout--warn mt" style="margin-bottom:0">
+    <span class="ico">▲</span>
+    <div>
+      <p class="nomargin">We are doing this <strong>now, in the session</strong>, not as
+        homework. Credentials are miserable to debug over chat, and this is exactly the kind
+        of thing that quietly kills a week's momentum.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>gh auth login also configures the git credential helper, which is why it is the
+    recommendation. If gh is not installed, install it now; it is worth the five minutes.</p>
+    <p>If everything fails, a personal access token pasted at the password prompt always
+    works. Have them store it in a password manager.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Your own repo">
+  <div class="eyebrow">Do it now</div>
+  <h2>Push this work to a repo that is yours</h2>
+  <p class="tight">You cloned my repo in session 1, so your copy currently points at mine and
+    you cannot push to it. Let us fix that, and keep both.</p>
+  <ol class="steps">
+    <li>On github.com, create a new repository called <code>python-course</code>. No README,
+      no .gitignore, no licence. An empty one.</li>
+    <li>Look at where your copy currently points:
+      <figure class="code plain" style="margin:8px 0 0"><pre class="sm"><code data-lang="bash">git remote -v</code></pre></figure>
+    </li>
+    <li>Rename mine to <code>course</code>, and add yours as <code>origin</code>:
+      <figure class="code plain" style="margin:8px 0 0"><pre class="sm"><code data-lang="bash">git remote rename origin course
+git remote add origin https://github.com/YOUR-NAME/python-course.git</code></pre></figure>
+    </li>
+    <li>Send everything up:
+      <figure class="code plain" style="margin:8px 0 0"><pre class="sm"><code data-lang="bash">git push -u origin main</code></pre></figure>
+    </li>
+  </ol>
+  <div class="callout callout--tip" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <p class="nomargin">Now <code>git push</code> sends work to your repo, and
+        <code>git pull course main</code> collects any updates I make to the course. Refresh
+        your GitHub page: four sessions of work, safely off your laptop.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>A remote is just a nickname for a URL. Saying that out loud demystifies the whole
+    step.</p>
+    <p>The -u in push -u sets the default, so future pushes are a bare git push. Mention it
+    once; they do not need to remember why.</p>
+    <p>Then say the line that matters when a laptop dies: commit is local, push is remote. A
+    commit with no push is exactly as safe as the laptop.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Branches">
+  <div class="eyebrow">For the homework</div>
+  <h2>Branches: try something without risking anything</h2>
+  <div class="cols cols-wide-left">
+    <figure class="code">
+      <figcaption>terminal</figcaption>
+      <pre class="sm"><code data-lang="bash">git switch -c add-readme      # create and switch to it
+git branch                    # * marks where you are
+
+# ... edit files, add, commit, as normal ...
+
+git switch main               # back to main
+git merge add-readme          # bring the work over
+git branch -d add-readme      # tidy up the label
+
+git push</code></pre>
+    </figure>
+    <div class="stack">
+      <div class="card card--compact card--accent">
+        <h4>A branch is a label on a line of commits</h4>
+        <p class="nomargin">Switching moves your files to how they look on that line. Your
+          work on one branch is invisible on the other until you merge.</p>
+      </div>
+      <div class="card card--compact card--teal">
+        <h4>What they are for</h4>
+        <p class="nomargin">Anything you are not sure about. If it works, merge it. If it was
+          a bad idea, delete the branch and nothing on <code>main</code> ever knew.</p>
+      </div>
+      <div class="card card--compact card--plain">
+        <p class="nomargin">Working solo you will mostly live on <code>main</code>. Branches
+          matter enormously with other people. Homework task 3 walks you through one.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Two minutes, as part of the homework briefing. Homework task 3 is exactly these
+    commands with a real file, so they will see "Fast-forward" for themselves. Merge
+    conflicts are out of scope today; mention they exist and are survivable, and that the git
+    stretch notebook makes one on purpose.</p>
+  </aside>
+</section>
+
+<section class="slide" data-title="Getting out of trouble">
+  <div class="eyebrow">Reassurance</div>
+  <h2>Getting out of trouble</h2>
+  <table class="sm">
+    <tr><th style="width:290px">You want to</th><th>Type</th></tr>
+    <tr><td>Throw away changes to one file, back to the last commit</td>
+      <td><code>git restore path/to/file.py</code></td></tr>
+    <tr><td>Unstage something you added by mistake</td>
+      <td><code>git restore --staged file.py</code></td></tr>
+    <tr><td>Undo a commit by adding an opposite one</td>
+      <td><code>git revert &lt;commit&gt;</code></td></tr>
+    <tr><td>Look at how a file was three commits ago</td>
+      <td><code>git show HEAD~3:file.py</code></td></tr>
+    <tr><td>See what on earth is going on</td>
+      <td><code>git status</code>, then <code>git log --oneline</code></td></tr>
+  </table>
+  <div class="callout callout--key" style="margin-bottom:0">
+    <span class="ico">◆</span>
+    <div>
+      <h4>The thing to actually remember</h4>
+      <p class="nomargin"><strong>Once something is committed, it is very hard to lose.</strong>
+        Git keeps almost everything, including things you think you deleted. If you get into a
+        mess, stop, run <code>git status</code>, and send me what it says. Do not delete the
+        folder and start again, which is the traditional beginner move and almost never
+        necessary.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Say the "very hard to lose" line explicitly. Fear of git is what stops people
+    committing often, and committing often is the whole benefit.</p>
+    <p>Deliberately do not teach reset --hard today. They do not need it, and it is the one
+    command that genuinely destroys work.</p>
   </aside>
 </section>
 
 <section class="slide" data-title="Homework">
   <div class="eyebrow">Between now and next time · 2–4 hours</div>
   <h2>Homework</h2>
-  <div class="cols">
+  <div class="cols-3">
     <div class="card card--teal">
       <div class="card-title"><span class="dot"></span>Task 1 · you can finish this</div>
       <h4>Write a filtered CSV</h4>
-      <p>Write out a new CSV containing only the rows that meet a condition you choose. For
-        example every play over five minutes, or everything on the speaker.</p>
-      <p class="nomargin">Print how many rows went in and how many came out. File:
-        <code>homework/filter_plays.py</code>, output into <code>output/</code>.</p>
+      <p class="nomargin">Keep only the rows that meet a condition you choose, such as every
+        play over five minutes, and write them to <code>output/</code>. Print rows in and rows
+        out. File: <code>homework/filter_plays.py</code></p>
     </div>
     <div class="card card--amber">
-      <div class="card-title"><span class="dot"></span>Task 2 · you might not finish this</div>
+      <div class="card-title"><span class="dot"></span>Task 2 · the real thinking</div>
       <h4>Two real questions</h4>
       <ol class="tight nomargin">
         <li>Which <strong>genre</strong> has the highest <strong>average</strong> minutes per
           play?</li>
-        <li>Which <strong>artist</strong> was played most in <strong>2025</strong> only?</li>
+        <li>Which <strong>artist</strong> was played most in <strong>2025</strong> only? Top
+          five, not just the winner.</li>
       </ol>
-      <p class="nomargin mt-s">File: <code>homework/questions.py</code></p>
+    </div>
+    <div class="card card--accent">
+      <div class="card-title"><span class="dot"></span>Task 3 · in the terminal</div>
+      <h4>A branch, notes, a merge</h4>
+      <p class="nomargin">Write <code>MY-NOTES.md</code> on a branch, read your own commit
+        messages back, then merge and push. Tasks 1 and 2 each end with a commit and a
+        push.</p>
     </div>
   </div>
-  <div class="callout callout--tip mt" style="margin-bottom:0">
-    <span class="ico">◆</span>
+  <div class="callout callout--warn mt" style="margin-bottom:0">
+    <span class="ico">▲</span>
     <div>
-      <p class="nomargin">Task 2 question 1 needs <strong>two</strong> dictionaries: one
-        counting plays per genre and one summing minutes per genre. Then divide one by the
-        other. For question 2, remember the dates are text like
-        <code>"2025-04-17"</code>, and text has a <code>.startswith()</code> method.</p>
+      <p class="nomargin">Before next session, install <strong>DB Browser for SQLite</strong>
+        from <code>sqlitebrowser.org</code>. Next time is SQL, and we look inside a real
+        database together.</p>
     </div>
   </div>
   <aside class="notes">
-    <p>The two-dictionary insight is the thing worth struggling with. Do not give it away
-    unless they are properly stuck; it is the mental model that makes GROUP BY obvious in
-    session 6.</p>
+    <p>Task 2 question 1 needs two dictionaries: one counting plays per genre and one summing
+    minutes per genre. Do not give it away unless they are properly stuck; it is the mental
+    model that makes GROUP BY obvious next session. For question 2, the dates are text and
+    text has .startswith().</p>
+    <p>Reading their own commit messages back is the point of task 3. It is the first time
+    git history stops being an obligation and starts being useful.</p>
   </aside>
 </section>
 
@@ -831,33 +1316,32 @@ with open(out, "w", newline="", encoding="utf-8") as f:
   <h2>What you can do now</h2>
   <div class="cols">
     <ul class="checklist">
-      <li>Store many values in a list and reach any of them</li>
-      <li>Slice a list to take a piece of it</li>
-      <li>Store named values in a dictionary</li>
+      <li>Store values in a list or a dictionary, and reach any of them</li>
+      <li>Say why a list of dictionaries is a table</li>
+      <li>Read a real CSV into rows, and convert its text into numbers</li>
       <li>Count things into a dictionary with <code>.get()</code></li>
-      <li>Loop over keys and values together</li>
+      <li>Write filtered data back out to a new CSV</li>
     </ul>
     <ul class="checklist">
-      <li>Say why a list of dictionaries is a table</li>
-      <li>Open a file safely with <code>with</code> and an encoding</li>
-      <li>Read a real CSV into rows you can loop over</li>
-      <li>Convert text from a file into numbers</li>
-      <li>Write filtered data back out to a new CSV</li>
+      <li>Explain the three places your work can be</li>
+      <li>Stage, commit, and read your own history</li>
+      <li>Say what belongs in <code>.gitignore</code> and why</li>
+      <li>Push to your own repo and pull course updates</li>
+      <li>Undo a change without panicking</li>
     </ul>
   </div>
   <div class="callout callout--key mt">
     <span class="ico">◆</span>
     <div>
-      <h4>Next session: git</h4>
-      <p class="nomargin">You now have four sessions of work worth keeping. Next time we put
-        it all under version control properly, push it to your own repo on GitHub, and make
-        sure you never lose any of it. Bring your GitHub account details, and set one up
-        beforehand if you have not already.</p>
+      <h4>Next session: SQL</h4>
+      <p class="nomargin">The same listening log, this time as a real database with three
+        tables. You will ask it questions, join the tables, and recognise the shape of every
+        answer from today. Install <strong>DB Browser for SQLite</strong> before we meet.</p>
     </div>
   </div>
   <aside class="notes">
-    <p>Remind them to create the GitHub account before session 5 if they have not. Doing it
-    live costs ten minutes and an email verification wait.</p>
+    <p>End with a commit and a push, and do the same at the end of every session from here.
+    From now on it is a habit, not a topic.</p>
   </aside>
 </section>
 

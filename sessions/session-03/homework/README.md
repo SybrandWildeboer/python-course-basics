@@ -64,7 +64,7 @@ Requirements:
 - typing a word where a number is expected should not take the whole program down.
   (That last one is genuinely hard right now. If you get it, excellent. If you decide it
   needs a tool you do not have yet, you are right: it is `try` / `except`, and it is on the
-  map for session 12.)
+  map for session 8.)
 
 ---
 

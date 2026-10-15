@@ -4,12 +4,12 @@ The course uses a single dataset the whole way through: a personal music
 listening log. This script produces four things from the same random seed, so
 the numbers in the slides always match the numbers on the learner's machine:
 
-    data/clean/plays.csv        denormalised listening log  (sessions 4, 8)
-    data/clean/artists.csv      the artist lookup table     (sessions 4, 8)
+    data/clean/plays.csv        denormalised listening log  (sessions 4 to 8)
+    data/clean/artists.csv      the artist lookup table     (sessions 4, 6)
                                 (with a few gaps, on purpose)
-    data/clean/awards.csv       one-to-many, for fan-out    (session 7)
-    data/messy/plays_messy.csv  the same log, damaged       (session 9)
-    data/music.db               SQLite, 3 tables            (sessions 6, 7, 10)
+    data/clean/awards.csv       one-to-many, for fan-out    (sessions 5, 6)
+    data/messy/plays_messy.csv  the same log, damaged       (sessions 6, 8)
+    data/music.db               SQLite, 3 tables            (sessions 5, 6, 8)
 
 Run it from the repository root:
 
@@ -243,7 +243,7 @@ def denormalise(plays: list[dict], artists: list[dict]) -> list[dict]:
 def damage(rng: random.Random, clean_rows: list[dict]) -> list[dict]:
     """Break the clean data in the specific ways real data is broken.
 
-    Every kind of damage here has a matching fix in session 9:
+    Every kind of damage here has a matching fix in session 6:
       * inconsistent capitalisation and stray whitespace -> .str.strip().str.lower()
       * mixed date formats                               -> pd.to_datetime
       * thousands separators and empty strings in numbers-> pd.to_numeric

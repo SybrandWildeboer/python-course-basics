@@ -48,5 +48,5 @@ first, because that is the skill.
 ## When you are done
 
 Both files live in `sessions/session-01/homework/`, in the repo you cloned today. Just save
-them there. From session 5 you will commit them properly with git, and everything you have
+them there. From session 4 you will commit them properly with git, and everything you have
 written so far goes in at that point, so nothing is lost by leaving it for now.

@@ -1,75 +1,89 @@
-# Session 8 homework
+# Session 8 homework: finish the must answer
 
-Budget: 2 to 4 hours. **Saturday:** one line, `Homework done` or `Homework not done`.
+Budget: 2 to 4 hours, in the week after the last session. **When you are done:** send one
+line, the link to your pushed project. If something stops you, send the command you ran, the
+last line of the error, and what you expected instead.
 
-Work in `notebooks/04-answers-in-pandas-homework.ipynb`, or in the script version if you
-prefer:
+Session 8 ended with `project/pipeline.py` running from one command, on your data, with a
+rough must answer. This week makes the answer finished and trustworthy. There is no session
+9 to bring it to, which is exactly why it is worth doing: the course ends, the habit of
+finishing things properly does not have to.
 
-```
-python3 sessions/session-08/homework/answers_in_pandas.py
-```
-
-Run everything from the repository root, so the relative paths to `data/` work. Commit and
-push when you are done.
-
----
-
-## Task 1: your session 6 answers, in pandas
-
-In session 6 you answered ten questions in SQL, in `answers.sql`. Answer the same ten again
-in pandas.
-
-**Your own `answers.sql` is the answer key.** Open it next to the notebook. For each question:
-
-1. write the pandas version,
-2. check that it gives the same answer as your SQL,
-3. if it does not, find out which one is wrong. Do not assume it is the pandas one.
-
-The ten questions are written out in the notebook and the script, so you do not need to go
-looking for them. Use `data/clean/plays.csv` and `data/clean/artists.csv`: the plays file
-already has the artist, genre and country on every row, so none of the ten needs a merge.
-
-Three of the ten are worth slowing down for. Two hide a trap that pandas shares with SQL, and
-one hides a trap that SQL had and pandas does not. Say which ones in a comment.
-
-## Task 2: your own two questions, and a verdict
-
-Take the two questions you invented in session 6 and answer them in pandas as well. Same
-answer as your SQL?
-
-Then, for all twelve questions, sort them into three lists: **easier in SQL**, **easier in
-pandas**, **about the same**. Finish with two or three sentences: which one would you reach
-for, and when?
-
-There is no right answer to that. The point is that by next session you have an opinion based
-on twelve real comparisons, rather than on what somebody told you.
+Everything happens in `project/`, in your own repository, with the project's virtual
+environment active.
 
 ---
 
-## Hints, if you want them
+## Task 1: The must answer, honest
 
-<details>
-<summary>Question 3</summary>
+Work it out in `notebooks/06-finish-the-must-homework.ipynb` (or `finish_the_must.py`, the
+script version), then move it into `project/pipeline.py`. It is done when:
 
-Look at `artists.dtypes` first. `formed_year` is a decimal, and the reason is the answer to
-the question. Then remember session 6: what happened when you wrote `= NULL`? Try the
-pandas equivalent, `== None`, and see what it does.
-</details>
+1. **Cleaning is logged.** Each cleaning step is its own small function that returns a
+   DataFrame, and the pipeline prints one line per step with the rows before and after.
+2. **`find_problems` finds nothing.** A function that returns a list of everything wrong with
+   the cleaned data, as sentences, and the pipeline stops with that list if it is not empty:
 
-<details>
-<summary>Question 5</summary>
+   ```python
+   problems = find_problems(data)
+   assert not problems, problems
+   ```
 
-`played_at` is text. Every text column has `.str`, which does a string operation to every
-value at once: `plays["played_at"].str[:4]` is the first four characters of every date.
-After that it is a `value_counts()`.
-</details>
+3. **The must answer is checked two ways.** One number in it is confirmed by a different
+   route: the parts add up to the whole, or one cell worked out with a filter instead of a
+   `groupby`. `check()` reads the written file back and compares.
+4. **Your decisions are written down**: in `clean()`'s docstring, and in section 8 of your
+   scoping worksheet, with how many rows each one touched.
 
-<details>
-<summary>Question 9</summary>
+`notebooks/06-finish-the-must-solved.ipynb` does all four on the worked example.
 
-`groupby("device")` with an `agg` that counts the plays and sums `skipped`. Then make a new
-column by assigning to it: `table["pct"] = ...`.
+## Task 2: The project README
 
-Remember the integer division trap from session 6? Try it in pandas and see whether it is
-still there.
-</details>
+`project/README.md` should answer four things for a stranger: the question, the data (where
+it came from, and how to get it if it is not in the repository), how to run it, and what you
+found, with the number. Then fill in its last two headings, **What this does not show** and
+**Cleaning decisions**: two or three sentences each. The first is the most valuable
+paragraph in the project.
+
+## Task 3: Review, run fresh, push
+
+1. **Review your own diff.** Before the last commit, run `git diff` and go through
+   `worksheets/review-checklist.md` as if somebody else had written the change. Fix what you
+   find. Then commit, and push.
+2. **Run it on a machine that is not quite yours.** Clone your repository into a new folder,
+   make a fresh virtual environment, install from `requirements.txt`, and run the pipeline:
+
+   ```
+   git clone https://github.com/YOUR-NAME/python-course.git check-it
+   cd check-it
+   python -m venv .venv
+   .venv\Scripts\Activate.ps1          (Windows PowerShell)
+   source .venv/bin/activate           (macOS)
+   python -m pip install -r project/requirements.txt
+   python project/pipeline.py
+   ```
+
+   If your data is private and not committed, the fresh clone stops at the load, with the
+   message from the `except FileNotFoundError` in `main()`. That is fine: check that the
+   message tells a stranger what to do. If anything else breaks, the project depends on
+   something that is only on your laptop. Find out what, and fix it.
+
+---
+
+## Optional, after the course
+
+None of this is required. Pick what serves your project.
+
+- **The should item**, usually the chart: one question, the answer in the title, saved by
+  the pipeline into `project/output/`. Session 7 has all the pieces.
+- **Tests.** Copy `test_pipeline_starter.py` to `project/test_pipeline.py`, follow the
+  instructions at its top, and write at least five tests. `solutions/test_pipeline_example.py`
+  has nine for the pipeline as it comes out of the box. Read `notebooks/04-pytest.ipynb` first.
+- **The optional notebooks**, in order: `02-notebook-to-script` (the whole notebook-to-pipeline
+  story on the music data), `03-try-except`, `04-pytest`, then `05-robust-exercise` to
+  practise both. `07-stretch-exercise` adds six things a real pipeline needs.
+- **The practice review.** `worksheets/practice-review.diff` is a commit with five problems
+  planted in it. Find them with the checklist, then read `practice-review-answers.md`.
+- **Your step 2.** `worksheets/where-next.md` is a map of where to go next. Pick one
+  direction, write the first thing and a date at the bottom, and do the first two hours of it
+  within two weeks.

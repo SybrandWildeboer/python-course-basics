@@ -2,81 +2,86 @@
 
 Budget: 2 to 4 hours. **Saturday:** one line, `Homework done` or `Homework not done`.
 
-Work in `data/music.db` with DB Browser. Write your answers in `answers.sql`, with the
-question as a `--` comment above each query, then commit and push the file.
+Work in `notebooks/04-my-chart-homework.ipynb`, or in the two scripts here if you prefer.
+Run scripts from the repository root, so the relative paths to `data/` work:
 
-Keep this file next to your session 6 `answers.sql`. You will have both open in session 8,
-when we rewrite some of these queries in pandas.
+```
+python sessions/session-07/homework/my_chart.py
+```
 
----
-
-## Task 1: Five questions
-
-Every one of these needs a join **and** an aggregate.
-
-1. Finish question B from last week's homework. Which artists get skipped most? Show the
-   artist's **name** this time, not the id, with plays, skips and the skip percentage to one
-   decimal place. Only count artists with 30 or more plays, and show the top ten.
-2. How much do you listen to artists by the decade they were formed in? Show the decade
-   (1990, 2000, and so on), the number of artists, the plays and the total minutes.
-3. What share of the listening time on each device went to artists who have won at least
-   one award? Show the device, the total minutes, the award-winner minutes, and the
-   percentage to one decimal place.
-4. Which artists that are no longer active do you still listen to? Show each one with the
-   number of plays, the total minutes, and the date you last played them.
-5. Do award winners get listened to more? Compare the average total minutes **per artist**
-   for artists who have won an award against artists who have not. Count every artist,
-   including any you have never played.
-
-**Two of these need a CTE to be correct.** The other three are a join and a `GROUP BY`. The
-two that need more will still run without one, and give you a confident wrong answer.
-Working out which two, and how you could tell, is part of the exercise.
-
-If you get stuck on one for more than fifteen minutes, send me the query you tried and what
-came back. Do not lose an evening to it.
-
-## Task 2: Find a question where the join type changes the answer
-
-Write one question of your own that gives a **different answer** with an inner join than
-with a left join.
-
-Show both queries and both answers. Then explain, in a comment, which one answers the
-question you actually asked, and why.
-
-Remember the shape of the data: two artists have no plays at all, and only 17 of the 40
-artists have ever won an award. Both facts are places where the join type decides the
-answer.
-
-This task is the deeper of the two, and you might not finish it. The SQL is short. The
-sentence about which query is right is the part that counts, because choosing the join type
-is a decision about the question, not a technical detail.
+The checklist at the end of notebook 01 is the marking scheme for both tasks. Part 3 is
+different: it is the preparation for session 8, and it cannot wait until the night before.
 
 ---
 
-## Hints, if you want them
+## Task 1: One chart that answers one question
 
-<details>
-<summary>Question 2</summary>
+Pick your own question about the listening log and answer it with **one** chart. If you need
+ideas: the artists with the most minutes in 2025, plays per day of the week, the countries
+whose artists you play most, bands that are still active against bands that have split up
+(`artists.csv` has `still_active`).
 
-The decade is not a column, so you have to make one, like the year in last week's question 5.
-This time the integer division from last week's question 9 is useful rather than a trap:
-`formed_year / 10` throws away the last digit, so `1996 / 10 * 10` is `1990`.
+Requirements:
 
-Then look at the first row of your answer. Last week's question 3 should come back to mind.
-</details>
+- the question, written as one sentence
+- the right kind of chart for that kind of question: comparison, change over time,
+  distribution, relationship, or part of a whole
+- a title that **gives the answer**, with numbers formatted with `:.1f`
+- bars that start at zero, axis labels with units
+- colour that means something, and a reader who could do without it
+- saved to `output/` with `fig.savefig(...)`, **before** `plt.show()`
+- one sentence underneath: what you would say about it in a meeting
+- one more sentence: **what this chart does not show**. Every chart answers one question,
+  and readers happily take it as the answer to a nearby one. Name the nearby question yours
+  does not answer
 
-<details>
-<summary>Any of them: checking a total</summary>
+**Watch out for:** a title you cannot back up. If the top two are close, is the gap bigger
+than one or two plays could change? And if you use day names, check the order they come out
+in.
 
-Before you trust a total, check it against a number you already know. Last week's question 7
-gave you the minutes per device, `plays` has 2,183 rows, and the whole table is 8,980.4
-minutes. If your join makes any of those bigger, count the rows after the join and ask why
-there are more of them.
-</details>
+## Task 2: A makeover
 
-<details>
-<summary>Question 4</summary>
+Someone wanted to know whether the phone is losing ground to other devices, and made two
+pie charts of device share, one for 2024 and one for 2025, turned a quarter apart, with
+shadows, titled "Devices". `homework/makeover.py` draws them.
 
-Look at the `still_active` column for every artist before you filter on it. One of the
-values is not a 0 or a 1.
-</details>
+Rebuild it the way you rebuilt the genre chart in the live exercise:
+
+1. list what is wrong with it, and why
+2. write the question as one sentence
+3. decide what number answers it, and what kind of chart shows it
+4. draw it, with a title that gives the answer, and save it to
+   `output/device_share_makeover.png`
+5. one sentence on what your chart does not show. A share can go up while the count goes
+   down. Does that happen here?
+
+There is more than one good answer. A pie is not one of them.
+
+---
+
+## Part 3: Before session 8
+
+Session 8 is your project, built together in one two-hour session. It goes well only if the
+deciding is done before it starts. Do these three things this week:
+
+1. **Fill in the scoping worksheet**,
+   [`sessions/session-08/prework/scoping-worksheet.md`](../../session-08/prework/scoping-worksheet.md):
+   your question, your data, and what "done" looks like. Short answers are fine; blank ones
+   are not.
+2. **Pick a dataset.** This listening log, a public dataset you care about, or your own data.
+   Open it once, and check it has the columns your question needs.
+3. **If you want to use your own Spotify data, request it now.** In Spotify, go to your
+   account's privacy settings, find "Download your data", and request the **Extended
+   streaming history**. It can take **up to 30 days** to arrive, so today is the day. (The
+   quicker "Account data" export only covers about the last year, with less detail.) If it
+   has not arrived by session 8, start on the listening log with the same question: the code
+   barely changes when the file does.
+
+---
+
+## Stretch, if you want it
+
+Take the chart from task 1 and make it part of a two-panel figure with
+`plt.subplots(1, 2, layout="constrained")`: the answer on the left, and on the right the
+chart that shows what the left one does not. One `fig.suptitle` over both, saved with
+`dpi=200`.

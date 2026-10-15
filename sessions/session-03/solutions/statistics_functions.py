@@ -64,5 +64,5 @@ print(summarise(SECOND_LIST))
 #
 # Note also that nothing above summarise() prints. The functions calculate
 # and hand values back; printing happens once, at the edge of the program.
-# That separation is what lets you reuse them later: in session 10 these same
+# That separation is what lets you reuse them later: in session 8 these same
 # shapes get called by a pipeline that writes a CSV instead of printing.

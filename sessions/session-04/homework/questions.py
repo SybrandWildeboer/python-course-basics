@@ -11,7 +11,7 @@ Question 1. Which genre has the highest AVERAGE minutes per play?
 
     The hint: you need TWO dictionaries. One counting plays per genre, one
     adding up minutes per genre. Then divide one by the other, genre by
-    genre. That shape is exactly what GROUP BY does for you in session 6.
+    genre. That shape is exactly what GROUP BY does for you in session 5.
 
 Question 2. Which artist was played most in 2025 only?
 

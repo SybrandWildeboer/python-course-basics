@@ -109,4 +109,4 @@ print(len(rows))                # 3          three rows
 
 # Everything from here to the end of the course is a variation on this shape:
 # the csv module gives you this, SQL returns this, and a pandas DataFrame in
-# session 8 is this with a much faster engine underneath.
+# session 6 is this with a much faster engine underneath.

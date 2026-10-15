@@ -1,14 +1,18 @@
-# Session 8: pandas
+# Session 8: The end project, pair programming
 
-**Goal:** the questions from sessions 6 and 7, answered in Python. They leave able to read a
-SQL query and write its pandas twin, and to say when they would reach for which.
+**Goal:** his own question, answered by `project/pipeline.py` from one command, in a fresh
+terminal, inside its own virtual environment, with `project/output/` regenerated from
+nothing, committed and pushed. Built by him at the keyboard, with you navigating.
 
-**Slides:** [`slides/session-08.html`](../../slides/session-08.html) (24 slides)
+**Slides:** [`slides/session-08.html`](../../slides/session-08.html) (16 slides)
 
-Nothing in this session is a new idea, and that is the way to teach it. Every question has
-already been answered with a loop in session 4 and with SQL in sessions 6 and 7. Keep saying
-"you already know this one". It is true, and it is what makes a library with hundreds of
-methods feel small.
+This session replaces three: putting it together, project scoping and the presentation.
+The scoping happens before it, as pre-work. The structure (scripts versus notebooks,
+`main()` and `__name__`, paths from `__file__`, virtual environments, the project layout)
+and the review material (`try` / `except` and where to catch, an `assert` turned into a
+test, reading a diff) are taught **when they come up in his code**, not as blocks. The deck
+is eight slides that frame the session and a "teach it when it comes up" set (slides 9–15)
+to jump to. Everything else from the old sessions is optional material for after the course.
 
 ---
 
@@ -16,150 +20,225 @@ methods feel small.
 
 | Time | Block | Notes |
 |---|---|---|
-| 0:00–0:10 | Homework review: the CTE questions, inner versus left | Slide 2 |
-| 0:10–0:25 | A DataFrame is the session 4 table; `read_csv`, the first looks, `read_sql` | Slides 4–6 |
-| 0:25–0:40 | Columns, masks, and **the `&` and `|` trap** | Slides 7–9 |
-| 0:40–0:55 | `value_counts`, `groupby` and `agg`, `sort_values`, `merge` | Slides 11–13 |
-| 0:55–1:05 | Break | |
-| 1:05–1:30 | **Four queries side by side**, ending with fan-out and `validate` | Slides 15–19 |
-| 1:30–1:35 | When SQL, when pandas; the five irritations as a reference | Slides 20–21 |
-| 1:35–1:55 | Live exercise: session 7's exercise, in pandas | Slide 22 |
-| 1:55–2:00 | Homework, commit and push | Slides 23–24 |
+| 0:00–0:15 | His worksheet: cut the scope, run the one-number test on his laptop | Slides 2–3. This is the homework review |
+| 0:15–0:30 | `project/` and a virtual environment on his machine; the template runs | Slide 4 (slide 12 if it fights back) |
+| 0:30–1:00 | Pair programming 1: `INPUT`, `QUESTION`, `load`, `clean`, from his notebook | Slides 5–6, teach-it slides as needed |
+| 1:00–1:10 | Break | At a moment when the pipeline runs |
+| 1:10–1:40 | Pair programming 2: `analyse`, the chart, `save`, `check`, `main()` | Slide 6, teach-it slides as needed |
+| 1:40–1:55 | **Fresh terminal, `output/` deleted, his diff reviewed, commit, push.** Never cut | Slide 7, slide 15 |
+| 1:55–2:00 | Where next, two first steps with dates, homework | Slides 8 and 16 |
 
-Part one is fast for anyone who did the session 4 homework, and that is fine: if it runs
-early, spend the time in part three rather than the stretch. The side-by-side block is the
-session. If anything has to be cut, cut slide 7 (columns) to a one-minute demo, never slides
-18 and 19.
+Swap driver and navigator about every twenty minutes: around 0:50, 1:20 and 1:40. He drives
+most of the time; your turns are short.
 
-## The slides that carry the session
+If it runs slow, cut features (the chart can be the should item in the homework), never the
+last fifteen minutes. A pipeline that runs from a fresh terminal and is pushed is the one
+thing he cannot easily get to alone.
 
-**Slide 9, `&`, `|` and brackets.** Promised in session 2 as the thing that "trips everybody
-up in session 8". Two of the four examples crash, which is the friendly outcome, and one is
-the right way. The fourth runs and is wrong: long plays on the phone or laptop is 523 with the right brackets and 871 without,
-because `&` is worked out before `|`. Let him hit the `ValueError` for real before showing the
-fix; the message makes sense once he has seen a mask printed.
+## The blocks that matter
 
-**Slide 11, same idea, three notations.** The line from session 4, slide 19, kept: the
-counting dictionary, `GROUP BY genre`, and `groupby("genre")`, with identical numbers. Point
-at the numbers.
+**The first fifteen minutes (slide 3).** Read his worksheet with him. Count the projects in
+his idea out loud ("three projects wearing a coat"), keep the one that answers his session 1
+task, and move every "and also" to *could* or *won't* while he watches. Then he runs his
+one-number test on his laptop and checks it a second way. Ask what decision the first number
+found; in the worked example, total listening fell, so "shrank most" depends on minutes or
+share.
 
-**Slides 15 to 19, four queries side by side.** Each pair is run in
-`02-sql-and-pandas.ipynb`, the SQL through `pd.read_sql`, with an `assert` that both give the
-same answer. The four, chosen from the real session 6 and 7 material:
+**The virtual environment on his machine (slide 4).** He types it, in `project/`, on his
+laptop. The Windows execution-policy error is the usual trap, and meeting it here costs two
+minutes; meeting it alone costs an evening. The template must run before any of his code
+goes in: 2,223 rows loaded, 2,183 cleaned, Electronic 2,753.2 of 8,608.0 minutes.
 
-| # | From | What it shows |
-|---|---|---|
-| 1 | Session 6 ladder, rungs 4 and 5 | Filter and sort. 174 rows both ways. pandas writes the steps in the order they happen |
-| 2 | Session 6 ladder, rung 10 | `HAVING` does not exist in pandas, and nothing is missing: filter the counts on the next line |
-| 3 | Session 7, the artists the inner join hides | The `COUNT(*)` bug survives translation: `.size()` says Iron Fernway has 1 play, `.count()` says 0 |
-| 4 | Session 7, the wrong total | Fan-out: 8,980.4 becomes 9,732.1 in pandas too, 2,183 rows become 2,371 |
+**Pair programming (slides 5–6).** His explore notebook becomes stages in
+`project/pipeline.py`, one at a time, a run after each, a commit when it runs. Work down the
+`MAKE IT YOURS` markers. The stages return and print nothing; only `main()` prints, one line
+per stage, so a run that stops or loses rows says where.
 
-**Slide 18, fan-out in pandas.** Session 7 closed with "fan-out exists there too, and it is
-called the same thing". The pandas fake fixes fail differently from `SUM(DISTINCT)`:
-`drop_duplicates()` removes nothing at all, because each fanned-out row carries a different
-award; de-duplicating the minutes gives 680.6 for Fjord & Flint, exactly the `SUM(DISTINCT)`
-answer.
+**The finish line (slide 7).** A new terminal, the venv activated, `project/output/` deleted,
+`python pipeline.py`, `git status`, `git diff` read together with slide 15's questions, then
+commit and push. He runs every line.
 
-**Slide 19, `validate=`.** A CTE becomes a variable with a good name, and the fix is the same:
-aggregate first, then merge, and Fjord & Flint is back to 846.2. Then
-`validate="many_to_one"` turns the silent fan-out into a `MergeError`. SQL has no
-equivalent switch. Of everything today, it is the habit most worth taking away.
+## Instructor checklist
+
+### What must be true by the end
+
+- [ ] `python pipeline.py` in `project/` (or `python project/pipeline.py` from the root) runs
+      start to finish in a **fresh terminal**
+- [ ] It runs **inside `project/.venv`**, built from `requirements.txt`, with `(.venv)` in
+      the prompt
+- [ ] `project/output/` was **deleted and regenerated** by that run
+- [ ] It writes a rough **must answer** for his question, not the music question
+- [ ] `git status` shows no data file, no `output/`, no `.venv/`
+- [ ] **Committed and pushed**, after reading the diff together
+- [ ] Step 2 from `worksheets/where-next.md` has a direction and a date
+
+### Pairing with a fast learner
+
+- **He drives most of the time.** Your driving turns are short demonstrations, two or three
+  minutes, after which the keyboard goes back.
+- **Never take his keyboard.** Say the line number and the idea ("line 40 still prints"),
+  not the keys. If you need to show something, show it on your own screen.
+- **Ask before you tell.** "What does `clean` return?" finds the bug and leaves it his.
+  Wait longer than is comfortable before giving the answer.
+- **Navigate the scope, not the syntax.** He will race ahead; your job is "is this the must?",
+  "did we run it?", "commit now?". Every new idea goes on the *could* list.
+- **Let small mistakes run.** A `NameError` he reads himself teaches more than one you
+  prevented. Step in when he has been stuck for about five minutes, or when he is about to
+  commit private data.
+- **Use the teach-it slides only when the moment comes.** Two minutes, then back to his code.
+  If a moment never comes (no import, no missing file), skip the slide: the optional
+  notebooks cover it.
+
+### If the data or the scope fails in the first fifteen minutes
+
+- **No data on his laptop, or it will not load:** do not spend the session on it. Point
+  `INPUT` at the music data (`data/messy/plays_messy.csv`, the template's default), scope a
+  stand-in question with the same shape as his (the worked example in
+  `prework/worked-example.md` is ready), build the pipeline on that, and swap his file in
+  as homework. Write in the README which data it is.
+- **The Spotify export has not arrived:** the same. Build on the music data; notebook
+  `08-spotify-exercise.ipynb` rehearses loading the export, and `load` is the only stage that
+  changes when it arrives.
+- **A file that loads as one column:** Dutch Excel. `pd.read_csv(path, sep=";",
+  decimal=",")`. An `.xlsx`: save it as CSV for today.
+- **The one-number test does not pass** (he cannot say what the number would be, or it needs
+  data he does not have): the question is too big or too vague. Pick the smallest piece of it
+  that has a number, write the rest on the *won't* list, and go. Five minutes, not fifteen.
+- **The scope is still three projects:** choose for him if he cannot, and say so: "today we
+  build this one; the others are on the list".
+- **pip cannot install** (no internet, a blocked work laptop, Python 3.13 or newer): run the
+  session on the Python he has, with pandas and matplotlib already installed, and make the
+  venv part of the homework, by message.
 
 ## What they use
 
 | File | What it is |
 |---|---|
-| `demos/dataframes.py` | Walkthrough part one: loading, looking, columns, filtering, grouping, merging |
-| `demos/sql_and_pandas.py` | The four queries both ways, each pair checked with an `assert` |
-| `exercises/joins_in_pandas.py` | The live exercise starter |
-| `solutions/joins_in_pandas.py` | Worked version, every number in the comments pinned with an `assert` |
-| `homework/README.md` | The two tasks, with three collapsible hints |
-| `homework/answers_in_pandas.py` | Homework starter, the ten session 6 questions as comments |
-| `homework/solutions/answers_in_pandas.py` | Worked answers, each checked against the session 6 figures |
+| `prework/scoping-worksheet.md` | The pre-work, assigned in session 7's homework: the question, must / should / could / won't, the data, the one-number test, private data, the Spotify route |
+| `prework/worked-example.md` | The worksheet filled in on the music data, from an unscoped first draft |
+| `project/` (repo root) | The template he builds in: `pipeline.py`, `README.md`, `requirements.txt`, `notebooks/explore.ipynb`, `data/` |
+| `demos/genre_pipeline.py` | The finished pipeline on the music data: load, clean, analyse, save, check, `main()` |
+| `demos/where_am_i.py` | The working folder versus the script's folder (slide 10) |
+| `demos/name_main.py`, `demos/import_name_main.py` | What `__name__` is, run and imported (slide 11) |
+| `demos/one_number_test.py` | Notebook 01 as a script: first look, the table, the checks, a rough chart |
+| `demos/try_except.py` | The four errors you expect, `try` / `except`, never bare, where to catch |
+| `demos/statistics_functions.py`, `demos/test_statistics_functions.py` | The session 3 functions as a module, and their asserts as nine tests |
+| `exercises/robust.py`, `exercises/test_robust.py` | Optional exercise. One test is written and fails until `safe_highest` works |
+| `solutions/robust_solved.py`, `solutions/test_robust_solved.py` | Worked answers, twelve tests |
+| `worksheets/review-checklist.md` | The code review checklist, cheapest check first (slide 15) |
+| `worksheets/practice-review.diff`, `practice-review-answers.md` | A practice commit with five planted problems, and the answers |
+| `worksheets/where-next.md` | The map, with resources and "first two hours" tasks, and the two first steps |
+| `homework/README.md` | Finish the must answer; optional work after the course |
+| `homework/finish_the_must.py`, `homework/solutions/finish_the_must.py` | Script versions of notebook 06 |
+| `homework/test_pipeline_starter.py`, `homework/solutions/test_pipeline_example.py` | A starter for `project/test_pipeline.py`, and nine tests for the template |
 
-The scripts print everything, because a script shows nothing unless you ask. That difference
-from a notebook is worth a sentence: in a notebook the last line of a cell displays itself.
+`load_messy` and `clean_plays` in `demos/genre_pipeline.py` are the session 6 functions from
+`sessions/session-06/solutions/cleaning.py`, copied in so the script stands on its own. The
+template's `clean` is shorter; the session 6 version is the one to borrow from when his data
+needs more.
+
+Run tests one folder at a time from the repository root, for example
+`python -m pytest sessions/session-08/solutions`. The exercises folder has one failing test by
+design until the exercise is done.
 
 ## Notebooks
 
 | Notebook | What it is |
 |---|---|
-| `notebooks/01-dataframes.ipynb` | From a list of dicts to a DataFrame, where pandas comes from (pip and PyPI), the first looks, columns, `.loc` and its inclusive slice, masks and the brackets trap, sorting, `value_counts` with and without `normalize=True`, `groupby`, `read_sql`, `merge`, the five irritations. Ends with a SQL-to-pandas table |
-| `notebooks/02-sql-and-pandas.ipynb` | The four queries side by side with `assert`s, the fan-out diagnosis, the fake fixes, the real fix, `validate`, and when SQL versus pandas |
-| `notebooks/03-joins-in-pandas-exercise.ipynb` | The live exercise |
-| `notebooks/03-joins-in-pandas-solved.ipynb` | Worked answers, including the second bug: 25 countries become 14 |
-| `notebooks/04-answers-in-pandas-homework.ipynb` | Homework: the ten session 6 questions |
-| `notebooks/04-answers-in-pandas-solved.ipynb` | Worked answers, the traps marked, and a verdict on which was easier |
-| `notebooks/05-stretch-exercise.ipynb` | Optional stretch exercises, for when the live exercise finishes early |
-| `notebooks/05-stretch-solved.ipynb` | Worked versions, with the reasoning written out |
+| `notebooks/01-one-number-test.ipynb` | Pre-work walkthrough: the five-minute first look, the one-number test on the worked example, the check that it adds up, the minutes-versus-share decision, and the same code shaped as load / clean / analyse / save |
+| `notebooks/02-notebook-to-script.ipynb` | Optional: the whole notebook-to-pipeline story on the music data, one checked function at a time, `__name__` by importing, three folders, and the total against `music.db` |
+| `notebooks/03-try-except.ipynb` | Optional: the empty list on real data, `try` / `except`, the bare-except typo, `if` versus `try`, and catching `FileNotFoundError` in the outer layer |
+| `notebooks/04-pytest.ipynb` | Optional: tests as functions, a ten-line test runner, the `best = 0` bug caught twice, real `pytest`, and tests in `project/` |
+| `notebooks/05-robust-exercise.ipynb` | Optional exercise: `safe_highest`, `to_minutes`, `summary_line`, then tests |
+| `notebooks/05-robust-solved.ipynb` | Worked version |
+| `notebooks/06-finish-the-must-homework.ipynb` | Homework: logged cleaning, `find_problems`, the must answer checked two ways, into the pipeline |
+| `notebooks/06-finish-the-must-solved.ipynb` | Worked version on the worked example, including `find_problems` failing properly on the messy file |
+| `notebooks/07-stretch-exercise.ipynb` | Optional stretch exercises, for when his pipeline runs early |
+| `notebooks/07-stretch-solved.ipynb` | Worked versions, with the reasoning written out |
+| `notebooks/08-spotify-exercise.ipynb` | Optional: the Spotify route, on a practice export it writes itself |
+| `notebooks/08-spotify-solved.ipynb` | Worked version |
 
-Each notebook starts with a short cell that walks up to the repository root, so it works
-whichever folder VS Code opened it from. The notebooks are the main tool this session; having
-the SQL answer and the pandas answer on screen together, with an `assert` between them, is
-most of the lesson.
+Virtual environments are terminal work and are not in a notebook: slide 4 and
+`project/README.md` have the steps. pytest is not part of Python; the notebooks check for it
+and print the install line instead of failing.
+
+## The numbers worth knowing
+
+All from running the code, and pinned with `assert` in the notebooks.
+
+- The template out of the box: 2,223 messy rows, 2,183 after cleaning, eight genres;
+  Electronic 2,753.2 of 8,608.0 minutes, 32.0%. The database says 8,980.4 in total; the gap of
+  372.4 minutes is exactly the 94 plays with blank minutes.
+- The worked example: Jazz grew most (+54.0 minutes), Electronic shrank most (−106.1); by
+  share, Folk shrank most (−1.5 points). Total listening fell from 4,596.6 to 4,383.8.
+- The demo tests: nine pass in `demos`, twelve in `solutions`, nine in
+  `homework/solutions`.
+
+## Before the session
+
+- [ ] Ask him to send the filled-in `prework/scoping-worksheet.md` the day before, and read
+      it. If a scope-check box is empty, sort it out by message now
+- [ ] Check his Python version: `python --version` (Windows) or `python3 --version` (Mac).
+      `project/requirements.txt` pins `pandas==2.3.1` and `matplotlib==3.9.0`, which need
+      Python 3.12 or lower (3.10 to 3.12): matplotlib 3.9.0 has no ready-made installer for
+      3.13 or newer, so pip would try to build it from source and fail. If he has 3.13+,
+      install 3.12 before the session
+- [ ] Check he can `pip install` from PyPI on his network; some work laptops block it
+- [ ] Ask whether the Spotify export has arrived, if that is his route
+- [ ] Run `python project/pipeline.py` from a clean checkout, and have
+      `prework/worked-example.md` open as the fallback
+- [ ] Have his session 1 file ready, for the close
 
 ## If there is time left
 
-The stretch notebook has six questions that get harder as you go. Use as many as the time
-allows; you don't need to finish it. None of them repeat the live exercise or the homework,
-and each one adds one idea:
+He finishes things fast, so his pipeline may run with time to spare. First move his should
+item (usually the chart) into the pipeline; it is the best use of the time. After that, the
+stretch notebook: six exercises that get harder, each adding one thing a real pipeline
+needs. Use as many as the time allows.
 
-| # | Question | What it adds |
+| # | Function | What it adds |
 |---|---|---|
-| 1 | Genre by year as a table | `pd.crosstab` and `to_csv`: the session 4 stretch's hand-built pivot table, in one line, as promised there |
-| 2 | Which artists get skipped most? | The `mean` of a 0/1 column is a rate, and a minimum number of plays as a filter after `groupby` |
-| 3 | Merge `artists.csv` on by name | `_x` and `_y` suffixes from clashing columns, selecting columns before a merge, `validate` on a name key |
-| 4 | Plays per decade the artist was formed | **Trap:** `groupby` silently drops `NaN` keys, so 53 plays vanish and the total is 2,130; `dropna=False` |
-| 5 | Who is in one table and not the other? | `~` and `isin`, then `merge(indicator=True)`, and a small fan-out in a yes-or-no merge |
-| 6 | The top artist in each genre | `sort_values` then `groupby().head(1)`, and second place: Electronic is won by 5.8 minutes |
+| 1 | `load_from_db` | Swapping one stage: the database through a join, no cleaning, the rest unchanged |
+| 2 | `cleaning_report` | A run that says what cleaning did: 40 duplicates, 94 minutes missing, 69 devices unknown |
+| 3 | `check_columns` | `raise ValueError` with a message, so the wrong file fails early and clearly |
+| 4 | `parse_year`, `plays_in_year` | `sys.argv`, and why a function should take the list rather than read it |
+| 5 | `fill_minutes` | A cleaning decision as a parameter: keep, drop or median, side by side with the truth |
+| 6 | `log_run` | Appending with `"a"`, and a history of every run |
 
-Number 4 is the one to talk through rather than just check. Ask him to add the decade counts
-up before showing the fix. Nothing errors; 53 plays from Rosewood Lane and Cassette Revival
-simply are not in any group. It is the session 4 stretch decision (skip, pretend, or label)
-made silently on his behalf, and the habit it installs, checking that the groups add up to
-the total, is the `groupby` version of checking the row count after a merge.
-
-Number 6 ends where the session 4 homework did: a ranking always produces a winner, whether or
-not there is one. By plays, Rock is 64 against 63.
+Number 5 is the one to talk through rather than just check. The median version gets the
+total closest to the truth (8,993.4 against 8,980.4), and that is exactly why it deserves
+suspicion: 94 of its numbers are invented. Number 1 shows the point of the whole structure in
+one move: the source changes, and the analysis never knows.
 
 ## Watch out for
 
-- **`and` and `or` in a filter.** The `ValueError` about "the truth value of a Series" is the
-  error of the day. Slide 9.
-- **Missing brackets around an `|` inside an `&`.** No error, wrong number. The defence is to
-  name each condition on its own line first.
-- **`=` instead of `==` inside a mask.** `plays[plays["device"] = "car"]` is a `SyntaxError`,
-  which at least is loud.
-- **Single versus double brackets.** `plays["genre"]` is a column, `plays[["genre"]]` is a
-  one-column table. Ask "do you want a column, or a table?"
-- **`sort_values` without assigning the result.** It returns a new table; the old one is
-  unchanged. The mirror image of `x = x.sort()` from session 4, and just as confusing the
-  first time.
-- **`plays.shape()`.** `shape` is not a method. `TypeError: 'tuple' object is not callable`.
-- **Nothing printing in a script.** The notebook displays the last line of a cell; a script
-  shows nothing without `print()`.
-- **`merge` is an inner join by default.** It is why eleven countries vanish in part 2 of the
-  exercise. Ask how many countries there are before and after.
-- **`size` versus `count`.** `COUNT(*)` versus `COUNT(column)` with new names. Slide 17.
-- **Decimals where they expected whole numbers.** `formed_year` is `2014.0` because a column
-  with a `NaN` in it is stored as decimals. Not a bug; a sign there are missing values.
-- **`SettingWithCopyWarning`.** Notebook 01 triggers it on purpose, on a copy: the chained
-  `demo[long_ones]["device"] = "LONG"` warns and changes 0 rows, and the `.loc` line changes
-  all 32. Their own experiments will also meet it when they filter, keep the result, and then
-  add a column to it. The short explanation: pandas cannot tell whether you meant to change
-  the filtered table or the original. `.loc` for changing the original, and `.copy()` after
-  the filter for "a new table", make the warning go away for the right reason. Slide 21.
-- **`inplace=True`.** Many tutorials use it. Tell them not to: it returns `None`, so nothing
-  chains after it, and it changes a table on a line with no `=` to show it.
-- **`.loc[0:2]` gives three rows.** The one inclusive slice in Python; `.iloc[0:2]` gives
-  two.
-- **`No module named 'pandas'`.** The kernel's Python is not the one pandas went into. Step 8
-  of `slides/install.html` has the commands; session 10 fixes the underlying problem with a
-  virtual environment.
+- **Building features before it runs end to end.** A running rough pipeline at 1:00 beats a
+  perfect `clean` at 1:40. Get every stage in, crude, then improve.
+- **`python3` versus `python`.** On Windows it is `python` (`python3` may open the Microsoft
+  Store). On a Mac it is `python3` until the venv is active.
+- **Forgetting to activate.** `No module named 'pandas'` in a new terminal means the venv is
+  not active, not that pandas is missing. Look for `(.venv)`.
+- **VS Code using a different Python.** The notebook kernel and the terminal can each pick a
+  different interpreter; pick the `.venv` one for `project/`.
+- **Printing inside the stages.** The session 3 habit slips under pressure. Ask for one more
+  output (the CSV, or a test) and let the requirement force the return.
+- **A bare `except:` to make an error go away.** Slide 13. Catch the one error by name, in
+  `main()`; never wrap `clean()` or `analyse()`.
+- **`check` and `save_chart` still expecting the music columns.** They fail on his table.
+  Rename the columns they use; do not delete the check.
+- **`save_csv` dropping the labels.** It writes with `index=False`, so an `analyse` that ends
+  with the labels in the index loses them silently. `.reset_index()` at the end.
+- **`git add .` with data outside `project/data/`.** Look at `git status` before every
+  commit. `git check-ignore -v project/data/<file>` shows the rule that hides it.
+- **`__file__` in a notebook.** `NameError`. Notebooks walk up from the working folder
+  instead; `explore.ipynb` already does.
 
 ## Definition of done
 
-They can load a DataFrame from a CSV and from SQL, filter it with `&` and `|` correctly, group
-and merge it, and check a merge with the row count and `validate=`. And they can take a query
-from their own session 6 or 7 file and write the pandas version without looking anything up
-beyond the method names.
+His pipeline answers his must question roughly, from one command in a fresh terminal, inside
+`project/.venv`, with `project/output/` regenerated; it is committed and pushed with no
+private data; and he can say why the paths use `__file__`, what the two lines at the bottom
+are for, and why `.venv/` is not in git. Step 2 is written down with a date.
+
+The homework finishes the must answer properly: logged cleaning, checks, the README, and a
+run from a fresh clone.

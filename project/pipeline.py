@@ -1,8 +1,9 @@
 """Your project pipeline: load -> clean -> analyse -> save.
 
 Out of the box it answers one question about the course's music data: which
-genre do I spend most of my listening time on? It is the session 10 pipeline,
-and it is here so you start from something that runs, not from a blank file.
+genre do I spend most of my listening time on? It is a shorter version of
+sessions/session-08/demos/genre_pipeline.py, and it is here so you start
+from something that runs, not from a blank file.
 
 Run it from anywhere, ideally with the project's virtual environment active:
 
@@ -76,6 +77,9 @@ def clean(df):
     notebooks/explore.ipynb first, write down every problem you find, and
     fix them here one at a time. Write each decision in this docstring, the
     way the music version does below, because each one changes the answer.
+
+    The full version of this cleaning, with a check on every step, is
+    clean_plays in sessions/session-06/solutions/cleaning.py.
 
     The decisions for the music data:
       * the column "minutes played " gets its proper name back
@@ -182,7 +186,12 @@ def main():
     matplotlib.use("Agg")      # draw charts straight into files, never open a window
     print(QUESTION)
 
-    raw = load(INPUT)
+    try:
+        raw = load(INPUT)
+    except FileNotFoundError:
+        # Caught here, in the outer layer, where there is a person to tell.
+        raise SystemExit(f"No file at {INPUT}. Put your data in project/data/ "
+                         "and point INPUT at it.")
     print(f"  loaded   {len(raw):>5} rows from {INPUT.name}")
     data = clean(raw)
     print(f"  cleaned  {len(data):>5} rows")

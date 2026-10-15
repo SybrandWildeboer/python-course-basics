@@ -35,7 +35,7 @@
     what a normal week looks like. Read it once at the start. Come back when something feels
     out of place.</p>
   <div class="facts">
-    <span class="pill pill--accent">12 sessions</span>
+    <span class="pill pill--accent">8 sessions</span>
     <span class="pill">2 hours each, one to one</span>
     <span class="pill">2 to 4 hours homework a week</span>
     <span class="pill pill--teal">One dataset all the way through</span>
@@ -77,15 +77,18 @@ python3 serve.py       # macOS</pre>
                           and answers in homework/solutions/
     data/                 the dataset: clean CSVs, a messy CSV, music.db
     my-work/              your scratch space, never checked
-    project/              your final project: set up in session 10, yours from 11
+    project/              your final project, built in session 8
     tools/                scripts that check the course materials
     output/               what the scripts write (git ignores it)</pre>
 <div class="note">
   <h4>Not every session has every folder</h4>
-  <p>Session 5 is git, so it is mostly terminal work and has no <code>solutions/</code>.
-    Sessions 6 and 7 are SQL, so their demos and exercises are <code>.sql</code> files.
-    Session 12 adds <code>worksheets/</code> for the presentation and review. The session's
-    <code>README.md</code> lists exactly what is there.</p>
+  <p>Git is the second half of session 4, so that part is mostly terminal work: its
+    commands are in <code>demos/git_commands.md</code> and its live exercise in
+    <code>exercises/push_your_work.md</code>. Session 4 still has a <code>solutions/</code>
+    folder, for the Python half. Session 5 is SQL, so its demos and exercises are
+    <code>.sql</code> files. Session 8 adds <code>prework/</code> for the scoping worksheet you
+    fill in before it, and <code>worksheets/</code> for the review and what comes next. The
+    session's <code>README.md</code> lists exactly what is there.</p>
   <p>The dataset is one personal music listening log: 2,183 plays across 40 artists, from
     January 2024 to December 2025. You meet it properly in session 4, and it stays for the
     rest of the course. See <a href="data.html">the dataset page</a> for every table and
@@ -120,7 +123,7 @@ python3 serve.py       # macOS</pre>
   <p>The same material lives in <code>demos/</code>, <code>exercises/</code> and
     <code>homework/</code> as <code>.py</code> files. That is on purpose. A notebook is for
     exploring; a script is for running. Seeing both is how the difference makes sense, and
-    session 10 is about turning one into the other.</p>
+    session 8 is about turning one into the other.</p>
   <p>Anything that asks questions with <code>input()</code>, like the session 2 guessing
     game, is a script only, because <code>input()</code> is awkward in a notebook.</p>
 </div>
@@ -131,7 +134,7 @@ python3 serve.py       # macOS</pre>
   <pre>python sessions/session-04/demos/files_and_csv.py      # Windows
 python3 sessions/session-04/demos/files_and_csv.py     # macOS</pre>
   <p>Run from anywhere else and you get a <code>FileNotFoundError</code>, even though the
-    file is right there. Session 10 fixes this properly by building paths from the script's
+    file is right there. Session 8 fixes this properly by building paths from the script's
     own location. Notebooks do not have the problem: each one starts with a cell that finds
     the repo root by itself.</p>
 </div>
@@ -168,30 +171,32 @@ Homework not done</pre>
     send.</p>
 </div>
 <div class="note">
-  <h4>From session 5: commit and push</h4>
-  <p>In session 5 your copy of the repo gets your own GitHub repo as <code>origin</code>, and
+  <h4>From session 4: commit and push</h4>
+  <p>In session 4 your copy of the repo gets your own GitHub repo as <code>origin</code>, and
     the course repo becomes a second remote called <code>course</code>. From then on every
     session ends with a commit and a push.</p>
   <pre>git push                 # your work, to your repo
 git pull course main     # updates to the course</pre>
-  <p>Before session 5, if the course changes, you will be walked through a plain
+  <p>Before session 4, if the course changes, you will be walked through a plain
     <code>git pull</code> at the time.</p>
 </div>
 
-<h2>The shape of the twelve sessions</h2>
+<h2>The shape of the eight sessions</h2>
 <div class="note">
-  <h4>Python, then git, then SQL, then data, then your own project</h4>
+  <h4>Python and git, then SQL, then data, then your own project</h4>
   <ul>
     <li><strong>1 to 4, Python.</strong> Variables, control flow, functions, lists,
       dictionaries and files. Session 4 is where the dataset arrives.</li>
-    <li><strong>5, Git.</strong> Your own repo on GitHub, and enough understanding that git
-      stops being frightening.</li>
-    <li><strong>6 and 7, SQL.</strong> Questions asked of <code>data/music.db</code>, first in
-      DB Browser for SQLite, then from Python.</li>
-    <li><strong>8 and 9, pandas and matplotlib.</strong> The same questions in Python, then a
-      deliberately messy file cleaned and turned into a chart.</li>
-    <li><strong>10 to 12, your project.</strong> A pipeline script in its own environment,
-      a question of your own, and a presentation with a code review.</li>
+    <li><strong>4, Git.</strong> The second half of session 4: your own repo on GitHub, and
+      enough understanding that git stops being frightening.</li>
+    <li><strong>5, SQL.</strong> Questions asked of <code>data/music.db</code>, first in
+      DB Browser for SQLite, then from Python, across one table and then several.</li>
+    <li><strong>6, pandas.</strong> The same questions in Python, then a deliberately messy
+      file cleaned one kind of damage at a time, and dates and table shapes.</li>
+    <li><strong>7, charts.</strong> One question, one chart, drawn honestly with
+      matplotlib.</li>
+    <li><strong>8, your project.</strong> A question of your own, scoped before the session,
+      built together into a pipeline script in its own environment, and reviewed.</li>
   </ul>
 </div>
 
@@ -216,7 +221,7 @@ git pull course main     # updates to the course</pre>
 </div>
 
 <footer>
-  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span>Python, SQL &amp; Git · an 8 session course · one dataset, eight sessions, one project</span>
   <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
 </footer>
 

@@ -61,5 +61,5 @@ print(f"{above} of {len(numbers)} numbers are above the average")
 # exercise.)
 #
 # One edge case: numbers[0] fails on an empty list with an IndexError, and
-# total / len(numbers) fails with a ZeroDivisionError. Session 12 talks about
+# total / len(numbers) fails with a ZeroDivisionError. Session 8 talks about
 # handling that properly with try/except.

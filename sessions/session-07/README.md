@@ -1,11 +1,17 @@
-# Session 7: Joins and shaping
+# Session 7: Data visualization
 
-**Goal:** questions that span two tables, and a learner who can spot fan-out and explain it.
+**Goal:** one question, one chart, and a reader who gets the answer without you in the room.
+By the end they can pick the chart from the kind of question, keep it honest, point the
+reader at what matters, and rebuild a bad chart while saying why at every step.
 
-**Slides:** [`slides/session-07.html`](../../slides/session-07.html) (23 slides)
+**Slides:** [`slides/session-07.html`](../../slides/session-07.html) (24 slides)
 
-This session needs the most practice of any in the course. If you run short of time, cut
-views and the subquery variations. Never cut the fan-out block.
+Two halves. The first is one chart at a time: how a figure is built, which chart for which
+question, and the ways a chart misleads with every number right. The second is what real
+questions need: time on the x-axis, eight groups at once, the one line that matters, colour
+for every reader, and a figure fit to hand to someone. The makeover ties both together. If
+you run short, shorten the colour slide and the four-panel figure, **never the honest axes,
+"out of what", or the makeover**.
 
 ---
 
@@ -13,100 +19,141 @@ views and the subquery variations. Never cut the fan-out block.
 
 | Time | Block | Notes |
 |---|---|---|
-| 0:00–0:15 | Homework review: which two questions needed something new | Slide 2 |
-| 0:15–0:25 | Why data is split, primary and foreign keys | Slides 4–5 |
-| 0:25–0:50 | First join, how matching works, aliases, `USING` | Slides 7–9 |
+| 0:00–0:10 | Homework review: session 6's pandas answers and the decision diary | Slide 2 |
+| 0:10–0:20 | The anatomy of a figure: `fig` and `ax`, `plt.` against `ax.`, pandas `.plot()` | Slides 3–5 |
+| 0:20–0:50 | One question, one chart: answer titles, choosing the chart, bar or line, **honest axes, out of what**, scatter, why not a pie, saving | Slides 6–13 |
 | 0:50–1:00 | Break | |
-| 1:00–1:20 | `LEFT JOIN`, when it matters, join then aggregate | Slides 10–12 |
-| 1:20–1:45 | **Fan-out.** The wrong total, why, the fake fix, the real fix | Slides 14–18 |
-| 1:45–1:50 | The diagnosis table | Slide 20 |
-| 1:50–2:00 | Exercise brief, homework, commit and push | Slides 21–23 |
+| 1:00–1:25 | Real dates and annotations, small multiples, highlighting, colour | Slides 14–18 |
+| 1:25–1:30 | One figure, four panels, ready to share | Slide 19 |
+| 1:30–1:50 | **Live exercise: the chart makeover** | Slides 20–21 |
+| 1:50–2:00 | Homework briefing, and the part to do before session 8 | Slides 22–24 |
 
-If the earlier blocks run fast, spend the time on fan-out rather than on views. It is the one
-idea from this session they will still be using in ten years.
+Notebook 01 carries the first hour, notebook 02 the half hour after the break, and
+notebook 03 the makeover.
 
-## The four slides that carry the session
+## The slides that carry the session
 
-**Slide 15, the wrong total.** Two queries side by side: 8,980.4 minutes becomes 9,732.1
-because a table was joined on. Let it sit for a moment before explaining. The discomfort is
-the point.
+**Slide 9, honest axes.** The same skip rates, 14.0% for speaker and 10.6% for car, drawn
+from 10% and from zero. The zoomed one needed `set_ylim(10, 14.5)` to do the damage, so the
+lie takes effort. Out of 336 speaker plays, the difference is about eleven skips.
 
-**Slide 16, why.** Fjord & Flint has 237 plays and 3 awards, and after the join has 711 rows.
-Work the arithmetic out loud with them.
+**Slide 10, "out of what?".** The stacked histogram: the same 190 short skips are 73.6% of
+the 258 skips and 84.4% of the 225 short plays. Move the line for "short" to two minutes and
+it is 98.4% against 65.0%, the other way round. Read the two sentences aloud, "most skips
+are short" and "most short plays are skips", and ask which one the title makes.
 
-**Slide 17, the fake fix.** `SUM(DISTINCT)` gives 680.6 when the truth is 846.2. Two wrong
-answers sitting either side of the right one, and both look like fixes. Nearly every beginner
-reaches for `DISTINCT` here, and almost nobody checks whether it is the right tool.
+**Slide 11, what this does not show.** The scatter: Sara Lindqvist has the most plays
+(242), Glass Tram the most minutes (1,175.1), because a Glass Tram play lasts 5.1 minutes
+against 3.2. The chart shows *that*, not *why*. From here on every chart ends with that
+sentence, and the homework asks for it.
 
-**Slide 18, the real fix.** Aggregate first, then join. The verification matters as much as
-the fix: 846.2 matches the standalone query exactly, so it is confirmed by an independent
-calculation rather than by looking plausible.
+**Slides 16 and 17, small multiples and highlighting.** Plays per quarter for eight genres:
+first as spaghetti, then as a 2-by-4 grid with `sharey=True` (without it Rock, never above
+24, looks as big as Electronic, never below 47), then as one chart with seven grey lines and
+Folk in colour: 236 plays in 2024, 202 in 2025, and spring 2025 at 39 against 58.
+
+**Slides 20 and 21, the makeover.** Two lines through alphabetical genres in red and green,
+the axis from 55, titled "Genre data". The step that unlocks it is seeing that the question
+is about **change**, so the chart should show the change: Afrobeat +16.9%, Folk -14.4%, and
+only Afrobeat and Jazz grew. Then what it does not show: all listening fell 5.4% (1,122 to
+1,061 plays), so Electronic (-3.9%) and Indie (-4.0%) actually gained share. With the overall
+change as a dashed line, the title becomes "4 of 8 genres fell less than listening as a
+whole". Two true titles for one chart; the question decides.
+
+## Promises this session keeps
+
+- **Session 1:** `:.1f` "comes back for chart labels". Slide 6, in the title f-string and in
+  `ax.bar_label(bars, fmt="{:.1f}")`, and again as `:+.1f` in the makeover.
+- **Session 4:** the homework's "highest average, not highest total" question is the first
+  chart, and the scatter draws the same total-versus-average lesson.
+- **Session 6:** the monthly tables built with `resample` and `pivot_table` are what part two
+  plots, and the stretch draws what `format="mixed"` does to the dates.
 
 ## What they use
 
 | File | What it is |
 |---|---|
-| `demos/walkthrough.sql` | Every query from the slides, with the real answers in comments |
-| `exercises/joins.sql` | The live exercise, as comments to fill in |
-| `solutions/joins.sql` | Worked answers, with the fan-out explanation written out in full |
-| `solutions/stretch.sql` | The stretch queries, with row counts pinned so the stretch notebook's numbers stay true |
-| `homework/README.md` | The five questions, plus the join-type task |
-| `homework/answers.sql` | Where they write their answers |
-| `homework/solutions/answers.sql` | Worked answers |
+| `demos/charts.py` | Walkthrough part one as a script: five charts saved to `output/` |
+| `demos/time_and_panels.py` | Walkthrough part two: the annotated line, small multiples, the highlighted line, the four-panel figure |
+| `exercises/makeover.py` | The live exercise starter: draws the bad chart, steps listed at the top |
+| `solutions/makeover.py` | Worked makeover, both titles, with the asserts |
+| `homework/README.md` | The two chart tasks and the before-session-8 part |
+| `homework/my_chart.py`, `homework/makeover.py` | Homework starters |
+| `homework/solutions/` | Both answers, with the reasoning in comments |
 
-Everything is executed by `python3 tools/check_sql.py`, which also verifies the row counts
-pinned in `-- expect: N rows` comments.
+Everything reads the clean CSVs in `data/clean/`, so the charts never wait on cleaning. The
+one exception is the worked homework, which reads the messy file only to find which 94 plays
+had no minutes. Scripts save charts rather than showing them: `plt.show()` in a script opens
+a window and stops until it is closed. Every PNG goes into `output/`, which git ignores.
 
 ## Notebooks
 
 | Notebook | What it is |
 |---|---|
-| `notebooks/01-joins-from-python.ipynb` | Joins, then the full fan-out demonstration: the wrong total, the row count that reveals it, the `SUM(DISTINCT)` that makes it worse, and the CTE that fixes it |
-| `notebooks/02-joins-exercise.ipynb` | The live exercise, including the written explanation |
-| `notebooks/02-joins-solved.ipynb` | Worked answers, and the second bug in the broken query: eleven countries silently disappear |
-| `notebooks/03-stretch-exercise.ipynb` | Optional stretch questions, for when the live exercise finishes early |
-| `notebooks/03-stretch-solved.ipynb` | Worked versions, with the reasoning written out |
+| `notebooks/01-charts.ipynb` | Part one: `fig` and `ax`, `plt.` against `ax.`, pandas `.plot()`, answer titles and `:.1f`, the five kinds of question, bar or line, the misleading axis, histogram and "out of what", scatter, why not a pie, saving, the checklist |
+| `notebooks/02-time-and-panels.ipynb` | Part two: real dates, `axhline`, `axvspan` and `annotate`, two years on one axis, spaghetti and small multiples, highlighting, colour and the greyscale test, the four-panel figure |
+| `notebooks/03-makeover-exercise.ipynb` | The live exercise: a bad chart and ten steps |
+| `notebooks/03-makeover-solved.ipynb` | Worked version, with why at every step |
+| `notebooks/04-my-chart-homework.ipynb` | The homework: one chart of their own, and the device-pie makeover |
+| `notebooks/04-my-chart-solved.ipynb` | Worked versions: "edged out", and a dumbbell chart |
+| `notebooks/05-stretch-exercise.ipynb` | Optional stretch exercises, for when the makeover finishes early |
+| `notebooks/05-stretch-solved.ipynb` | Worked versions, with the reasoning written out |
 
-The notebook is the better tool for the fan-out block, because having the wrong number and
-the right number on screen together is most of the lesson.
+## Before the session
+
+- [ ] Check the dataset is generated: `python data/scripts/build_dataset.py`
+- [ ] Run `notebooks/01-charts.ipynb` once, so matplotlib has built its font cache before
+  the learner watches it do so
+- [ ] Check `sessions/session-08/prework/scoping-worksheet.md` exists, so the
+  before-session-8 part of the homework points at something real
+- [ ] Optional: `pip install seaborn` on the learner's machine, if you expect to reach
+  stretch 6
 
 ## If there is time left
 
-The stretch notebook has six questions about the listening data that get harder as you go.
-Use as many as the time allows; you don't need to finish it. Each one adds one idea:
+The stretch notebook has six exercises that get harder as you go. Use as many as the time
+allows; you don't need to finish it. None of them repeat the walkthrough, the exercise or the
+homework, and each one adds one idea:
 
-| # | Question | What it adds |
+| # | Exercise | What it adds |
 |---|---|---|
-| 1 | Who did I not play in 2025? | A `WHERE` that silently turns a left join into an inner one, the fix in the `ON`, and `IS NULL` to find rows with no match |
-| 2 | Artists from the same country | A self-join, and why `>` gives 22 pairs where `<>` gives 44 |
-| 3 | 2024 against 2025 | Three chained CTEs, starting from the right table so the artists who dropped to zero stay in |
-| 4 | Spot the bug | A fan-out where both counts multiply each other, and why `COUNT(DISTINCT key)` is a safe repair when `SUM(DISTINCT value)` was not |
-| 5 | The top artist in every genre | A first window function: `RANK() OVER (PARTITION BY ...)` |
-| 6 | When was I halfway? | A running total with `SUM() OVER`, and why you round at the end |
+| 1 | An honest skip-rate chart | `barh` with `"15.6% of 154"` labels built with `zip`; is the winner a finding or chance? |
+| 2 | Draw the wrong dates | Two lines on one `ax` with a legend: `format="mixed"` on the messy file moves 158 plays |
+| 3 | A slope chart | Two points per genre, grey for context, direct labels for the two that matter |
+| 4 | Noise and a rolling average | `resample("W")`, a partial last week to drop, `.rolling(4).mean()` over a grey line |
+| 5 | A heatmap | `imshow` with `"Blues"`, a colour bar, numbers in the cells: day of week against month |
+| 6 | The same small multiples in seaborn | `sns.relplot` with `col=`, long data; needs `pip install seaborn` |
 
-Number 4 is the one to talk through rather than just check. It is fan-out again, from the
-other side: the difference between a key and a value is what decides whether `DISTINCT` can
-help, and that is the understanding the session is really after.
-
-Numbers 5 and 6 introduce window functions in a few lines each. They are not needed for the
-rest of the course. If he gets that far, the point to land is why the rank needs its own CTE
-before it can be filtered, which ties straight back to the execution order from session 6.
+Numbers 1 and 4 are the ones to talk through rather than just check. In 1, Jazz is skipped
+most, 24 of 154 plays, where the overall 11.8% would predict 18.2: about six skips, the
+kind of gap chance makes all the time. Ask what the title should say now. In 4, the last
+`resample("W")` week runs to 4 January 2026 and holds only three days of data; left in, it is
+a fake drop at the end of the chart. And the smooth line hides the single quietest week (8
+plays) inside the quietest stretch (12.0 a week, July 2025): smoothing is a choice.
 
 ## Watch out for
 
-- **Ambiguous column names.** The error is clear once seen once, which is why it is on a
-  slide and demonstrated in the notebook.
-- **`COUNT(*)` after a `LEFT JOIN`.** Reports 1 for a row with no matches. This is how "never
-  played" silently becomes "played once".
-- **Fan-out.** The whole middle of the session. The habit to install: after any join, compare
-  the row count with what it was before.
-- **Reaching for `DISTINCT`.** Slide 17 exists for this.
-- **Assuming the keys match.** Not a problem in this dataset, and a huge one in real work.
-  Worth a sentence: if a join returns nothing, compare a few key values from each side by eye.
-- **Ending up with a query nobody can read.** Push CTEs hard. Beginners can adopt them
-  immediately and then never write a deeply nested subquery at all.
+- **`plt.` and `ax.` mixed in one chart.** It works until there are two charts, then the
+  `plt.` lines land on whichever was made last. Translate online answers to `ax.` as you
+  paste them.
+- **Lines through categories.** `per_year.plot()` on a table with genres in the index draws
+  exactly the makeover's bad chart. pandas draws a line unless told otherwise.
+- **`set_ylim(bottom=0)` on each panel of a shared grid.** With `sharey=True`, the first
+  call freezes the top at the first panel's data and the others get clipped. Set it once,
+  after the loop.
+- **Day or month names in alphabetical order.** `groupby(...dt.day_name())` puts Friday
+  first. Sort by `dt.dayofweek`, or `reindex` with the names in order.
+- **`plt.savefig` after `plt.show()`.** Blank PNG in a script. Save first.
+- **A percentage without its "out of what".** Slide 10, and again in the makeover: down in
+  plays and down in share are different claims.
+- **A legend for two lines.** Label the line ends instead. A legend is the reader looking
+  away from the data.
+- **A colour per bar "to look nice".** Colour should mean one thing; otherwise it makes the
+  reader look for a meaning that is not there.
 
 ## Definition of done
 
-They can write a join with an aggregate, choose the join type deliberately, and explain
-fan-out in their own words. The explanation matters more than the SQL.
+They can say which of the five kinds a question is and draw the chart for it, with a title
+that gives the answer, an honest axis and a "what this does not show" sentence. They have
+rebuilt the makeover chart and can explain each step, and they know what to do before
+session 8, including the Spotify request if they want their own data.

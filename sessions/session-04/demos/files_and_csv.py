@@ -47,7 +47,7 @@ print(f"total: {total_minutes:,.0f} minutes")
 
 # ------------------------------------------- the counting pattern
 # The accumulate pattern from session 2, with a dictionary instead of one
-# running total. In session 6 this same question is GROUP BY genre.
+# running total. In session 5 this same question is GROUP BY genre.
 counts = {}
 for row in rows:
     genre = row["genre"]
