@@ -6,10 +6,10 @@ carries a `-- expect: N rows` comment, which is how the answer files pin their
 results.
 
     python3 tools/check_sql.py                    # every .sql file
-    python3 tools/check_sql.py sessions/session-07
+    python3 tools/check_sql.py sessions/session-05
 
 Every file runs against a throwaway COPY of the database, so statements that
-write (a CREATE VIEW in the session 7 walkthrough, for instance) are genuinely
+write (the CREATE TEMP VIEW in the session 5 stretch, for instance) are genuinely
 exercised while data/music.db itself is never touched.
 """
 

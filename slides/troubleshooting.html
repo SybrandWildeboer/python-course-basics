@@ -111,7 +111,7 @@
   <span class="os">macOS</span>
   <pre>zsh: command not found: python</pre>
   <p>On a Mac it is <code>python3</code> and <code>pip3</code>. Type those. Once a virtual
-    environment is active (session 10), plain <code>python</code> works too.</p>
+    environment is active (session 8), plain <code>python</code> works too.</p>
 </div>
 
 <div class="note" id="two-pythons">
@@ -163,12 +163,12 @@ python3 -m pip install pandas      # macOS</pre>
     install it, or do it yourself:</p>
   <pre>python -m pip install ipykernel    # Windows
 python3 -m pip install ipykernel   # macOS</pre>
-  <p>In <code>project/</code> from session 10, pick the <code>.venv</code> Python as the
+  <p>In <code>project/</code> from session 8, pick the <code>.venv</code> Python as the
     kernel. VS Code will offer to install <code>ipykernel</code> into it the first time.</p>
 </div>
 
 <div class="note" id="no-pandas">
-  <span class="tag">Sessions 8 to 12</span>
+  <span class="tag">Sessions 6 to 8</span>
   <h4>ModuleNotFoundError: No module named 'pandas'</h4>
   <pre>Traceback (most recent call last):
   File "&lt;string&gt;", line 1, in &lt;module&gt;
@@ -181,7 +181,7 @@ ModuleNotFoundError: No module named 'pandas'</pre>
       the versions the <a href="install.html">install guide</a> uses.</li>
     <li><strong>The notebook kernel is a different Python.</strong> See
       <a href="#kernel">the kernel</a> above.</li>
-    <li><strong>From session 10: the virtual environment is not active</strong> in this
+    <li><strong>In session 8: the virtual environment is not active</strong> in this
       terminal. The fix is activating, not installing. See
       <a href="#venv-inactive">no (.venv) in the prompt</a>.</li>
   </ul>
@@ -216,7 +216,7 @@ ModuleNotFoundError: No module named 'pandas'</pre>
   <p>If it still looks perfect, check the quotes. Code pasted from a chat app or a document
     can carry “curly quotes” instead of "straight quotes", and Python only accepts the
     straight ones. Retype them by hand.</p>
-  <p>Also common in sessions 2 and 6: <code>=</code> where you meant <code>==</code>. One
+  <p>Also common in sessions 2 and 5: <code>=</code> where you meant <code>==</code>. One
     stores a value, two compare.</p>
 </div>
 
@@ -320,19 +320,19 @@ python sessions/session-04/demos/files_and_csv.py      # Windows
 python3 sessions/session-04/demos/files_and_csv.py     # macOS</pre>
   <p>The other usual cause is opening a single file in VS Code instead of the repo folder,
     so the terminal starts somewhere else. Notebooks avoid all this: their first cell walks
-    up to the repo root. From session 10, scripts build their paths from
+    up to the repo root. From session 8, scripts build their paths from
     <code>__file__</code> instead, and run from any folder.</p>
   <p>Writing a file can fail the same way when the folder does not exist yet.
     <code>os.makedirs("output", exist_ok=True)</code> makes it first.</p>
 </div>
 
 <div class="note" id="key-error">
-  <span class="tag">Sessions 4 and 8</span>
+  <span class="tag">Sessions 4 and 6</span>
   <h4>KeyError: 'minute_played'</h4>
   <pre>KeyError: 'minute_played'</pre>
   <p>That column name does not exist. Here the column is <code>minutes_played</code>. Look
     at the real names rather than guessing: <code>rows[0].keys()</code> with the
-    <code>csv</code> module, <code>df.columns</code> in pandas. In session 9 the messy file
+    <code>csv</code> module, <code>df.columns</code> in pandas. In session 6 the messy file
     calls that column <code>'minutes played '</code>, with a space in the middle and another
     at the end, which is the same error in disguise.</p>
 </div>
@@ -348,7 +348,7 @@ python3 sessions/session-04/demos/files_and_csv.py     # macOS</pre>
 </div>
 
 <div class="note" id="series-truth">
-  <span class="tag">Session 8</span>
+  <span class="tag">Session 6</span>
   <h4>ValueError: The truth value of a Series is ambiguous</h4>
   <pre>ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().</pre>
   <p>You used <code>and</code> or <code>or</code> to combine two pandas conditions. Use
@@ -362,14 +362,14 @@ python3 sessions/session-04/demos/files_and_csv.py     # macOS</pre>
 
 <div class="note">
   <h4>Where SQL errors show up</h4>
-  <p>Run from Python, as in the session 6 and 7 notebooks, a broken query ends in a line like
+  <p>Run from Python, as in the session 5 notebooks, a broken query ends in a line like
     the ones below, starting <code>sqlite3.OperationalError</code>. DB Browser for SQLite
     shows the same SQLite message in the pane under the query. Every message here is the real
     text, from running the mistake against <code>data/music.db</code>.</p>
 </div>
 
 <div class="note" id="sql-aggregate">
-  <span class="tag">Session 6</span>
+  <span class="tag">Session 5</span>
   <h4>misuse of aggregate: COUNT()</h4>
   <pre>SELECT device, COUNT(*) AS n
 FROM plays
@@ -388,7 +388,7 @@ HAVING COUNT(*) &gt; 400;        -- laptop 524, phone 1039</pre>
 </div>
 
 <div class="note" id="sql-no-column">
-  <span class="tag">Sessions 6 and 7</span>
+  <span class="tag">Session 5</span>
   <h4>no such column: genre</h4>
   <pre>sqlite3.OperationalError: no such column: genre</pre>
   <p>SQLite cannot find that name in the tables after <code>FROM</code>. Four usual causes,
@@ -413,7 +413,7 @@ HAVING COUNT(*) &gt; 400;        -- laptop 524, phone 1039</pre>
 </div>
 
 <div class="note" id="sql-ambiguous">
-  <span class="tag">Session 7</span>
+  <span class="tag">Session 5</span>
   <h4>ambiguous column name: artist_id</h4>
   <pre>SELECT artist_id, artist_name
 FROM plays
@@ -429,7 +429,7 @@ JOIN artists a ON p.artist_id = a.artist_id;</pre>
 </div>
 
 <div class="note" id="sql-syntax">
-  <span class="tag">Session 6 onward</span>
+  <span class="tag">Session 5 onward</span>
   <h4>near "FROM": syntax error</h4>
   <p>SQLite could not read the query, and the word it names is where it gave up. The mistake
     is usually just before it:</p>
@@ -446,7 +446,7 @@ JOIN artists a ON p.artist_id = a.artist_id;</pre>
 </div>
 
 <div class="note" id="sql-one-statement">
-  <span class="tag">Sessions 6 and 7, notebooks</span>
+  <span class="tag">Session 5, notebooks</span>
   <h4>You can only execute one statement at a time</h4>
   <pre>sqlite3.ProgrammingError: You can only execute one statement at a time.</pre>
   <p>Two queries in one <code>run("...")</code> call, usually pasted in from a
@@ -456,7 +456,7 @@ JOIN artists a ON p.artist_id = a.artist_id;</pre>
 </div>
 
 <div class="note" id="sql-no-rows">
-  <span class="tag">Session 6</span>
+  <span class="tag">Session 5</span>
   <h4>A query that returns nothing, or everything, with no error</h4>
   <p>The worst kind, because nothing complains. Check these in order:</p>
   <ul>
@@ -479,7 +479,7 @@ JOIN artists a ON p.artist_id = a.artist_id;</pre>
 </div>
 
 <div class="note" id="sql-zero">
-  <span class="tag">Session 6</span>
+  <span class="tag">Session 5</span>
   <h4>A percentage that comes out as 0</h4>
   <pre>SELECT 19 / 179, 100.0 * 19 / 179;     -- 0 | 10.6145...</pre>
   <p>In SQLite a whole number divided by a whole number is a whole number, with the decimals dropped.
@@ -490,14 +490,14 @@ JOIN artists a ON p.artist_id = a.artist_id;</pre>
 </div>
 
 <div class="note" id="sql-fan-out">
-  <span class="tag">Session 7</span>
+  <span class="tag">Session 5</span>
   <h4>A total that got bigger after a join</h4>
   <p>Fan-out. The total minutes are 8,980.4. Join <code>awards</code> on and the same
     <code>SUM(minutes_played)</code> says 9,732.1, with no warning, because 2,183 plays became
     2,371 rows: an artist with three awards has every play counted three times. After any
     join, compare the row count with the count before.</p>
   <p>The fix is to aggregate first and join after, so there are no play rows left to
-    duplicate. The session 7 walkthrough has it as a CTE:</p>
+    duplicate. Session 5's <code>demos/joins.sql</code> has it as a CTE:</p>
   <pre>WITH per_artist AS (
     SELECT artist_id, COUNT(*) AS plays,
            ROUND(SUM(minutes_played), 1) AS minutes
@@ -520,7 +520,7 @@ LIMIT 3;     -- Glass Tram 229 1175.1 2 | DJ Kompas 215 1169.2 1 | Fjord &amp; F
 <h2>Git and GitHub</h2>
 
 <div class="note" id="identity">
-  <span class="tag">Session 5</span>
+  <span class="tag">Session 4</span>
   <h4>Author identity unknown</h4>
   <pre>Author identity unknown
 
@@ -535,7 +535,7 @@ Run
 </div>
 
 <div class="note" id="auth">
-  <span class="tag">Session 5</span>
+  <span class="tag">Session 4</span>
   <h4>git push asks for a password, then fails</h4>
   <p>GitHub stopped accepting account passwords for git years ago, so typing yours ends in
     <code>Authentication failed</code>. In order of preference:</p>
@@ -550,7 +550,7 @@ Run
 </div>
 
 <div class="note" id="permission">
-  <span class="tag">Session 5</span>
+  <span class="tag">Session 4</span>
   <h4>Permission denied, or 403, when pushing</h4>
   <p>You cloned the course repo in session 1, so <code>origin</code> still points at the
     course, and you cannot push to it. Keep it under another name and add your own:</p>
@@ -563,7 +563,7 @@ git push -u origin main</pre>
 </div>
 
 <div class="note" id="rejected">
-  <span class="tag">Session 5 onward</span>
+  <span class="tag">Session 4 onward</span>
   <h4>! [rejected] main -&gt; main (fetch first)</h4>
   <pre> ! [rejected]        main -&gt; main (fetch first)
 error: failed to push some refs to '...'
@@ -582,7 +582,7 @@ git push</pre>
 </div>
 
 <div class="note" id="conflict">
-  <span class="tag">Session 5 stretch, or any pull</span>
+  <span class="tag">Session 4 git stretch, or any pull</span>
   <h4>CONFLICT (content): Merge conflict in ...</h4>
   <pre>Auto-merging songs.txt
 CONFLICT (content): Merge conflict in songs.txt
@@ -604,7 +604,7 @@ git commit --no-edit</pre>
 </div>
 
 <div class="note" id="notebook-output">
-  <span class="tag">Session 5 onward</span>
+  <span class="tag">Session 4 onward</span>
   <h4>A notebook full of saved output in git</h4>
   <p>A <code>.ipynb</code> file stores the output of every cell you ran. Commit it like that
     and a small notebook becomes a large one, and every run makes a new diff even when the
@@ -620,7 +620,7 @@ python tools/nbtool.py strip</pre>
 <h2>Environments and tools</h2>
 
 <div class="note" id="execution-policy">
-  <span class="tag">Session 10, Windows</span>
+  <span class="tag">Session 8, Windows</span>
   <h4>Activate.ps1 cannot be loaded because running scripts is disabled on this system</h4>
   <p>PowerShell blocks scripts by default, and activating a virtual environment is a script.
     Run this once, then activate again:</p>
@@ -631,7 +631,7 @@ python tools/nbtool.py strip</pre>
 </div>
 
 <div class="note" id="venv-inactive">
-  <span class="tag">Session 10 onward</span>
+  <span class="tag">Session 8 onward</span>
   <h4>No (.venv) at the start of the prompt</h4>
   <p>A new terminal starts without the environment. That is when <code>No module named
     'pandas'</code> appears for a project that worked yesterday. Activate it again, from
@@ -646,7 +646,7 @@ source .venv/bin/activate          # macOS</pre>
 </div>
 
 <div class="note" id="requirements">
-  <span class="tag">Session 10</span>
+  <span class="tag">Session 8</span>
   <h4>pip install -r requirements.txt fails while building matplotlib</h4>
   <p><code>project/requirements.txt</code> pins <code>matplotlib==3.9.0</code> and
     <code>pandas==2.3.1</code>. Ready-made installers for that matplotlib exist up to Python
@@ -660,13 +660,13 @@ python3.12 -m venv .venv        # macOS</pre>
 </div>
 
 <div class="note" id="pytest">
-  <span class="tag">Session 12</span>
+  <span class="tag">Session 8</span>
   <h4>pytest: command not found, or ModuleNotFoundError in a test</h4>
   <p>Either pytest is not installed in the active environment, or the test file is not next
     to the module it imports. Run it through Python, which settles the first, and name the
     folder:</p>
   <pre>python -m pip install pytest
-python -m pytest sessions/session-12/solutions</pre>
+python -m pytest sessions/session-08/solutions</pre>
   <p>Running <code>python -m pytest</code> from the repo root with no folder collects every
     test in the course, including the exercise starter that fails on purpose. And never call
     a file of your own <code>statistics.py</code>: it hides Python's own
@@ -694,14 +694,14 @@ python -m pytest sessions/session-12/solutions</pre>
     <span><strong>Install guide</strong><span class="sub">Doing the setup again, step by step</span></span></a>
   <a class="link" href="start.html"><span class="ico">◆</span>
     <span><strong>Start here</strong><span class="sub">How the course and the repo work</span></span></a>
-  <a class="link" href="../sessions/session-05/demos/git_commands.md"><span class="ico">◆</span>
-    <span><strong>Session 5 git commands</strong><span class="sub">Every command, with what it is for</span></span></a>
-  <a class="link" href="session-10.html"><span class="ico">◆</span>
-    <span><strong>Session 10 slides</strong><span class="sub">Virtual environments, paths, the pipeline</span></span></a>
+  <a class="link" href="../sessions/session-04/demos/git_commands.md"><span class="ico">◆</span>
+    <span><strong>Session 4 git commands</strong><span class="sub">Every command, with what it is for</span></span></a>
+  <a class="link" href="session-08.html"><span class="ico">◆</span>
+    <span><strong>Session 8 slides</strong><span class="sub">Virtual environments, paths, the pipeline</span></span></a>
 </div>
 
 <footer>
-  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span>Python, SQL &amp; Git · an 8 session course · one dataset, eight sessions, one project</span>
   <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
 </footer>
 

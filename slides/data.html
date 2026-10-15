@@ -61,7 +61,7 @@
 <div class="note">
   <h4>Why one dataset</h4>
   <p>Because then the numbers can be checked. Total minutes are 8,980.4 whether you add them up
-    with a loop in session 4, <code>SUM</code> in session 6 or pandas in session 8. When a
+    with a loop in session 4, <code>SUM</code> in session 5 or pandas in session 6. When a
     new tool gives a different number, something is wrong, and you know it straight away.</p>
 </div>
 
@@ -117,15 +117,15 @@
 <div class="note">
   <h4>Three things in the tables are there on purpose</h4>
   <p><strong>The gaps in <code>artists</code></strong> are the three <code>NULL</code> values
-    above. Session 6 needs real ones to teach <code>IS NULL</code>, and a lookup table always
+    above. Session 5 needs real ones to teach <code>IS NULL</code>, and a lookup table always
     has a few. They are only in columns that are not copied into <code>plays.csv</code>, so
     the clean CSV stays complete.</p>
-  <p><strong>Two artists are never played:</strong> Iron Fernway and Gravel Choir. Session 7
+  <p><strong>Two artists are never played:</strong> Iron Fernway and Gravel Choir. Session 5
     uses them to show what <code>LEFT JOIN</code> keeps and an inner join drops.</p>
   <p><strong>Awards are one-to-many.</strong> Join <code>plays</code> to <code>awards</code>
     and add up the minutes, and 8,980.4 becomes 9,732.1, because a play by an artist with
-    three awards is counted three times. That wrong total is session 7's fan-out lesson, and
-    it comes back in sessions 8 and 12.</p>
+    three awards is counted three times. That wrong total is session 5's fan-out lesson, and
+    it comes back in pandas in session 6, and in the session 8 practice review.</p>
 </div>
 
 <h2>The CSV files</h2>
@@ -173,12 +173,12 @@
 <h2>The damage in the messy file</h2>
 <p class="tagline" style="font-size:16px"><code>plays_messy.csv</code> is <code>plays.csv</code>
   broken on purpose by the <code>damage</code> function in <code>build_dataset.py</code>. Each
-  kind of damage has a fix in session 9. The counts are from the file itself, out of 2,223
+  kind of damage has a fix in session 6. The counts are from the file itself, out of 2,223
   rows.</p>
 
 <div class="table-wrap">
   <table>
-    <thead><tr><th>Damage</th><th>What you see</th><th>Rows</th><th>The fix in session 9</th></tr></thead>
+    <thead><tr><th>Damage</th><th>What you see</th><th>Rows</th><th>The fix in session 6</th></tr></thead>
     <tbody>
       <tr><td>A column name with a trailing space</td><td><code>minutes played </code> instead of <code>minutes_played</code>, and moved to the last column</td><td class="num">header</td><td><code>rename()</code></td></tr>
       <tr><td>Exact duplicate rows</td><td>The same play twice</td><td class="num">40 extra</td><td><code>duplicated()</code>, <code>drop_duplicates()</code></td></tr>
@@ -198,7 +198,7 @@
   <h4>Worth knowing before you open it</h4>
   <p><strong><code>NA</code> is read as missing.</strong> Plain <code>pd.read_csv</code> turns
     the text <code>NA</code> into a missing value, so 49 countries quietly vanish before you
-    have looked at anything. Session 9's <code>load_messy</code> reads the file with
+    have looked at anything. Session 6's <code>load_messy</code> reads the file with
     <code>keep_default_na=False</code>, so nothing is guessed and every decision is made in the
     cleaning, where you can see it.</p>
   <p><strong>One kind of damage never shows.</strong> <code>damage</code> also writes about 6%
@@ -216,11 +216,11 @@
   <table>
     <thead><tr><th>File</th><th>Sessions</th><th>How</th></tr></thead>
     <tbody>
-      <tr><td><code>data/clean/plays.csv</code></td><td>4, 6, 8, 9, 10, 11, 12</td><td>The first real file in session 4, read with <code>csv.DictReader</code>. Counted in Python next to the same <code>GROUP BY</code> in session 6. Read with pandas from session 8. In sessions 9 and 10 it is the answer the cleaned messy file is checked against. In session 11 it stands in for "my own file".</td></tr>
-      <tr><td><code>data/clean/artists.csv</code></td><td>4, 8, 9, 10, 12</td><td>A by-hand join in the session 4 stretch, <code>merge</code> in session 8, a lookup in the session 9 cleaning notebook and the session 10 stretch, and the session 12 practice review.</td></tr>
-      <tr><td><code>data/clean/awards.csv</code></td><td>12</td><td>The session 12 practice review, where a merge with it fans out. Sessions 7 and 8 use the same data from the database.</td></tr>
-      <tr><td><code>data/music.db</code></td><td>6, 7, 8, 10</td><td>All of SQL in sessions 6 and 7, <code>read_sql</code> in session 8, and the check on the session 10 pipeline's total.</td></tr>
-      <tr><td><code>data/messy/plays_messy.csv</code></td><td>9, 10, 11, 12</td><td>Cleaned in session 9, the input of the session 10 pipeline and of <code>project/pipeline.py</code>, the file <code>find_problems</code> is tried on in session 11, and the <code>ValueError</code> examples in session 12.</td></tr>
+      <tr><td><code>data/clean/plays.csv</code></td><td>4, 5, 6, 7, 8</td><td>The first real file in session 4, read with <code>csv.DictReader</code>. Counted in Python next to the same <code>GROUP BY</code> in session 5. Read with pandas in session 6, where it is also the answer the cleaned messy file is checked against. Every chart in session 7 is drawn from it. In session 8 it is the data of the worked example, and what the pipeline's cleaning is shaped like.</td></tr>
+      <tr><td><code>data/clean/artists.csv</code></td><td>4, 6, 7, 8</td><td>A by-hand join in the session 4 stretch, <code>merge</code> and a lookup in the cleaning in session 6, a merge in the session 7 homework, and the session 8 practice review.</td></tr>
+      <tr><td><code>data/clean/awards.csv</code></td><td>6, 8</td><td>The session 6 homework, and the session 8 practice review, where a merge with it fans out. Session 5 uses the same data from the database.</td></tr>
+      <tr><td><code>data/music.db</code></td><td>5, 6, 8</td><td>All of SQL in session 5, <code>read_sql</code> and the SQL-and-pandas side by side in session 6, and the check on the pipeline's total in session 8.</td></tr>
+      <tr><td><code>data/messy/plays_messy.csv</code></td><td>6, 7, 8</td><td>Cleaned in session 6, where the wrong dates are also drawn in the session 7 stretch, and the input of <code>project/pipeline.py</code> and the genre pipeline in session 8, where <code>find_problems</code> is tried on it.</td></tr>
     </tbody>
   </table>
 </div>
@@ -247,7 +247,7 @@ wrote data\music.db  (40 artists, 2183 plays, 33 awards)</pre>
 </div>
 
 <footer>
-  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span>Python, SQL &amp; Git · an 8 session course · one dataset, eight sessions, one project</span>
   <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
 </footer>
 

@@ -26,7 +26,7 @@
 
 <header>
   <a class="back" href="index.html">← Course index</a>
-  <div class="kicker">Project template · sessions 10 to 12</div>
+  <div class="kicker">Project template · session 8</div>
   <h1>Your project</h1>
   <p class="tagline">The <code>project/</code> folder is where the final project lives. It
     already runs: out of the box it answers one question about the course's music data. You
@@ -58,9 +58,9 @@
     <thead><tr><th>File</th><th>What it does</th></tr></thead>
     <tbody>
       <tr><td><a href="../project/pipeline.py"><code>pipeline.py</code></a></td>
-        <td>The session 10 genre pipeline, with a shorter <code>clean</code> that is easier to rewrite. One function per stage: <code>load</code>, <code>clean</code>, <code>analyse</code>, <code>save_csv</code>, <code>save_chart</code>, <code>check</code>, and <code>main</code> to run them in order. Only <code>main</code> prints. The seven places you are meant to change are marked <code>MAKE IT YOURS</code>.</td></tr>
+        <td>The session 8 genre pipeline, <a href="../sessions/session-08/demos/genre_pipeline.py"><code>genre_pipeline.py</code></a>, with a shorter <code>clean</code> that is easier to rewrite. One function per stage: <code>load</code>, <code>clean</code>, <code>analyse</code>, <code>save_csv</code>, <code>save_chart</code>, <code>check</code>, and <code>main</code> to run them in order. Only <code>main</code> prints, and it catches <code>FileNotFoundError</code> around the load, so a missing file ends in one plain sentence instead of a traceback. The seven places you are meant to change are marked <code>MAKE IT YOURS</code>.</td></tr>
       <tr><td><a href="../project/README.md"><code>README.md</code></a></td>
-        <td>The question, how to run it on Windows and macOS, the eight steps to make it yours, and three headings to fill in: what I found, what this does not show, and the cleaning decisions. By session 12 it describes your project instead.</td></tr>
+        <td>The question, how to run it on Windows and macOS, the eight steps to make it yours, and three headings to fill in: what I found, what this does not show, and the cleaning decisions. By the end of the session 8 homework it describes your project instead.</td></tr>
       <tr><td><a href="../project/requirements.txt"><code>requirements.txt</code></a></td>
         <td>The packages, with exact versions, so anyone can rebuild the same environment.</td></tr>
       <tr><td><code>notebooks/explore.ipynb</code></td>
@@ -117,17 +117,17 @@ python pipeline.py</pre>
     leaves them missing rather than guessing.</p>
 </div>
 
-<h2>How sessions 10 to 12 use it</h2>
+<h2>How session 8 uses it</h2>
 <div class="table-wrap">
   <table>
-    <thead><tr><th>Session</th><th>What happens to <code>project/</code></th></tr></thead>
+    <thead><tr><th>When</th><th>What happens to <code>project/</code></th></tr></thead>
     <tbody>
-      <tr><td><a href="../sessions/session-10/README.md">10 · Putting it together</a></td>
-        <td>The genre pipeline is built in the session, then shown as <code>project/</code>. The virtual environment is made on the learner's own laptop during the session, because Windows activation is where it goes wrong, and that is miserable to fix alone.</td></tr>
-      <tr><td><a href="../sessions/session-11/README.md">11 · Project scoping and setup</a></td>
-        <td>A question is scoped on the worksheet. Then the learner's own file goes into <code>project/data/</code> and the pipeline is changed one step at a time, running after each, until it writes a rough answer to <code>project/output/</code>. The homework is milestone 1: real cleaning, with each decision logged.</td></tr>
-      <tr><td><a href="../sessions/session-12/README.md">12 · Presentation and review</a></td>
-        <td>The learner runs the pipeline fresh and presents its chart. The homework, the week after, puts it in shape: tests in <code>project/test_pipeline.py</code>, one <code>except FileNotFoundError</code> around the load in <code>main</code>, and a README a stranger can follow.</td></tr>
+      <tr><td><a href="../sessions/session-08/prework/scoping-worksheet.md">Before session 8</a></td>
+        <td>The pre-work, set in the session 7 homework: a question scoped on the <a href="../sessions/session-08/prework/scoping-worksheet.md">scoping worksheet</a>, with must, should, could and won't, the data chosen, and the one-number test. <a href="../sessions/session-08/prework/worked-example.md">The worked example</a> shows it filled in on the music data.</td></tr>
+      <tr><td><a href="../sessions/session-08/README.md">8 · The project, pair programming</a></td>
+        <td>The virtual environment is made on the learner's own laptop first, because Windows activation is where it goes wrong, and that is miserable to fix alone. Then, pair programming with the learner at the keyboard, their own file goes into <code>project/data/</code> and the pipeline is changed one stage at a time, running after each, until it writes a rough answer to <code>project/output/</code>. It ends with a fresh terminal, <code>output/</code> deleted and regenerated, the diff reviewed, a commit and a push.</td></tr>
+      <tr><td><a href="../sessions/session-08/homework/README.md">The week after</a></td>
+        <td>The homework finishes the must answer: cleaning logged step by step, a <code>find_problems</code> check, the README a stranger can follow, and a run from a fresh clone. Optional after that: tests in <code>project/test_pipeline.py</code>, starting from <code>homework/test_pipeline_starter.py</code>.</td></tr>
     </tbody>
   </table>
 </div>
@@ -162,7 +162,7 @@ python pipeline.py</pre>
   </ol>
   <p>If you add a package, install it with the environment active and add it to
     <code>requirements.txt</code> with its version. <code>pip freeze</code> lists what is
-    installed. For tests in session 12 that means <code>python -m pip install pytest</code>,
+    installed. For tests, from session 8 on, that means <code>python -m pip install pytest</code>,
     then <code>pytest</code> in <code>requirements.txt</code>.</p>
 </div>
 
@@ -190,7 +190,7 @@ python pipeline.py</pre>
 </div>
 
 <footer>
-  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span>Python, SQL &amp; Git · an 8 session course · one dataset, eight sessions, one project</span>
   <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
 </footer>
 

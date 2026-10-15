@@ -48,7 +48,7 @@ table.ref td code { white-space: nowrap; }
 <p class="back"><a href="index.html">← Course index</a> · <a href="cheatsheets.html">All cheatsheets</a></p>
 
 <header>
-  <div class="kicker">Cheatsheet · sessions 1 to 4, 10 and 12</div>
+  <div class="kicker">Cheatsheet · sessions 1 to 4, and 8</div>
   <h1>Python</h1>
   <p class="tagline">The Python the course teaches, on one page. Every snippet here was run against the repository's data, and the comments show what it printed.</p>
   <div class="facts">
@@ -62,11 +62,11 @@ table.ref td code { white-space: nowrap; }
 <h2>Running code</h2>
 <div class="sheet">
 <div class="note">
-<h4><span>Notebook or script</span><span><a class="pill" href="session-01.html">Session 1</a> <a class="pill" href="session-10.html">Session 10</a></span></h4>
+<h4><span>Notebook or script</span><span><a class="pill" href="session-01.html">Session 1</a> <a class="pill" href="session-08.html">Session 8</a></span></h4>
 <p>In a notebook, <code>Shift</code> <code>Enter</code> runs a cell and moves on, and the last line of a cell shows itself. In a script nothing appears unless you <code>print()</code> it. Run scripts from the repository root, so paths like <code>data/clean/plays.csv</code> are found.</p>
 <pre>python sessions/session-01/demos/hello.py      # Windows
 python3 sessions/session-01/demos/hello.py     # macOS</pre>
-<p>A script that is also meant to be imported ends with the two lines from session 10:</p>
+<p>A script that is also meant to be imported ends with the two lines from session 8:</p>
 <pre>def main():
     print(&quot;run as a script&quot;)
 
@@ -297,7 +297,7 @@ print(counts)                        # {&#x27;Folk&#x27;: 3, &#x27;Jazz&#x27;: 1
 # biggest first: keep this recipe
 for g, n in sorted(counts.items(), key=lambda pair: pair[1], reverse=True):
     print(f&quot;{g:6} {n:&gt;3}&quot;)</pre>
-<p>A list of dictionaries is a table: one dictionary per row, one key per column. This loop is <code>GROUP BY</code> in session 6 and <code>value_counts()</code> in session 8.</p>
+<p>A list of dictionaries is a table: one dictionary per row, one key per column. This loop is <code>GROUP BY</code> in session 5 and <code>value_counts()</code> in session 6.</p>
 </div>
 </div>
 <h2>Files</h2>
@@ -333,7 +333,7 @@ with open(&quot;output/jazz.csv&quot;, &quot;w&quot;, newline=&quot;&quot;, enco
 <p><code>"w"</code> replaces the file without asking. <code>newline=""</code> stops blank lines on Windows. <code>output/</code> is in <code>.gitignore</code>.</p>
 </div>
 <div class="note">
-<h4><span>Where am I?</span><span><a class="pill" href="session-04.html">Session 4</a> <a class="pill" href="session-10.html">Session 10</a></span></h4>
+<h4><span>Where am I?</span><span><a class="pill" href="session-04.html">Session 4</a> <a class="pill" href="session-08.html">Session 8</a></span></h4>
 <pre>import os
 from pathlib import Path
 
@@ -345,7 +345,7 @@ print(Path(&quot;data/clean/plays.csv&quot;).exists())   # True from the repo ro
 <h2>When things go wrong</h2>
 <div class="sheet">
 <div class="note">
-<h4><span>try / except</span><span><a class="pill" href="session-12.html">Session 12</a></span></h4>
+<h4><span>try / except</span><span><a class="pill" href="session-08.html">Session 8</a></span></h4>
 <pre>def to_number(text):
     &quot;&quot;&quot;Return text as a float, or None if it is not a number.&quot;&quot;&quot;
     try:
@@ -363,7 +363,7 @@ except ZeroDivisionError as error:
 <p>Never a bare <code>except:</code>. It catches typos too, so a <code>NameError</code> turns into a quiet wrong answer. Catch a missing file in <code>main()</code>, not inside the loader.</p>
 </div>
 <div class="note">
-<h4><span>Tests with pytest</span><span><a class="pill" href="session-12.html">Session 12</a></span></h4>
+<h4><span>Tests with pytest</span><span><a class="pill" href="session-08.html">Session 8</a></span></h4>
 <pre># test_statistics_functions.py: a test is a function starting test_
 import pytest
 
@@ -376,7 +376,7 @@ def test_average_of_an_empty_list_raises():
     with pytest.raises(ZeroDivisionError):
         average([])</pre>
 <pre>python -m pip install pytest                   # once, into the active environment
-python -m pytest sessions/session-12/demos     # name the folder</pre>
+python -m pytest sessions/session-08/demos     # name the folder</pre>
 <p>On macOS, <code>python3</code> until a virtual environment is active.</p>
 </div>
 <div class="note">
@@ -398,7 +398,7 @@ python -m pytest sessions/session-12/demos     # name the folder</pre>
 </div>
 
 <footer>
-  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span>Python, SQL &amp; Git · an 8 session course · one dataset, eight sessions, one project</span>
   <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
 </footer>
 

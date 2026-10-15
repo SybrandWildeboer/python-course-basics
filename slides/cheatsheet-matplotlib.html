@@ -48,12 +48,13 @@ table.ref td code { white-space: nowrap; }
 <p class="back"><a href="index.html">← Course index</a> · <a href="cheatsheets.html">All cheatsheets</a></p>
 
 <header>
-  <div class="kicker">Cheatsheet · session 9</div>
+  <div class="kicker">Cheatsheet · session 7</div>
   <h1>matplotlib</h1>
-  <p class="tagline">One question, one chart. Bars, lines, labels and saving, the way session 9 draws them. Every snippet here was run against the repository's data and saved its PNG.</p>
+  <p class="tagline">One question, one chart. Bars, lines, labels, pointing the reader and saving, the way session 7 draws them. Every snippet here was run against the repository's data and saved its PNG.</p>
   <div class="facts">
     <span class="pill pill--accent">import matplotlib.pyplot as plt</span>
     <span class="pill">bar, barh, plot</span>
+    <span class="pill">Small multiples</span>
     <span class="pill">Titles that answer</span>
     <span class="pill">Save before show</span>
   </div>
@@ -62,7 +63,7 @@ table.ref td code { white-space: nowrap; }
 <h2>The pattern</h2>
 <div class="sheet">
 <div class="note">
-<h4><span>Every chart starts the same way</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<h4><span>Every chart starts the same way</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
 <pre>import os
 
 import matplotlib.pyplot as plt
@@ -77,7 +78,7 @@ plt.show()                                 # in a notebook: draw it here</pre>
 <p>Call methods on <code>ax</code> to draw and label. <code>figsize</code> is width and height in inches.</p>
 </div>
 <div class="note">
-<h4><span>The question first</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<h4><span>The question first</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
 <p>A chart is an answer to a question. Get the numbers with pandas, sorted, before drawing anything:</p>
 <pre>by_genre = (plays.groupby(&quot;genre&quot;)[&quot;minutes_played&quot;]
             .mean()
@@ -90,7 +91,7 @@ top_genre, top_minutes = by_genre.index[0], by_genre.iloc[0]</pre>
 <h2>Chart types</h2>
 <div class="sheet">
 <div class="note">
-<h4><span>Bar: categories</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<h4><span>Bar: categories</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
 <pre>fig, ax = plt.subplots(figsize=(8, 4.5))
 bars = ax.bar(by_genre.index, by_genre.values, color=&quot;#4f6ddb&quot;)
 
@@ -104,7 +105,7 @@ plt.close(fig)</pre>
 <p>The title states the answer: "Jazz plays last longest: 6.6 minutes on average", not "Minutes per genre".</p>
 </div>
 <div class="note">
-<h4><span>Horizontal bar: long names</span><span><a class="pill" href="session-09.html">Session 9</a> <a class="pill" href="session-10.html">Session 10</a></span></h4>
+<h4><span>Horizontal bar: long names</span><span><a class="pill" href="session-07.html">Session 7</a> <a class="pill" href="session-08.html">Session 8</a></span></h4>
 <pre>minutes = plays.groupby(&quot;artist_name&quot;)[&quot;minutes_played&quot;].sum()
 top = minutes.sort_values(ascending=False).head(8)
 ranked = top.sort_values()                # barh draws from the bottom up
@@ -118,10 +119,10 @@ ax.spines[[&quot;top&quot;, &quot;right&quot;]].set_visible(False)
 fig.savefig(&quot;output/top_artists.png&quot;, dpi=150, bbox_inches=&quot;tight&quot;)
 plt.close(fig)
 print(top.index[0])                       # Glass Tram, at the top of the chart</pre>
-<p>Or keep the biggest-first order and call <code>ax.invert_yaxis()</code>, as session 10's pipeline does.</p>
+<p>Or keep the biggest-first order and call <code>ax.invert_yaxis()</code>, as session 8's pipeline does.</p>
 </div>
 <div class="note">
-<h4><span>Line: time</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<h4><span>Line: time</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
 <pre>per_month = plays.groupby(plays[&quot;played_at&quot;].str[:7]).size()
 
 fig, ax = plt.subplots(figsize=(10, 4.5))
@@ -137,7 +138,7 @@ print(per_month.idxmin(), per_month.min())  # 2025-08 57</pre>
 <p>A line says "this follows from that", which is only true when the x-axis has an order. Months, days, years: a line. Genres, devices, artists: bars.</p>
 </div>
 <div class="note">
-<h4><span>Two charts side by side</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<h4><span>Two charts side by side</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
 <pre>skip_rate = plays.groupby(&quot;device&quot;)[&quot;skipped&quot;].mean().sort_values(ascending=False) * 100
 
 fig, (left, right) = plt.subplots(1, 2, figsize=(11, 4))   # 1 row, 2 charts
@@ -154,10 +155,90 @@ print(skip_rate.round(1).iloc[[0, -1]].to_dict())   # {&#x27;speaker&#x27;: 14.0
 <p>Same numbers, two stories. Bars always start at zero: the length of a bar is the number.</p>
 </div>
 </div>
+<h2>Pointing the reader</h2>
+<div class="sheet">
+<div class="note">
+<h4><span>Reference lines and annotations</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
+<pre>plays[&quot;date&quot;] = pd.to_datetime(plays[&quot;played_at&quot;])
+monthly = plays.set_index(&quot;date&quot;).resample(&quot;MS&quot;).size()   # one row per month
+average = monthly.mean()
+peak_date, peak = monthly.idxmax(), monthly.max()
+
+fig, ax = plt.subplots(figsize=(10, 4.5))
+ax.plot(monthly.index, monthly.values, marker=&quot;o&quot;, color=&quot;#4f6ddb&quot;)
+ax.axhline(average, color=&quot;#b8bec9&quot;, linestyle=&quot;--&quot;, linewidth=1)   # a reference line
+ax.annotate(f&quot;{peak_date:%B %Y}: {peak}&quot;, xy=(peak_date, peak), xytext=(15, 8),
+            textcoords=&quot;offset points&quot;, arrowprops={&quot;arrowstyle&quot;: &quot;-&gt;&quot;})
+ax.set_title(f&quot;Every summer falls below the average of {average:.1f} plays a month&quot;)
+ax.set_ylabel(&quot;plays per month&quot;)
+ax.set_ylim(0, 145)
+ax.spines[[&quot;top&quot;, &quot;right&quot;]].set_visible(False)
+fig.savefig(&quot;output/plays_per_month_annotated.png&quot;, dpi=150, bbox_inches=&quot;tight&quot;)
+plt.close(fig)
+print(round(average, 1), f&quot;{peak_date:%B %Y}&quot;, peak)   # 91.0 October 2024 127</pre>
+<p><code>ax.axhline(y)</code> draws a line across the chart, so every point reads as above or below it. <code>ax.axvspan(start, end)</code> shades a band, such as a summer. <code>ax.annotate</code> puts a label on one point: <code>xy</code> is the point, in data units, and <code>xytext</code> with <code>textcoords="offset points"</code> moves the text a little away from it. <code>%B %Y</code> in an f-string writes a date as "October 2024".</p>
+</div>
+<div class="note">
+<h4><span>Small multiples</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
+<pre>plays[&quot;quarter&quot;] = plays[&quot;date&quot;].dt.to_period(&quot;Q&quot;).dt.start_time
+quarterly = plays.pivot_table(index=&quot;quarter&quot;, columns=&quot;genre&quot;,
+                              values=&quot;play_id&quot;, aggfunc=&quot;count&quot;)
+
+fig, axes = plt.subplots(2, 4, figsize=(13, 5.5), sharex=True, sharey=True)
+for ax, genre in zip(axes.flat, quarterly.columns):   # the eight charts, one by one
+    ax.plot(quarterly.index, quarterly[genre], color=&quot;#4f6ddb&quot;, linewidth=2)
+    ax.set_title(genre)
+    ax.set_xticks([pd.Timestamp(&quot;2024-01-01&quot;), pd.Timestamp(&quot;2025-01-01&quot;)], [&quot;2024&quot;, &quot;2025&quot;])
+    ax.spines[[&quot;top&quot;, &quot;right&quot;]].set_visible(False)
+for ax in axes[:, 0]:                                  # the first column only
+    ax.set_ylabel(&quot;plays per quarter&quot;)
+axes[0, 0].set_ylim(bottom=0)                          # once, after the loop
+fig.suptitle(&quot;Electronic and Folk are the two biggest genres in every quarter&quot;)
+fig.savefig(&quot;output/genres_by_quarter.png&quot;, dpi=150, bbox_inches=&quot;tight&quot;)
+plt.close(fig)
+print(quarterly[&quot;Rock&quot;].max(), quarterly[&quot;Electronic&quot;].min())   # 24 47</pre>
+<p>Eight lines on one chart is spaghetti; one small chart per genre is readable. <strong><code>sharey=True</code> keeps it honest</strong>: without it each panel stretches to fill its box, and Rock, never above 24, looks as big as Electronic, never below 47. With a shared axis, set the bottom to zero once, after the loop; on every panel it clips the others.</p>
+</div>
+<div class="note">
+<h4><span>Highlight one, grey the rest</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
+<pre>GREY, HIGHLIGHT = &quot;#b8bec9&quot;, &quot;#d55e00&quot;
+by_genre = plays.groupby(&quot;genre&quot;)[&quot;minutes_played&quot;].mean().sort_values()
+colours = [HIGHLIGHT if genre == &quot;Jazz&quot; else GREY for genre in by_genre.index]
+
+fig, ax = plt.subplots(figsize=(8, 4.5))
+bars = ax.barh(by_genre.index, by_genre.values, color=colours)
+ax.bar_label(bars, fmt=&quot;{:.1f}&quot;, padding=3)
+ax.set_title(f&quot;Jazz plays last longest: {by_genre[&#x27;Jazz&#x27;]:.1f} minutes on average&quot;)
+ax.set_xlabel(&quot;average minutes per play&quot;)
+ax.spines[[&quot;top&quot;, &quot;right&quot;]].set_visible(False)
+fig.savefig(&quot;output/jazz_highlighted.png&quot;, dpi=150, bbox_inches=&quot;tight&quot;)
+plt.close(fig)
+print(by_genre.index[-1], round(by_genre.iloc[-1], 1))   # Jazz 6.6</pre>
+<p>Grey is context, one strong colour is the thing the title is about. For lines, the same recipe: draw every line grey and thin, then the one that matters last, thick and in colour, and label it at the end of the line with <code>ax.text</code> instead of a legend.</p>
+</div>
+<div class="note">
+<h4><span>Colour for every reader</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
+<div class="ref-wrap"><table class="ref">
+<tr><th>Okabe-Ito</th><th>Hex</th><th>Use it for</th></tr>
+<tr><td>blue</td><td><code>#0072b2</code></td><td>The data</td></tr>
+<tr><td>orange</td><td><code>#e69f00</code></td><td>The one thing, against blue</td></tr>
+<tr><td>vermillion</td><td><code>#d55e00</code></td><td>A highlight against grey</td></tr>
+<tr><td>sky blue</td><td><code>#56b4e9</code></td><td>A second series</td></tr>
+<tr><td>green</td><td><code>#009e73</code></td><td>A third series</td></tr>
+</table></div>
+<ul>
+<li>Colour should mean one thing. Not a colour per bar "to look nice".</li>
+<li>Never red against green as the only difference: about one man in twelve cannot tell them apart. Blue against orange is safe.</li>
+<li>Never colour alone: label lines directly and put numbers on bars.</li>
+<li>The colours should differ in lightness too, so the chart survives a greyscale printer.</li>
+<li>When colour shows an amount, as in a heatmap, use one colour from light to dark, <code>"Blues"</code> or <code>"viridis"</code>, never a rainbow.</li>
+</ul>
+</div>
+</div>
 <h2>Finishing</h2>
 <div class="sheet">
 <div class="note">
-<h4><span>Saving</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<h4><span>Saving</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
 <pre>fig, ax = plt.subplots(figsize=(8, 4.5))
 ax.bar(by_genre.index, by_genre.values)
 fig.savefig(&quot;output/chart.png&quot;, dpi=150, bbox_inches=&quot;tight&quot;)   # save FIRST
@@ -166,7 +247,7 @@ print(os.path.exists(&quot;output/chart.png&quot;))                       # True
 <p><code>dpi=150</code> is sharp enough for a slide. <code>bbox_inches="tight"</code> stops long labels being cut off. In a script, <code>plt.savefig()</code> after <code>plt.show()</code> writes a blank picture. <code>output/</code> is gitignored.</p>
 </div>
 <div class="note">
-<h4><span>Labels and tidying</span><span><a class="pill" href="session-09.html">Session 9</a> <a class="pill" href="session-10.html">Session 10</a></span></h4>
+<h4><span>Labels and tidying</span><span><a class="pill" href="session-07.html">Session 7</a> <a class="pill" href="session-08.html">Session 8</a></span></h4>
 <div class="ref-wrap"><table class="ref">
 <tr><th>Call</th><th>Does</th></tr>
 <tr><td><code>ax.set_title("…")</code></td><td>The answer, in words</td></tr>
@@ -176,11 +257,15 @@ print(os.path.exists(&quot;output/chart.png&quot;))                       # True
 <tr><td><code>ax.tick_params(axis="x", labelrotation=90)</code></td><td>Turn crowded labels</td></tr>
 <tr><td><code>ax.spines[["top", "right"]].set_visible(False)</code></td><td>Remove the empty borders</td></tr>
 <tr><td><code>ax.invert_yaxis()</code></td><td>Biggest at the top of a <code>barh</code></td></tr>
+<tr><td><code>ax.axhline(y)</code> / <code>ax.axvline(x)</code></td><td>A reference line across the chart</td></tr>
+<tr><td><code>ax.axvspan(start, end)</code></td><td>Shade a band, such as a period of time</td></tr>
+<tr><td><code>ax.annotate(text, xy=point)</code></td><td>A label with an arrow to one point</td></tr>
+<tr><td><code>ax.text(x, y, "…")</code></td><td>A label at a spot, such as the end of a line</td></tr>
 <tr><td><code>fig.tight_layout()</code></td><td>Stop labels overlapping</td></tr>
 </table></div>
 </div>
 <div class="note">
-<h4><span>Checklist for every chart</span><span><a class="pill" href="session-09.html">Session 9</a></span></h4>
+<h4><span>Checklist for every chart</span><span><a class="pill" href="session-07.html">Session 7</a></span></h4>
 <ul>
 <li>Can I say the question in one sentence?</li>
 <li>Does the title give the answer, not the topic?</li>
@@ -193,7 +278,7 @@ print(os.path.exists(&quot;output/chart.png&quot;))                       # True
 </div>
 
 <footer>
-  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span>Python, SQL &amp; Git · an 8 session course · one dataset, eight sessions, one project</span>
   <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
 </footer>
 

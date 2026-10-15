@@ -51,25 +51,25 @@
   <tr><td>VS Code, with the Python and Jupyter extensions</td><td>The editor you write in, a
     built-in terminal, and notebooks</td><td>Session 1</td></tr>
   <tr><td>Git</td><td>Version control. Needed in session 1 only to copy the course down;
-    explained in session 5</td><td>Session 1</td></tr>
+    explained in session 4</td><td>Session 1</td></tr>
   <tr><td>JupyterLab</td><td>The notebook machinery, and <code>jupyter lab</code> if you
     prefer notebooks in the browser</td><td>Session 1</td></tr>
   <tr><td>DB Browser for SQLite</td><td>A window into the database, so SQL is not
-    invisible</td><td>Before session 6</td></tr>
-  <tr><td>pandas and matplotlib</td><td>Tables and charts in Python</td><td>Before session 8</td></tr>
+    invisible</td><td>Before session 5</td></tr>
+  <tr><td>pandas and matplotlib</td><td>Tables and charts in Python</td><td>Before session 6</td></tr>
   <tr><td>A virtual environment for <code>project/</code></td><td>The project's own packages,
-    at fixed versions</td><td>Session 10, together</td></tr>
-  <tr><td>pytest</td><td>Running tests</td><td>Session 12, into the project's environment</td></tr>
+    at fixed versions</td><td>Session 8, together</td></tr>
+  <tr><td>pytest</td><td>Running tests</td><td>Session 8 or after, into the project's environment</td></tr>
 </table>
 </div>
 
 <h2 id="python">1 · Python</h2>
 <div class="note">
   <h4>Pick Python 3.12</h4>
-  <p>Anything from 3.10 up runs the course code. The one catch is the project in session 10:
+  <p>Anything from 3.10 up runs the course code. The one catch is the project in session 8:
     <code>project/requirements.txt</code> pins <code>matplotlib==3.9.0</code>, and that
     version only has ready-made installers up to Python 3.12. On 3.13 or newer, pip tries to
-    build it from source in session 10 and fails. So take 3.12 now and avoid the problem.</p>
+    build it from source in session 8 and fails. So take 3.12 now and avoid the problem.</p>
   <p>On <strong>python.org</strong>, go to Downloads, choose your system, and pick the newest
     3.12 release that offers an installer (3.12.10).</p>
   <span class="os">Windows</span>
@@ -84,7 +84,7 @@
     <li>Download the macOS installer (the <code>.pkg</code>) and run it with the defaults.</li>
     <li>From now on, type <code>python3</code> and <code>pip3</code>, not <code>python</code>
       and <code>pip</code>. That is the rule on a Mac for the whole course, until a virtual
-      environment is active in session 10.</li>
+      environment is active in session 8.</li>
   </ol>
 </div>
 
@@ -110,7 +110,7 @@
 
 <h2>3 · Git</h2>
 <div class="note">
-  <h4>Install it now, even though it is explained in session 5</h4>
+  <h4>Install it now, even though it is explained in session 4</h4>
   <p>You need it today to copy the course to your machine, and the download is slow on some
     connections.</p>
   <span class="os">Windows</span>
@@ -166,7 +166,7 @@ cd python-course-basics</pre>
     <code>--port 9001</code> picks a different port.</p>
   <p>If <code>git clone</code> asks for a username and password, it should not for a public
     repo. Do not debug it now: download the ZIP from the GitHub page instead, and it gets
-    fixed properly in session 5.</p>
+    fixed properly in session 4.</p>
 </div>
 
 <h2>6 · Notebooks</h2>
@@ -195,7 +195,7 @@ cd python-course-basics</pre>
     Same notebooks, same everything.</p>
 </div>
 
-<h2>7 · DB Browser for SQLite, before session 6</h2>
+<h2>7 · DB Browser for SQLite, before session 5</h2>
 <div class="note">
   <h4>A window into the database</h4>
   <span class="os">Windows</span>
@@ -209,15 +209,15 @@ cd python-course-basics</pre>
     <code>awards</code>.</p>
 </div>
 
-<h2>8 · pandas and matplotlib, before session 8</h2>
+<h2>8 · pandas and matplotlib, before session 6</h2>
 <div class="note">
-  <h4>The two packages sessions 8 and 9 use</h4>
+  <h4>The two packages sessions 6 and 7 use</h4>
   <span class="os">Windows</span>
   <pre>python -m pip install pandas==2.3.1 matplotlib==3.9.0</pre>
   <span class="os">macOS</span>
   <pre>python3 -m pip install pandas==2.3.1 matplotlib==3.9.0</pre>
   <p>These are the exact versions <code>project/requirements.txt</code> pins, so what you
-    learn on in sessions 8 and 9 is what the project runs on from session 10. It is also why
+    learn on in sessions 6 and 7 is what the project runs on in session 8. It is also why
     the Python has to be 3.12 or older: on 3.13, pip has no ready-made matplotlib 3.9.0 and
     tries to build it, which fails (see <a href="#python">step 1</a>).</p>
   <p>Notebooks run in the Python their kernel points at, so pick that same Python 3.12 as the
@@ -225,10 +225,10 @@ cd python-course-basics</pre>
     different Python from the one you installed into.</p>
 </div>
 
-<h2>9 · The project environment, in session 10</h2>
+<h2>9 · The project environment, in session 8</h2>
 <div class="note">
   <h4>A private set of packages for project/</h4>
-  <p>You do this together in session 10. It is here so you can redo it on another machine.
+  <p>You do this together in session 8. It is here so you can redo it on another machine.
     Open a terminal in the repo root.</p>
   <span class="os">Windows · PowerShell</span>
   <pre>cd project
@@ -251,7 +251,7 @@ pip install -r requirements.txt</pre>
     Say yes.</p>
 </div>
 
-<h2>10 · pytest, in session 12</h2>
+<h2>10 · pytest, in session 8 or after</h2>
 <div class="note">
   <h4>Into the project's environment, with it active</h4>
   <pre>python -m pip install pytest
@@ -286,7 +286,7 @@ python3 -m playwright install chromium</pre>
 </div>
 
 <footer>
-  <span>Python, SQL &amp; Git · a 12 session course · one dataset, twelve sessions, one project</span>
+  <span>Python, SQL &amp; Git · an 8 session course · one dataset, eight sessions, one project</span>
   <span><a href="https://github.com/SybrandWildeboer/python-course-basics">github.com/SybrandWildeboer/python-course-basics</a></span>
 </footer>
 
