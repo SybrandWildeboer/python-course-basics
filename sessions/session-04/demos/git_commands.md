@@ -5,7 +5,7 @@ Follow along in your own repo rather than copying the whole thing at once.
 
 ---
 
-## One time only: tell git who you are
+## One time only: tell git wh you are
 
 ```bash
 git config --global user.name "Your Name"
