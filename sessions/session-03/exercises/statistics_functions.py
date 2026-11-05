@@ -24,17 +24,59 @@ SECOND_LIST = [4, 8, 15, 16, 23, 42]
 
 
 # TODO: def total(numbers):
+def total(list_of_numbers):
+    sum = 0
+    for i in list_of_numbers:
+        sum += i
+
+    return sum
+
+print(total(NUMBERS))
 
 
 # TODO: def average(numbers):
+def average(list_of_numbers):
+    count = 0
+    # sum = 0
+    # for i in list_of_numbers:
+    #     sum += i
+    #     count += 1
+    count = len(list_of_numbers)
+    sum = total(list_of_numbers)
+        
+
+    return sum/count
+
+print(average(NUMBERS))
 
 
 # TODO: def highest(numbers):
+def highest(list_of_numbers):
+    a = 0
+    for i in list_of_numbers:
+        if i > a:
+            a = i
+
+    return a
+
+print(highest(NUMBERS))
 
 
 # TODO: def lowest(numbers):
+def lowest(list_of_numbers):
+    a = list_of_numbers[0]
+    for i in list_of_numbers:
+        if i < a:
+            a = i
+
+    return a
+
+print(lowest(NUMBERS))
 
 
 # TODO: print a summary line for NUMBERS
+print(f"the sum is {total(NUMBERS)}, the average is {average(NUMBERS)}, the max is {highest(NUMBERS)}, the min is {lowest(NUMBERS)}")
+
 
 # TODO: print a summary line for SECOND_LIST, reusing the same functions
+print(f"the sum is {total(SECOND_LIST)}, the average is {average(SECOND_LIST)}, the max is {highest(SECOND_LIST)}, the min is {lowest(SECOND_LIST)}")

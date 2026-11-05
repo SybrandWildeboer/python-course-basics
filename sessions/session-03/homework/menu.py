@@ -27,5 +27,6 @@ from that folder. Imports get a proper explanation next session.
 
 
 # TODO: the import line
+from small_functions import (is_even, celsius_to_fahrneheit, initials, longest_word)
 
 # TODO: a while loop that shows the menu, reads a choice and acts on it

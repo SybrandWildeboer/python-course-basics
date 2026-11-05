@@ -21,11 +21,19 @@ Then, if that works:
 CURRENT_YEAR = 2026
 
 # TODO step 1: ask for the name
-# name = ...
+name = input("What is your name? ")
+print (name)
 
 # TODO step 2 and 3: ask for the birth year and convert it to a whole number
-# birth_year = ...
+birth_year = input("What is your birth year? ")
+birth_year = int(birth_year)
+# alternatively I could convert the birth_year string coming from input directly to int type by int(input("What is your birth year? "))
+print (birth_year)
+print (type(birth_year))
 
 # TODO step 4: work out the age
+age = CURRENT_YEAR - birth_year
+print (age)
 
 # TODO step 5: print one sentence using an f-string
+print (f"My name is {name} and I am {age} years old. ")

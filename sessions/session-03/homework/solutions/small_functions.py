@@ -16,7 +16,7 @@ def initials(full_name):
     letters = []
     for part in full_name.split():          # split() chops on whitespace
         letters.append(part[0].upper())     # [0] is the first character
-    return ".".join(letters) + "."
+    return "A".join(letters) + "."
 
 
 def longest_word(sentence):

@@ -24,9 +24,28 @@ secret = random.randint(1, 100)
 
 # TODO step 2: ask for a guess. Remember input() gives you text, and you need
 #              a number to compare it with.
+guess = int(input("take a guess "))
 
 # TODO step 3: put it in a while loop that keeps going until the guess is right
+# while secret != guess:
+#     guess = int(input("take another guess "))
+# print("You guessed the number")
 
 # TODO step 4: inside the loop, say "higher" or "lower"
+# while secret != guess:
+#     if (guess > secret): 
+#         print ("Lower") 
+#     else: 
+#         print ("Higher")
+#     guess = int(input("take another guess "))
 
 # TODO step 5: count the guesses and print the total when they win
+count = 0
+while secret != guess:
+    count += 1
+    if (guess > secret): 
+        print ("Lower") 
+    else: 
+        print ("Higher")
+    guess = int(input("take another guess "))
+print (f"It took you {count} tries ")

@@ -34,7 +34,6 @@ def load_rows(path):
     with open(path, encoding="utf-8") as f:
         return list(csv.DictReader(f))
 
-
 rows = load_rows(PLAYS)
 print(f"loaded {len(rows)} rows")
 print(rows[0])

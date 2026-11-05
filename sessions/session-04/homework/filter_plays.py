@@ -19,7 +19,7 @@ has to exist first. os.makedirs("output", exist_ok=True) sorts that out.
 import csv
 import os
 
-PLAYS = "data/clean/plays.csv"
+PLAYS = "./data/clean/plays.csv"
 OUT = "output/filtered.csv"
 
 

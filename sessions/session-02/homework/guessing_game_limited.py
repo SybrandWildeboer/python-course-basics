@@ -18,3 +18,41 @@ MAX_ATTEMPTS = 7
 secret = random.randint(1, 100)
 
 # TODO: your game, with the attempt limit
+
+count = 1
+guess = int(input("take a guess "))
+
+while guess != secret and count < MAX_ATTEMPTS:
+    if guess > secret: 
+        print("lower")
+    else: print("higher")
+
+    count += 1
+
+    print(f"you have {MAX_ATTEMPTS - count} tries left")
+
+    guess = int(input("take another guess "))
+
+# print (f"you didn't find it") - whenever the while loop condition is broken it takes me out so I need to define a continuation.
+
+if guess == secret:
+    print (f"you got it after {count} tries, the number was {secret}")
+else: 
+    print(f"You have run out of tries. The answer was {secret}")
+
+
+# while count < 6:
+#     if guess == secret:
+#         print("you got it")
+#         break
+#     elif guess < secret:
+#         print("higher")
+#     else: print("lower")
+
+#     print(f"you have {MAX_ATTEMPTS-count-1} tries left")
+
+#     count += 1
+
+#     guess = int(input("take another guess "))
+  
+#     if count == 6: print(f"you have run out of tries")
